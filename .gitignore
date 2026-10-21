@@ -1,0 +1,72 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# JavaScript
+node_modules/
+dist/
+.vite/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp*/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Runtime data, generated uploads, model files
+data/
+backend/data/
+backend/uploads/
+uploads/
+*.sqlite
+*.sqlite3
+*.db
+*.pt
+*.pth
+*.onnx
+*.engine
+*.h5
+*.keras
+*.safetensors
+# Published models are versioned with Git LFS.
+!models/pretrained/*.pt
+!models/candidates/**/*.pt
+!models/candidates/**/*.onnx
+!models/releases/**/*.pt
+!models/releases/**/*.onnx
+!training/weights/*.pt
+.logs/
+.runtime/
+*.log
+
+# Downloaded datasets, intermediate checkpoints and machine-local reports
+datasets/
+runs/
+training/downloads/
+training/.ultralytics/
+training/*.json
+!training/config.json
+!training/labels.json
+!training/network.json
+!training/environment.json
+training/final-report.md
+training/system-test-record.png
+
+# Editors and system
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

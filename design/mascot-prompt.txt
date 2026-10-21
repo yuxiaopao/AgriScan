@@ -1,0 +1,11 @@
+Mode: Built-in image_gen tool; new generation; transparent_background=true.
+Asset: frontend/public/images/xiaohe.png
+
+Use case: stylized-concept
+Asset type: original mascot cutout for the right side of a premium desktop agriculture plant-health detection dashboard named AgriScan.
+Primary request: Create one original mascot named Xiaohe, an adorable small agricultural robot. Full body isolated on a genuinely transparent background.
+Subject: compact ivory rounded robot body, dark forest-green face visor with two friendly bright mint eyes, two fresh small leaves sprouting from the top of its head, short rounded arms, tiny forest-green boots. The robot holds one simple magnifying glass and carefully inspects one small fresh leaf with a curious, welcoming expression. Pose facing slightly to the viewer's left. One character only.
+Style/medium: premium high-end soft 3D clay render, beautifully restrained sculptural details, rounded tactile forms, polished but matte ceramic-clay material, gentle soft studio lighting.
+Composition/framing: complete figure fully visible, centered square composition with comfortable transparent padding, no cropping. Designed to stay legible at 220px height in a dashboard banner.
+Color palette: warm ivory, deep forest green, soft mint, fresh leaf green. Warm and approachable agricultural science helper.
+Constraints: actual alpha transparency; no background, no floor plane, no scene, no pedestal, no text, no lettering, no numbers, no watermark, no logo, no decorative floating objects. No other characters, no clutter.

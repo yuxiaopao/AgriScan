@@ -1,0 +1,8 @@
+# CUDA wheels are pinned and installed by bootstrap.py from download.pytorch.org.
+ultralytics==8.4.183
+scikit-learn==1.7.2
+pytest==8.3.5
+onnx==1.19.1
+onnxruntime==1.23.2
+numpy==2.2.6
+Pillow==11.2.1

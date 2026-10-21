@@ -1,0 +1,815 @@
+{
+  "ok": true,
+  "cell": [
+    192,
+    208
+  ],
+  "frames_per_state": 8,
+  "states": [
+    {
+      "state": "idle",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14331,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14336,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14311,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14212,
+          "bbox": [
+            40,
+            5,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14265,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14251,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 6,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14242,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\idle\\07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14213,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "source_adjustments": [],
+      "encoded_bytes": 222736
+    },
+    {
+      "state": "wave",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14130,
+          "bbox": [
+            36,
+            6,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14138,
+          "bbox": [
+            34,
+            5,
+            157,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14231,
+          "bbox": [
+            33,
+            5,
+            158,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13953,
+          "bbox": [
+            36,
+            6,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13948,
+          "bbox": [
+            36,
+            6,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14079,
+          "bbox": [
+            34,
+            6,
+            156,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 6,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13946,
+          "bbox": [
+            36,
+            6,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\wave\\07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14130,
+          "bbox": [
+            36,
+            6,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "source_adjustments": [
+        {
+          "frame": 7,
+          "source_frame": 0,
+          "reason": "clipped source edge; loop closure"
+        }
+      ],
+      "encoded_bytes": 191180
+    },
+    {
+      "state": "scan",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14764,
+          "bbox": [
+            35,
+            5,
+            156,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14054,
+          "bbox": [
+            37,
+            8,
+            155,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14266,
+          "bbox": [
+            35,
+            5,
+            155,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14061,
+          "bbox": [
+            39,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14120,
+          "bbox": [
+            36,
+            5,
+            156,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13840,
+          "bbox": [
+            38,
+            6,
+            153,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 6,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14128,
+          "bbox": [
+            39,
+            6,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\scan\\07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14540,
+          "bbox": [
+            36,
+            5,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "source_adjustments": [],
+      "encoded_bytes": 216620
+    },
+    {
+      "state": "think",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12965,
+          "bbox": [
+            43,
+            11,
+            148,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12893,
+          "bbox": [
+            43,
+            10,
+            148,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12798,
+          "bbox": [
+            41,
+            9,
+            150,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12758,
+          "bbox": [
+            41,
+            9,
+            150,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12813,
+          "bbox": [
+            42,
+            5,
+            148,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12704,
+          "bbox": [
+            43,
+            10,
+            148,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 6,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12633,
+          "bbox": [
+            43,
+            10,
+            148,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\think\\07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 12693,
+          "bbox": [
+            44,
+            11,
+            147,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "source_adjustments": [],
+      "encoded_bytes": 200160
+    },
+    {
+      "state": "success",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14602,
+          "bbox": [
+            38,
+            5,
+            153,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14318,
+          "bbox": [
+            38,
+            5,
+            152,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14026,
+          "bbox": [
+            39,
+            10,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13965,
+          "bbox": [
+            40,
+            17,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14320,
+          "bbox": [
+            39,
+            8,
+            152,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14240,
+          "bbox": [
+            40,
+            7,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 6,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14199,
+          "bbox": [
+            40,
+            5,
+            150,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\success\\07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14054,
+          "bbox": [
+            41,
+            6,
+            151,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "source_adjustments": [],
+      "encoded_bytes": 224656
+    },
+    {
+      "state": "concern",
+      "expected_frames": 8,
+      "actual_frames": 8,
+      "extraction_method": "components",
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "frames": [
+        {
+          "index": 0,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\00.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14188,
+          "bbox": [
+            36,
+            5,
+            156,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\01.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13834,
+          "bbox": [
+            36,
+            6,
+            155,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\02.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14024,
+          "bbox": [
+            37,
+            5,
+            154,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\03.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13944,
+          "bbox": [
+            37,
+            5,
+            155,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 4,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\04.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13963,
+          "bbox": [
+            38,
+            5,
+            153,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 5,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\05.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 14025,
+          "bbox": [
+            40,
+            5,
+            152,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 6,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\06.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13922,
+          "bbox": [
+            38,
+            5,
+            153,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 7,
+          "file": "E:\\AgriScan\\design\\xiaohe-motion\\frames\\concern\\07.png",
+          "width": 192,
+          "height": 208,
+          "nontransparent_pixels": 13859,
+          "bbox": [
+            38,
+            5,
+            153,
+            203
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "source_adjustments": [],
+      "encoded_bytes": 217220
+    }
+  ],
+  "total_encoded_bytes": 1272572
+}

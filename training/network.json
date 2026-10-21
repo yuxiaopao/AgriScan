@@ -1,0 +1,173 @@
+{
+  "created_at": 1792492512.8345857,
+  "architecture": "YOLO26m backbone + Classify",
+  "parameters": 11058790,
+  "module_count": 196,
+  "leaf_module_count": 112,
+  "layers": [
+    {
+      "index": 0,
+      "type": "Conv",
+      "from": -1,
+      "parameters": 1856,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        64,
+        112,
+        112
+      ]
+    },
+    {
+      "index": 1,
+      "type": "Conv",
+      "from": -1,
+      "parameters": 73984,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        128,
+        56,
+        56
+      ]
+    },
+    {
+      "index": 2,
+      "type": "C3k2",
+      "from": -1,
+      "parameters": 111872,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        256,
+        56,
+        56
+      ]
+    },
+    {
+      "index": 3,
+      "type": "Conv",
+      "from": -1,
+      "parameters": 590336,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        256,
+        28,
+        28
+      ]
+    },
+    {
+      "index": 4,
+      "type": "C3k2",
+      "from": -1,
+      "parameters": 444928,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        28,
+        28
+      ]
+    },
+    {
+      "index": 5,
+      "type": "Conv",
+      "from": -1,
+      "parameters": 2360320,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        14,
+        14
+      ]
+    },
+    {
+      "index": 6,
+      "type": "C3k2",
+      "from": -1,
+      "parameters": 1380352,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        14,
+        14
+      ]
+    },
+    {
+      "index": 7,
+      "type": "Conv",
+      "from": -1,
+      "parameters": 2360320,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "index": 8,
+      "type": "C3k2",
+      "from": -1,
+      "parameters": 1380352,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "index": 9,
+      "type": "SPPF",
+      "from": -1,
+      "parameters": 656896,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "index": 10,
+      "type": "C2PSA",
+      "from": -1,
+      "parameters": 990976,
+      "section": "backbone",
+      "output_shape": [
+        1,
+        512,
+        7,
+        7
+      ]
+    },
+    {
+      "index": 11,
+      "type": "Classify",
+      "from": -1,
+      "parameters": 706598,
+      "section": "head",
+      "output_shape": [
+        [
+          1,
+          38
+        ],
+        [
+          1,
+          38
+        ]
+      ]
+    }
+  ],
+  "source_checkpoint": "E:\\AgriScan\\runs\\classify\\plantvillage-yolo26m\\weights\\epoch13.pt",
+  "checkpoint_sha256": "bb7ef57f9e3a835d925414633f4aef2a49a91c23f873a5272aabd272da107ed4",
+  "architecture_only": true,
+  "checkpoint_is_not_final_model": true
+}

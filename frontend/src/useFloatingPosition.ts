@@ -1,0 +1,80 @@
+import {useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent} from 'react'
+
+interface Rect {x: number; y: number; width: number; height: number}
+interface Gesture {pointer: number; origin: Rect; x: number; y: number; resize: boolean}
+const margin = 12
+function fit(rect: Rect): Rect {
+  const width = Math.min(Math.max(320, rect.width), window.innerWidth - margin * 2)
+  const height = Math.min(Math.max(360, rect.height), window.innerHeight - margin * 2)
+  return {width, height, x: Math.max(margin, Math.min(rect.x, window.innerWidth - width - margin)),
+    y: Math.max(margin, Math.min(rect.y, window.innerHeight - height - margin))}
+}
+export function useFloatingPosition(open: boolean) {
+  const panel = useRef<HTMLElement>(null)
+  const [rect, setRect] = useState<Rect | null>(null)
+  const [maximized, setMaximized] = useState(false)
+  const restore = useRef<Rect | null>(null)
+  const gesture = useRef<Gesture | null>(null)
+  function current(): Rect {
+    const bounds = panel.current?.getBoundingClientRect()
+    return bounds ? {x: bounds.left, y: bounds.top, width: bounds.width, height: bounds.height}
+      : fit({x: window.innerWidth - 428, y: window.innerHeight - 604, width: 400, height: 580})
+  }
+  useEffect(() => {
+    if (!open) {gesture.current = null; return}
+    function adjust() {
+      if (maximized) setRect(fit({x: margin, y: margin, width: window.innerWidth, height: window.innerHeight}))
+      else setRect(previous => fit(previous ?? current()))
+    }
+    const frame = requestAnimationFrame(adjust)
+    window.addEventListener('resize', adjust)
+    return () => {cancelAnimationFrame(frame); window.removeEventListener('resize', adjust)}
+  }, [open, maximized])
+  function toggleMaximize() {
+    gesture.current = null
+    if (maximized) setRect(fit(restore.current ?? current()))
+    else {
+      restore.current = current()
+      setRect(fit({x: margin, y: margin, width: window.innerWidth, height: window.innerHeight}))
+    }
+    setMaximized(!maximized)
+  }
+  function compact() {
+    gesture.current = null
+    setMaximized(false)
+    setRect(fit({...current(), width: 360, height: 440}))
+  }
+  function start(event: PointerEvent<HTMLElement>, resize: boolean) {
+    if (maximized || event.button !== 0 || (!resize && (event.target as HTMLElement).closest('button'))) return
+    event.preventDefault()
+    gesture.current = {pointer: event.pointerId, origin: current(), x: event.clientX, y: event.clientY, resize}
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+  function move(event: PointerEvent<HTMLElement>) {
+    const start = gesture.current
+    if (!start || start.pointer !== event.pointerId) return
+    const dx = event.clientX - start.x, dy = event.clientY - start.y
+    setRect(fit(start.resize ? {...start.origin,
+      width: Math.min(start.origin.width + dx, window.innerWidth - start.origin.x - margin),
+      height: Math.min(start.origin.height + dy, window.innerHeight - start.origin.y - margin)}
+      : {...start.origin, x: start.origin.x + dx, y: start.origin.y + dy}))
+  }
+  function end(event: PointerEvent<HTMLElement>) {
+    gesture.current = null
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
+  }
+  function keyboard(event: KeyboardEvent<HTMLElement>, resize: boolean) {
+    if (maximized || event.target !== event.currentTarget || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+    event.preventDefault()
+    const step = event.shiftKey ? 40 : 16
+    const dx = event.key === 'ArrowLeft' ? -step : event.key === 'ArrowRight' ? step : 0
+    const dy = event.key === 'ArrowUp' ? -step : event.key === 'ArrowDown' ? step : 0
+    const old = current()
+    setRect(fit(resize ? {...old, width: old.width + dx, height: old.height + dy} : {...old, x: old.x + dx, y: old.y + dy}))
+  }
+  const handlers = (resize: boolean) => ({onPointerDown: (e: PointerEvent<HTMLElement>) => start(e, resize),
+    onPointerMove: move, onPointerUp: end, onPointerCancel: end,
+    onKeyDown: (e: KeyboardEvent<HTMLElement>) => keyboard(e, resize)})
+  const style: CSSProperties | undefined = rect ? {left: rect.x, top: rect.y, width: rect.width, height: rect.height, right: 'auto', bottom: 'auto'} : undefined
+  return {panel, style, maximized, toggleMaximize, compact, dragHandlers: handlers(false), resizeHandlers: handlers(true)}
+}

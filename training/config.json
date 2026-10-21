@@ -1,0 +1,47 @@
+{
+  "dataset": {
+    "repository": "spMohanty/PlantVillage-Dataset",
+    "mirror": "mohanty/PlantVillage",
+    "revision": "9e97599868962bd0079b8db4b7f1efa9185fa1e7",
+    "archive_sha256": "fba30c6a7965e49be94b47a62f8aff6cfb1c35c27f475f22092b56db41745e84",
+    "archive_bytes": 2184723441,
+    "classes": 38,
+    "validation_fraction_of_train": 0.125,
+    "seed": 20261020,
+    "download_retries": 8,
+    "download_timeout_seconds": 90,
+    "download_chunk_bytes": 1048576
+    ,"download_connections": 8
+  },
+  "training": {
+    "name": "plantvillage-yolo26m",
+    "weights": "models/pretrained/yolo26m.pt",
+    "weights_sha256": "401cea9ab23ad19246ff7744859816bc599f350e93c9dd30367b6f0a0745d0b7",
+    "epochs": 40,
+    "patience": 8,
+    "imgsz": 224,
+    "batch": 32,
+    "workers": 4,
+    "device": "0",
+    "seed": 20261020,
+    "lr0": 0.0005,
+    "optimizer": "AdamW",
+    "weight_decay": 0.0005,
+    "dropout": 0.2,
+    "amp": true,
+    "deterministic": true,
+    "cache": false,
+    "save_period": 1,
+    "plots": true
+  },
+  "acceptance": {
+    "validation_top1_min": 0.90,
+    "validation_macro_f1_min": 0.85,
+    "confidence_threshold": 0.70
+  },
+  "inference": {
+    "image_size": 224,
+    "device": "cpu",
+    "max_concurrency": 1
+  }
+}

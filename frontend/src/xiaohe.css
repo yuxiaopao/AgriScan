@@ -1,0 +1,32 @@
+.xiaohe-sprite{position:relative;display:inline-block;width:120px;aspect-ratio:192/208;overflow:hidden;flex-shrink:0;vertical-align:middle;isolation:isolate}
+.xiaohe-sprite .xiaohe-film{position:absolute;left:0;top:0;width:800%;height:100%;max-width:none;object-fit:fill;animation:xiaohe-frames var(--xiaohe-duration,1.6s) steps(8,end) infinite;pointer-events:none;user-select:none;will-change:transform}
+.xiaohe-sprite .xiaohe-fallback{width:100%;height:100%;object-fit:contain}
+@keyframes xiaohe-frames{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.xiaohe-sprite[data-paused=true] .xiaohe-film{animation-play-state:paused;will-change:auto}
+@media(prefers-reduced-motion:reduce){.xiaohe-sprite .xiaohe-film{animation:none!important;transform:none;will-change:auto}}
+.assistant-widget .assistant-launcher{width:86px;height:94px;border-radius:28px;background:linear-gradient(145deg,#f8fce9e8,#e0ecd4d9)}
+.assistant-launcher .xiaohe-sprite{width:94px;position:absolute;bottom:8px}
+.assistant-launcher>span:not(.xiaohe-sprite){z-index:2}
+.assistant-face .xiaohe-sprite{width:62px;height:67px;max-width:none;position:relative;top:14px}
+.assistant-welcome .xiaohe-sprite,.assistant-guest .xiaohe-sprite{display:block;width:116px;margin:0 auto 8px}
+.assistant-welcome>span.xiaohe-sprite{font-size:inherit;letter-spacing:normal}
+.mascot-tip .xiaohe-sprite{width:110px;margin-left:-4px}
+.welcome-mascot>.xiaohe-sprite{width:340px;z-index:1}
+.auth-story>.xiaohe-sprite{width:270px;display:block;margin:24px auto 0}
+.hero-art>.xiaohe-sprite{position:absolute;width:260px;left:20px;top:-8px}
+.knowledge-banner>.xiaohe-sprite{position:absolute;width:230px;right:35px;top:-10px}
+.xiaohe-motion-demo{margin-top:24px;padding:22px}
+.xiaohe-motion-demo>p{font-size:12px;color:#819076;line-height:1.8;margin:7px 0 15px}
+.xiaohe-motion-stage{display:flex;align-items:center;gap:22px;padding:12px 20px;border-radius:14px;background:linear-gradient(120deg,#f2f6e8,#fafcf7)}
+.xiaohe-motion-stage .xiaohe-sprite{width:140px}
+.xiaohe-motion-stage strong{font-size:15px;color:#426339}
+.xiaohe-motion-stage p{font-size:12px;color:#819076;line-height:1.8;margin-top:8px}
+.xiaohe-motion-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.xiaohe-motion-options button{border:1px solid #e1e8da;border-radius:8px;padding:7px 12px;font-size:12px;color:#6c805c}
+.xiaohe-motion-options button[aria-pressed=true]{background:#e7efdb;border-color:#a8be8f;color:#345b2e}
+@media(max-width:760px){.hero-art>.xiaohe-sprite{width:225px;left:8px;top:10px}.knowledge-banner>.xiaohe-sprite{width:180px;right:0;top:0}}
+@media(max-width:650px){.welcome-mascot>.xiaohe-sprite{width:270px}.assistant-widget .assistant-launcher{width:74px;height:82px}.assistant-launcher .xiaohe-sprite{width:80px}.xiaohe-motion-stage{gap:10px;padding:12px}.xiaohe-motion-stage .xiaohe-sprite{width:110px}}
+
+.reduce-motion .xiaohe-sprite .xiaohe-film{animation:none!important;transform:none;will-change:auto}
+
+@media(max-width:650px){.auth-story>.xiaohe-sprite{position:absolute;right:-10px;top:-12px;width:150px;margin:0}}
