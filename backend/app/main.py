@@ -1,4 +1,5 @@
 import io
+import logging
 import warnings
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
@@ -23,6 +24,16 @@ from .security import current_user, hash_password, issue_token, readable, verify
 from .seed import KNOWLEDGE, initialize_data
 
 VALID_STATUSES = {"healthy", "attention", "awaiting_model", "queued", "processing", "failed"}
+logger = logging.getLogger(__name__)
+
+
+def remove_unreferenced_image(path):
+    try:
+        path.unlink(missing_ok=True)
+    except OSError:
+        # Files may remain open while a browser is reading them on Windows.
+        # The committed database reference determines whether they are served.
+        logger.warning("Could not remove unreferenced image %s.", path.name, exc_info=True)
 
 
 async def read_uploaded_image(file, max_bytes):
@@ -353,11 +364,24 @@ def create_app(settings=None):
             db.commit()
         except Exception:
             db.rollback()
-            target.unlink(missing_ok=True)
+            remove_unreferenced_image(target)
             raise
         if old_filename:
-            (settings.upload_dir / old_filename).unlink(missing_ok=True)
+            remove_unreferenced_image(settings.upload_dir / old_filename)
         app.state.cache.invalidate()
+        return plot_data(plot)
+
+    @app.delete("/api/plots/{plot_id}/cover", dependencies=[Depends(admin_user)])
+    def delete_plot_cover(plot_id: str, db=Depends(get_db)):
+        plot = db.get(Plot, plot_id)
+        if not plot:
+            raise HTTPException(404, "地块不存在。")
+        cover_filename = plot.details.cover_filename if plot.details else None
+        if cover_filename:
+            plot.details.cover_filename = None
+            db.commit()
+            remove_unreferenced_image(settings.upload_dir / cover_filename)
+            app.state.cache.invalidate()
         return plot_data(plot)
 
     @app.delete("/api/plots/{plot_id}", dependencies=[Depends(admin_user)])
@@ -370,7 +394,7 @@ def create_app(settings=None):
         db.delete(plot)
         db.commit()
         if cover_filename:
-            (settings.upload_dir / cover_filename).unlink(missing_ok=True)
+            remove_unreferenced_image(settings.upload_dir / cover_filename)
         app.state.cache.invalidate()
         return {"message": "地块已删除，历史检测记录已保留。"}
 

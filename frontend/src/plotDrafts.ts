@@ -7,6 +7,7 @@ export interface PlotDraft {
   latitude: string
   longitude: string
   file: File | null
+  removeCover?: boolean
   savedId?: string
 }
 

@@ -1,4 +1,5 @@
 import io
+from pathlib import Path
 
 import pytest
 from PIL import Image
@@ -85,6 +86,79 @@ def test_cover_permissions_and_missing_plot(client):
     assert client.post('/api/plots/plot-tomato/cover', headers=member_auth(client), files=payload).status_code == 403
     assert client.post('/api/plots/missing/cover', headers=auth(client), files=payload).status_code == 404
     assert list(client.app.state.settings.upload_dir.iterdir()) == []
+
+
+def test_delete_cover_preserves_plot_coordinates_and_detection_history(client):
+    headers = auth(client)
+    url = '/api/plots/plot-tomato'
+    client.patch(url, headers=headers, json={'latitude': 26.57, 'longitude': 106.71})
+    uploaded = client.post(url + '/cover', headers=headers,
+                           files={'file': ('cover.png', picture(), 'image/png')}).json()
+    history = client.get('/api/detections/demo-001').json()
+
+    removed = client.delete(url + '/cover', headers=headers)
+    assert removed.status_code == 200
+    saved = removed.json()
+    assert saved == {**uploaded, 'cover_url': None}
+    assert client.get(uploaded['cover_url']).status_code == 404
+    assert list(client.app.state.settings.upload_dir.iterdir()) == []
+    assert client.get('/api/detections/demo-001').json() == history
+    assert client.delete(url + '/cover', headers=headers).json() == saved
+
+
+def test_delete_cover_without_details_is_idempotent_and_requires_admin(client):
+    url = '/api/plots/plot-tomato/cover'
+    assert client.delete(url).status_code == 401
+    assert client.delete(url, headers=member_auth(client)).status_code == 403
+    headers = auth(client)
+    assert client.delete('/api/plots/missing/cover', headers=headers).status_code == 404
+    before = next(row for row in client.get('/api/plots').json() if row['id'] == 'plot-tomato')
+    for _ in range(2):
+        response = client.delete(url, headers=headers)
+        assert response.status_code == 200 and response.json() == before
+    with client.app.state.session() as db:
+        assert db.get(PlotDetails, 'plot-tomato') is None
+
+
+@pytest.mark.parametrize('action', ['replace-cover', 'delete-cover', 'delete-plot'])
+def test_committed_plot_changes_succeed_when_old_cover_is_in_use(client, monkeypatch, caplog, action):
+    headers = auth(client)
+    url = '/api/plots/plot-tomato'
+    client.patch(url, headers=headers, json={'latitude': 26.57, 'longitude': 106.71})
+    uploaded = client.post(url + '/cover', headers=headers,
+                           files={'file': ('cover.png', picture(), 'image/png')}).json()
+    old_path = client.app.state.settings.upload_dir / Path(uploaded['cover_url']).name
+    unlink = Path.unlink
+
+    def locked_unlink(path, *args, **kwargs):
+        if path == old_path:
+            raise PermissionError('Image is in use')
+        return unlink(path, *args, **kwargs)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(Path, 'unlink', locked_unlink)
+        if action == 'replace-cover':
+            response = client.post(url + '/cover', headers=headers,
+                                   files={'file': ('new.png', picture(), 'image/png')})
+        else:
+            response = client.delete(url + ('/cover' if action == 'delete-cover' else ''), headers=headers)
+
+    assert response.status_code == 200
+    assert old_path.is_file() and client.get(uploaded['cover_url']).status_code == 404
+    assert any(record.levelname == 'WARNING' and old_path.name in record.message for record in caplog.records)
+    history = client.get('/api/detections/demo-001').json()
+    if action == 'delete-plot':
+        assert history['plot_id'] is None
+        assert not any(row['id'] == 'plot-tomato' for row in client.get('/api/plots').json())
+    else:
+        saved = response.json()
+        assert saved['latitude'] == 26.57 and saved['longitude'] == 106.71
+        assert history['plot_id'] == 'plot-tomato'
+        if action == 'replace-cover':
+            assert saved['cover_url'] != uploaded['cover_url']
+            assert client.get(saved['cover_url']).status_code == 200
+        else:
+            assert saved['cover_url'] is None
 
 
 def test_existing_schema_is_extended_without_altering_plot_columns(tmp_path):

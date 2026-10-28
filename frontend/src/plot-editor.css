@@ -15,6 +15,9 @@
 .plot-cover-placeholder{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#96ac83;font-size:11px;padding-bottom:24px}
 .plot-cover-select{position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:7px;padding:8px 11px;background:#fffffff0;border:1px solid #e4ebdd;border-radius:7px;color:#4b7452;font-size:11px;box-shadow:0 2px 8px #30472808}
 .plot-cover-clear{position:absolute;right:9px;top:9px;width:26px;height:26px;display:grid;place-items:center;background:#fffffff0;border-radius:50%;color:#667e5c}
+.plot-cover-removal{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px;margin-top:8px;font-size:10px;color:#8b7962;line-height:1.7}
+.plot-cover-removal button{display:inline-flex;align-items:center;gap:5px;padding:3px 0;font-size:10px;color:#986546}
+.plot-location-map[aria-disabled=true]{pointer-events:none;opacity:.7}
 .plot-map-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:#708568;margin-bottom:10px}
 .plot-map-toolbar>span,.plot-map-toolbar button{display:flex;align-items:center;gap:5px}
 .plot-map-toolbar button{font-size:10px;color:#387450;padding:5px 0}

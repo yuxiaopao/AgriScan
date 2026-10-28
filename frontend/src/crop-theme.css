@@ -7,7 +7,7 @@ html[data-crop-theme] body{background:var(--crop-canvas);transition:background-c
 [data-crop-theme] .nav-link.active::before,[data-crop-theme] .nav-dot{background:var(--crop-accent)}
 [data-crop-theme] .nav-ai,[data-crop-theme] .step-number,[data-crop-theme] .avatar,[data-crop-theme] .topbar-avatar{background:var(--crop-soft);color:var(--crop-dark)}
 [data-crop-theme] .side-note,[data-crop-theme] .mascot-tip{background:linear-gradient(125deg,var(--crop-soft),var(--crop-canvas));border-color:color-mix(in srgb,var(--crop-accent) 15%,white)}
-[data-crop-theme] .side-note strong,[data-crop-theme] .side-note button,[data-crop-theme] .text-button,[data-crop-theme] .title-dot{color:var(--crop-accent)}
+[data-crop-theme] .side-note strong,[data-crop-theme] .side-note button,[data-crop-theme] .text-button:not(.danger-text),[data-crop-theme] .title-dot{color:var(--crop-accent)}
 [data-crop-theme] .workspace-name{background:var(--crop-canvas)}
 [data-crop-theme] .drop-zone{background:var(--crop-canvas);border-color:color-mix(in srgb,var(--crop-accent) 38%,white)}
 [data-crop-theme] .drop-zone.dragging{background:var(--crop-soft);border-color:var(--crop-accent)}
@@ -16,7 +16,7 @@ html[data-crop-theme] body{background:var(--crop-canvas);transition:background-c
 [data-crop-theme] .hero-copy h2,[data-crop-theme] .hero-button{color:var(--crop-dark)}
 [data-crop-theme] .access-shell{background:radial-gradient(ellipse at 80% 35%,var(--crop-soft),transparent 55%),var(--crop-canvas)}
 [data-crop-theme] .welcome-intro h1 em{color:var(--crop-accent)}
-[data-crop-theme] .assistant-widget .assistant-launcher{background:linear-gradient(145deg,var(--crop-canvas),var(--crop-soft));border-color:color-mix(in srgb,var(--crop-accent) 25%,white)}
+[data-crop-theme] .assistant-launcher>span:not(.xiaohe-sprite){color:var(--crop-dark)}
 [data-crop-theme] .assistant-header{background:linear-gradient(110deg,var(--crop-soft),var(--crop-canvas))}
 [data-crop-theme] .assistant-face{background:var(--crop-soft)}
 [data-crop-theme] .assistant-header h2,[data-crop-theme] .assistant-toolbar button{color:var(--crop-dark)}

@@ -37,25 +37,27 @@ Copy-Item .env.example .env
 | GET / POST | `/api/plots` | 地块列表 / 创建 |
 | PATCH / DELETE | `/api/plots/{id}` | 修改 / 删除 |
 | POST | `/api/plots/{id}/cover` | 管理员上传封面；multipart: `file` |
+| DELETE | `/api/plots/{id}/cover` | 管理员移除封面；已有地块无封面时重复调用仍成功，返回更新后的地块 |
 | GET | `/api/models` | 模型接入状态 |
 | GET | `/api/knowledge` | 知识库 |
 
 模型置信度字段范围为 0–1；地块 `health_score` 为已完成检测中健康结果的百分比（0–100），无已完成检测则为 null。`stats.pending` 包含等待模型、排队和处理中；失败记录只计入总数。
 
-地块创建、修改支持可选的 `latitude`、`longitude`（WGS84），必须成对提交，同时为 null 时清除标记。地块列表返回 `cover_url` 和坐标；未设置时为 null。封面沿用图片格式、大小及像素校验，最长边缩至 1600 像素后保存为 JPEG，替换或删除地块时清理旧封面。封面上传独立于地块信息保存，上传失败可重试而不重复创建地块。
+地块创建、修改支持可选的 `latitude`、`longitude`（WGS84），必须成对提交，同时为 null 时清除标记。地块列表返回 `cover_url` 和坐标；未设置时为 null。封面沿用图片格式、大小及像素校验，最长边缩至 1600 像素后保存为 JPEG，替换、移除封面或删除地块时清理旧封面。封面操作独立于地块信息保存，上传失败可重试而不重复创建地块。前端删除已有封面时先保存待删除草稿标记，可撤销，点击“保存地块”后才调用删除接口；该接口仅管理员可用，对已有地块的重复删除封面请求保持幂等，地块不存在时返回 404。
+
+旧图片在数据库引用更新后再清理。Windows 文件占用等原因可能使无引用文件暂留磁盘，清理失败会记录日志，不影响已经提交的地块结果；`/api/uploads/{filename}` 校验数据库引用，因此旧图片即使暂留磁盘也会返回 404。
 
 封面与坐标保存在新增的 `plot_details` 关联表，原有 `plots` 表不变。应用启动时 `create_all` 会创建此新表；现有数据库上线前需确认允许新增该表。前端地图采用 Leaflet 和 OpenStreetMap，底图依赖联网；底图不可用时仍可填写经纬度。
 
 ## 训练权重接入
 
-`app/inference.py` 定义 `InferenceProvider` 接口和 `InferenceResult`。目前只注册 `AwaitingWeightsProvider`：图片保存后标为 `awaiting_model`，`result` 和 `confidence` 均为 null。系统**没有运行任何病害识别模型**。当前 Redis 用于看板缓存，尚未运行推理队列或 worker。
+`app/inference.py` 定义 `InferenceProvider` 接口和 `InferenceResult`，包含 `OnnxClassificationProvider` 与 `AwaitingWeightsProvider`。仓库附带经过验证的 PlantVillage 发布模型，覆盖 14 种作物、38 个类别，属于单叶图像的单标签分类，不输出病斑框，也不能据此判断多病共存。
 
-权重准备好后：
+在 `backend/` 中安装 `requirements-inference.txt`，并在 `backend/.env` 设置 `MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json` 后重启 API，即可启用该 ONNX 模型。启动时校验清单、类别、预处理、输入输出形状及模型 SHA256；`/api/health` 中 `model: ready` 表示模型已加载。详细说明见[模型文件说明](../models/README.md)及[训练与接入说明](../training/README.md)。
 
-1. 实现与实际训练模型匹配的 provider，显式加载受信任权重和标签映射，固定预处理、阈值、模型版本。
-2. 加入模型注册表、版本切换与启动加载检查，更新 `/api/models` 返回真实加载状态。
-3. 将耗时推理移到独立 worker，以 Redis 队列传递检测 ID；保存任务状态与失败原因，提供幂等重试和重新分析接口。
-4. 用独立验证集验证输出格式、分类 / 定位准确率和异常输入；再启用实际诊断。
+未配置 `MODEL_MANIFEST` 时使用 `AwaitingWeightsProvider`，图片保存后标为 `awaiting_model`，`result` 和 `confidence` 均为 null；配置的模型无法通过加载校验时，服务启动失败，需要修正配置。模型管理页上传的权重仅登记保存，不自动反序列化、加载或执行。
+
+当前推理在 API 进程中执行，Redis 仍用于看板缓存，尚未运行推理队列或独立 worker。其他权重需要按实际任务适配 provider、明确类别映射与预处理，并通过独立验证后显式启用；队列、模型版本切换等能力仍需后续实现。
 
 ## 部署与数据
 
@@ -65,8 +67,12 @@ Copy-Item .env.example .env
 
 后续表结构变更应使用 Alembic 迁移，当前 `create_all` 不负责升级旧表。首次生产部署应使用独立空数据库，不要复用演示数据库；切换 `DEMO_MODE` 不会删除已有数据。`uploads/` 和数据库必须一起备份。
 
-Redis 故障会令健康状态显示 `degraded`，业务仍可直接读写数据库。缓存失效失败时旧数据最多保留 30 秒。当前登录频率限制为单进程内的每来源地址 / 用户组合 5 分钟最多 10 次失败；多实例生产部署需在网关增加统一限流。当前为单组织管理员系统，不包含多租户隔离、用户注册和细粒度角色管理。
+Redis 故障会令健康状态显示 `degraded`，业务仍可直接读写数据库。缓存失效失败时旧数据最多保留 30 秒。当前登录频率限制为单进程内的每来源地址 / 用户组合 5 分钟最多 10 次失败；多实例生产部署需在网关增加统一限流。
+
+当前为单组织共享工作空间，提供管理员和普通成员两类角色。允许注册时，新账户为普通成员，可读取组织内共享业务数据、上传检测样本并使用小禾问答；地块修改、删除样本和权重管理需要管理员身份。可通过 `REGISTRATION_ENABLED=false` 关闭注册，注册流程还支持可配置的邮箱验证；尚未实现多租户隔离或更细粒度的权限管理。
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
 ```
+
+2026-10-28：本次整合后后端全套自动化测试 74 项通过。
