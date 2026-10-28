@@ -6,10 +6,11 @@ import numpy as np
 import onnx
 from onnx import TensorProto, helper, numpy_helper
 import pytest
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 from app.config import Settings
-from app.inference import OnnxClassificationProvider
+from app.inference import AwaitingWeightsProvider, InferenceResult, OnnxClassificationProvider
 from app.main import create_app
 from test_api import auth, client, picture
 
@@ -53,9 +54,104 @@ def model_client(tmp_path, probabilities=(0.9, 0.08, 0.02)):
     return TestClient(create_app(settings))
 
 
-def upload(client, crop="番茄"):
-    return client.post("/api/detections", headers=auth(client), data={"crop": crop},
+def upload(client, crop="番茄", **fields):
+    data = {**fields, **({"crop": crop} if crop is not None else {})}
+    return client.post("/api/detections", headers=auth(client), data=data,
                        files={"file": ("sample.png", picture(), "image/png")})
+
+
+@pytest.mark.parametrize("crop", [None, "", "   "])
+def test_automatic_crop_uses_global_prediction_and_persists_candidates(tmp_path, crop):
+    with model_client(tmp_path, (0.03, 0.02, 0.95)) as client:
+        response = upload(client, crop, note="无需先选作物")
+        assert response.status_code == 201, response.text
+        row = response.json()
+        assert row["crop"] == "玉米" and row["result"] == "玉米健康"
+        assert row["status"] == "healthy" and row["confidence"] == pytest.approx(0.95)
+        assert row["note"] == "无需先选作物" and row["plot_id"] is None
+        assert [item["crop"] for item in row["candidates"]] == ["玉米", "番茄", "番茄"]
+        assert [item["confidence"] for item in row["candidates"]] == pytest.approx([0.95, 0.03, 0.02])
+        saved = client.get(f"/api/detections/{row['id']}").json()
+        assert saved == row
+        filtered = client.get('/api/detections', params={"crop": "玉米"}).json()
+        assert any(item["id"] == row["id"] for item in filtered)
+        assert client.get(row["image_url"]).status_code == 200
+
+
+@pytest.mark.parametrize("probabilities,expected_crop,expected_label", [
+    ((0.05, 0.9, 0.05), "番茄", "番茄早疫病"),
+    ((0.35, 0.25, 0.4), "玉米", "置信度不足"),
+])
+def test_automatic_disease_and_low_confidence_remain_attention(tmp_path, probabilities, expected_crop, expected_label):
+    with model_client(tmp_path, probabilities) as client:
+        response = upload(client, None)
+        assert response.status_code == 201, response.text
+        row = response.json()
+        assert row["crop"] == expected_crop and expected_label in row["result"]
+        assert row["status"] == "attention"
+        assert row["confidence"] == pytest.approx(max(probabilities))
+        assert row["candidates"][0]["crop"] == expected_crop
+        assert client.get('/api/dashboard').json()["stats"]["healthy"] == 8
+
+
+@pytest.mark.parametrize("crop", [None, ""])
+def test_automatic_crop_without_model_has_clear_error_and_saves_nothing(client, crop):
+    before = client.get('/api/dashboard').json()["stats"]["total"]
+    response = upload(client, crop)
+    assert response.status_code == 422
+    assert "模型" in response.json()["detail"] and "作物" in response.json()["detail"]
+    assert client.get('/api/dashboard').json()["stats"]["total"] == before
+    assert list(client.app.state.settings.upload_dir.iterdir()) == []
+
+
+def test_provider_accepts_omitted_crop_and_reports_predicted_species(tmp_path):
+    manifest = model_fixture(tmp_path / 'fixture', (0.03, 0.02, 0.95))
+    path = tmp_path / 'sample.png'
+    path.write_bytes(picture())
+    result = OnnxClassificationProvider(manifest).predict(path)
+    assert result.crop == '玉米' and result.label == '玉米健康'
+    assert result.candidates[0]['crop'] == result.crop
+    with pytest.raises(HTTPException) as error:
+        AwaitingWeightsProvider().predict(path)
+    assert error.value.status_code == 422
+
+
+def test_automatic_inference_failure_leaves_no_image_or_record(tmp_path):
+    with model_client(tmp_path, (float('nan'), 0.1, 0.2)) as client:
+        response = upload(client, None)
+        assert response.status_code == 503
+        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert list(client.app.state.settings.upload_dir.iterdir()) == []
+
+
+def test_automatic_crop_links_matching_plot(tmp_path):
+    with model_client(tmp_path, (0.03, 0.02, 0.95)) as client:
+        response = upload(client, None, plot_id='plot-corn')
+        assert response.status_code == 201, response.text
+        row = response.json()
+        assert row['crop'] == '玉米' and row['plot_id'] == 'plot-corn'
+        assert row['plot_name'] == '03 号玉米种植区'
+        assert client.get(f"/api/detections/{row['id']}").json() == row
+
+
+@pytest.mark.parametrize('plot_id,expected', [('missing', 404), ('plot-tomato', 422)])
+def test_automatic_crop_rejects_invalid_plot_without_saving(tmp_path, plot_id, expected):
+    with model_client(tmp_path, (0.03, 0.02, 0.95)) as client:
+        response = upload(client, None, plot_id=plot_id)
+        assert response.status_code == expected
+        if expected == 422:
+            assert '玉米' in response.json()['detail'] and '取消关联' in response.json()['detail']
+        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert list(client.app.state.settings.upload_dir.iterdir()) == []
+
+
+def test_automatic_crop_requires_valid_species_from_provider(tmp_path, monkeypatch):
+    with model_client(tmp_path) as client:
+        monkeypatch.setattr(client.app.state.inference, 'predict',
+                            lambda path, crop=None: InferenceResult('attention', 'unknown', 0.4))
+        assert upload(client, None).status_code == 503
+        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
 def test_real_onnx_execution_is_saved_and_visible_in_api(tmp_path):

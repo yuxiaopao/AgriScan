@@ -43,6 +43,7 @@ html[data-crop-theme] body{background:var(--crop-canvas);transition:background-c
 .crop-room-selector-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
 .crop-room-selector-heading strong{font-size:12px;font-weight:550}
 .crop-room-selector-heading>span{font-size:10px;color:#899083}
+.crop-room-help{font-size:11px;color:#78816e;line-height:1.8;margin:-2px 0 14px;max-width:760px}
 .crop-room-options{display:flex;flex-wrap:wrap;gap:8px}
 .crop-room-options>button{display:inline-flex;align-items:center;gap:6px;min-height:37px;padding:6px 11px;background:#fbfcfa;border:1px solid #edf0e9;border-radius:9px;font-size:11px;color:#61705f;white-space:nowrap}
 .crop-room-options>button:hover:not(:disabled){background:var(--option-soft,var(--crop-soft));border-color:var(--option-accent,var(--crop-accent));color:var(--option-accent,var(--crop-accent))}
@@ -52,6 +53,12 @@ html[data-crop-theme] body{background:var(--crop-canvas);transition:background-c
 .crop-room-emoji{font-size:17px;line-height:1}
 .crop-theme-indicator{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--crop-soft);background:var(--crop-canvas);border-radius:20px;color:var(--crop-accent);padding:6px 10px;font-size:10px;white-space:nowrap}
 .crop-theme-indicator>i{width:6px;height:6px;background:var(--crop-accent);border-radius:50%}
+.crop-auto-status{padding:15px 16px;border:1px solid color-mix(in srgb,var(--crop-accent) 20%,white);border-radius:10px;background:var(--crop-canvas)}
+.crop-auto-status>span{display:flex;align-items:center;gap:7px;color:var(--crop-accent);font-size:11px}
+.crop-auto-status>strong{display:block;color:var(--crop-dark);font-size:14px;font-weight:550;line-height:1.7;margin-top:9px}
+.crop-auto-status>p{font-size:11px;line-height:1.8;color:#78816e;margin-top:5px}
+.crop-auto-status>small{display:block;font-size:9px;color:#899083;margin-top:9px}
+.auto-plot-hint{display:block;color:#899083;font-size:10px;line-height:1.8;font-weight:400;margin-top:6px}
 @media(max-width:960px){.crop-room-intro{padding:22px 24px}.crop-room-art{margin-right:0;width:180px}.crop-theme-indicator{display:none}}
 @media(max-width:600px){
 .crop-room-intro{padding:22px 18px;min-height:188px}.crop-room h2{font-size:27px}.crop-room h2>span{font-size:20px;margin-left:7px}

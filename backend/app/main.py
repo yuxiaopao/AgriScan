@@ -247,17 +247,19 @@ def create_app(settings=None):
 
     @app.post("/api/detections", status_code=201, dependencies=[Depends(current_user)])
     async def upload(
-        file: UploadFile = File(...), crop: str = Form(...), plot_id: str | None = Form(None),
+        file: UploadFile = File(...), crop: str | None = Form(None), plot_id: str | None = Form(None),
         note: str = Form(default="", max_length=2000), db=Depends(get_db),
     ):
-        if crop not in SUPPORTED_CROPS:
+        crop = (crop or "").strip() or None
+        if crop and crop not in SUPPORTED_CROPS:
             raise HTTPException(422, "请选择支持的作物类型。")
         plot_id = plot_id or None
+        plot = None
         if plot_id:
             plot = db.get(Plot, plot_id)
             if not plot:
                 raise HTTPException(404, "关联地块不存在。")
-            if plot.crop != crop:
+            if crop and plot.crop != crop:
                 raise HTTPException(422, "作物类型与所选地块不一致。")
         normalized = (await read_uploaded_image(file, settings.max_upload_bytes)).convert("RGB")
         filename = f"{uuid4().hex}.jpg"
@@ -265,10 +267,15 @@ def create_app(settings=None):
         try:
             normalized.save(target, format="JPEG", quality=90)
             predicted = await run_in_threadpool(app.state.inference.predict, target, crop)
+            identified_crop = crop or predicted.crop
+            if identified_crop not in SUPPORTED_CROPS:
+                raise HTTPException(503, "模型未返回有效的作物识别结果，请检查模型服务或稍后重试。")
+            if plot and plot.crop != identified_crop:
+                raise HTTPException(422, f"图片识别为{identified_crop}，与所选{plot.crop}地块不一致，请更换地块或取消关联后重试。")
             # Windows and POSIX path components are stripped from client-supplied names.
             display_name = (file.filename or "田间采样").replace("\\", "/").split("/")[-1][:180]
             row = Detection(
-                name=display_name, crop=crop, plot_id=plot_id, note=note.strip(),
+                name=display_name, crop=identified_crop, plot_id=plot_id, note=note.strip(),
                 status=predicted.status, result=predicted.label, confidence=predicted.confidence,
                 image_url=f"/api/uploads/{filename}", is_demo=False,
             )

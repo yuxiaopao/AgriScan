@@ -7,7 +7,7 @@ import PlotCoverCarousel from './PlotCoverCarousel'
 import {confidenceText, PredictionScores} from './PredictionScores'
 import type {ReactNode} from 'react'
 import {useEffect, useRef, useState, type FormEvent} from 'react'
-import {ArrowRight, ArrowUpRight, BookOpen, Check, CheckCircle2, CircleAlert, CloudUpload, FileImage, Filter, FlaskConical, HardDrive, Layers3, Leaf, LoaderCircle, MapPin, Pencil, Plus, Search, Server, Settings2, ShieldCheck, Sprout, Trash2, Upload, X} from 'lucide-react'
+import {ArrowRight, ArrowUpRight, BookOpen, Check, CheckCircle2, CircleAlert, CloudUpload, FileImage, Filter, FlaskConical, HardDrive, Layers3, Leaf, LoaderCircle, MapPin, Pencil, Plus, ScanLine, Search, Server, Settings2, ShieldCheck, Sprout, Trash2, Upload, X} from 'lucide-react'
 import {api, downloadCsv} from './api'
 import {Badge, CropIcon, DetectionTable, Empty, Modal, statusLabels} from './components'
 import type {Article, Detection, Health, ModelInfo, Plot, User} from './types'
@@ -23,14 +23,17 @@ export function DetectPage({plots, model, requireAuth, onChange, toast, onDetect
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<Detection | null>(null)
   const input = useRef<HTMLInputElement>(null)
-  const crops = model.active ? model.supported_crops : model.available_crops
   const modelReady = model.status === 'ready'
+  const crops = modelReady ? model.supported_crops : model.available_crops
+  const selectablePlots = modelReady ? plots : plots.filter(plot => plot.crop === crop)
+  const recognized = result && result.status !== 'awaiting_model' ? result : null
   useEffect(() => {
-    if (crops.length && !crops.includes(crop)) {setCrop(crops[0]); setPlotId(''); setResult(null)}
-  }, [crops, crop, setCrop])
+    if (!modelReady && crops.length && !crops.includes(crop)) {setCrop(crops[0]); setPlotId(''); setResult(null)}
+  }, [crops, crop, modelReady, setCrop])
   const selectCrop = (next: string) => {
-    if (busy || crop === next || !crops.includes(next)) return
-    setCrop(next); setPlotId(''); setResult(null)
+    if (busy || crop === next || (!crops.includes(next) && !(modelReady && model.available_crops.includes(next)))) return
+    setCrop(next)
+    if (!modelReady) {setPlotId(''); setResult(null)}
   }
   useEffect(() => {if (!file) {setPreview(''); return}; const url = URL.createObjectURL(file); setPreview(url); return () => URL.revokeObjectURL(url)}, [file])
   const chooseFile = (next?: File) => {
@@ -42,24 +45,28 @@ export function DetectPage({plots, model, requireAuth, onChange, toast, onDetect
   async function submit(event: FormEvent) {
     event.preventDefault()
     if (busy || !file || !requireAuth()) return
-    setBusy(true); setDragging(false)
+    setBusy(true); setDragging(false); setResult(null)
     const body = new FormData()
-    body.append('file', file); body.append('crop', crop); if (plotId) body.append('plot_id', plotId); body.append('note', note)
-    try {const saved = await api<Detection>('/detections', {method: 'POST', body}); setResult(saved); onChange(); onDetected(saved); toast(saved.status === 'awaiting_model' ? '样本已保存，小禾正在辅助解读照片。' : '检测完成，小禾正在整理处理与复检建议。')}
+    body.append('file', file); if (!modelReady) body.append('crop', crop); if (plotId) body.append('plot_id', plotId); body.append('note', note)
+    try {
+      const saved = await api<Detection>('/detections', {method: 'POST', body})
+      setCrop(saved.crop); setResult(saved); onChange(); onDetected(saved)
+      toast(saved.status === 'awaiting_model' ? '样本已保存，小禾正在辅助解读照片。' : `已识别为${saved.crop}并进入对应检测室，小禾正在整理处理与复检建议。`)
+    }
     catch (error) {toast((error as Error).message)}
     finally {setBusy(false)}
   }
   return <>
-    <CropRoom crops={crops} availableCrops={model.available_crops} busy={busy} onSelect={selectCrop}/>
+    <CropRoom crops={crops} availableCrops={model.available_crops} busy={busy} automatic={modelReady} onSelect={selectCrop}/>
     <div className={`detect-grid ${result ? 'has-result' : ''}`}><form className="panel upload-panel" onSubmit={submit} aria-busy={busy}><div className="panel-header"><h2><span className="step-number">01</span>上传作物图片</h2><span className="quiet">单图检测</span></div>
       <div className="upload-workspace"><div className="upload-media"><input ref={input} type="file" disabled={busy} accept="image/jpeg,image/png,image/webp" className="sr-only" aria-label="选择作物图片" onChange={event => chooseFile(event.target.files?.[0])}/>
       <div className={`drop-zone ${dragging ? 'dragging' : ''} ${preview ? 'has-preview' : ''}`} onDragOver={event => {event.preventDefault(); setDragging(!busy)}} onDragLeave={() => setDragging(false)} onDrop={event => {event.preventDefault(); setDragging(false); chooseFile(event.dataTransfer.files[0])}}>
         {preview ? <><img src={preview} className="upload-preview" alt="待检测作物预览"/><button type="button" disabled={busy} className="preview-remove" onClick={() => {setFile(null); setResult(null); if (input.current) input.current.value = ''}} aria-label="移除已选图片"><X size={18}/></button><div className="file-chip"><FileImage size={15}/><span>{file?.name}</span><small>{((file?.size ?? 0) / 1024 / 1024).toFixed(2)} MB</small></div></> : <><div className="upload-guidance"><h3>拍得清楚，看得更准</h3><ol>{[['自然光线', '避开强烈反光，保留叶片真实颜色。'], ['主体清晰', '靠近叶片拍摄，让病斑与纹理清楚可见。'], ['完整记录', '一次选择一张图片，并补充采集备注。']].map(([title, content], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{title}</strong><p>{content}</p></div></li>)}</ol></div><button type="button" className="button primary" disabled={busy} onClick={() => input.current?.click()}><Upload size={16}/>选择图片</button><span className="upload-hint">支持 JPG、PNG、WebP · 最大 10 MB</span></>}
       </div>
       {file && <button className="text-button change-file" type="button" disabled={busy} onClick={() => input.current?.click()}>重新选择图片</button>}
-      </div><div className="form-section"><h2><span className="step-number">02</span>补充样本信息</h2><div className="form-grid"><label>作物类型<select value={crop} disabled={busy || !crops.length} onChange={event => selectCrop(event.target.value)}>{crops.map(item => <option key={item}>{item}</option>)}</select></label><label>所属地块 <span>（选填）</span><select value={plotId} disabled={busy} onChange={event => setPlotId(event.target.value)}><option value="">暂不关联地块</option>{plots.filter(plot => plot.crop === crop).map(plot => <option key={plot.id} value={plot.id}>{plot.name}</option>)}</select></label></div><label>样本备注 <span>（选填）</span><textarea value={note} disabled={busy} onChange={event => setNote(event.target.value)} maxLength={500} placeholder="例如：叶片出现黄斑，采集于植株中部…" rows={3}/></label></div>
-      </div><div className="upload-actions"><span><ShieldCheck size={14}/>图片用于检测与小禾解读</span><button className="button primary" type="submit" disabled={!file || busy}>{busy ? <LoaderCircle size={17} className="spin"/> : <CloudUpload size={17}/>} {busy ? (modelReady ? '正在分析…' : '正在保存…') : (modelReady ? '分析并保存' : '保存检测样本')}</button></div>
-    </form>{result && <aside className="detect-aside"><section className="panel result-panel"><div className="result-icon"><CheckCircle2 size={32}/></div><h2>{result.status === 'awaiting_model' ? '样本保存成功' : '分析完成'}</h2><p>结果已保存至检测记录。</p><Badge status={result.status}/><dl><div><dt>样本编号</dt><dd>{result.id.slice(0, 12)}</dd></div><div><dt>作物类型</dt><dd>{result.crop}</dd></div><div><dt>分析结果</dt><dd>{result.result || '等待模型接入'}</dd></div><div className="result-confidence"><dt>分类置信度</dt><dd title={`原始输出：${result.confidence ?? "未提供"}`}>{confidenceText(result.confidence)}</dd></div></dl><PredictionScores record={result}/><a className="button outline full" href="#records">查看检测记录<ArrowRight size={15}/></a></section></aside>}</div>
+      </div><div className="form-section"><h2><span className="step-number">02</span>检测与样本信息</h2><div className="form-grid">{modelReady ? <div className="crop-auto-status" role="status" aria-live="polite"><span><ScanLine size={15}/>作物识别</span><strong>{busy ? '正在辨认照片中的作物…' : recognized ? `模型识别：${recognized.crop}` : '自动识别，无需选择作物'}</strong><p>{recognized && !busy ? '病害或健康状态与置信度见本次检测结果；主题浏览不会改写结果。' : '点击“识别并保存”后，自动识别作物与叶片状况，并进入对应检测室。'}</p><small>{crops.length} 种作物 · 单叶图像分类</small></div> : <label>采集作物<select value={crop} disabled={busy || !crops.length} onChange={event => selectCrop(event.target.value)}>{crops.map(item => <option key={item}>{item}</option>)}</select></label>}<label>所属地块 <span>（选填）</span><select value={plotId} disabled={busy} onChange={event => setPlotId(event.target.value)}><option value="">暂不关联地块</option>{selectablePlots.map(plot => <option key={plot.id} value={plot.id}>{plot.name}{modelReady ? ` · ${plot.crop}` : ''}</option>)}</select>{modelReady && <small className="auto-plot-hint">可不关联；所选地块的作物须与照片识别结果一致。</small>}</label></div><label>样本备注 <span>（选填）</span><textarea value={note} disabled={busy} onChange={event => setNote(event.target.value)} maxLength={500} placeholder="例如：叶片出现黄斑，采集于植株中部…" rows={3}/></label></div>
+      </div><div className="upload-actions"><span><ShieldCheck size={14}/>图片用于检测与小禾解读</span><button className="button primary" type="submit" disabled={!file || busy}>{busy ? <LoaderCircle size={17} className="spin"/> : <CloudUpload size={17}/>} {busy ? (modelReady ? '正在识别…' : '正在保存…') : (modelReady ? '识别并保存' : '保存检测样本')}</button></div>
+    </form>{result && <aside className="detect-aside"><section className="panel result-panel"><div className="result-icon"><CheckCircle2 size={32}/></div><h2>{result.status === 'awaiting_model' ? '样本保存成功' : '识别完成'}</h2><p>结果已保存至检测记录。</p><Badge status={result.status}/><dl><div><dt>样本编号</dt><dd>{result.id.slice(0, 12)}</dd></div><div><dt>{result.status === 'awaiting_model' ? '采集作物' : '模型识别作物'}</dt><dd>{result.crop}</dd></div><div><dt>病害 / 健康状态</dt><dd>{result.result || '等待模型接入'}</dd></div><div className="result-confidence"><dt>分类置信度</dt><dd title={`原始输出：${result.confidence ?? "未提供"}`}>{confidenceText(result.confidence)}</dd></div></dl><PredictionScores record={result}/><a className="button outline full" href="#records">查看检测记录<ArrowRight size={15}/></a></section></aside>}</div>
   </>
 }
 

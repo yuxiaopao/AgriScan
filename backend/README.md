@@ -31,7 +31,7 @@ Copy-Item .env.example .env
 | POST | `/api/auth/logout` | 吊销当前 JWT |
 | GET | `/api/dashboard?days=7` | `days` 支持 7 或 30；卡片为累计数量 |
 | GET | `/api/detections?search=&crop=&status=` | 记录列表 |
-| POST | `/api/detections` | multipart: `file, crop, plot_id?, note?` |
+| POST | `/api/detections` | multipart: `file, crop?, plot_id?, note?`；省略或留空 `crop` 自动识别作物 |
 | GET / DELETE | `/api/detections/{id}` | 查询 / 删除检测 |
 | GET | `/api/uploads/{filename}` | 查询已入库图片 |
 | GET / POST | `/api/plots` | 地块列表 / 创建 |
@@ -42,6 +42,8 @@ Copy-Item .env.example .env
 | GET | `/api/knowledge` | 知识库 |
 
 模型置信度字段范围为 0–1；地块 `health_score` 为已完成检测中健康结果的百分比（0–100），无已完成检测则为 null。`stats.pending` 包含等待模型、排队和处理中；失败记录只计入总数。
+
+模型就绪时，上传检测可以省略 `crop`，由全类别 Top-1 同时确定作物及病害或健康状态；响应和记录的 `crop` 保存识别出的作物，候选分数不按浏览主题筛选或归一化。低置信度结果标为需关注并提示复核。指定地块与识别作物不一致时返回 422、提示取消或更换关联，不保存记录并清理临时图。显式传入作物的旧接口继续验证所选作物；未配置模型时自动识别返回明确的 422，手动指定作物仍可采集待检测样本。
 
 地块创建、修改支持可选的 `latitude`、`longitude`（WGS84），必须成对提交，同时为 null 时清除标记。地块列表返回 `cover_url` 和坐标；未设置时为 null。封面沿用图片格式、大小及像素校验，最长边缩至 1600 像素后保存为 JPEG，替换、移除封面或删除地块时清理旧封面。封面操作独立于地块信息保存，上传失败可重试而不重复创建地块。前端删除已有封面时先保存待删除草稿标记，可撤销，点击“保存地块”后才调用删除接口；该接口仅管理员可用，对已有地块的重复删除封面请求保持幂等，地块不存在时返回 404。
 
@@ -55,7 +57,7 @@ Copy-Item .env.example .env
 
 在 `backend/` 中安装 `requirements-inference.txt`，并在 `backend/.env` 设置 `MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json` 后重启 API，即可启用该 ONNX 模型。启动时校验清单、类别、预处理、输入输出形状及模型 SHA256；`/api/health` 中 `model: ready` 表示模型已加载。详细说明见[模型文件说明](../models/README.md)及[训练与接入说明](../training/README.md)。
 
-未配置 `MODEL_MANIFEST` 时使用 `AwaitingWeightsProvider`，图片保存后标为 `awaiting_model`，`result` 和 `confidence` 均为 null；配置的模型无法通过加载校验时，服务启动失败，需要修正配置。模型管理页上传的权重仅登记保存，不自动反序列化、加载或执行。
+未配置 `MODEL_MANIFEST` 时使用 `AwaitingWeightsProvider`，手动指定作物采集图片后标为 `awaiting_model`，`result` 和 `confidence` 均为 null；自动识别请求返回明确错误。配置的模型无法通过加载校验时，服务启动失败，需要修正配置。模型管理页上传的权重仅登记保存，不自动反序列化、加载或执行。
 
 当前推理在 API 进程中执行，Redis 仍用于看板缓存，尚未运行推理队列或独立 worker。其他权重需要按实际任务适配 provider、明确类别映射与预处理，并通过独立验证后显式启用；队列、模型版本切换等能力仍需后续实现。
 
