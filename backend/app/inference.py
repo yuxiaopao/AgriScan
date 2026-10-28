@@ -23,6 +23,17 @@ class InferenceResult:
     candidates: list[dict] = field(default_factory=list)
     model: dict | None = None
     crop: str | None = None
+    boxes: list[dict] = field(default_factory=list)
+
+
+def prediction_snapshot(result):
+    if not result.model:
+        return None
+    return {**result.model, **({'boxes': result.boxes} if result.boxes else {})}
+
+
+def public_prediction_model(model):
+    return {key: value for key, value in model.items() if key != 'boxes'} if model else None
 
 
 class InferenceProvider(Protocol):
@@ -137,4 +148,8 @@ class OnnxClassificationProvider:
 def create_provider(settings):
     if not settings.model_manifest:
         return AwaitingWeightsProvider()
+    metadata = json.loads(Path(settings.model_manifest).read_text(encoding='utf-8'))
+    if metadata.get('task') == 'detect':
+        from .detection_inference import OnnxDetectionProvider
+        return OnnxDetectionProvider(settings.model_manifest, settings.inference_threads)
     return OnnxClassificationProvider(settings.model_manifest, settings.inference_threads)

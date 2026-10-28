@@ -17,11 +17,16 @@ from sqlalchemy.orm import selectinload
 from .extensions import install_extensions, admin_user
 from .cache import DashboardCache
 from .config import Settings
-from .db import Base, Detection, DetectionPrediction, Plot, PlotDetails, RevokedToken, User, make_database, utcnow
-from .inference import CROP_COLORS, create_provider, SUPPORTED_CROPS
+from .db import Detection, DetectionPrediction, Plot, PlotDetails, RevokedToken, User, make_database, utcnow
+from .inference import CROP_COLORS, create_provider, SUPPORTED_CROPS, prediction_snapshot, public_prediction_model
 from .schemas import LoginBody, PlotCreate, PlotUpdate
 from .security import current_user, hash_password, issue_token, readable, verify_password
-from .seed import KNOWLEDGE, initialize_data
+from .seed import initialize_data
+from .admin import install_admin
+from .admin_models import KnowledgeArticle, add_audit, article_data, initialize_admin_data
+from .migrations import migrate_database
+from .media import install_media
+from .runtime_config import RuntimeSettings, install_runtime_config
 
 VALID_STATUSES = {"healthy", "attention", "awaiting_model", "queued", "processing", "failed"}
 logger = logging.getLogger(__name__)
@@ -40,7 +45,7 @@ async def read_uploaded_image(file, max_bytes):
     raw = await file.read(max_bytes + 1)
     await file.close()
     if len(raw) > max_bytes:
-        raise HTTPException(413, "图片大小不能超过 10 MB。")
+        raise HTTPException(413, f"图片大小不能超过 {max_bytes // (1024 * 1024)} MB。")
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("error", Image.DecompressionBombWarning)
@@ -66,7 +71,8 @@ def detection_data(row):
         "plot_name": row.plot.name if row.plot else "未关联地块", "status": row.status,
         "result": row.result, "confidence": row.confidence,
         "candidates": row.prediction.candidates if row.prediction else [],
-        "prediction_model": row.prediction.model if row.prediction else None,
+        "prediction_model": public_prediction_model(row.prediction.model) if row.prediction else None,
+        "boxes": row.prediction.model.get('boxes', []) if row.prediction else [],
         "created_at": row.created_at.replace(tzinfo=timezone.utc).isoformat(),
         "image_url": row.image_url, "is_demo": row.is_demo, "note": row.note,
     }
@@ -89,14 +95,18 @@ def plot_data(plot):
 def create_app(settings=None):
     settings = settings or Settings()
     settings.validate()
+    if not isinstance(settings, RuntimeSettings):
+        settings = RuntimeSettings(settings)
     engine, session_factory = make_database(settings.database_url)
 
     @asynccontextmanager
     async def lifespan(app):
         settings.upload_dir.mkdir(parents=True, exist_ok=True)
-        Base.metadata.create_all(engine)
+        migrate_database(engine)
+        app.state.runtime_config.refresh()
         with session_factory() as db:
             initialize_data(db, settings)
+            initialize_admin_data(db)
             db.execute(delete(RevokedToken).where(RevokedToken.expires_at < utcnow()))
             db.commit()
         app.state.cache.invalidate()
@@ -112,12 +122,6 @@ def create_app(settings=None):
     app.state.inference = create_provider(settings)
     app.state.login_attempts = {}
     app.state.dummy_password_hash = hash_password("dummy-password-for-timing-safety")
-    app.add_middleware(
-        CORSMiddleware, allow_origins=[x.strip() for x in settings.cors_origins if x.strip()],
-        allow_credentials=False, allow_methods=["GET", "POST", "PATCH", "DELETE"],
-        allow_headers=["Authorization", "Content-Type"],
-    )
-
     def get_db():
         with session_factory() as db:
             yield db
@@ -154,7 +158,7 @@ def create_app(settings=None):
             raise HTTPException(429, "登录尝试过于频繁，请 5 分钟后重试。")
         user = db.scalar(select(User).where(User.username == body.username))
         valid = verify_password(body.password, user.password_hash if user else app.state.dummy_password_hash)
-        if not user or not valid:
+        if not user or not user.is_active or not valid:
             app.state.login_attempts[key] = attempts + [now]
             raise HTTPException(401, "用户名或密码错误。")
         app.state.login_attempts.pop(key, None)
@@ -261,7 +265,8 @@ def create_app(settings=None):
                 raise HTTPException(404, "关联地块不存在。")
             if crop and plot.crop != crop:
                 raise HTTPException(422, "作物类型与所选地块不一致。")
-        normalized = (await read_uploaded_image(file, settings.max_upload_bytes)).convert("RGB")
+        original = await read_uploaded_image(file, settings.max_upload_bytes)
+        normalized = ImageOps.exif_transpose(original).convert("RGB")
         filename = f"{uuid4().hex}.jpg"
         target = settings.upload_dir / filename
         try:
@@ -270,8 +275,10 @@ def create_app(settings=None):
             identified_crop = crop or predicted.crop
             if identified_crop not in SUPPORTED_CROPS:
                 raise HTTPException(503, "模型未返回有效的作物识别结果，请检查模型服务或稍后重试。")
-            if plot and plot.crop != identified_crop:
-                raise HTTPException(422, f"图片识别为{identified_crop}，与所选{plot.crop}地块不一致，请更换地块或取消关联后重试。")
+            detected_crops = {box['crop'] for box in predicted.boxes} or {identified_crop}
+            if plot and any(found != plot.crop for found in detected_crops):
+                crop_summary = '、'.join(sorted(detected_crops))
+                raise HTTPException(422, f"检测目标包含{crop_summary}，与所选{plot.crop}地块不一致，请更换地块或取消关联后重试。")
             # Windows and POSIX path components are stripped from client-supplied names.
             display_name = (file.filename or "田间采样").replace("\\", "/").split("/")[-1][:180]
             row = Detection(
@@ -280,7 +287,7 @@ def create_app(settings=None):
                 image_url=f"/api/uploads/{filename}", is_demo=False,
             )
             if predicted.model:
-                row.prediction = DetectionPrediction(candidates=predicted.candidates, model=predicted.model)
+                row.prediction = DetectionPrediction(candidates=predicted.candidates, model=prediction_snapshot(predicted))
             db.add(row)
             db.commit()
         except Exception:
@@ -294,10 +301,11 @@ def create_app(settings=None):
     def detection(detection_id: str, db=Depends(get_db)):
         return detection_data(load_detection(db, detection_id))
 
-    @app.delete("/api/detections/{detection_id}", dependencies=[Depends(admin_user)])
-    def delete_detection(detection_id: str, db=Depends(get_db)):
+    @app.delete("/api/detections/{detection_id}")
+    def delete_detection(detection_id: str, user=Depends(admin_user), db=Depends(get_db)):
         row = load_detection(db, detection_id)
         image_url = row.image_url
+        add_audit(db, user, "delete", "detection", row.id, f"删除检测样本：{row.name}")
         db.delete(row)
         db.commit()
         if image_url and image_url.startswith("/api/uploads/"):
@@ -323,18 +331,20 @@ def create_app(settings=None):
     def plots(db=Depends(get_db)):
         return [plot_data(p) for p in db.scalars(select(Plot).options(selectinload(Plot.detections)).order_by(Plot.name))]
 
-    @app.post("/api/plots", status_code=201, dependencies=[Depends(admin_user)])
-    def create_plot(body: PlotCreate, db=Depends(get_db)):
+    @app.post("/api/plots", status_code=201)
+    def create_plot(body: PlotCreate, user=Depends(admin_user), db=Depends(get_db)):
         plot = Plot(**body.model_dump(exclude={"latitude", "longitude"}))
         if body.latitude is not None:
             plot.details = PlotDetails(latitude=body.latitude, longitude=body.longitude)
         db.add(plot)
+        db.flush()
+        add_audit(db, user, "create", "plot", plot.id, f"新建地块：{plot.name}")
         db.commit()
         app.state.cache.invalidate()
         return plot_data(plot)
 
-    @app.patch("/api/plots/{plot_id}", dependencies=[Depends(admin_user)])
-    def update_plot(plot_id: str, body: PlotUpdate, db=Depends(get_db)):
+    @app.patch("/api/plots/{plot_id}")
+    def update_plot(plot_id: str, body: PlotUpdate, user=Depends(admin_user), db=Depends(get_db)):
         plot = db.get(Plot, plot_id)
         if not plot:
             raise HTTPException(404, "地块不存在。")
@@ -348,12 +358,13 @@ def create_app(settings=None):
                 plot.details = PlotDetails()
             plot.details.latitude = body.latitude
             plot.details.longitude = body.longitude
+        add_audit(db, user, "update", "plot", plot.id, f"更新地块：{plot.name}")
         db.commit()
         app.state.cache.invalidate()
         return plot_data(plot)
 
-    @app.post("/api/plots/{plot_id}/cover", dependencies=[Depends(admin_user)])
-    async def upload_plot_cover(plot_id: str, file: UploadFile = File(...), db=Depends(get_db)):
+    @app.post("/api/plots/{plot_id}/cover")
+    async def upload_plot_cover(plot_id: str, file: UploadFile = File(...), user=Depends(admin_user), db=Depends(get_db)):
         plot = db.get(Plot, plot_id)
         if not plot:
             raise HTTPException(404, "地块不存在。")
@@ -368,6 +379,7 @@ def create_app(settings=None):
             if not plot.details:
                 plot.details = PlotDetails()
             plot.details.cover_filename = filename
+            add_audit(db, user, "update_cover", "plot", plot.id, f"更新地块封面：{plot.name}")
             db.commit()
         except Exception:
             db.rollback()
@@ -378,26 +390,28 @@ def create_app(settings=None):
         app.state.cache.invalidate()
         return plot_data(plot)
 
-    @app.delete("/api/plots/{plot_id}/cover", dependencies=[Depends(admin_user)])
-    def delete_plot_cover(plot_id: str, db=Depends(get_db)):
+    @app.delete("/api/plots/{plot_id}/cover")
+    def delete_plot_cover(plot_id: str, user=Depends(admin_user), db=Depends(get_db)):
         plot = db.get(Plot, plot_id)
         if not plot:
             raise HTTPException(404, "地块不存在。")
         cover_filename = plot.details.cover_filename if plot.details else None
         if cover_filename:
             plot.details.cover_filename = None
+            add_audit(db, user, "delete_cover", "plot", plot.id, f"移除地块封面：{plot.name}")
             db.commit()
             remove_unreferenced_image(settings.upload_dir / cover_filename)
             app.state.cache.invalidate()
         return plot_data(plot)
 
-    @app.delete("/api/plots/{plot_id}", dependencies=[Depends(admin_user)])
-    def delete_plot(plot_id: str, db=Depends(get_db)):
+    @app.delete("/api/plots/{plot_id}")
+    def delete_plot(plot_id: str, user=Depends(admin_user), db=Depends(get_db)):
         plot = db.get(Plot, plot_id)
         if not plot:
             raise HTTPException(404, "地块不存在。")
         cover_filename = plot.details.cover_filename if plot.details else None
         db.execute(update(Detection).where(Detection.plot_id == plot_id).values(plot_id=None))
+        add_audit(db, user, "delete", "plot", plot.id, f"删除地块并保留历史检测：{plot.name}")
         db.delete(plot)
         db.commit()
         if cover_filename:
@@ -406,10 +420,22 @@ def create_app(settings=None):
         return {"message": "地块已删除，历史检测记录已保留。"}
 
     @app.get("/api/knowledge", dependencies=[Depends(readable)])
-    def knowledge():
-        return KNOWLEDGE
+    def knowledge(db=Depends(get_db)):
+        rows = db.scalars(select(KnowledgeArticle).where(KnowledgeArticle.status == "published")
+                          .order_by(KnowledgeArticle.created_at, KnowledgeArticle.id)).all()
+        fields = ("id", "title", "crop", "category", "summary", "content", "sources", "image")
+        return [{key: value for key, value in article_data(row).items() if key in fields} for row in rows]
 
     install_extensions(app, settings, get_db)
+    install_admin(app, get_db, detection_data, plot_data)
+    install_media(app, get_db)
+    install_runtime_config(app, settings, get_db)
+    # CORS wraps feature restrictions so native clients can read their errors.
+    app.add_middleware(
+        CORSMiddleware, allow_origins=[x.strip() for x in settings.cors_origins if x.strip()],
+        allow_credentials=False, allow_methods=["GET", "POST", "PATCH", "DELETE"],
+        allow_headers=["Authorization", "Content-Type"],
+    )
     return app
 
 

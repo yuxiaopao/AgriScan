@@ -2,9 +2,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-from sqlalchemy import JSON, Boolean, DateTime, Double, Float, ForeignKey, String, Text, create_engine, event
+from sqlalchemy import JSON, Boolean, DateTime, Double, Float, ForeignKey, Index, Integer, String, Text, create_engine, event, text
+from sqlalchemy.dialects.mysql import DATETIME
 from sqlalchemy.engine import make_url
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, sessionmaker
+
+
+Timestamp = DateTime().with_variant(DATETIME(fsp=6), "mysql")
 
 
 def new_id():
@@ -26,6 +30,10 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String(256))
     name: Mapped[str] = mapped_column(String(80), default="农场管理员")
     role: Mapped[str] = mapped_column(String(30), default="admin")
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default=text("1"))
+    token_version: Mapped[int] = mapped_column(Integer, default=0, server_default=text("0"))
+    created_at: Mapped[datetime | None] = mapped_column(Timestamp, default=utcnow)
+    updated_at: Mapped[datetime | None] = mapped_column(Timestamp, default=utcnow, onupdate=utcnow)
 
 
 class Plot(Base):
@@ -33,7 +41,7 @@ class Plot(Base):
     id: Mapped[str] = mapped_column(String(32), primary_key=True, default=new_id)
     name: Mapped[str] = mapped_column(String(100))
     crop: Mapped[str] = mapped_column(String(40))
-    area: Mapped[float] = mapped_column(Float)
+    area: Mapped[float] = mapped_column(Float().with_variant(Double(), "mysql"))
     location: Mapped[str] = mapped_column(String(200))
     manager: Mapped[str] = mapped_column(String(80))
     detections: Mapped[list["Detection"]] = relationship(back_populates="plot", passive_deletes=True)
@@ -51,14 +59,15 @@ class PlotDetails(Base):
 
 class Detection(Base):
     __tablename__ = "detections"
+    __table_args__ = (Index("ix_detections_created_id", "created_at", "id"),)
     id: Mapped[str] = mapped_column(String(32), primary_key=True, default=new_id)
     name: Mapped[str] = mapped_column(String(200))
     crop: Mapped[str] = mapped_column(String(40), index=True)
     plot_id: Mapped[str | None] = mapped_column(ForeignKey("plots.id", ondelete="SET NULL"), nullable=True)
     status: Mapped[str] = mapped_column(String(30), index=True)
     result: Mapped[str | None] = mapped_column(String(200), nullable=True)
-    confidence: Mapped[float | None] = mapped_column(Float, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
+    confidence: Mapped[float | None] = mapped_column(Float().with_variant(Double(), "mysql"), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(Timestamp, default=utcnow, index=True)
     image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     is_demo: Mapped[bool] = mapped_column(Boolean, default=False)
     note: Mapped[str] = mapped_column(Text, default="")
@@ -85,7 +94,7 @@ class AppMeta(Base):
 class RevokedToken(Base):
     __tablename__ = "revoked_tokens"
     jti: Mapped[str] = mapped_column(String(32), primary_key=True)
-    expires_at: Mapped[datetime] = mapped_column(DateTime, index=True)
+    expires_at: Mapped[datetime] = mapped_column(Timestamp, index=True)
 
 
 def make_database(url):
@@ -94,7 +103,7 @@ def make_database(url):
         path = make_url(url).database
         if path and path != ":memory:":
             Path(path).parent.mkdir(parents=True, exist_ok=True)
-        kwargs["connect_args"] = {"check_same_thread": False}
+        kwargs["connect_args"] = {"check_same_thread": False, "timeout": 30}
     engine = create_engine(url, **kwargs)
     if url.startswith("sqlite"):
         @event.listens_for(engine, "connect")

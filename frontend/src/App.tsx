@@ -4,7 +4,7 @@ import {ArrowRight, ArrowUpRight, Bell, BookOpen, ChevronDown, ChevronRight, Cir
 import Access from './Access'
 import {useCropTheme} from './CropTheme'
 import FloatingAssistant from './FloatingAssistant'
-import {IntegrationSettings, WeightManager} from './Integrations'
+import {useClientConfiguration} from './ClientConfig'
 import {api, getToken, setToken} from './api'
 import {Badge, CropIcon, Loading, Modal, SecureImage} from './components'
 import {DetectPage, exportRecords, KnowledgePage, ModelsPage, PlotsPage, RecordsPage, SettingsPage} from './Pages'
@@ -16,9 +16,11 @@ const navigation = [
   {page: 'records', name: '检测记录', icon: History},
   {page: 'plots', name: '地块管理', icon: Map},
   {page: 'knowledge', name: '病害知识库', icon: BookOpen},
-  {page: 'models', name: '模型管理', icon: FlaskConical},
+  {page: 'models', name: '模型状态', icon: FlaskConical},
 ] as const
 const Dashboard = lazy(() => import('./Dashboard'))
+const adminUrl = import.meta.env.VITE_ADMIN_URL || (import.meta.env.DEV ? `${window.location.protocol}//${window.location.hostname}:5175/` : '/admin/')
+const isAdminHash = () => window.location.hash === '#admin' || window.location.hash.startsWith('#admin/')
 const pageFromHash = (): Page => {
   const hash = window.location.hash.slice(1)
   return [...navigation.map(item => item.page), 'settings'].includes(hash as Page) ? hash as Page : 'dashboard'
@@ -27,8 +29,10 @@ const accessFromHash = () => {const hash = window.location.hash.slice(1); return
 interface Resources {dashboard: DashboardData; records: Detection[]; plots: Plot[]; articles: Article[]; model: ModelInfo}
 
 export default function App() {
+  const client = useClientConfiguration()
   const {crop: activeCrop, theme} = useCropTheme()
   const [accessPage, setAccessPage] = useState(accessFromHash)
+  const [authLoading, setAuthLoading] = useState(Boolean(getToken()))
   const [page, setPage] = useState<Page>(pageFromHash)
   const [data, setData] = useState<Resources | null>(null)
   const [health, setHealth] = useState<Health | null>(null)
@@ -58,7 +62,8 @@ export default function App() {
   const requireAuth = () => {if (user && getToken()) return true; setSelected(null); setDeleteRecord(false); (window.location.hash = 'login'); return false}
 
   useEffect(() => {
-    const onHash = () => {setPage(pageFromHash()); setAccessPage(accessFromHash()); setAccountOpen(false); window.scrollTo({top: 0, behavior: 'instant'})}
+    const onHash = () => {if (isAdminHash()) {window.location.replace(adminUrl + window.location.hash); return}; setPage(pageFromHash()); setAccessPage(accessFromHash()); setAccountOpen(false); window.scrollTo({top: 0, behavior: 'instant'})}
+    if (isAdminHash()) window.location.replace(adminUrl + window.location.hash)
     const expired = () => {setUser(null); setDetectionRequests([]); (window.location.hash = 'login')}
     const dismiss = (event: KeyboardEvent) => {if (event.key === 'Escape') {setMenu(false); setNotifications(false); setAccountOpen(false)}}
     window.addEventListener('hashchange', onHash)
@@ -66,7 +71,8 @@ export default function App() {
     window.addEventListener('keydown', dismiss)
     document.documentElement.classList.toggle('compact', localStorage.getItem('agriscan-compact') === 'true')
     document.documentElement.classList.toggle('reduce-motion', localStorage.getItem('agriscan-motion') === 'false')
-    if (getToken()) api<User>('/auth/me').then(setUser).catch(() => setUser(null))
+    if (getToken()) api<User>('/auth/me').then(setUser).catch(() => setUser(null)).finally(() => setAuthLoading(false))
+    else setAuthLoading(false)
     return () => {window.removeEventListener('hashchange', onHash); window.removeEventListener('agriscan-auth-expired', expired); window.removeEventListener('keydown', dismiss)}
   }, [])
   useEffect(() => {
@@ -79,7 +85,7 @@ export default function App() {
     return () => document.removeEventListener('pointerdown', outside)
   }, [accountOpen])
   useEffect(() => {
-    if (accessPage) return
+    if (accessPage || isAdminHash()) return
     let current = true
     setError('')
     if (!data) setLoading(true)
@@ -96,11 +102,19 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, period, accessPage])
   useEffect(() => {if (!toastMessage) return; const timer = setTimeout(() => setToastMessage(''), 5000); return () => clearTimeout(timer)}, [toastMessage])
-  useEffect(() => {document.title = `${accessPage ? ({welcome:'欢迎来到禾观',login:'登录',register:'创建账户'}[accessPage]) : navigation.find(item => item.page === page)?.name ?? '系统设置'} · AgriScan 禾观`}, [page, accessPage])
+  useEffect(() => {document.title = `${accessPage ? ({welcome:'欢迎来到禾观',login:'登录',register:'创建账户'}[accessPage]) : navigation.find(item => item.page === page)?.name ?? '系统设置'} · ${client.brand.app_name}`}, [page, accessPage, client.brand.app_name])
   async function logout() {
+    const logoutToken = getToken()
+    let logoutError = ''
     try {await api('/auth/logout', {method: 'POST'})}
-    catch (e) {toast((e as Error).message); return}
-    setToken(null); setUser(null); setData(null); setDetectionRequests([]); window.location.hash = 'welcome'; reload(); toast('已退出登录。')
+    catch (e) {logoutError = (e as Error).message}
+    finally {
+      const currentToken = getToken()
+      if (!currentToken || currentToken === logoutToken) {
+        setToken(null); setUser(null); setData(null); setDetectionRequests([]); setSelected(null); setDeleteRecord(false)
+        window.location.hash = 'welcome'; reload(); toast(logoutError ? `已退出本地登录。${logoutError}` : '已退出登录。')
+      }
+    }
   }
   async function removeRecord() {
     if (!selected) return
@@ -110,15 +124,17 @@ export default function App() {
     finally {setDeleteBusy(false)}
   }
   const currentPageName = navigation.find(item => item.page === page)?.name ?? '系统设置'
+  if (isAdminHash()) return <main className="main-content"><section className="panel empty"><ShieldCheck size={36}/><h1>正在打开独立管理控制台</h1><a className="button primary" href={adminUrl}>前往管理端</a></section></main>
+  if (authLoading) return <main className="main-content"><Loading/></main>
   if (accessPage) return <Access page={accessPage} onLogin={value => {setUser(value); window.location.hash = 'dashboard'; reload()}}/>
   return <div className="app-shell">
     {menu && <button className="sidebar-scrim" aria-label="关闭导航" onClick={() => setMenu(false)}/>}
     <aside className={`sidebar ${menu ? 'open' : ''}`}>
-      <a className="brand" href="#dashboard" onClick={() => setMenu(false)}><span className="brand-mark"><Sprout size={25} strokeWidth={1.8}/></span><span><strong>AgriScan<span>禾观</span></strong><small>看见生长的力量</small></span></a>
-      <div className="workspace-name"><span className="workspace-avatar"><Leaf size={17}/></span><span><strong>智慧农业工作空间</strong><small>AGRICULTURE WORKSPACE</small></span><span className="workspace-dot"/></div>
+      <a className="brand" href="#dashboard" onClick={() => setMenu(false)}><img className="brand-logo" src="/brand/logo.svg" alt="禾观 AgriScan" width="166" height="60"/></a>
+      <div className="workspace-name"><span className="workspace-avatar"><Leaf size={17}/></span><span><strong>{client.brand.app_name}</strong><small>AGRICULTURE WORKSPACE</small></span><span className="workspace-dot"/></div>
       <div className="nav-section-title">工作空间<span>WORKSPACE</span></div>
-      <nav aria-label="主导航">{navigation.map(item => <a key={item.page} href={`#${item.page}`} className={`nav-link ${page === item.page ? 'active' : ''}`} aria-current={page === item.page ? 'page' : undefined} onClick={() => setMenu(false)}><item.icon size={18} strokeWidth={1.7}/><span>{item.name}</span>{item.page === 'detect' ? <span className="nav-ai">AI</span> : page === item.page ? <span className="nav-dot"/> : null}</a>)}</nav>
-      <div className="sidebar-bottom"><a className={`nav-link ${page === 'settings' ? 'active' : ''}`} href="#settings" onClick={() => setMenu(false)}><Settings2 size={18}/><span>系统设置</span></a><button className="nav-link help-link" onClick={() => setHelp(true)}><CircleHelp size={18}/><span>使用帮助</span><ArrowUpRight size={14}/></button></div>
+      <nav aria-label="主导航">{navigation.filter(item => (item.page !== 'knowledge' || client.features.knowledge) && (item.page !== 'plots' || client.features.plots)).map(item => <a key={item.page} href={`#${item.page}`} className={`nav-link ${page === item.page ? 'active' : ''}`} aria-current={page === item.page ? 'page' : undefined} onClick={() => setMenu(false)}><item.icon size={18} strokeWidth={1.7}/><span>{item.name}</span>{item.page === 'detect' ? <span className="nav-ai">AI</span> : page === item.page ? <span className="nav-dot"/> : null}</a>)}</nav>
+      <div className="sidebar-bottom">{user?.role === 'admin' && <a className="nav-link" href={adminUrl} target="_blank" rel="noreferrer" onClick={() => setMenu(false)}><ShieldCheck size={18}/><span>管理中心</span><ArrowUpRight size={14}/></a>}<a className={`nav-link ${page === 'settings' ? 'active' : ''}`} href="#settings" onClick={() => setMenu(false)}><Settings2 size={18}/><span>系统设置</span></a><button className="nav-link help-link" onClick={() => setHelp(true)}><CircleHelp size={18}/><span>使用帮助</span><ArrowUpRight size={14}/></button></div>
     </aside>
     <div className="main-shell"><header className="topbar"><div className="breadcrumb"><button className="icon-button mobile-menu" onClick={() => setMenu(true)} aria-label="打开导航"><Menu size={20}/></button><Sprout size={16}/><span>工作空间</span><ChevronRight size={13}/><strong>{currentPageName}</strong></div><div className="topbar-actions"><span className="crop-theme-indicator" title="在作物检测页切换作物主题"><i/>{activeCrop} · {theme.name}</span><form className="global-search" onSubmit={event => {event.preventDefault(); navigate('records')}}><Search size={15}/><input value={search} onChange={event => setSearch(event.target.value)} placeholder="搜索检测记录…" aria-label="全局搜索检测记录"/><kbd>↵</kbd></form><div className="topbar-divider"/><div className="notification-wrap"><button className={`icon-button notification-button ${notifications ? 'selected' : ''}`} aria-label="通知" aria-expanded={notifications} onClick={() => {setAccountOpen(false); setNotifications(value => !value)}}><Bell size={19}/>{!!data?.dashboard.stats.pending && <i/>}</button>{notifications && <div className="notification-menu"><h3>工作空间通知</h3><div><span className="notification-icon"><FlaskConical size={18}/></span><p><strong>{data?.model.active ? '检测服务已就绪' : '模型等待接入'}</strong><span>{data?.dashboard.stats.pending ?? 0} 份样本等待分析，模型管理中可查看接入进度。</span></p></div><button className="text-button" onClick={() => navigate('models')}>前往模型管理<ArrowRight size={14}/></button></div>}</div>
       <div className="account-wrap" ref={accountArea} onBlur={event => {
@@ -150,17 +166,18 @@ export default function App() {
         </div>}
       </div></div></header>
       <main className="main-content">
+      {client.brand.announcement && <div className="client-announcement" role="status"><Bell size={17}/><p>{client.brand.announcement}</p></div>}
       {error && <div className="error-banner" role="alert"><CircleAlert size={18}/><span>{error}</span><button onClick={reload}>重新连接<RefreshCw size={14}/></button></div>}
       {loading ? <Loading/> : data ? <>
         {page === 'dashboard' && <Suspense fallback={<Loading/>}><Dashboard data={data.dashboard} plots={data.plots} period={period} setPeriod={setPeriod} navigate={navigate} onSelect={setSelected} onExport={() => exportRecords(data.records)} onAttention={() => {setRecordStatus('attention'); setSearch(''); navigate('records')}}/></Suspense>}
-        {page === 'detect' && <DetectPage plots={data.plots} model={data.model} requireAuth={requireAuth} onChange={reload} toast={toast} onDetected={queueDetection}/>}
+        {page === 'detect' && <DetectPage plots={data.plots} model={data.model} requireAuth={requireAuth} onChange={reload} toast={toast} onDetected={client.features.assistant ? queueDetection : () => {}}/>}
         {page === 'records' && <RecordsPage records={data.records} crops={data.model.available_crops} onSelect={setSelected} search={search} setSearch={setSearch} status={recordStatus} setStatus={setRecordStatus}/>}
-        {page === 'plots' && <PlotsPage plots={data.plots} crops={data.model.available_crops} draftOwner={user?.username ?? 'guest'} requireAuth={requireAuth} onChange={reload} toast={toast}/>}
-        {page === 'knowledge' && <KnowledgePage articles={data.articles}/>}
-        {page === 'models' && <ModelsPage model={data.model} health={health}><WeightManager onChange={reload} canManage={user?.role === 'admin'}/></ModelsPage>}
-        {page === 'settings' && <><SettingsPage health={health} user={user} onLogin={() => (window.location.hash = 'login')} onLogout={logout}/>{user?.role === 'admin' && <IntegrationSettings/>}</>}
+        {page === 'plots' && (client.features.plots ? <PlotsPage canManage={user?.role === 'admin'} plots={data.plots} crops={data.model.available_crops} draftOwner={user?.username ?? 'guest'} requireAuth={requireAuth} onChange={reload} toast={toast}/> : <section className="panel empty"><h2>地块入口暂未开放</h2><p>请联系管理员调整客户端功能配置。</p></section>)}
+        {page === 'knowledge' && (client.features.knowledge ? <KnowledgePage articles={data.articles}/> : <section className="panel empty"><h2>知识入口暂未开放</h2><p>管理员已暂停此入口。</p></section>)}
+        {page === 'models' && <ModelsPage model={data.model} health={health}/>}
+        {page === 'settings' && <SettingsPage health={health} user={user} onLogin={() => (window.location.hash = 'login')} onLogout={logout}/>}
       </> : !loading && <div className="connection-empty"><img src="/images/xiaohe.png" alt="小禾等待服务连接"/><h1>小禾正在等待工作空间就绪</h1><p>启动后端服务，连接后即可查看地块与检测数据。</p><button className="button primary" onClick={reload}><RefreshCw size={16}/>重新连接</button></div>}
-      <footer className="page-footer"><span><Sprout size={14}/>AgriScan 禾观 <span className="footer-dot">·</span>让科技扎根，让生长可见</span><span>用心守护每一份绿意 <Leaf size={12}/></span></footer>
+      <footer className="page-footer"><span><img src="/brand/icon.svg" alt="" width="20" height="20"/>{client.brand.app_name} <span className="footer-dot">·</span>{client.brand.tagline}</span><span>用心守护每一份绿意 <Leaf size={12}/></span></footer>
       </main>
     </div>
     <FloatingAssistant key={user?.username || 'guest'} user={user} detectionRequests={detectionRequests} onDetectionHandled={handledDetection}/>

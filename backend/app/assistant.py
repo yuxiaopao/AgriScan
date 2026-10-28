@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, func, select, update
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .db import Base, utcnow
+from .db import Timestamp, Base, utcnow
 from .security import current_user
 
 
@@ -16,8 +16,8 @@ class Conversation(Base):
     id: Mapped[str] = mapped_column(String(32), primary_key=True, default=lambda: uuid4().hex)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     title: Mapped[str] = mapped_column(String(80), default="新对话")
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
-    busy_until: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime(2000, 1, 1))
+    updated_at: Mapped[datetime] = mapped_column(Timestamp, default=utcnow, index=True)
+    busy_until: Mapped[datetime] = mapped_column(Timestamp, default=lambda: datetime(2000, 1, 1))
 
 
 class ChatMessage(Base):
@@ -26,7 +26,7 @@ class ChatMessage(Base):
     conversation_id: Mapped[str] = mapped_column(ForeignKey("assistant_conversations.id"), index=True)
     role: Mapped[str] = mapped_column(String(20))
     content: Mapped[str] = mapped_column(Text)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    created_at: Mapped[datetime] = mapped_column(Timestamp, default=utcnow)
 
 
 class ChatInput(BaseModel):

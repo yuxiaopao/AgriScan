@@ -93,6 +93,24 @@ def test_upload_persists_real_image_without_diagnosis_then_deletes(client):
     assert client.get("/api/dashboard").json()["stats"]["pending"] == 0
 
 
+def test_uploaded_jpeg_applies_exif_orientation_before_stripping_metadata(client):
+    image = Image.new('RGB', (80, 40), (220, 20, 20))
+    image.paste((20, 180, 30), (40, 0, 80, 40))
+    exif = Image.Exif()
+    exif[274] = 6  # Camera orientation: display the sensor pixels rotated 90 degrees clockwise.
+    data = io.BytesIO()
+    image.save(data, format='JPEG', quality=95, exif=exif)
+    response = client.post('/api/detections', headers=auth(client), data={'crop': '番茄'},
+                           files={'file': ('rotated.jpg', data.getvalue(), 'image/jpeg')})
+    assert response.status_code == 201, response.text
+    stored = client.get(response.json()['image_url'])
+    with Image.open(io.BytesIO(stored.content)) as saved:
+        assert saved.size == (40, 80) and not saved.getexif()
+        upper, lower = saved.getpixel((20, 10)), saved.getpixel((20, 70))
+        assert upper[0] > 180 and upper[1] < 60
+        assert lower[1] > 140 and lower[0] < 60
+
+
 @pytest.mark.parametrize(
     "crop,plot_id,data,status",
     [
@@ -163,7 +181,7 @@ def test_production_rejects_insecure_configuration():
 def test_production_admin_rotation_replaces_password_and_revokes_existing_tokens(client):
     previous_token = auth(client)
     production_settings = replace(
-        client.app.state.settings, demo_mode=False, admin_password="new-production-password-2026",
+        client.app.state.settings.base, demo_mode=False, admin_password="new-production-password-2026",
     )
     # Run the same production startup initializer on a persisted SQLite test DB.
     # SQLAlchemy initialization is identical on MySQL; no model/DB service is mocked.
@@ -182,7 +200,7 @@ def test_production_admin_rotation_replaces_password_and_revokes_existing_tokens
 
 
 def test_managed_admin_can_be_renamed_without_leaving_old_login(client):
-    settings = replace(client.app.state.settings, admin_username="farm-owner", admin_password="new-password-2026")
+    settings = replace(client.app.state.settings.base, admin_username="farm-owner", admin_password="new-password-2026")
     with client.app.state.session() as db:
         initialize_data(db, settings)
     assert client.post(

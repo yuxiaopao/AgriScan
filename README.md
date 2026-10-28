@@ -1,10 +1,40 @@
 # 禾观 AgriScan · 农业智能检测平台
 
-面向桌面浏览器的农业检测系统，采用 React + TypeScript + FastAPI + MySQL + Redis。界面围绕农田、作物健康与检测任务设计，并配有原创农业 IP 形象「小禾」。
+包含独立桌面用户端、手机 APP 与管理控制台的农业检测系统，采用 React + TypeScript + FastAPI + MySQL + Redis，Android 使用 Capacitor。界面围绕农田、作物健康与检测任务设计，并配有原创农业 IP 形象「小禾」。
 
-当前版本提供业务数据管理、农业知识问答与真实叶片病害分类。仓库包含已训练的 PlantVillage 38 类 PyTorch 权重和 ONNX 推理模型；按下方说明启用后，上传图片使用真实模型推理。模型为单叶图像分类，不输出病斑框；未配置模型时只保存待接入任务，不生成虚构结果。
+当前版本提供业务数据管理、农业知识问答、真实农业目标检测及旧单叶分类链路。检测模型输出真实矩形目标框，分类模型只判断整张图片的类别；按下方说明启用后，上传图片使用对应模型推理。未配置模型时只保存待接入任务，不生成虚构结果。
+
+2026-10-28 新增农业目标检测：已接入用户 `best.pt` 的 38 类检测模型，桌面端提供左侧原图、右侧真实检测框的对照；相机和视频也保留真实目标框。通过模型清单切换旧分类或新检测模式。目标框不代表病斑精确轮廓；新检测模型没有独立 mAP，不能沿用旧分类准确率。部署使用 [检测 ONNX 包](models/candidates/user-detect-fafc2bb3ce9e/README.md)，无需在推理机安装 PyTorch。
+
+官网位于 `website/`，包含产品介绍、Android 测试包下载、网页版登录和使用帮助。服务器部署说明见 [部署文档](deploy/README.md)。
 
 [查看桌面界面预览](design/dashboard-desktop.png) · [查看窄屏预览](design/dashboard-mobile.png) · [小禾 IP 原图](frontend/public/images/xiaohe.png) · [图像生成提示词与记录](design/mascot-prompt.txt)
+
+## 手机 APP 与独立管理端
+
+- 手机 APP：`mobile/`，默认 [5174](http://127.0.0.1:5174)，包含欢迎引导、登录注册、图片自动分类、视频时间轴、实时相机、观察档案、地块、知识、小禾私人会话和服务设置。
+- 管理控制台：`admin/`，默认 [5175](http://127.0.0.1:5175)，独立管理员登录，维护成员、业务数据、知识、模型产物、审计及运行配置。
+- 桌面用户端：`frontend/`，默认 [5173](http://127.0.0.1:5173)。三端共用实际 API 与 MySQL/Redis。
+
+已有后端虚拟环境和配置后，可一并启动 APP 与管理端：
+
+```powershell
+.\scripts\start-clients.ps1 -Install  # 首次安装共享前端、APP、管理端及媒体依赖
+.\scripts\start-clients.ps1           # 日常启动；复用 18000 的 AgriScan API
+.\scripts\stop-clients.ps1            # 只停止本次记录的进程
+```
+
+视频为真实模型抽帧识别（默认 50 MB、60 秒、最多 8 帧）；实时模式按间隔串行识别相机画面，可暂停并选择保存。管理员可收紧这些限额、控制客户端入口、编辑品牌公告与注册/邮件/小禾服务。设置持久化，服务端新请求立即生效；客户端刷新、回到前台或重新进入页面后读取。
+
+Android 工程及构建脚本已提供；生成 APK 需 JDK 21、Android SDK 36，发布需自己的签名密钥。手机需配置可达的 API 地址，正式环境使用 HTTPS。详见 [APP 与 APK 说明](mobile/README.md)、[管理端部署](admin/README.md)、[运行配置](docs/client-and-admin.md)。
+
+## 本地管理端
+
+管理控制台在 `admin/` 独立运行，以管理员登录后打开 [管理端](http://127.0.0.1:5175)。用户端与管理端的登录会话隔离，旧 `#admin` 链接会引导到独立入口。管理端与普通工作台共用数据库，提供业务概览、用户创建与启停、角色维护、密码重置、地块管理、检测筛选及元数据编辑、全部筛选结果 CSV 导出、知识草稿/发布/归档、模型登记、操作日志与系统状态。
+
+管理接口统一位于 `/api/admin/*`，即使开启演示模式也只允许管理员访问。停用、变更角色或重置密码会让该账号旧会话失效；由环境配置维护的初始化管理员不能在界面禁用、降权或重置密码。管理员可管理组织内业务数据，用户自己的小禾私人对话仍按账号隔离。
+
+数据库已接入 Alembic。应用启动时自动升级已有 SQLite / MySQL 结构；首次升级旧 SQLite 数据库前，会在数据库同级的 `backups/` 下创建一致性备份。原账号没有采集注册时间时保留为空；历史检测及模型快照保留。原有四篇知识仅初始化一次，之后后台编辑或归档不会被重启覆盖。详见 [后端管理与迁移说明](backend/README.md#管理端与数据库升级)。
 
 ## 从 GitHub 获取项目与权重
 
@@ -20,132 +50,77 @@ git lfs fsck
 
 仓库包含已发布的 `best.pt`、`model.onnx`、类别清单、评估报告和预训练权重，详见 [模型文件说明](models/README.md)。原始训练数据集、逐轮中间检查点、本地数据库、上传图片和真实 `.env` 配置不随仓库发布。
 
-Windows 首次运行真实分类模型（在项目根目录执行）：
+## 本地启动：前后端本机，Docker 仅数据库
+
+前端使用本机 Vite，后端使用本机 Python 虚拟环境；Docker Compose 只运行 MySQL 和 Redis，不构建或启动前后端应用镜像。要求 Node.js 22.12+、Python 3.12+，以及已启动并使用 Linux 容器的 Docker Desktop。API 默认 `18000`，避开本机其他项目占用的 `8000`；可用 `-ApiPort 18001 -WebPort 5174` 改端口，脚本会让 Vite 代理同步指向所选 API。
+
+首次运行或依赖变化时，在项目根目录执行：
 
 ```powershell
-python -m venv backend/.venv
-.\backend\.venv\Scripts\python.exe -m pip install -r backend/requirements-inference.txt
-if (!(Test-Path backend/.env)) { Copy-Item backend/.env.example backend/.env }
+.\scripts\start-dev.ps1 -Install
 ```
 
-在 `backend/.env` 中把 `MODEL_MANIFEST=` 设置为以下相对路径，然后启动：
+脚本先启动并等待 Docker 中的 MySQL、Redis 健康，再安装后端基础、ONNX 推理和存在时的媒体依赖（`requirements-media.txt`）、前端 npm 依赖，最后以隐藏进程启动本机 API 和 Vite。指定创建虚拟环境的 Python 可加 `-Python "C:\完整路径\python.exe"`。日常启动不需要重复安装：
+
+```powershell
+.\scripts\start-dev.ps1
+```
+
+| 入口 / 服务 | 默认地址 |
+| --- | --- |
+| 工作台 | [http://localhost:5173](http://localhost:5173) |
+| 管理端 | [http://127.0.0.1:5175](http://127.0.0.1:5175) |
+| API 文档 | [http://localhost:18000/docs](http://localhost:18000/docs) |
+| 健康状态 | [http://localhost:18000/api/health](http://localhost:18000/api/health) |
+| MySQL | `127.0.0.1:13308`，映射容器 `3306` |
+| Redis | `127.0.0.1:16380`，映射容器 `6379` |
+
+管理员账户以 `backend/.env` 为准；全新演示模板默认 `admin / admin12345`。脚本保留已有配置，不强制覆盖管理员、演示模式、SMTP 或 AI 设置，也不会回退到 SQLite。`/api/health` 中数据库、Redis 均为 `connected` 且 `model: ready`，才表示对应服务实际就绪。模型未就绪时明确提示，只能手动采集待检测样本。
+
+脚本默认等待数据库和各本机服务健康最多 120 秒，可用 `-WaitTimeout 240` 调整。若已有启动记录或端口占用，先执行停止脚本；不会按端口强杀其他程序。
+
+### 两份配置各管什么
+
+- 根 `.env`：Docker 的 `MYSQL_DATABASE`、`MYSQL_USER`、`MYSQL_PASSWORD`、`MYSQL_ROOT_PASSWORD`、`MYSQL_PORT`、`REDIS_PORT`。
+- `backend/.env`：本机 API 的数据库连接、Redis、上传目录、管理员、邮件、AI 与模型路径。
+- 文件不存在时脚本才复制相应 `.env.example`；已有文件和密钥不会覆盖或打印。数据库密码和端口变化时，两份配置中的连接信息需同步；密码含 URL 特殊字符时，在 `DATABASE_URL` 中做 URL 编码。
+
+本机 API 连接示例（密码使用根配置中的实际值）：
 
 ```dotenv
+DATABASE_URL=mysql+pymysql://agriscan:实际数据库密码@127.0.0.1:13308/agriscan?charset=utf8mb4
+REDIS_URL=redis://127.0.0.1:16380/0
+UPLOAD_DIR=./uploads
 MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json
 ```
 
-```powershell
-.\scripts\start-dev.ps1 -Install
-```
+模型通过本机路径加载，不使用容器内 `/app/models`。先执行 `git lfs pull` 取得实际模型；空 `MODEL_MANIFEST` 保留手动样本采集，非空但校验失败时后端拒绝启动。
 
-打开 [http://localhost:5173](http://localhost:5173)，使用演示账号 `admin / admin12345` 登录；`/api/health` 中 `model: ready` 表示模型已加载。Python 需要 3.12 或更高版本，Node.js 需要 22.12 或更高版本。已有运行中的开发服务时，先执行 `scripts/stop-dev.ps1` 再重启以读取新配置。Docker 的默认配置仍需另外安装推理依赖并挂载模型，详见训练说明。
+### 日常修改、日志与停止
 
-## 一键启动完整技术栈
-
-要求 Docker Desktop 已启动并切换到 Linux 容器，且当前账户可以访问 Docker 引擎。
-
-在项目根目录执行：
-
-```powershell
-Copy-Item .env.example .env
-docker compose up --build -d
-docker compose ps
-```
-
-打开：
-
-- 系统界面：[http://localhost:8080](http://localhost:8080)
-- 后端 API 文档：[http://localhost:8000/docs](http://localhost:8000/docs)
-- 服务健康状态：[http://localhost:8000/api/health](http://localhost:8000/api/health)
-
-首次构建会下载镜像并安装依赖。MySQL 初始化后，API 自动创建数据库表；演示模式会初始化示例数据。初始化过程需要等待一段时间，可通过以下命令查看：
-
-```powershell
-docker compose logs -f api
-```
-
-`.env.example` 默认开启 `DEMO_MODE=true`，适合本地体验。演示管理员为 `admin`，密码为 `admin12345`。示例密码和 JWT 密钥不可用于公开部署。
-
-停止并保留数据：
-
-```powershell
-docker compose down
-```
-
-MySQL 数据、Redis 持久化数据和上传文件分别保存在三个 Docker 命名卷中。不要在需要保留数据时使用 `docker compose down -v`。首次初始化后更改 `.env` 中的 MySQL 密码不会自动更改数据库内已有账户密码。
-
-默认仅向本机开放前端 `8080` 和后端 `8000` 端口，MySQL、Redis 仅在 Compose 内部网络访问。调整端口时请同时更新 `.env` 中的 `CORS_ORIGINS`。
-
-## 不启动 Docker 的本地演示
-
-要求 Node.js 22.12 或更高版本、Python 3.12 或更高版本。未配置数据库连接时，此方式默认使用 **SQLite 演示数据库**，不启用 Redis。连接 Docker 数据库见下文；完整容器部署请使用上面的 Compose 启动方式。
-
-Windows 可直接在项目根目录运行开发脚本：
-
-```powershell
-.\scripts\start-dev.ps1 -Install
-```
-
-脚本会创建 `backend/.venv`、安装依赖、以隐藏进程启动两端并检查服务健康。后续启动可省略 `-Install`；指定 Python 可使用 `-Python "C:\完整路径\python.exe"`。日志在 `.logs/`，进程记录在 `.runtime/`。脚本使用本地演示配置；前端支持热更新，后端文件变更后请停止再启动。
+前端源码自动热更新；修改后端或 `backend/.env` 后停止再启动。依赖变化加 `-Install`，不需要重建 Docker 应用镜像。
 
 ```powershell
 .\scripts\stop-dev.ps1
+.\scripts\start-dev.ps1
 ```
 
-也可以手动使用两个终端，以便查看实时日志并使用后端热重载。
+停止脚本按项目目录、PID 和开始时间核实本机进程，然后仅执行 `docker compose -p agriscan stop mysql redis`。PID 被复用时保留该进程。只停本机前后端、保持数据库运行可用 `.\scripts\stop-dev.ps1 -NativeOnly`。
 
-终端一，启动后端：
+本机日志位于 `.logs/api.out.log`、`.logs/api.err.log`、`.logs/frontend.out.log`、`.logs/frontend.err.log`。查看数据库状态和日志：
 
 ```powershell
-cd backend
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-$env:DEMO_MODE = "true"
-$env:DATABASE_URL = "sqlite:///./data/agriscan.db"
-$env:REDIS_URL = ""
-$env:UPLOAD_DIR = "./uploads"
-$env:JWT_SECRET = "local-demo-change-this-secret-before-production-2026"
-$env:ADMIN_USERNAME = "admin"
-$env:ADMIN_PASSWORD = "admin12345"
-$env:CORS_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173"
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+docker compose -p agriscan ps
+docker compose -p agriscan logs --tail 100 mysql redis
 ```
 
-终端二，启动前端：
+MySQL、Redis 持久化在 `mysql_data`、`redis_data` 命名卷，照片和模型上传位于本机 `backend/uploads/`。停止和重启保留这些数据。不要执行 `docker compose down -v` 或删除相应卷；修改配置不会自动更新已经初始化的 MySQL 用户密码。
 
-```powershell
-cd frontend
-npm install
-npm run dev -- --host 127.0.0.1
-```
+### 旧 SQLite 导入
 
-打开 [http://localhost:5173](http://localhost:5173)。前端开发服务器将 `/api`（包含 `/api/uploads` 图片接口）转发到本机 `8000` 端口。Windows PowerShell 如果阻止 `npm.ps1` 执行，可将命令中的 `npm` 替换为 `npm.cmd`。
+切换数据库连接不会自动搬迁数据。已有 SQLite 用户先停止后端写入，用 SQLite backup API 制作一致性备份，并备份上传目录；随后将备份导入独立空 MySQL 目标，核对业务表与引用文件后再启动 API。工具拒绝覆盖非空目标，且源上传备份与目标上传目录必须相互独立。
 
-SQLite 文件保存在 `backend/data/`，上传文件保存在 `backend/uploads/`，均已排除版本控制。两端分别按 `Ctrl+C` 即可停止。
-
-## 本地开发连接 Docker 中的 MySQL 与 Redis
-
-前后端在 Windows 本地运行时，可以只把 MySQL 和 Redis 放在 Docker Desktop 中。先准备项目根目录 `.env`，设置其中的数据库密码，然后执行：
-
-```powershell
-if (!(Test-Path .env)) { Copy-Item .env.example .env }
-docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --wait mysql redis
-```
-
-`docker-compose.local.yml` 只向本机开放 MySQL `3306` 和 Redis `6379`。在 `backend/.env` 中配置以下连接，将数据库密码替换为根目录 `.env` 中的 `MYSQL_PASSWORD`；如果密码含有 URL 特殊字符，需要进行 URL 编码。
-
-```dotenv
-DATABASE_URL=mysql+pymysql://agriscan:<MYSQL_PASSWORD>@127.0.0.1:3306/agriscan?charset=utf8mb4
-REDIS_URL=redis://127.0.0.1:6379/0
-```
-
-开发启动脚本会读取这些连接配置；未配置时仍默认使用 SQLite、关闭 Redis。修改后重新启动开发服务。新 MySQL 库由应用自动建表，并在演示模式初始化示例数据；不会自动导入旧 SQLite 数据，原数据库文件保留。
-
-MySQL 和 Redis 数据分别持久化在 `agriscan_mysql_data`、`agriscan_redis_data` Docker 数据卷中，可在 Docker Desktop 的 Volumes 页面查看。停止数据库但保留数据：
-
-```powershell
-docker compose -f docker-compose.yml -f docker-compose.local.yml stop mysql redis
-```
+具体命令见[后端安全导入步骤](backend/README.md#旧-sqlite-安全导入)。已完成导入的库不要重复导入。本次迁移已核对 15 张业务表（另含 1 张迁移版本表）、14 个时间列及 9 个文件 SHA256，保留原 SQLite 与上传备份。
 
 ## 项目结构与请求链路
 
@@ -156,20 +131,20 @@ AgriScan/
 │  ├─ app/               FastAPI API、数据模型及业务服务
 │  ├─ requirements.txt   Python 依赖
 │  └─ Dockerfile
-├─ docker-compose.yml    MySQL + Redis + API + Nginx
+├─ docker-compose.yml    仅 MySQL + Redis
 └─ .env.example          本地环境变量模板
 ```
 
 ```text
 浏览器
-  └─ Nginx :8080 / Vite :5173
+  └─ 本机 Vite :5173
        ├─ React 页面与静态资源
-       ├─ /api/* ────── FastAPI :8000 ── MySQL
-       │                         └──── Redis
+       ├─ /api/* ────── 本机 FastAPI :18000 ── Docker MySQL :13308
+       │                         └──── Docker Redis :16380
        └─ /api/uploads/* ── 带访问校验的上传图片接口
 ```
 
-React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MySQL 保存业务数据；Redis 实际用于看板 30 秒缓存，写入后清理缓存；Nginx 在容器环境统一转发 API 与上传图片请求。目前尚无推理队列或独立 worker。API 文档以运行后的 `/docs` 为准。
+React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MySQL 保存业务数据；Redis 实际用于看板 30 秒缓存，写入后清理缓存；本机 Vite 将 API 与上传图片请求代理到本机 FastAPI。目前尚无推理队列或独立 worker。API 文档以运行后的 `/docs` 为准。
 
 ## 页面与主要流程
 
@@ -193,7 +168,7 @@ React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MyS
 
 ## 注册、邮件验证与大模型配置
 
-本地开发使用 `backend/.env`，Docker Compose 使用项目根目录 `.env`。对应 `.env.example` 已提供完整模板；本地首次配置可执行 `Copy-Item backend/.env.example backend/.env`，已有配置时直接编辑，避免覆盖。
+应用配置统一使用 `backend/.env`；根 `.env` 只管理 Docker 数据库。启动脚本仅在文件不存在时复制相应模板，保留已有配置。
 
 | 配置项 | 默认值 | 说明 |
 | --- | --- | --- |
@@ -213,7 +188,7 @@ React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MyS
 
 开启小禾问答需要同时设置 `LLM_ENABLED=true`、`LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`。问题由 FastAPI 转发到配置的服务；前端不会得到 API 密钥。普通问答响应只包含回答文本，不附带模型名称或服务地址；配置详情仅管理员设置接口可读取。问答属于通用农业知识回答，目前没有知识库检索增强（RAG）或图片诊断。管理员在系统设置页只能查看配置状态，实际更改仍以环境配置文件为准。
 
-本地修改后执行 `scripts/stop-dev.ps1` 和 `scripts/start-dev.ps1`；Docker 修改后执行 `docker compose up -d --force-recreate api`，仅 `restart` 不会更新 Compose 环境变量。不要把密钥写到前端的 `VITE_*` 变量。若增大权重上限超过 200 MB，同时调整 `frontend/nginx.conf` 的 `client_max_body_size` 并重新构建前端容器。
+修改后端或应用配置后停止再启动本机服务；依赖变化加 `-Install`，前端源码自动热更新。不要把密钥写到前端 `VITE_*` 变量。当前本机流程不使用前端容器。
 
 ### 小禾悬浮助手
 
@@ -257,7 +232,7 @@ React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MyS
 
 环境变量中的 `ADMIN_USERNAME`、`ADMIN_PASSWORD` 管理系统初始化管理员；修改后重启 API 会同步该账户，并让旧会话失效。存在账户冲突或无法唯一识别旧管理员时，服务会拒绝继续启动，需要先处理账户迁移。切换 `DEMO_MODE` 不会删除旧的示例记录，因此生产部署仍建议使用独立数据库。两个环境模板中的公开演示 JWT 密钥均不可用于生产模式。
 
-还需要根据实际环境配置 HTTPS、域名、网络访问控制、数据库备份、审计日志、限流以及对象存储。Redis 默认仅在内部网络开放；需要跨主机访问时应配置认证与 TLS。生产数据库应引入版本化迁移；当前自动建表流程不能替代数据库迁移。
+还需要根据实际环境配置 HTTPS、域名、网络访问控制、数据库备份、审计日志、限流以及对象存储。本地 MySQL `13308` 与 Redis `16380` 仅绑定 `127.0.0.1`；需要跨主机访问时应配置访问控制、认证与 TLS。应用已通过 Alembic 执行显式版本迁移，不依赖 `create_all` 修改旧表。
 
 `/api/health` 返回数据库、Redis、运行模式和模型状态。Redis 不可用时系统退回数据库查询，并将状态标记为 `degraded`。当前为单组织共享工作空间，提供管理员与普通成员两类权限，注册成员可读取组织内全部业务数据；尚未实现多租户隔离或用户独立数据空间。不面向公开注册的组织应设置 `REGISTRATION_ENABLED=false`。
 
@@ -290,8 +265,8 @@ React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MyS
 
 ### 检测候选与浮动助手
 
-检测完成后会保留实际模型前 5 项分类候选及原始概率（全类别排序，不按所选作物重新归一化），同时保存当次模型名称、任务和 ONNX 摘要。候选与模型快照位于 `detection_predictions` 新表，应用启动自动建表，兼容现有 SQLite/MySQL 数据；历史记录未存候选时不伪造补全。删除检测会一并删除其预测快照。
+检测完成后会保留前 5 项实际候选。分类模型保留原始概率（全类别排序，不按所选作物重新归一化）；目标检测模型保留每个类别的最高目标置信度和全部已保留的真实框，同时保存当次模型名称、任务和 ONNX 摘要。候选与模型快照位于 `detection_predictions` 表，通过版本迁移维护结构，兼容历史数据；历史记录未存候选时不伪造补全。删除检测会一并删除其预测快照。
 
-当前发布权重是 38 类单标签分类模型，候选列表不表示一片叶子同时患多种病。多病共存的判断需要多标签或病斑检测训练与验证，不能通过修改置信度来模拟。页面显示两位小数，极小非零分数显示 `<0.01%`，接近 1 的分数显示 `>99.99%`，浮点输出恰为 1 时显示 `≈100%`；原始值不截断或人为降低，置信度也不等于田间准确率。
+旧 38 类单标签分类模型的候选不表示一片叶子同时患多种病。新目标检测模型的候选是独立目标分数，不构成和为1的概率分布；类别和框只按模型实际输出展示，不通过修改置信度模拟诊断。页面显示两位小数，极小非零分数显示 `<0.01%`，接近 1 的分数显示 `>99.99%`，浮点输出恰为 1 时显示 `≈100%`；原始值不截断或人为降低，置信度也不等于田间准确率。
 
 小禾标题栏支持移动、缩小、最大化和还原，右下角手柄支持自由调整尺寸。标题栏与手柄均支持方向键（Shift 加速），尺寸限制在可见窗口内；收起时才显示右下角入口。最新检测与候选由服务端传给图片解读，自动展开窗口并保存对话。

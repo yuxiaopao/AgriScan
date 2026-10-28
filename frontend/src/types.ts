@@ -1,5 +1,15 @@
 export type Page = 'dashboard' | 'detect' | 'records' | 'plots' | 'knowledge' | 'models' | 'settings'
 export type DetectionStatus = 'healthy' | 'attention' | 'awaiting_model' | 'queued' | 'processing' | 'failed'
+export interface DetectionBox {
+  class_id:number
+  key:string
+  label:string
+  crop:string
+  healthy:boolean
+  confidence:number
+  /** Normalized xyxy in the server-saved, EXIF-oriented original image. */
+  bbox:[number,number,number,number]
+}
 export interface Detection {
   id: string
   name: string
@@ -10,6 +20,7 @@ export interface Detection {
   result: string | null
   confidence: number | null
   candidates?: {key: string; label: string; crop: string; healthy: boolean; confidence: number}[]
+  boxes?:DetectionBox[]
   prediction_model?: {name: string; task: string; onnx_sha256: string} | null
   created_at: string
   image_url: string | null
@@ -36,6 +47,6 @@ export interface Dashboard {
   recent: Detection[]
 }
 export interface Health {status: string; database: string; redis: string; mode: string; model: string}
-export interface ModelInfo {active: {name: string; task: string; class_count: number; test_top1: number; test_macro_f1: number; scope: string} | null; items: unknown[]; supported_crops: string[]; available_crops: string[]; status: string; message: string}
+export interface ModelInfo {active: {name: string; task: string; class_count: number; test_top1: number | null; test_macro_f1: number | null; scope: string} | null; items: unknown[]; supported_crops: string[]; available_crops: string[]; status: string; message: string}
 export interface Article {id: string; title: string; crop: string; category: string; summary: string; content: string; image: string | null; sources?: {title: string; url: string}[]}
 export interface User {name: string; role: string; username: string}

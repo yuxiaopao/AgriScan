@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState, type ReactNode} from 'react'
 import {ArrowUpRight, Check, CircleAlert, Clock3, Leaf, LoaderCircle, ScanLine, X} from 'lucide-react'
 import type {Detection, DetectionStatus} from './types'
-import {getToken} from './api'
+import {apiResourceUrl, getToken} from './api'
 
 export const statusLabels: Record<DetectionStatus, string> = {healthy: '健康', attention: '需关注', awaiting_model: '等待模型', queued: '排队中', processing: '检测中', failed: '检测失败'}
 export function Badge({status}: {status: DetectionStatus}) {
@@ -64,7 +64,7 @@ export function SecureImage({url, alt, className}: {url: string; alt: string; cl
     let objectUrl = ''
     setSource(''); setFailed(false)
     const controller = new AbortController()
-    const resolved = new URL(url, window.location.origin)
+    const resolved = new URL(apiResourceUrl(url), window.location.origin)
     const headers = token && resolved.origin === window.location.origin ? {Authorization: `Bearer ${token}`} : undefined
     fetch(resolved, {headers, signal: controller.signal})
       .then(response => {if (!response.ok) throw new Error(); return response.blob()})

@@ -16,11 +16,12 @@ from sqlalchemy import BigInteger, DateTime, ForeignKey, String, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .db import Base, User, utcnow
+from .db import Timestamp, Base, User, utcnow
 from .inference import SUPPORTED_CROPS
 from .security import current_user, hash_password, readable
 from .assistant import install_assistant
 from .detection_assistant import install_detection_assistant
+from .admin_models import add_audit
 
 
 class UserEmail(Base):
@@ -33,8 +34,8 @@ class EmailChallenge(Base):
     __tablename__ = "email_challenges"
     email: Mapped[str] = mapped_column(String(254), primary_key=True)
     digest: Mapped[str] = mapped_column(String(64))
-    expires_at: Mapped[datetime] = mapped_column(DateTime)
-    sent_at: Mapped[datetime] = mapped_column(DateTime)
+    expires_at: Mapped[datetime] = mapped_column(Timestamp)
+    sent_at: Mapped[datetime] = mapped_column(Timestamp)
     attempts: Mapped[int] = mapped_column(default=0)
 
 
@@ -47,7 +48,7 @@ class ModelArtifact(Base):
     framework: Mapped[str] = mapped_column(String(80))
     size: Mapped[int] = mapped_column(BigInteger)
     sha256: Mapped[str] = mapped_column(String(64))
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    created_at: Mapped[datetime] = mapped_column(Timestamp, default=utcnow)
 
 
 class EmailBody(BaseModel):
@@ -184,15 +185,15 @@ def install_extensions(app, settings, get_db):
         provider = app.state.inference
         return {"active": provider.active, "status": provider.status,
                 "supported_crops": provider.supported_crops, "available_crops": SUPPORTED_CROPS,
-                "message": "已启用单叶病害分类；不输出位置框，低置信度结果需人工复核。" if provider.active else "训练模型尚未启用，当前仅保存样本。",
+                "message": ("已启用农业目标检测；返回检测目标矩形框，不代表病斑精确边界。" if provider.active.get("task") == "detect" else "已启用单叶病害分类；不输出位置框，低置信度结果需人工复核。") if provider.active else "训练模型尚未启用，当前仅保存样本。",
                 "items": [{"id": r.id, "name": r.name, "filename": r.filename, "framework": r.framework,
                            "size": r.size, "sha256": r.sha256, "status": "pending_validation",
                            "created_at": r.created_at.isoformat()} for r in rows],
                 "max_upload_mb": settings.model_max_mb}
 
-    @app.post("/api/models", status_code=201, dependencies=[Depends(admin_user)])
+    @app.post("/api/models", status_code=201)
     async def upload_model(file: UploadFile = File(...), name: str = Form(...),
-                           framework: str = Form("PyTorch / YOLO"), db=Depends(get_db)):
+                           framework: str = Form("PyTorch / YOLO"), user=Depends(admin_user), db=Depends(get_db)):
         if not name.strip() or len(name) > 100 or len(framework) > 80:
             raise HTTPException(422, "请填写有效模型名称及训练框架。")
         filename = (file.filename or "").replace("\\", "/").split("/")[-1]
@@ -216,6 +217,7 @@ def install_extensions(app, settings, get_db):
                 raise HTTPException(422, "权重文件不能为空。")
             db.add(ModelArtifact(id=model_id, name=name.strip(), filename=filename,
                                  stored_name=target.name, framework=framework, size=size, sha256=sha.hexdigest()))
+            add_audit(db, user, "upload", "model", model_id, f"登记模型文件：{name.strip()}")
             db.commit()
         except BaseException:
             db.rollback()
@@ -225,12 +227,13 @@ def install_extensions(app, settings, get_db):
             await file.close()
         return {"id": model_id, "status": "pending_validation", "message": "权重已保存，等待推理适配与验证。"}
 
-    @app.delete("/api/models/{model_id}", dependencies=[Depends(admin_user)])
-    def delete_model(model_id: str, db=Depends(get_db)):
+    @app.delete("/api/models/{model_id}")
+    def delete_model(model_id: str, user=Depends(admin_user), db=Depends(get_db)):
         row = db.get(ModelArtifact, model_id)
         if not row:
             raise HTTPException(404, "模型不存在。")
         target = settings.upload_dir / "models" / row.stored_name
+        add_audit(db, user, "delete", "model", row.id, f"删除模型文件登记：{row.name}")
         db.delete(row)
         db.commit()
         target.unlink(missing_ok=True)

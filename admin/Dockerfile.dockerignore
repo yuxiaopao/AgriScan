@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/.env*
+**/*.tsbuildinfo
+.git
+.runtime
+.venv
+data
+backend/data
+backend/uploads
+models
+training
+datasets
+runs
+uploads
+design
+*.log

@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState, type FormEvent} from 'react'
 import {ArrowLeft, ArrowUp, GripHorizontal, History, LoaderCircle, Maximize2, Minimize2, MessageCircle, Minus, Plus, Shrink, Sprout, X} from 'lucide-react'
 import {api} from './api'
+import {useClientConfiguration} from './ClientConfig'
 import type {Detection, User} from './types'
 import {Badge} from './components'
 import {useFloatingPosition, useLauncherPosition} from './useFloatingPosition'
@@ -15,6 +16,7 @@ interface Detail {conversation: Conversation; messages: Message[]}
 export default function FloatingAssistant({user, detectionRequests, onDetectionHandled}: {
   user: User | null; detectionRequests: Detection[]; onDetectionHandled: (id: string) => void
 }) {
+  const {features} = useClientConfiguration()
   const [open, setOpen] = useState(false)
   const [history, setHistory] = useState(false)
   const [wide, setWide] = useState(() => window.innerWidth >= 600)
@@ -65,6 +67,10 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
   openRef.current = open
 
   useEffect(() => {
+    if (!features.assistant) {
+      detectionRequests.forEach(record => onDetectionHandled(record.id))
+      return
+    }
     if (detectionRequests.length) {setOpen(true); setHistory(false)}
     const next = detectionRequests[0]
     if (!next || !user || loading || busy || handled.current.has(next.id)) return
@@ -73,7 +79,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     void analyzeDetection(next)
     // Requests are consumed once; pending work waits for the current response.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [detectionRequests, user, loading, busy, onDetectionHandled])
+  }, [detectionRequests, user, loading, busy, onDetectionHandled, features.assistant])
 
   useEffect(() => {
     alive.current = true
@@ -127,6 +133,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     finally {if (alive.current) setLoading(false)}
   }
   async function analyzeDetection(record: Detection) {
+    if (!features.assistant) return
     setOpen(true); setHistory(false); setDetection(record); setFailedDetection(null)
     setActive(null); setMessages([]); setError(''); setBusy(true); setAnalyzing(true)
     try {
@@ -144,7 +151,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
   async function send(event: FormEvent) {
     event.preventDefault()
     const question = draft.trim()
-    if (busy || loading || question.length < 2 || !user || (detection && !active)) return
+    if (!features.assistant || busy || loading || question.length < 2 || !user || (detection && !active)) return
     setBusy(true); setError('')
     try {
       let chat = active
@@ -190,15 +197,15 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
         <div className="assistant-toolbar">
           <button ref={historyButton} type="button" onClick={() => history ? closeHistory() : setHistory(true)} aria-label={history ? '收起历史对话' : '查看历史对话'} aria-expanded={history} aria-controls="xiaohe-history"><History size={14}/>历史对话</button>
           <span title={active?.title}>{active?.title || '新的田间话题'}</span>
-          <button onClick={fresh} disabled={busy || loading} aria-label="新建对话"><Plus size={15}/>新对话</button>
+          <button onClick={fresh} disabled={!features.assistant || busy || loading} aria-label="新建对话"><Plus size={15}/>新对话</button>
         </div>
         <div className="assistant-log" ref={log} role="log" aria-label="与小禾的对话" aria-live="polite" aria-relevant="additions">
           {detection && <div className="assistant-detection-card">
             <div><strong>刚刚完成的检测</strong><Badge status={detection.status}/></div>
             <h3>{detection.crop} · {detection.result || '尚无模型结论'}</h3>
             <p>{detection.name}</p>
-            <span>分类置信度：{confidenceText(detection.confidence)}</span>
-            <small>分类与照片解读仅供辅助判断，不能据此排除虫害。</small>
+            <span>{detection.prediction_model?.task === 'detect' || detection.boxes?.length ? '检测目标置信度' : '分类置信度'}：{confidenceText(detection.confidence)}</span>
+            <small>识别与照片解读仅供辅助判断，不能据此排除虫害。</small>
           </div>}
           {loading ? <div className="assistant-loading"><LoaderCircle size={20} className="spin"/>正在找回你的田间笔记…</div> : !messages.length && !busy && !detection && <div className="assistant-welcome">
             <Xiaohe state={greeting ? 'wave' : 'idle'}/><span>每一次观察，都值得被记住</span><h3>你好，我是小禾 🌱</h3><p>叶片有了新变化，或是想聊聊种植？<br/>把你的问题告诉我吧。</p>
@@ -210,11 +217,12 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
           </article>)}
           {busy && <>{!analyzing && <article className="chat-message user"><span className="chat-speaker">我</span><p>{draft.trim()}</p></article>}<div className="assistant-thinking" role="status"><Sprout size={15}/><span>{analyzing ? '正在整理病虫害线索与复检建议' : '小禾正在思考'}</span><i/><i/><i/></div></>}
         </div>
-        {error && <div className="assistant-error" role="alert">{error}{failedDetection ? <button disabled={busy} onClick={() => analyzeDetection(failedDetection)}>重试图片解读</button> : <button onClick={() => window.location.reload()} hidden={!loading && !!active}>重新连接</button>}</div>}
+        {error && <div className="assistant-error" role="alert">{error}{failedDetection ? <button disabled={!features.assistant || busy} onClick={() => analyzeDetection(failedDetection)}>重试图片解读</button> : <button onClick={() => window.location.reload()} hidden={!loading && !!active}>重新连接</button>}</div>}
+        {!features.assistant && <div className="assistant-error" role="status">管理员已暂停小禾新问答，历史对话仍可查看。</div>}
         <form className="assistant-composer" onSubmit={send}>
-          <div><textarea ref={input} aria-label="发送给小禾的问题" placeholder={failedDetection ? '请重试图片解读，或新建对话…' : '和小禾聊聊你的田间发现…'} value={draft} onChange={event => setDraft(event.target.value)} disabled={busy || loading || !!(detection && !active)} maxLength={2000} rows={2} onKeyDown={event => {
+          <div><textarea ref={input} aria-label="发送给小禾的问题" placeholder={failedDetection ? '请重试图片解读，或新建对话…' : '和小禾聊聊你的田间发现…'} value={draft} onChange={event => setDraft(event.target.value)} disabled={!features.assistant || busy || loading || !!(detection && !active)} maxLength={2000} rows={2} onKeyDown={event => {
             if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {event.preventDefault(); event.currentTarget.form?.requestSubmit()}
-          }}/><button type="submit" aria-label="发送消息" disabled={busy || loading || !!(detection && !active) || draft.trim().length < 2}>{busy ? <LoaderCircle size={17} className="spin"/> : <ArrowUp size={19}/>}</button></div>
+          }}/><button type="submit" aria-label="发送消息" disabled={!features.assistant || busy || loading || !!(detection && !active) || draft.trim().length < 2}>{busy ? <LoaderCircle size={17} className="spin"/> : <ArrowUp size={19}/>}</button></div>
           <p>AI 回答仅供参考 · Enter 发送，Shift + Enter 换行</p>
         </form>
       </> : <div className="assistant-guest"><Xiaohe state="wave"/><h3>你好，田间的新朋友</h3><p>登录后就能和小禾聊天，<br/>你的对话也会自动保存。</p><a className="button primary" href="#login">登录后开始聊天</a></div>}

@@ -1,5 +1,11 @@
 # 模型与权重
 
+当前接入了用户提供的农业目标检测权重 `E:/AgriScan/best.pt`。经 Ultralytics 版本兼容修正和 PyTorch / ONNX 数值核对后，推理包位于 `candidates/user-detect-fafc2bb3ce9e/`，部署仅需 `model.onnx`（81,780,544 字节）和 `manifest.json`。ONNX SHA256 为 `ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773`。
+
+该模型输出 38 类农业目标的真实矩形框。类别 ID 按原检查点 `model.names` 保持，中文名称与用户提供的「数据集类别表.xlsx」核对；表格按数量排序，不作为类别 ID 顺序。背景行没有加入模型类别。当前没有可核验的独立检测 mAP，以下旧分类模型的测试成绩不适用于这个检测模型。详细范围和兼容修复证据见[检测包说明](candidates/user-detect-fafc2bb3ce9e/README.md)。
+
+以下 PlantVillage 分类模型继续保留，可通过 `MODEL_MANIFEST` 切换，用于兼容历史分类结果。
+
 本目录的大型权重使用 Git LFS。克隆后运行 `git lfs pull` 下载实际文件，运行 `git lfs fsck` 校验本地 LFS 对象。
 
 | 路径 | 用途 | 大小（字节） |

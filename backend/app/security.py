@@ -28,7 +28,9 @@ def verify_password(password: str, encoded: str):
 
 
 def credential_signature(user: User, secret: str):
-    credential_state = f"{user.username}:{user.password_hash}".encode()
+    credential_state = (
+        f"{user.username}:{user.password_hash}:{user.role}:{int(user.is_active)}:{user.token_version}"
+    ).encode()
     return hmac.new(secret.encode(), credential_state, hashlib.sha256).hexdigest()
 
 
@@ -57,7 +59,7 @@ def current_user(request: Request, credentials: HTTPAuthorizationCredentials | N
             if db.get(RevokedToken, payload["jti"]):
                 raise error
             user = db.get(User, payload["sub"])
-            if not user:
+            if not user or not user.is_active:
                 raise error
             if not isinstance(payload["credential"], str) or not hmac.compare_digest(
                 payload["credential"], credential_signature(user, request.app.state.settings.jwt_secret),
