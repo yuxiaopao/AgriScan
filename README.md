@@ -1,272 +1,120 @@
-# 禾观 AgriScan · 农业智能检测平台
+<div align="center">
+  <img src="docs/readme/brand.png" alt="禾观 AgriScan" width="220">
+  <h1>禾观 AgriScan</h1>
+  <p><strong>让每一片叶子的变化，都成为看得见的田间记录。</strong></p>
+  <p>自动识别作物与病害 · 真实目标检测 · 桌面、手机与独立管理</p>
+  <p>
+    <img alt="React + TypeScript" src="https://img.shields.io/badge/React-TypeScript-3178C6?style=flat-square&amp;logo=react&amp;logoColor=white">
+    <img alt="FastAPI" src="https://img.shields.io/badge/API-FastAPI-009688?style=flat-square&amp;logo=fastapi&amp;logoColor=white">
+    <img alt="ONNX Runtime" src="https://img.shields.io/badge/Inference-ONNX%20Runtime-27634A?style=flat-square">
+    <img alt="Android 测试版" src="https://img.shields.io/badge/Android-公开测试版-3DDC84?style=flat-square&amp;logo=android&amp;logoColor=white">
+  </p>
+  <p>
+    <a href="https://flowly-ai.top/agriscan/">访问官网</a> ·
+    <a href="https://flowly-ai.top/agriscan/workspace/#login">打开网页版</a> ·
+    <a href="https://flowly-ai.top/agriscan/admin/">管理控制台</a> ·
+    <a href="https://flowly-ai.top/agriscan/downloads/agriscan-test.apk">下载 Android 测试版</a>
+  </p>
+</div>
 
-包含独立桌面用户端、手机 APP 与管理控制台的农业检测系统，采用 React + TypeScript + FastAPI + MySQL + Redis，Android 使用 Capacitor。界面围绕农田、作物健康与检测任务设计，并配有原创农业 IP 形象「小禾」。
+> **分支说明**：`main` 保留初始代码并更新项目展示；最新完整功能位于 [`codex/workspace-ui-and-plot-management-20261028`](https://github.com/yuxiaopao/AgriScan/tree/codex/workspace-ui-and-plot-management-20261028)。体验源码请克隆该功能分支，下方技术文档也指向该分支。
+>
+> **在线访问**：当前域名尚未完成 ICP 备案，国内部分网络可能被拦截。Android 下载为独立发布的调试签名测试包，不随 Git 源码提交；真机体验仍需自行验证。
 
-当前版本提供业务数据管理、农业知识问答、真实农业目标检测及旧单叶分类链路。检测模型输出真实矩形目标框，分类模型只判断整张图片的类别；按下方说明启用后，上传图片使用对应模型推理。未配置模型时只保存待接入任务，不生成虚构结果。
+## 从观察一片叶子开始
 
-2026-10-28 新增农业目标检测：已接入用户 `best.pt` 的 38 类检测模型，桌面端提供左侧原图、右侧真实检测框的对照；相机和视频也保留真实目标框。通过模型清单切换旧分类或新检测模式。目标框不代表病斑精确轮廓；新检测模型没有独立 mAP，不能沿用旧分类准确率。部署使用 [检测 ONNX 包](models/candidates/user-detect-fafc2bb3ce9e/README.md)，无需在推理机安装 PyTorch。
+上传图片后，禾观自动识别作物、切换对应主题，并给出病害类别、置信度与真实目标框。检测结果可以关联地块、保存原图、回看历史，再交给农业助手「小禾」继续分析。管理员在独立控制台维护数据与运行配置。
 
-官网位于 `website/`，包含产品介绍、Android 测试包下载、网页版登录和使用帮助。服务器部署说明见 [部署文档](deploy/README.md)。
+当前接入 **14 种作物、38 个健康与病害类别**的 ONNX 目标检测模型，支持 CPU 推理。检测框标示模型识别的目标范围，不代表病斑精细分割；目前没有独立检测 mAP，不能沿用旧分类模型的准确率。
 
-[查看桌面界面预览](design/dashboard-desktop.png) · [查看窄屏预览](design/dashboard-mobile.png) · [小禾 IP 原图](frontend/public/images/xiaohe.png) · [图像生成提示词与记录](design/mascot-prompt.txt)
+## 界面一览
 
-## 手机 APP 与独立管理端
+**官网 · 产品介绍与统一入口**
 
-- 手机 APP：`mobile/`，默认 [5174](http://127.0.0.1:5174)，包含欢迎引导、登录注册、图片自动分类、视频时间轴、实时相机、观察档案、地块、知识、小禾私人会话和服务设置。
-- 管理控制台：`admin/`，默认 [5175](http://127.0.0.1:5175)，独立管理员登录，维护成员、业务数据、知识、模型产物、审计及运行配置。
-- 桌面用户端：`frontend/`，默认 [5173](http://127.0.0.1:5173)。三端共用实际 API 与 MySQL/Redis。
+<img src="docs/readme/website.png" alt="禾观官网真实页面" width="100%">
 
-已有后端虚拟环境和配置后，可一并启动 APP 与管理端：
+<table>
+  <tr>
+    <td width="50%"><strong>桌面工作台 · 原图与真实检测框</strong></td>
+    <td width="50%"><strong>独立管理端 · 示例数据预览</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/readme/desktop-detection.png" alt="生产环境苹果叶片目标检测" width="100%"></td>
+    <td><img src="docs/readme/admin.png" alt="禾观管理端示例数据预览" width="100%"></td>
+  </tr>
+</table>
 
-```powershell
-.\scripts\start-clients.ps1 -Install  # 首次安装共享前端、APP、管理端及媒体依赖
-.\scripts\start-clients.ps1           # 日常启动；复用 18000 的 AgriScan API
-.\scripts\stop-clients.ps1            # 只停止本次记录的进程
-```
+<table>
+  <tr>
+    <td width="50%" align="center"><strong>手机首页</strong></td>
+    <td width="50%" align="center"><strong>手机欢迎引导</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/readme/mobile-home.png" alt="手机首页浏览器预览" width="260"></td>
+    <td align="center"><img src="docs/readme/mobile-welcome.png" alt="手机欢迎引导浏览器预览" width="260"></td>
+  </tr>
+</table>
 
-视频为真实模型抽帧识别（默认 50 MB、60 秒、最多 8 帧）；实时模式按间隔串行识别相机画面，可暂停并选择保存。管理员可收紧这些限额、控制客户端入口、编辑品牌公告与注册/邮件/小禾服务。设置持久化，服务端新请求立即生效；客户端刷新、回到前台或重新进入页面后读取。
+<sub>桌面检测图来自生产环境 YOLO 实际推理；管理端为示例数据预览。移动端为界面示例的浏览器预览，并非真机实拍；Android 安装、硬件相机及厂商权限行为需真机验收。</sub>
 
-Android 工程及构建脚本已提供；生成 APK 需 JDK 21、Android SDK 36，发布需自己的签名密钥。手机需配置可达的 API 地址，正式环境使用 HTTPS。详见 [APP 与 APK 说明](mobile/README.md)、[管理端部署](admin/README.md)、[运行配置](docs/client-and-admin.md)。
+## 三个入口，各司其职
 
-## 本地管理端
+| 能力 | 桌面用户端 | 手机 APP | 独立管理端 |
+| --- | --- | --- | --- |
+| 图片自动识别 | 作物、病害、原图与检测框对照 | 拍照 / 选图、识别与结果查看 | 检索、维护检测记录 |
+| 视频检测 | — | 按时间采样，查看各时点结果 | 管理保存的采样记录 |
+| 实时相机 | — | 串行抽帧预览，按需保存 | 控制入口与请求间隔 |
+| 地块与观察档案 | 查看、筛选及权限内维护 | 地块、记录与历史详情 | 全局维护、筛选与 CSV 导出 |
+| 农业知识 | 查阅已发布内容 | 分类浏览与搜索 | 草稿、编辑、发布与归档 |
+| 小禾农业助手 | 悬浮窗口、向左展开历史 | 私人会话与历史 | 配置服务地址、模型与密钥 |
+| 账号与系统 | 登录注册、个人偏好 | 欢迎引导、登录注册、服务设置 | 成员角色、停用、密码重置、品牌公告及功能限额 |
 
-管理控制台在 `admin/` 独立运行，以管理员登录后打开 [管理端](http://127.0.0.1:5175)。用户端与管理端的登录会话隔离，旧 `#admin` 链接会引导到独立入口。管理端与普通工作台共用数据库，提供业务概览、用户创建与启停、角色维护、密码重置、地块管理、检测筛选及元数据编辑、全部筛选结果 CSV 导出、知识草稿/发布/归档、模型登记、操作日志与系统状态。
+小禾的正常问答、图片分析与建议依赖管理员配置可用的大模型服务；未配置或连接失败时显示真实错误。邮件验证码同样需要可用的 SMTP 服务。视频采用采样检测，实时模式按间隔识别，不提供连续目标追踪；各端权限由后端校验。
 
-管理接口统一位于 `/api/admin/*`，即使开启演示模式也只允许管理员访问。停用、变更角色或重置密码会让该账号旧会话失效；由环境配置维护的初始化管理员不能在界面禁用、降权或重置密码。管理员可管理组织内业务数据，用户自己的小禾私人对话仍按账号隔离。
+## 获取完整代码
 
-数据库已接入 Alembic。应用启动时自动升级已有 SQLite / MySQL 结构；首次升级旧 SQLite 数据库前，会在数据库同级的 `backups/` 下创建一致性备份。原账号没有采集注册时间时保留为空；历史检测及模型快照保留。原有四篇知识仅初始化一次，之后后台编辑或归档不会被重启覆盖。详见 [后端管理与迁移说明](backend/README.md#管理端与数据库升级)。
-
-## 从 GitHub 获取项目与权重
-
-先安装 Git 与 Git LFS，再克隆仓库。权重以 Git LFS 保存；只取得指针文件时不能运行推理。
+需要 Git LFS、Node.js **22.12+**、Python **3.12+**；本机启动脚本使用 Windows PowerShell，Docker Desktop 负责 MySQL 与 Redis。
 
 ```powershell
 git lfs install
-git clone https://github.com/yuxiaopao/AgriScan.git
+git clone --branch codex/workspace-ui-and-plot-management-20261028 --single-branch https://github.com/yuxiaopao/AgriScan.git
 cd AgriScan
 git lfs pull
-git lfs fsck
 ```
 
-仓库包含已发布的 `best.pt`、`model.onnx`、类别清单、评估报告和预训练权重，详见 [模型文件说明](models/README.md)。原始训练数据集、逐轮中间检查点、本地数据库、上传图片和真实 `.env` 配置不随仓库发布。
+先按[后端配置说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md)准备根目录及 `backend/` 的 `.env`；当前检测清单为 `models/candidates/user-detect-fafc2bb3ce9e/manifest.json`。真实凭据、数据库和上传图片不随仓库提供。
 
-## 本地启动：前后端本机，Docker 仅数据库
-
-前端使用本机 Vite，后端使用本机 Python 虚拟环境；Docker Compose 只运行 MySQL 和 Redis，不构建或启动前后端应用镜像。要求 Node.js 22.12+、Python 3.12+，以及已启动并使用 Linux 容器的 Docker Desktop。API 默认 `18000`，避开本机其他项目占用的 `8000`；可用 `-ApiPort 18001 -WebPort 5174` 改端口，脚本会让 Vite 代理同步指向所选 API。
-
-首次运行或依赖变化时，在项目根目录执行：
+`git lfs pull` 获取仓库已有的分类模型；**新版检测 `model.onnx` 需单独取得**，按[模型恢复说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，可将 `MODEL_MANIFEST` 留空，此时不会生成识别结论。
 
 ```powershell
-.\scripts\start-dev.ps1 -Install
+.\scripts\start-dev.ps1 -Install      # API + 桌面端；首次安装依赖
+.\scripts\start-clients.ps1 -Install  # 复用 API，启动手机预览 + 管理端
 ```
 
-脚本先启动并等待 Docker 中的 MySQL、Redis 健康，再安装后端基础、ONNX 推理和存在时的媒体依赖（`requirements-media.txt`）、前端 npm 依赖，最后以隐藏进程启动本机 API 和 Vite。指定创建虚拟环境的 Python 可加 `-Python "C:\完整路径\python.exe"`。日常启动不需要重复安装：
+本机入口：桌面 `http://127.0.0.1:5173` · 手机预览 `http://127.0.0.1:5174` · 管理端 `http://127.0.0.1:5175`。管理员使用 `backend/.env` 中配置的账户；三个界面分别管理登录会话。
 
-```powershell
-.\scripts\start-dev.ps1
+Android 构建另需 **JDK 21 + Android SDK 36**，执行 `scripts/build-android.ps1`；正式发行需项目所有者保管发布签名。完整步骤见 [APP 与 APK 文档](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/mobile/README.md)。
+
+## 功能分支目录
+
+```text
+frontend/   桌面工作台                 mobile/     手机界面与 Android 工程
+admin/      独立管理控制台             backend/    FastAPI、鉴权与数据库迁移
+website/    官网静态页面               models/     模型清单、权重与校验报告
+scripts/    本机启动及构建脚本         deploy/     生产部署工具与说明
+docs/       配置、验收与项目文档       design/     小禾 IP 与界面素材记录
 ```
 
-| 入口 / 服务 | 默认地址 |
+## 继续了解
+
+| 文档 | 内容 |
 | --- | --- |
-| 工作台 | [http://localhost:5173](http://localhost:5173) |
-| 管理端 | [http://127.0.0.1:5175](http://127.0.0.1:5175) |
-| API 文档 | [http://localhost:18000/docs](http://localhost:18000/docs) |
-| 健康状态 | [http://localhost:18000/api/health](http://localhost:18000/api/health) |
-| MySQL | `127.0.0.1:13308`，映射容器 `3306` |
-| Redis | `127.0.0.1:16380`，映射容器 `6379` |
-
-管理员账户以 `backend/.env` 为准；全新演示模板默认 `admin / admin12345`。脚本保留已有配置，不强制覆盖管理员、演示模式、SMTP 或 AI 设置，也不会回退到 SQLite。`/api/health` 中数据库、Redis 均为 `connected` 且 `model: ready`，才表示对应服务实际就绪。模型未就绪时明确提示，只能手动采集待检测样本。
-
-脚本默认等待数据库和各本机服务健康最多 120 秒，可用 `-WaitTimeout 240` 调整。若已有启动记录或端口占用，先执行停止脚本；不会按端口强杀其他程序。
-
-### 两份配置各管什么
-
-- 根 `.env`：Docker 的 `MYSQL_DATABASE`、`MYSQL_USER`、`MYSQL_PASSWORD`、`MYSQL_ROOT_PASSWORD`、`MYSQL_PORT`、`REDIS_PORT`。
-- `backend/.env`：本机 API 的数据库连接、Redis、上传目录、管理员、邮件、AI 与模型路径。
-- 文件不存在时脚本才复制相应 `.env.example`；已有文件和密钥不会覆盖或打印。数据库密码和端口变化时，两份配置中的连接信息需同步；密码含 URL 特殊字符时，在 `DATABASE_URL` 中做 URL 编码。
-
-本机 API 连接示例（密码使用根配置中的实际值）：
-
-```dotenv
-DATABASE_URL=mysql+pymysql://agriscan:实际数据库密码@127.0.0.1:13308/agriscan?charset=utf8mb4
-REDIS_URL=redis://127.0.0.1:16380/0
-UPLOAD_DIR=./uploads
-MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json
-```
-
-模型通过本机路径加载，不使用容器内 `/app/models`。先执行 `git lfs pull` 取得实际模型；空 `MODEL_MANIFEST` 保留手动样本采集，非空但校验失败时后端拒绝启动。
-
-### 日常修改、日志与停止
-
-前端源码自动热更新；修改后端或 `backend/.env` 后停止再启动。依赖变化加 `-Install`，不需要重建 Docker 应用镜像。
-
-```powershell
-.\scripts\stop-dev.ps1
-.\scripts\start-dev.ps1
-```
-
-停止脚本按项目目录、PID 和开始时间核实本机进程，然后仅执行 `docker compose -p agriscan stop mysql redis`。PID 被复用时保留该进程。只停本机前后端、保持数据库运行可用 `.\scripts\stop-dev.ps1 -NativeOnly`。
-
-本机日志位于 `.logs/api.out.log`、`.logs/api.err.log`、`.logs/frontend.out.log`、`.logs/frontend.err.log`。查看数据库状态和日志：
-
-```powershell
-docker compose -p agriscan ps
-docker compose -p agriscan logs --tail 100 mysql redis
-```
-
-MySQL、Redis 持久化在 `mysql_data`、`redis_data` 命名卷，照片和模型上传位于本机 `backend/uploads/`。停止和重启保留这些数据。不要执行 `docker compose down -v` 或删除相应卷；修改配置不会自动更新已经初始化的 MySQL 用户密码。
-
-### 旧 SQLite 导入
-
-切换数据库连接不会自动搬迁数据。已有 SQLite 用户先停止后端写入，用 SQLite backup API 制作一致性备份，并备份上传目录；随后将备份导入独立空 MySQL 目标，核对业务表与引用文件后再启动 API。工具拒绝覆盖非空目标，且源上传备份与目标上传目录必须相互独立。
-
-具体命令见[后端安全导入步骤](backend/README.md#旧-sqlite-安全导入)。已完成导入的库不要重复导入。本次迁移已核对 15 张业务表（另含 1 张迁移版本表）、14 个时间列及 9 个文件 SHA256，保留原 SQLite 与上传备份。
-
-## 项目结构与请求链路
-
-```text
-AgriScan/
-├─ frontend/             React + TypeScript + Vite 桌面管理界面
-├─ backend/
-│  ├─ app/               FastAPI API、数据模型及业务服务
-│  ├─ requirements.txt   Python 依赖
-│  └─ Dockerfile
-├─ docker-compose.yml    仅 MySQL + Redis
-└─ .env.example          本地环境变量模板
-```
-
-```text
-浏览器
-  └─ 本机 Vite :5173
-       ├─ React 页面与静态资源
-       ├─ /api/* ────── 本机 FastAPI :18000 ── Docker MySQL :13308
-       │                         └──── Docker Redis :16380
-       └─ /api/uploads/* ── 带访问校验的上传图片接口
-```
-
-React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MySQL 保存业务数据；Redis 实际用于看板 30 秒缓存，写入后清理缓存；本机 Vite 将 API 与上传图片请求代理到本机 FastAPI。目前尚无推理队列或独立 worker。API 文档以运行后的 `/docs` 为准。
-
-## 页面与主要流程
-
-| 页面 | 浏览器路由 | 功能 |
-| --- | --- | --- |
-| 欢迎页 | `#welcome` 或无路由首页 | 小禾 IP 展示、产品介绍及账户入口 |
-| 登录 / 注册 | `#login` / `#register` | 独立账户页面、可选邮箱验证码注册 |
-| 总览工作台 | `#dashboard` | 作物与地块概览、趋势、近期任务、农业 IP 引导 |
-| 作物检测 | `#detect` | 自动识别作物与病害、切换检测室、关联地块与小禾解读；无模型时采集样本 |
-| 检测记录 | `#records` | 记录查询、筛选、详情与 CSV 导出 |
-| 地块管理 | `#plots` | 地块新增、修改和删除、实景封面上传与移除、地图选点 |
-| 病害知识库 | `#knowledge` | 浏览与检索作物病害知识、调用配置的大模型问答 |
-| 模型管理 | `#models` | 上传训练权重、查看文件信息与 SHA256、删除登记 |
-| 系统设置 | `#settings` | 服务状态、界面偏好、管理员查看邮件及大模型配置 |
-
-首次访问进入欢迎页，通过独立登录页进入工作空间。自助注册账户为普通成员，可浏览共享业务数据、上传样本和使用小禾问答；地块修改、删除样本和管理权重需要管理员身份。演示模式允许匿名浏览示例数据。没有适配并启用模型时，图片上传后的任务状态为 `awaiting_model`，不生成虚构置信度或检测框。
-
-编辑地块时，未保存的文字、坐标和待上传封面会自动缓存在当前浏览器的 IndexedDB 中，按账号和地块区分。关闭弹窗或刷新页面后重新编辑即可恢复；保存成功或点击“放弃草稿”会清除对应草稿。此缓存不在设备间同步，清理浏览器站点数据会移除草稿。地块卡片封面支持手动左右切换“封面 / 地图”两页，不自动播放、不首尾循环；地图页显示已保存的坐标标记，未定位的地块显示空状态。
-
-点击“删除已有封面”只标记待删除，可通过“撤销删除”恢复，保存地块后才实际移除；删除标记也随草稿保留。选择新封面会取消待删除标记。封面替换或删除后，Windows 文件占用可能使旧文件暂留磁盘，但不会影响已保存结果，失去数据库引用的旧图片地址不可再访问。
-
-## 注册、邮件验证与大模型配置
-
-应用配置统一使用 `backend/.env`；根 `.env` 只管理 Docker 数据库。启动脚本仅在文件不存在时复制相应模板，保留已有配置。
-
-| 配置项 | 默认值 | 说明 |
-| --- | --- | --- |
-| `REGISTRATION_ENABLED` | `true` | 是否允许创建普通成员账户 |
-| `EMAIL_VERIFICATION_ENABLED` | `false` | 注册是否必须通过邮箱验证码 |
-| `SMTP_HOST` / `SMTP_PORT` | 空 / `587` | 邮件服务器及端口 |
-| `SMTP_USERNAME` / `SMTP_PASSWORD` | 空 | 发信账号与授权码 |
-| `SMTP_FROM` | 空 | 发信地址，需要与服务商允许的地址一致 |
-| `SMTP_SECURITY` | `starttls` | `starttls` 一般配合 587，`ssl` 一般配合 465 |
-| `LLM_ENABLED` | `false` | 是否启用知识库“小禾问答” |
-| `LLM_BASE_URL` | `https://api.openai.com/v1` | 兼容 Chat Completions 的 API 基础地址，填写到 `/v1` 等服务商要求的前缀，不包含 `/chat/completions`；远程地址须为 HTTPS，本机 `localhost` / 回环 IP 支持 HTTP |
-| `LLM_API_KEY` / `LLM_MODEL` | 空 | 服务商 API 密钥与实际可用的模型名称 |
-| `LLM_TIMEOUT` | `30` | API 超时秒数，允许 1–120 |
-| `MODEL_MAX_UPLOAD_MB` | `200` | 单个权重最大体积，允许 1–2048 MB |
-
-开启邮件验证前填写 SMTP 配置。验证码为六位数字，有效期 10 分钟，重发间隔 60 秒，最多尝试 5 次；服务端保存验证码摘要。关闭邮件验证时邮箱为选填。邮件和大模型接口都设有基础频率限制；当前限流为单进程内存实现，多进程或公开部署需增加网关或共享限流。
-
-开启小禾问答需要同时设置 `LLM_ENABLED=true`、`LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`。问题由 FastAPI 转发到配置的服务；前端不会得到 API 密钥。普通问答响应只包含回答文本，不附带模型名称或服务地址；配置详情仅管理员设置接口可读取。问答属于通用农业知识回答，目前没有知识库检索增强（RAG）或图片诊断。管理员在系统设置页只能查看配置状态，实际更改仍以环境配置文件为准。
-
-修改后端或应用配置后停止再启动本机服务；依赖变化加 `-Install`，前端源码自动热更新。不要把密钥写到前端 `VITE_*` 变量。当前本机流程不使用前端容器。
-
-### 小禾悬浮助手
-
-工作空间各页面右下角均有透明背景的小禾入口，可拖拽移动，也可聚焦后使用方向键调整位置；点击展开小聊天窗，收起后仍可操作页面。支持 Enter 发送、Shift + Enter 换行、查看历史对话和新建对话。回复过程中收起窗口，完成时图标会显示新回复提示。
-
-点击“历史对话”会向聊天窗左侧展开独立的小菜单，聊天内容和输入框始终可见，草稿与阅读位置保留。窗口靠近屏幕左边或最大化时会为菜单留出空间；窄屏改为上方限高的历史列表。选中一段历史后加载对应对话并收起菜单；按 Esc 先关闭历史，再按一次收起助手。
-
-窗口展开时隐藏右下角图标，收起后恢复。拖动标题栏可移动窗口；聚焦标题栏后也可用方向键移动（Shift 加速）。位置在当前会话中保留，窗口始终限制在可见区域，调整浏览器尺寸后会自动适配。
-
-上传检测成功后，小禾自动展开显示服务端已保存的检测结果，并向配置的 AI 服务发送经缩放、重新编码的叶片照片（最长边 1024 像素）及分类摘要，生成可见异常、虫害线索、处理步骤、复拍复检建议。此能力要求所配置的 Chat Completions 服务支持 `image_url` 图片输入。照片分析不能替代现场确认，也不把健康分类当作排除虫害的证据；无法辨认、没有虫害证据或尚无分类模型时应明确说明。模型服务不支持图片或调用失败时保留原检测，提供“重试图片解读”入口。
-
-每个用户对同一检测的首次解读保存为独立历史对话，重复请求返回已有解读；不会覆盖原模型分类结果。对话关联保存在 `assistant_detection_discussions`，删除原检测不会删除已经保存的解读记录。普通用户看不到模型名称或接入配置。
-
-对话与消息保存在数据库的 `assistant_conversations`、`assistant_messages` 表中，按当前账号隔离；管理员也不能通过对话接口读取其他用户的历史。刷新页面后打开小禾会恢复最近的对话。列表显示最近 100 段对话，每段最多 100 轮；继续聊天时服务端传递近期最多 10 轮、约 24,000 字符的历史上下文。发送失败保留已有记录和输入，方便重新发送；新对话使用独立上下文。普通问答内容中不附带模型配置。
-
-### 作物检测室主题
-
-模型就绪时，选择叶片照片并点击“识别并保存”，无需先选作物。模型从全部类别中同时判断作物与病害或健康状态，保存真实分数和候选；页面随后自动进入识别出的作物检测室，小禾自动展开补充照片分析、处理和复检建议。低置信度结果保留候选并提示人工复核。
-
-检测页提供 17 种配色与对应手持作物的 8 帧小禾动画。模型就绪时，作物按钮仅用于浏览主题，不限制照片识别，也不修改已有结果或地块关联；刷新仍保留主题。当前权重覆盖 14 种作物，水稻、小麦和黄瓜标为“仅主题”。未配置模型时保留手动选择作物采集待检测样本的流程，不虚构自动识别结论。
-
-地块为选填项，默认不关联。自动识别时可选择任意地块；识别出的作物与所选地块不符时，接口明确提示取消或更换关联，保留页面照片与备注供重试，不保存错误关联。检测进行中锁定照片、主题、地块和备注。
-
-小禾入口保持透明且可拖拽。关闭“界面动效”或启用系统减少动态效果偏好后，角色停止动画；页面隐藏或角色离开视口时也会暂停。素材清单与生成记录见[作物主题与小禾素材](design/xiaohe-crops/README.md)。
-
-## 后续接入训练权重
-
-当前仓库已附带经过验证、供本项目显式启用的受信任发布权重与 ONNX 模型，启用方式见前文。以下流程适用于其他训练权重：
-
-1. 确定训练框架、模型任务类型、类别表与输入尺寸，例如目标检测、分类或分割。
-2. 管理员在模型管理页上传 `.pt`、`.pth`、`.onnx`、`.safetensors`、`.h5` 或 `.keras` 文件，填写名称与训练框架；权重保存在 `UPLOAD_DIR/models/`，数据库记录文件信息与 SHA256。上传后状态为“待验证与适配”，不自动反序列化或执行文件。权重默认被 Git 忽略。
-3. 实现后端模型加载与推理适配，统一返回类别、置信度、框或掩膜、模型版本及耗时。
-4. 将新权重接入真实推理流程，再启用与该任务对应的结果展示。
-5. 使用真实验证集确认效果和阈值，再引入 GPU 镜像、任务队列、并发限制及监控。
-
-模型管理页新上传的权重只登记保存，不会自动加载或执行；通过验证并完成适配后才能启用。系统不使用模拟推理冒充真实识别。
-
-## 部署边界
-
-这是可继续开发的本地系统起点。首次生产部署应使用独立的空数据库，关闭演示模式（`DEMO_MODE=false`），设置独立管理员密码及 JWT 密钥，并使用 MySQL 和 Redis。非演示模式要求管理员密码至少 12 个字符、JWT 密钥至少 32 个字符。
-
-环境变量中的 `ADMIN_USERNAME`、`ADMIN_PASSWORD` 管理系统初始化管理员；修改后重启 API 会同步该账户，并让旧会话失效。存在账户冲突或无法唯一识别旧管理员时，服务会拒绝继续启动，需要先处理账户迁移。切换 `DEMO_MODE` 不会删除旧的示例记录，因此生产部署仍建议使用独立数据库。两个环境模板中的公开演示 JWT 密钥均不可用于生产模式。
-
-还需要根据实际环境配置 HTTPS、域名、网络访问控制、数据库备份、审计日志、限流以及对象存储。本地 MySQL `13308` 与 Redis `16380` 仅绑定 `127.0.0.1`；需要跨主机访问时应配置访问控制、认证与 TLS。应用已通过 Alembic 执行显式版本迁移，不依赖 `create_all` 修改旧表。
-
-`/api/health` 返回数据库、Redis、运行模式和模型状态。Redis 不可用时系统退回数据库查询，并将状态标记为 `degraded`。当前为单组织共享工作空间，提供管理员与普通成员两类权限，注册成员可读取组织内全部业务数据；尚未实现多租户隔离或用户独立数据空间。不面向公开注册的组织应设置 `REGISTRATION_ENABLED=false`。
-
-上传文件和业务数据请使用测试材料进行演示。现有页面是浏览器中的桌面风格应用，尚未封装为 Electron / Tauri 原生桌面安装包。
-
-## 已完成的集成验证
-
-2026-10-28，本次地块封面与界面整合后的后端全套自动化测试共 74 项通过。
-
-本次账户与配置扩展：后端 24 项测试通过（SQLite 隔离数据库），覆盖注册开关、成员权限、验证码过期/次数/重发限制、权重上传/删除/格式与大小限制、大模型配置转发及密钥不回传。SMTP 与大模型服务使用测试替身，尚未连接真实服务商；新增前端通过 TypeScript 与 Vite 构建，并在浏览器检查欢迎、登录、注册、模型上传表单、配置面板及问答入口。
-
-2026-10-20，在独立 Docker 项目中实际运行了 MySQL 8.4.11、Redis 7、FastAPI、Nginx，四个服务健康检查均通过。验证覆盖：
-
-- 登录鉴权、地块增删改、图片上传与读取、查询筛选、看板缓存更新、注销令牌失效。
-- 上传记录保存为 `awaiting_model`，结果和置信度为空；删除地块保留历史记录，删除样本同步移除图片。
-- API 容器重建后，MySQL 数据和上传图片仍保留。
-- 生产模式阻止匿名读取及图片访问；轮换管理员密码后，旧密码与旧令牌均失效。
-- Nginx 可提供 React 页面、JS/CSS 和小禾图片，并正确转发登录、上传与带认证的图片请求。
-- 后端 15 项自动化测试通过；前端 TypeScript 校验与 Vite 生产构建通过，图表资源已拆分。
-- 浏览器实际验证登录、新建地块、选择并上传图片、记录筛选、异常指标跳转、CSV 下载及导出内容；联调样本与地块已清理，保留原始演示数据。
-- 检查 1440 像素桌面与 390 像素窄屏布局，修复表格无障碍文本引起的横向溢出；浏览器控制台无错误或警告。
-- Windows 开发启动/停止脚本已实际执行成功，修复 PowerShell 7 自动解析日期导致的进程时间戳精度问题。
-
-验证时 Docker 构建环境访问 PyPI 出现 TLS 连接失败，因此 API 验证镜像使用从官方 PyPI 下载到本机的 Linux wheel 离线安装依赖；前端验证镜像使用本机已通过 TypeScript/Vite 构建的 `dist`。源码中的标准 Dockerfile 保持在线安装依赖的流程，**标准在线构建尚未在该网络环境下跑通**；需要可用的 Docker 网络或正确配置的代理。上述验证确认的是完整容器运行链路；临时测试容器和专用数据卷已清理，本地开发预览不受影响。
-
-## 叶片病害分类训练
-
-[PlantVillage 分类训练、断点恢复与模型接入说明](training/README.md)。训练进度和最终模型状态以 training/status.json 为准。
-
-
-### 检测候选与浮动助手
-
-检测完成后会保留前 5 项实际候选。分类模型保留原始概率（全类别排序，不按所选作物重新归一化）；目标检测模型保留每个类别的最高目标置信度和全部已保留的真实框，同时保存当次模型名称、任务和 ONNX 摘要。候选与模型快照位于 `detection_predictions` 表，通过版本迁移维护结构，兼容历史数据；历史记录未存候选时不伪造补全。删除检测会一并删除其预测快照。
-
-旧 38 类单标签分类模型的候选不表示一片叶子同时患多种病。新目标检测模型的候选是独立目标分数，不构成和为1的概率分布；类别和框只按模型实际输出展示，不通过修改置信度模拟诊断。页面显示两位小数，极小非零分数显示 `<0.01%`，接近 1 的分数显示 `>99.99%`，浮点输出恰为 1 时显示 `≈100%`；原始值不截断或人为降低，置信度也不等于田间准确率。
-
-小禾标题栏支持移动、缩小、最大化和还原，右下角手柄支持自由调整尺寸。标题栏与手柄均支持方向键（Shift 加速），尺寸限制在可见窗口内；收起时才显示右下角入口。最新检测与候选由服务端传给图片解读，自动展开窗口并保存对话。
+| [APP 与 Android](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/mobile/README.md) | 手机功能、HTTPS 服务地址、权限与 APK 构建 |
+| [管理控制台](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/admin/README.md) | 独立登录、共享组件与部署 |
+| [运行配置](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/client-and-admin.md) | 品牌、开关、限额、SMTP / LLM 与密钥保管 |
+| [后端与数据](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md) | API、数据库迁移与旧数据导入 |
+| [当前检测模型](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md) | 38 类映射、ONNX 导出及一致性校验边界 |
+| [生产部署](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/deploy/README.md) | 域名前缀、独立服务、模型与安装包发布 |
+| [生产验收记录](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/QA-2026-10-28.md) | 真实页面点击、检测结果、已知限制与证据 |
+
+<div align="center"><sub>禾观 AgriScan · 用心守护每一份绿意</sub></div>
