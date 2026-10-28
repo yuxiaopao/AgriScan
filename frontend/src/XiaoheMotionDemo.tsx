@@ -14,7 +14,7 @@ export function XiaoheMotionDemo() {
   const [selected, setSelected] = useState(states[0])
   return <section className="panel xiaohe-motion-demo">
     <h2>小禾的田间日常</h2><p>小禾会跟随检测与对话切换动作。点击下方动作预览，也可以通过「界面动效」关闭动画。</p>
-    <div className="xiaohe-motion-stage"><Xiaohe state={selected.key}/><div><strong>{selected.name}</strong><p>{selected.description}</p></div></div>
+    <div className="xiaohe-motion-stage"><Xiaohe state={selected.key} crop={null}/><div><strong>{selected.name}</strong><p>{selected.description}</p></div></div>
     <div className="xiaohe-motion-options">{states.map(state => <button key={state.key} aria-pressed={state.key === selected.key} onClick={() => setSelected(state)}>{state.name}</button>)}</div>
   </section>
 }

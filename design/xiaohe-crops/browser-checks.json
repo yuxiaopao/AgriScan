@@ -1,0 +1,148 @@
+{
+  "crops": [
+    {
+      "image": "/images/xiaohe-crops/tomato.webp",
+      "launcher": "小禾正在陪你巡田，手持番茄",
+      "pressed": 1,
+      "selected": "番茄",
+      "theme": "tomato",
+      "title": "番茄检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/corn.webp",
+      "launcher": "小禾正在陪你巡田，手持玉米",
+      "pressed": 1,
+      "selected": "玉米",
+      "theme": "corn",
+      "title": "玉米检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/apple.webp",
+      "launcher": "小禾正在陪你巡田，手持苹果",
+      "pressed": 1,
+      "selected": "苹果",
+      "theme": "apple",
+      "title": "苹果检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/blueberry.webp",
+      "launcher": "小禾正在陪你巡田，手持蓝莓",
+      "pressed": 1,
+      "selected": "蓝莓",
+      "theme": "blueberry",
+      "title": "蓝莓检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/cherry.webp",
+      "launcher": "小禾正在陪你巡田，手持樱桃",
+      "pressed": 1,
+      "selected": "樱桃",
+      "theme": "cherry",
+      "title": "樱桃检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/grape.webp",
+      "launcher": "小禾正在陪你巡田，手持葡萄",
+      "pressed": 1,
+      "selected": "葡萄",
+      "theme": "grape",
+      "title": "葡萄检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/citrus.webp",
+      "launcher": "小禾正在陪你巡田，手持柑橘",
+      "pressed": 1,
+      "selected": "柑橘",
+      "theme": "citrus",
+      "title": "柑橘检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/peach.webp",
+      "launcher": "小禾正在陪你巡田，手持桃",
+      "pressed": 1,
+      "selected": "桃",
+      "theme": "peach",
+      "title": "桃检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/pepper.webp",
+      "launcher": "小禾正在陪你巡田，手持甜椒",
+      "pressed": 1,
+      "selected": "甜椒",
+      "theme": "pepper",
+      "title": "甜椒检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/potato.webp",
+      "launcher": "小禾正在陪你巡田，手持马铃薯",
+      "pressed": 1,
+      "selected": "马铃薯",
+      "theme": "potato",
+      "title": "马铃薯检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/raspberry.webp",
+      "launcher": "小禾正在陪你巡田，手持树莓",
+      "pressed": 1,
+      "selected": "树莓",
+      "theme": "raspberry",
+      "title": "树莓检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/soybean.webp",
+      "launcher": "小禾正在陪你巡田，手持大豆",
+      "pressed": 1,
+      "selected": "大豆",
+      "theme": "soybean",
+      "title": "大豆检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/pumpkin.webp",
+      "launcher": "小禾正在陪你巡田，手持南瓜",
+      "pressed": 1,
+      "selected": "南瓜",
+      "theme": "pumpkin",
+      "title": "南瓜检测室"
+    },
+    {
+      "image": "/images/xiaohe-crops/strawberry.webp",
+      "launcher": "小禾正在陪你巡田，手持草莓",
+      "pressed": 1,
+      "selected": "草莓",
+      "theme": "strawberry",
+      "title": "草莓检测室"
+    }
+  ],
+  "unsupported": [
+    {
+      "disabled": true,
+      "name": "水稻检测室，当前模型未支持"
+    },
+    {
+      "disabled": true,
+      "name": "小麦检测室，当前模型未支持"
+    },
+    {
+      "disabled": true,
+      "name": "黄瓜检测室，当前模型未支持"
+    }
+  ],
+  "refreshPreservesTheme": true,
+  "dropdownSync": true,
+  "retainsPhotoAndNoteOnCropChange": true,
+  "welcomePageTheme": true,
+  "primaryBorderMatchesTheme": true,
+  "stickyTopbar": {
+    "scrollY": 842.6666870117188,
+    "top": 0
+  },
+  "expandedAssistantHidesLauncher": true,
+  "assistantWindowControls": true,
+  "motionPreference": true,
+  "narrowViewport": {
+    "width": 390,
+    "documentWidth": 375
+  },
+  "build": "TypeScript and Vite passed",
+  "console": []
+}

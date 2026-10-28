@@ -2,6 +2,7 @@ import {confidenceText, PredictionScores} from './PredictionScores'
 import {lazy, Suspense, useCallback, useEffect, useRef, useState} from 'react'
 import {ArrowRight, ArrowUpRight, Bell, BookOpen, ChevronDown, ChevronRight, CircleAlert, CircleHelp, FlaskConical, LayoutDashboard, Leaf, LogIn, LogOut, Map, Menu, RefreshCw, ScanLine, Search, Settings2, ShieldCheck, Sprout, Trash2, X, History} from 'lucide-react'
 import Access from './Access'
+import {useCropTheme} from './CropTheme'
 import FloatingAssistant from './FloatingAssistant'
 import {IntegrationSettings, WeightManager} from './Integrations'
 import {api, getToken, setToken} from './api'
@@ -26,6 +27,7 @@ const accessFromHash = () => {const hash = window.location.hash.slice(1); return
 interface Resources {dashboard: DashboardData; records: Detection[]; plots: Plot[]; articles: Article[]; model: ModelInfo}
 
 export default function App() {
+  const {crop: activeCrop, theme} = useCropTheme()
   const [accessPage, setAccessPage] = useState(accessFromHash)
   const [page, setPage] = useState<Page>(pageFromHash)
   const [data, setData] = useState<Resources | null>(null)
@@ -118,7 +120,7 @@ export default function App() {
       <nav aria-label="主导航">{navigation.map(item => <a key={item.page} href={`#${item.page}`} className={`nav-link ${page === item.page ? 'active' : ''}`} aria-current={page === item.page ? 'page' : undefined} onClick={() => setMenu(false)}><item.icon size={18} strokeWidth={1.7}/><span>{item.name}</span>{item.page === 'detect' ? <span className="nav-ai">AI</span> : page === item.page ? <span className="nav-dot"/> : null}</a>)}</nav>
       <div className="sidebar-bottom"><a className={`nav-link ${page === 'settings' ? 'active' : ''}`} href="#settings" onClick={() => setMenu(false)}><Settings2 size={18}/><span>系统设置</span></a><button className="nav-link help-link" onClick={() => setHelp(true)}><CircleHelp size={18}/><span>使用帮助</span><ArrowUpRight size={14}/></button></div>
     </aside>
-    <div className="main-shell"><header className="topbar"><div className="breadcrumb"><button className="icon-button mobile-menu" onClick={() => setMenu(true)} aria-label="打开导航"><Menu size={20}/></button><Sprout size={16}/><span>工作空间</span><ChevronRight size={13}/><strong>{currentPageName}</strong></div><div className="topbar-actions"><form className="global-search" onSubmit={event => {event.preventDefault(); navigate('records')}}><Search size={15}/><input value={search} onChange={event => setSearch(event.target.value)} placeholder="搜索检测记录…" aria-label="全局搜索检测记录"/><kbd>↵</kbd></form><div className="topbar-divider"/><div className="notification-wrap"><button className={`icon-button notification-button ${notifications ? 'selected' : ''}`} aria-label="通知" aria-expanded={notifications} onClick={() => {setAccountOpen(false); setNotifications(value => !value)}}><Bell size={19}/>{!!data?.dashboard.stats.pending && <i/>}</button>{notifications && <div className="notification-menu"><h3>工作空间通知</h3><div><span className="notification-icon"><FlaskConical size={18}/></span><p><strong>{data?.model.active ? '检测服务已就绪' : '模型等待接入'}</strong><span>{data?.dashboard.stats.pending ?? 0} 份样本等待分析，模型管理中可查看接入进度。</span></p></div><button className="text-button" onClick={() => navigate('models')}>前往模型管理<ArrowRight size={14}/></button></div>}</div>
+    <div className="main-shell"><header className="topbar"><div className="breadcrumb"><button className="icon-button mobile-menu" onClick={() => setMenu(true)} aria-label="打开导航"><Menu size={20}/></button><Sprout size={16}/><span>工作空间</span><ChevronRight size={13}/><strong>{currentPageName}</strong></div><div className="topbar-actions"><span className="crop-theme-indicator" title="在作物检测页切换作物主题"><i/>{activeCrop} · {theme.name}</span><form className="global-search" onSubmit={event => {event.preventDefault(); navigate('records')}}><Search size={15}/><input value={search} onChange={event => setSearch(event.target.value)} placeholder="搜索检测记录…" aria-label="全局搜索检测记录"/><kbd>↵</kbd></form><div className="topbar-divider"/><div className="notification-wrap"><button className={`icon-button notification-button ${notifications ? 'selected' : ''}`} aria-label="通知" aria-expanded={notifications} onClick={() => {setAccountOpen(false); setNotifications(value => !value)}}><Bell size={19}/>{!!data?.dashboard.stats.pending && <i/>}</button>{notifications && <div className="notification-menu"><h3>工作空间通知</h3><div><span className="notification-icon"><FlaskConical size={18}/></span><p><strong>{data?.model.active ? '检测服务已就绪' : '模型等待接入'}</strong><span>{data?.dashboard.stats.pending ?? 0} 份样本等待分析，模型管理中可查看接入进度。</span></p></div><button className="text-button" onClick={() => navigate('models')}>前往模型管理<ArrowRight size={14}/></button></div>}</div>
       <div className="account-wrap" ref={accountArea} onBlur={event => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) setAccountOpen(false)
       }} onKeyDown={event => {

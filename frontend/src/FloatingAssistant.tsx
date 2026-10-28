@@ -149,7 +149,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
       if (event.key === 'Escape') {event.stopPropagation(); close()}
     }}>
       <header className="assistant-header" {...floating.dragHandlers} tabIndex={0} aria-label="拖动小禾窗口，或用方向键移动" title="拖动标题栏移动窗口；方向键也可移动">
-        <span className="assistant-face"><Xiaohe state={petState}/></span>
+        <span className="assistant-face"><Xiaohe state={petState} crop={analyzing ? detection?.crop : undefined}/></span>
         <div><h2>小禾<span>田间好帮手</span></h2><p><i/>{analyzing ? '正在查看叶片与检测结果…' : busy ? '正在认真思考…' : '拖动标题栏，放到顺手的位置'}</p></div>
         <GripHorizontal size={16} className="assistant-drag-grip" aria-hidden="true"/>
         <button className="icon-button" aria-label="缩小窗口" title="缩小窗口" onClick={floating.compact}><Shrink size={16}/></button>
@@ -199,7 +199,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     {!open && <button ref={launcher} className="assistant-launcher" aria-label="打开小禾助手" aria-expanded={false} aria-controls="xiaohe-window"
       title="点击打开助手；拖动或使用方向键移动" {...launcherPosition.handlers} onClick={event => {if (!launcherPosition.consumeClick(event)) setOpen(true)}}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocus={() => setHovered(true)} onBlur={() => setHovered(false)}>
-      <Xiaohe state={petState}/><span>小禾</span>{unread && <i aria-label="有新回复"/>}
+      <Xiaohe state={petState} crop={analyzing ? detection?.crop : undefined}/><span>小禾</span>{unread && <i aria-label="有新回复"/>}
     </button>}
   </div>
 }

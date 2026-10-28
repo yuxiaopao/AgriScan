@@ -1,0 +1,163 @@
+{
+  "ok": true,
+  "cell": [
+    384,
+    416
+  ],
+  "crops": [
+    {
+      "id": "tomato",
+      "crop": "番茄",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 206892
+    },
+    {
+      "id": "rice",
+      "crop": "水稻",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 213246
+    },
+    {
+      "id": "corn",
+      "crop": "玉米",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 205120
+    },
+    {
+      "id": "wheat",
+      "crop": "小麦",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 206330
+    },
+    {
+      "id": "cucumber",
+      "crop": "黄瓜",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 200298
+    },
+    {
+      "id": "apple",
+      "crop": "苹果",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 199906
+    },
+    {
+      "id": "blueberry",
+      "crop": "蓝莓",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 199396
+    },
+    {
+      "id": "cherry",
+      "crop": "樱桃",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 192570
+    },
+    {
+      "id": "grape",
+      "crop": "葡萄",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 207896
+    },
+    {
+      "id": "citrus",
+      "crop": "柑橘",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 204180
+    },
+    {
+      "id": "peach",
+      "crop": "桃",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 198194
+    },
+    {
+      "id": "pepper",
+      "crop": "甜椒",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 203770
+    },
+    {
+      "id": "potato",
+      "crop": "马铃薯",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 204038
+    },
+    {
+      "id": "raspberry",
+      "crop": "树莓",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 208614
+    },
+    {
+      "id": "soybean",
+      "crop": "大豆",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 205714
+    },
+    {
+      "id": "pumpkin",
+      "crop": "南瓜",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 199290
+    },
+    {
+      "id": "strawberry",
+      "crop": "草莓",
+      "frames": 8,
+      "unique_frames": 8,
+      "source_adjustments": [],
+      "segmentation_alpha_threshold": 128,
+      "bytes": 206036
+    }
+  ],
+  "total_animation_bytes": 3461490
+}
