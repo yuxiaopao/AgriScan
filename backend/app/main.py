@@ -9,20 +9,44 @@ from fastapi import Depends, FastAPI, File, Form, HTTPException, Query, Request,
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from starlette.concurrency import run_in_threadpool
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 from sqlalchemy import delete, func, or_, select, text, update
 from sqlalchemy.orm import selectinload
 
 from .extensions import install_extensions, admin_user
 from .cache import DashboardCache
 from .config import Settings
-from .db import Base, Detection, DetectionPrediction, Plot, RevokedToken, User, make_database, utcnow
+from .db import Base, Detection, DetectionPrediction, Plot, PlotDetails, RevokedToken, User, make_database, utcnow
 from .inference import CROP_COLORS, create_provider, SUPPORTED_CROPS
 from .schemas import LoginBody, PlotCreate, PlotUpdate
 from .security import current_user, hash_password, issue_token, readable, verify_password
 from .seed import KNOWLEDGE, initialize_data
 
 VALID_STATUSES = {"healthy", "attention", "awaiting_model", "queued", "processing", "failed"}
+
+
+async def read_uploaded_image(file, max_bytes):
+    raw = await file.read(max_bytes + 1)
+    await file.close()
+    if len(raw) > max_bytes:
+        raise HTTPException(413, "图片大小不能超过 10 MB。")
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", Image.DecompressionBombWarning)
+            image = Image.open(io.BytesIO(raw))
+            if image.format not in {"JPEG", "PNG", "WEBP"}:
+                raise HTTPException(422, "仅支持 JPEG、PNG、WebP 图片。")
+            if image.width * image.height > 25_000_000:
+                raise HTTPException(422, "图片分辨率过大，请压缩至 2500 万像素以内。")
+            image.verify()
+            # Re-encode decoded pixels to reject corrupt payloads and strip metadata.
+            normalized = Image.open(io.BytesIO(raw))
+            normalized.load()
+    except HTTPException:
+        raise
+    except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError, Image.DecompressionBombWarning):
+        raise HTTPException(422, "文件不是有效图片，或图片已损坏。")
+    return normalized
 
 
 def detection_data(row):
@@ -43,6 +67,9 @@ def plot_data(plot):
     return {
         "id": plot.id, "name": plot.name, "crop": plot.crop, "area": plot.area,
         "location": plot.location, "manager": plot.manager,
+        "cover_url": f"/api/uploads/{plot.details.cover_filename}" if plot.details and plot.details.cover_filename else None,
+        "latitude": plot.details.latitude if plot.details else None,
+        "longitude": plot.details.longitude if plot.details else None,
         "health_score": round(healthy / len(completed) * 100) if completed else None,
         "detections": len(plot.detections),
     }
@@ -221,26 +248,7 @@ def create_app(settings=None):
                 raise HTTPException(404, "关联地块不存在。")
             if plot.crop != crop:
                 raise HTTPException(422, "作物类型与所选地块不一致。")
-        raw = await file.read(settings.max_upload_bytes + 1)
-        await file.close()
-        if len(raw) > settings.max_upload_bytes:
-            raise HTTPException(413, "图片大小不能超过 10 MB。")
-        try:
-            with warnings.catch_warnings():
-                warnings.simplefilter("error", Image.DecompressionBombWarning)
-                image = Image.open(io.BytesIO(raw))
-                if image.format not in {"JPEG", "PNG", "WEBP"}:
-                    raise HTTPException(422, "仅支持 JPEG、PNG、WebP 图片。")
-                if image.width * image.height > 25_000_000:
-                    raise HTTPException(422, "图片分辨率过大，请压缩至 2500 万像素以内。")
-                image.verify()
-                # Re-encode decoded pixels to reject corrupt payloads and strip metadata.
-                normalized = Image.open(io.BytesIO(raw)).convert("RGB")
-                normalized.load()
-        except HTTPException:
-            raise
-        except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError, Image.DecompressionBombWarning):
-            raise HTTPException(422, "文件不是有效图片，或图片已损坏。")
+        normalized = (await read_uploaded_image(file, settings.max_upload_bytes)).convert("RGB")
         filename = f"{uuid4().hex}.jpg"
         target = settings.upload_dir / filename
         try:
@@ -286,7 +294,10 @@ def create_app(settings=None):
         if len(filename) != 36 or not filename.endswith(".jpg") or any(c not in "0123456789abcdef" for c in filename[:-4]):
             raise HTTPException(404, "图片不存在。")
         target = settings.upload_dir / filename
-        if not target.is_file() or not db.scalar(select(Detection.id).where(Detection.image_url == f"/api/uploads/{filename}")):
+        referenced = db.scalar(select(Detection.id).where(Detection.image_url == f"/api/uploads/{filename}"))
+        if not referenced:
+            referenced = db.scalar(select(PlotDetails.plot_id).where(PlotDetails.cover_filename == filename))
+        if not target.is_file() or not referenced:
             raise HTTPException(404, "图片不存在。")
         return FileResponse(target, media_type="image/jpeg", headers={"X-Content-Type-Options": "nosniff"})
 
@@ -296,7 +307,9 @@ def create_app(settings=None):
 
     @app.post("/api/plots", status_code=201, dependencies=[Depends(admin_user)])
     def create_plot(body: PlotCreate, db=Depends(get_db)):
-        plot = Plot(**body.model_dump())
+        plot = Plot(**body.model_dump(exclude={"latitude", "longitude"}))
+        if body.latitude is not None:
+            plot.details = PlotDetails(latitude=body.latitude, longitude=body.longitude)
         db.add(plot)
         db.commit()
         app.state.cache.invalidate()
@@ -307,12 +320,43 @@ def create_app(settings=None):
         plot = db.get(Plot, plot_id)
         if not plot:
             raise HTTPException(404, "地块不存在。")
-        changes = body.model_dump(exclude_unset=True)
+        changes = body.model_dump(exclude_unset=True, exclude={"latitude", "longitude"})
         if changes.get("crop", plot.crop) != plot.crop and plot.detections:
             raise HTTPException(409, "地块已有检测记录，不能更改作物类型。")
         for key, value in changes.items():
             setattr(plot, key, value)
+        if "latitude" in body.model_fields_set:
+            if not plot.details:
+                plot.details = PlotDetails()
+            plot.details.latitude = body.latitude
+            plot.details.longitude = body.longitude
         db.commit()
+        app.state.cache.invalidate()
+        return plot_data(plot)
+
+    @app.post("/api/plots/{plot_id}/cover", dependencies=[Depends(admin_user)])
+    async def upload_plot_cover(plot_id: str, file: UploadFile = File(...), db=Depends(get_db)):
+        plot = db.get(Plot, plot_id)
+        if not plot:
+            raise HTTPException(404, "地块不存在。")
+        normalized = await read_uploaded_image(file, settings.max_upload_bytes)
+        normalized = ImageOps.exif_transpose(normalized).convert("RGB")
+        normalized.thumbnail((1600, 1600))
+        filename = f"{uuid4().hex}.jpg"
+        target = settings.upload_dir / filename
+        old_filename = plot.details.cover_filename if plot.details else None
+        try:
+            normalized.save(target, format="JPEG", quality=90)
+            if not plot.details:
+                plot.details = PlotDetails()
+            plot.details.cover_filename = filename
+            db.commit()
+        except Exception:
+            db.rollback()
+            target.unlink(missing_ok=True)
+            raise
+        if old_filename:
+            (settings.upload_dir / old_filename).unlink(missing_ok=True)
         app.state.cache.invalidate()
         return plot_data(plot)
 
@@ -321,9 +365,12 @@ def create_app(settings=None):
         plot = db.get(Plot, plot_id)
         if not plot:
             raise HTTPException(404, "地块不存在。")
+        cover_filename = plot.details.cover_filename if plot.details else None
         db.execute(update(Detection).where(Detection.plot_id == plot_id).values(plot_id=None))
         db.delete(plot)
         db.commit()
+        if cover_filename:
+            (settings.upload_dir / cover_filename).unlink(missing_ok=True)
         app.state.cache.invalidate()
         return {"message": "地块已删除，历史检测记录已保留。"}
 

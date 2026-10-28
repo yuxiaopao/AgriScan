@@ -1,6 +1,6 @@
 import {confidenceText, PredictionScores} from './PredictionScores'
-import {lazy, Suspense, useCallback, useEffect, useState} from 'react'
-import {ArrowRight, ArrowUpRight, Bell, BookOpen, ChevronDown, ChevronRight, CircleAlert, CircleHelp, FlaskConical, LayoutDashboard, Leaf, Map, Menu, RefreshCw, ScanLine, Search, Settings2, ShieldCheck, Sprout, Trash2, X, History} from 'lucide-react'
+import {lazy, Suspense, useCallback, useEffect, useRef, useState} from 'react'
+import {ArrowRight, ArrowUpRight, Bell, BookOpen, ChevronDown, ChevronRight, CircleAlert, CircleHelp, FlaskConical, LayoutDashboard, Leaf, LogIn, LogOut, Map, Menu, RefreshCw, ScanLine, Search, Settings2, ShieldCheck, Sprout, Trash2, X, History} from 'lucide-react'
 import Access from './Access'
 import FloatingAssistant from './FloatingAssistant'
 import {IntegrationSettings, WeightManager} from './Integrations'
@@ -43,19 +43,22 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState('')
   const [menu, setMenu] = useState(false)
   const [notifications, setNotifications] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
+  const accountArea = useRef<HTMLDivElement>(null)
+  const accountButton = useRef<HTMLButtonElement>(null)
   const [help, setHelp] = useState(false)
   const [selected, setSelected] = useState<Detection | null>(null)
   const [deleteRecord, setDeleteRecord] = useState(false)
   const [deleteBusy, setDeleteBusy] = useState(false)
   const reload = useCallback(() => setRefresh(value => value + 1), [])
   const toast = useCallback((message: string) => setToastMessage(message), [])
-  const navigate = (next: Page) => {window.location.hash = next; setMenu(false); setNotifications(false)}
+  const navigate = (next: Page) => {window.location.hash = next; setMenu(false); setNotifications(false); setAccountOpen(false)}
   const requireAuth = () => {if (user && getToken()) return true; setSelected(null); setDeleteRecord(false); (window.location.hash = 'login'); return false}
 
   useEffect(() => {
-    const onHash = () => {setPage(pageFromHash()); setAccessPage(accessFromHash()); window.scrollTo({top: 0, behavior: 'instant'})}
+    const onHash = () => {setPage(pageFromHash()); setAccessPage(accessFromHash()); setAccountOpen(false); window.scrollTo({top: 0, behavior: 'instant'})}
     const expired = () => {setUser(null); setDetectionRequests([]); (window.location.hash = 'login')}
-    const dismiss = (event: KeyboardEvent) => {if (event.key === 'Escape') {setMenu(false); setNotifications(false)}}
+    const dismiss = (event: KeyboardEvent) => {if (event.key === 'Escape') {setMenu(false); setNotifications(false); setAccountOpen(false)}}
     window.addEventListener('hashchange', onHash)
     window.addEventListener('agriscan-auth-expired', expired)
     window.addEventListener('keydown', dismiss)
@@ -64,6 +67,15 @@ export default function App() {
     if (getToken()) api<User>('/auth/me').then(setUser).catch(() => setUser(null))
     return () => {window.removeEventListener('hashchange', onHash); window.removeEventListener('agriscan-auth-expired', expired); window.removeEventListener('keydown', dismiss)}
   }, [])
+  useEffect(() => {
+    if (!accountOpen) return
+    accountArea.current?.querySelector<HTMLButtonElement>('[role="menuitem"]')?.focus()
+    const outside = (event: PointerEvent) => {
+      if (!accountArea.current?.contains(event.target as Node)) setAccountOpen(false)
+    }
+    document.addEventListener('pointerdown', outside)
+    return () => document.removeEventListener('pointerdown', outside)
+  }, [accountOpen])
   useEffect(() => {
     if (accessPage) return
     let current = true
@@ -96,7 +108,6 @@ export default function App() {
     finally {setDeleteBusy(false)}
   }
   const currentPageName = navigation.find(item => item.page === page)?.name ?? '系统设置'
-  const today = new Date().toLocaleDateString('zh-CN', {month: 'long', day: 'numeric', weekday: 'long'})
   if (accessPage) return <Access page={accessPage} onLogin={value => {setUser(value); window.location.hash = 'dashboard'; reload()}}/>
   return <div className="app-shell">
     {menu && <button className="sidebar-scrim" aria-label="关闭导航" onClick={() => setMenu(false)}/>}
@@ -105,16 +116,44 @@ export default function App() {
       <div className="workspace-name"><span className="workspace-avatar"><Leaf size={17}/></span><span><strong>智慧农业工作空间</strong><small>AGRICULTURE WORKSPACE</small></span><span className="workspace-dot"/></div>
       <div className="nav-section-title">工作空间<span>WORKSPACE</span></div>
       <nav aria-label="主导航">{navigation.map(item => <a key={item.page} href={`#${item.page}`} className={`nav-link ${page === item.page ? 'active' : ''}`} aria-current={page === item.page ? 'page' : undefined} onClick={() => setMenu(false)}><item.icon size={18} strokeWidth={1.7}/><span>{item.name}</span>{item.page === 'detect' ? <span className="nav-ai">AI</span> : page === item.page ? <span className="nav-dot"/> : null}</a>)}</nav>
-      <div className="sidebar-bottom"><div className="side-note"><div className="side-note-icon"><Sprout size={18}/><span className="side-note-star">✦</span></div><strong>让种植，更有底气。</strong><p>小禾陪你观察每一片叶子，<br/>记录田间每一天的变化。</p><button onClick={() => navigate('knowledge')}>一起学点新知识 <ArrowUpRight size={14}/></button></div><a className={`nav-link ${page === 'settings' ? 'active' : ''}`} href="#settings" onClick={() => setMenu(false)}><Settings2 size={18}/><span>系统设置</span></a><button className="nav-link help-link" onClick={() => setHelp(true)}><CircleHelp size={18}/><span>使用帮助</span><ArrowUpRight size={14}/></button><button className="user-profile" onClick={() => user ? navigate('settings') : (window.location.hash = 'login')}><span className="avatar">{user?.name.charAt(0) || '访'}</span><span><strong>{user?.name || '欢迎来到禾观'}</strong><small>{user ? `农业工作空间 · ${user.role === 'admin' ? '管理员' : '成员'}` : '登录后开始管理'}</small></span><ChevronDown size={14}/></button></div>
+      <div className="sidebar-bottom"><a className={`nav-link ${page === 'settings' ? 'active' : ''}`} href="#settings" onClick={() => setMenu(false)}><Settings2 size={18}/><span>系统设置</span></a><button className="nav-link help-link" onClick={() => setHelp(true)}><CircleHelp size={18}/><span>使用帮助</span><ArrowUpRight size={14}/></button></div>
     </aside>
-    <div className="main-shell"><header className="topbar"><div className="breadcrumb"><button className="icon-button mobile-menu" onClick={() => setMenu(true)} aria-label="打开导航"><Menu size={20}/></button><Sprout size={16}/><span>工作空间</span><ChevronRight size={13}/><strong>{currentPageName}</strong></div><div className="topbar-actions"><form className="global-search" onSubmit={event => {event.preventDefault(); navigate('records')}}><Search size={15}/><input value={search} onChange={event => setSearch(event.target.value)} placeholder="搜索检测记录…" aria-label="全局搜索检测记录"/><kbd>↵</kbd></form><div className="topbar-divider"/><div className="notification-wrap"><button className={`icon-button notification-button ${notifications ? 'selected' : ''}`} aria-label="通知" aria-expanded={notifications} onClick={() => setNotifications(value => !value)}><Bell size={19}/>{!!data?.dashboard.stats.pending && <i/>}</button>{notifications && <div className="notification-menu"><h3>工作空间通知</h3><div><span className="notification-icon"><FlaskConical size={18}/></span><p><strong>{data?.model.active ? '检测服务已就绪' : '模型等待接入'}</strong><span>{data?.dashboard.stats.pending ?? 0} 份样本等待分析，模型管理中可查看接入进度。</span></p></div><button className="text-button" onClick={() => navigate('models')}>前往模型管理<ArrowRight size={14}/></button></div>}</div><button className="topbar-avatar" onClick={() => user ? navigate('settings') : (window.location.hash = 'login')} aria-label={user ? '账户设置' : '登录'}>{user?.name.charAt(0) || '禾'}</button></div></header>
-      <main className="main-content"><div className="context-line"><span><span className={`live-dot ${health ? '' : 'offline'}`}/>{health ? '工作空间已连接' : '正在连接工作空间'}<span className="context-divider">/</span><span className="demo-mode">{health?.mode === 'demo' ? '演示工作空间' : '农业检测系统'}</span></span><span className="today">{today}<button className="icon-button" onClick={reload} aria-label="刷新数据"><RefreshCw size={13}/></button></span></div>
+    <div className="main-shell"><header className="topbar"><div className="breadcrumb"><button className="icon-button mobile-menu" onClick={() => setMenu(true)} aria-label="打开导航"><Menu size={20}/></button><Sprout size={16}/><span>工作空间</span><ChevronRight size={13}/><strong>{currentPageName}</strong></div><div className="topbar-actions"><form className="global-search" onSubmit={event => {event.preventDefault(); navigate('records')}}><Search size={15}/><input value={search} onChange={event => setSearch(event.target.value)} placeholder="搜索检测记录…" aria-label="全局搜索检测记录"/><kbd>↵</kbd></form><div className="topbar-divider"/><div className="notification-wrap"><button className={`icon-button notification-button ${notifications ? 'selected' : ''}`} aria-label="通知" aria-expanded={notifications} onClick={() => {setAccountOpen(false); setNotifications(value => !value)}}><Bell size={19}/>{!!data?.dashboard.stats.pending && <i/>}</button>{notifications && <div className="notification-menu"><h3>工作空间通知</h3><div><span className="notification-icon"><FlaskConical size={18}/></span><p><strong>{data?.model.active ? '检测服务已就绪' : '模型等待接入'}</strong><span>{data?.dashboard.stats.pending ?? 0} 份样本等待分析，模型管理中可查看接入进度。</span></p></div><button className="text-button" onClick={() => navigate('models')}>前往模型管理<ArrowRight size={14}/></button></div>}</div>
+      <div className="account-wrap" ref={accountArea} onBlur={event => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) setAccountOpen(false)
+      }} onKeyDown={event => {
+        if (event.key === 'Escape') {event.stopPropagation(); setAccountOpen(false); accountButton.current?.focus(); return}
+        if (event.key === 'Tab') {setAccountOpen(false); accountButton.current?.focus(); return}
+        if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return
+        event.preventDefault()
+        if (!accountOpen) {
+          setNotifications(false); setAccountOpen(true)
+          if (event.key === 'ArrowUp') requestAnimationFrame(() => accountArea.current?.querySelector<HTMLButtonElement>('[role="menuitem"]:last-child')?.focus())
+          return
+        }
+        const items = Array.from(accountArea.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]') ?? [])
+        const index = items.indexOf(document.activeElement as HTMLButtonElement)
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1
+          : event.key === 'ArrowDown' ? (index + 1) % items.length : (index < 0 ? items.length - 1 : (index - 1 + items.length) % items.length)
+        items[next]?.focus()
+      }}>
+        <button ref={accountButton} id="account-toggle" className="topbar-account" aria-label={`账户菜单：${user?.name || '访客'}`} aria-haspopup="menu" aria-expanded={accountOpen} aria-controls="account-menu" onClick={() => {setNotifications(false); setAccountOpen(value => !value)}}>
+          <span className="topbar-avatar" aria-hidden="true">{user?.name.charAt(0) || '访'}</span><span className="account-name" title={user?.name || '访客'}>{user?.name || '访客'}</span><ChevronDown size={13} aria-hidden="true"/>
+        </button>
+        {accountOpen && <div className="account-menu" id="account-menu" role="menu" aria-labelledby="account-toggle">
+          <div className="account-menu-heading" role="presentation"><strong>{user?.name || '访客'}</strong><small>{user ? `${user.username} · ${user.role === 'admin' ? '管理员' : '成员'}` : '登录后管理工作空间'}</small></div>
+          <button role="menuitem" tabIndex={-1} onClick={() => {navigate('settings'); accountButton.current?.focus()}}><Settings2 size={16}/>个人设置</button>
+          {user ? <button role="menuitem" tabIndex={-1} className="account-signout" onClick={() => {setAccountOpen(false); void logout()}}><LogOut size={16}/>退出登录</button>
+            : <button role="menuitem" tabIndex={-1} onClick={() => {setAccountOpen(false); window.location.hash = 'login'}}><LogIn size={16}/>登录账号</button>}
+        </div>}
+      </div></div></header>
+      <main className="main-content">
       {error && <div className="error-banner" role="alert"><CircleAlert size={18}/><span>{error}</span><button onClick={reload}>重新连接<RefreshCw size={14}/></button></div>}
       {loading ? <Loading/> : data ? <>
         {page === 'dashboard' && <Suspense fallback={<Loading/>}><Dashboard data={data.dashboard} plots={data.plots} period={period} setPeriod={setPeriod} navigate={navigate} onSelect={setSelected} onExport={() => exportRecords(data.records)} onAttention={() => {setRecordStatus('attention'); setSearch(''); navigate('records')}}/></Suspense>}
         {page === 'detect' && <DetectPage plots={data.plots} model={data.model} requireAuth={requireAuth} onChange={reload} toast={toast} onDetected={queueDetection}/>}
         {page === 'records' && <RecordsPage records={data.records} crops={data.model.available_crops} onSelect={setSelected} search={search} setSearch={setSearch} status={recordStatus} setStatus={setRecordStatus}/>}
-        {page === 'plots' && <PlotsPage plots={data.plots} crops={data.model.available_crops} requireAuth={requireAuth} onChange={reload} toast={toast}/>}
+        {page === 'plots' && <PlotsPage plots={data.plots} crops={data.model.available_crops} draftOwner={user?.username ?? 'guest'} requireAuth={requireAuth} onChange={reload} toast={toast}/>}
         {page === 'knowledge' && <KnowledgePage articles={data.articles}/>}
         {page === 'models' && <ModelsPage model={data.model} health={health}><WeightManager onChange={reload} canManage={user?.role === 'admin'}/></ModelsPage>}
         {page === 'settings' && <><SettingsPage health={health} user={user} onLogin={() => (window.location.hash = 'login')} onLogout={logout}/>{user?.role === 'admin' && <IntegrationSettings/>}</>}

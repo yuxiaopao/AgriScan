@@ -90,8 +90,6 @@ New-Item -ItemType Directory -Path $runtimeDir, $logDir -Force | Out-Null
 
 $demoEnvironment = @{
     DEMO_MODE = "true"
-    DATABASE_URL = "sqlite:///./data/agriscan.db"
-    REDIS_URL = ""
     UPLOAD_DIR = "./uploads"
     JWT_SECRET = "local-demo-change-this-secret-before-production-2026"
     ADMIN_USERNAME = "admin"
@@ -117,8 +115,8 @@ try {
     })
     @{ projectRoot = $projectRoot; processes = $processRecords } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $pidFile -Encoding UTF8
     Write-Host ""
-    $modelState = (Invoke-RestMethod "http://127.0.0.1:8000/api/health").model
-    Write-Host "AgriScan local demo is ready (SQLite; Redis disabled; model: $modelState)."
+    $health = Invoke-RestMethod "http://127.0.0.1:8000/api/health"
+    Write-Host "AgriScan local demo is ready (database: $($health.database); Redis: $($health.redis); model: $($health.model))."
     Write-Host "Web:   http://127.0.0.1:5173"
     Write-Host "API:   http://127.0.0.1:8000/docs"
     Write-Host "Logs:  $logDir"

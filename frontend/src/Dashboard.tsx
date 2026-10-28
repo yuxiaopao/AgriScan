@@ -1,5 +1,5 @@
 import {Xiaohe} from './Xiaohe'
-import {ArrowRight, ArrowUpRight, CircleAlert, Clock3, Download, Leaf, MapPin, Plus, ScanLine, ShieldCheck, Sparkles, Sprout} from 'lucide-react'
+import {ArrowRight, ArrowUpRight, CircleAlert, Clock3, Download, Leaf, MapPin, Plus, ScanLine, ShieldCheck, Sprout} from 'lucide-react'
 import {Area, AreaChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts'
 import {CropIcon, DetectionTable, Empty} from './components'
 import type {Dashboard as DashboardData, Detection, Page, Plot} from './types'
@@ -27,7 +27,6 @@ export default function Dashboard({data, plots, period, setPeriod, navigate, onS
     {title: '待检测样本', number: stats.pending, unit: '份', icon: Clock3, tone: 'blue', foot: '接入模型后可继续处理', detail: '等待处理'},
   ]
   return <>
-    <div className="page-heading"><div><div className="eyebrow">YOUR FIELD, AT A GLANCE</div><h1>总览工作台 <span className="title-dot">.</span></h1><p>从一片叶子开始，看见每一份生长。</p></div><button className="button primary" onClick={() => navigate('detect')}><Plus size={18}/>发起新检测</button></div>
 
     <section className="welcome-banner">
       <div className="hero-grain"/>
@@ -55,6 +54,5 @@ export default function Dashboard({data, plots, period, setPeriod, navigate, onS
       <section className="panel recent-panel"><div className="panel-header"><div><h2>最近检测 <span className="count-pill">{Math.min(4, data.recent.length)}</span></h2><p>田间每一刻，记录都在这里</p></div><button className="text-button" onClick={() => navigate('records')}>全部记录 <ArrowRight size={15}/></button></div>{data.recent.length ? <DetectionTable records={data.recent.slice(0, 4)} onSelect={onSelect}/> : <Empty title="第一份检测，从这里开始" description="添加一张作物图片，建立你的田间健康档案。"/>}<div className="table-footer"><span><ShieldCheck size={13}/>检测记录已持久化保存</span><button onClick={onExport}><Download size={13}/>导出记录</button></div></section>
       <section className="panel plots-overview"><div className="panel-header"><div><h2>我的地块</h2><p>脚下的土地，心中的牵挂</p></div><button className="icon-button subtle" aria-label="查看所有地块" onClick={() => navigate('plots')}><ArrowUpRight size={18}/></button></div><div className="mini-plots">{plots.slice(0, 3).map(plot => <button key={plot.id} onClick={() => navigate('plots')}><CropIcon crop={plot.crop} size={37}/><div><strong>{plot.name}</strong><span>{plot.crop} · {plot.area} 亩</span></div><span className="plot-tag"><MapPin size={11}/>在管</span></button>)}</div><button className="add-plot-link" onClick={() => navigate('plots')}><Plus size={14}/>管理我的地块</button></section>
     </div>
-    <div className="gentle-note"><Sparkles size={15}/><span>小禾提示：清晰、自然光下的叶片照片，能为后续模型分析提供更好的样本。</span><button onClick={() => navigate('knowledge')}>拍摄与养护指南 <ArrowRight size={14}/></button></div>
   </>
 }

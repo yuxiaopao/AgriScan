@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
-from sqlalchemy import JSON, Boolean, DateTime, Float, ForeignKey, String, Text, create_engine, event
+from sqlalchemy import JSON, Boolean, DateTime, Double, Float, ForeignKey, String, Text, create_engine, event
 from sqlalchemy.engine import make_url
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, sessionmaker
 
@@ -37,6 +37,16 @@ class Plot(Base):
     location: Mapped[str] = mapped_column(String(200))
     manager: Mapped[str] = mapped_column(String(80))
     detections: Mapped[list["Detection"]] = relationship(back_populates="plot", passive_deletes=True)
+    details: Mapped["PlotDetails | None"] = relationship(
+        cascade="all, delete-orphan", uselist=False, lazy="selectin")
+
+
+class PlotDetails(Base):
+    __tablename__ = "plot_details"
+    plot_id: Mapped[str] = mapped_column(ForeignKey("plots.id", ondelete="CASCADE"), primary_key=True)
+    cover_filename: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    latitude: Mapped[float | None] = mapped_column(Double, nullable=True)
+    longitude: Mapped[float | None] = mapped_column(Double, nullable=True)
 
 
 class Detection(Base):

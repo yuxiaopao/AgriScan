@@ -1,0 +1,53 @@
+.plot-landscape>.plot-cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.plot-landscape.has-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#102e2420,transparent 50%,#102e2440);pointer-events:none}
+.plot-landscape.has-cover .plot-crop-label,.plot-landscape.has-cover .plot-area{z-index:1;background:#ffffffe0;color:#496345}
+.plot-editor fieldset{padding:0;margin:0;border:0;min-width:0}
+.plot-editor fieldset:disabled .plot-location-map{pointer-events:none}
+.plot-editor-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px}
+.plot-editor-details,.plot-editor-position{display:flex;flex-direction:column;gap:17px;min-width:0}
+.plot-editor label{font-size:12px;color:#61785a;min-width:0}
+.plot-editor input,.plot-editor select{font-size:12px;min-width:0}
+.plot-editor .form-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;gap:12px}
+.plot-cover-field>span{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#61785a;gap:8px;margin-bottom:8px}
+.plot-cover-field .quiet{font-size:8px}
+.plot-cover-preview{position:relative;height:160px;border:1px solid #dfe8d7;border-radius:11px;overflow:hidden;background:linear-gradient(120deg,#edf3e5,#f7faf3)}
+.plot-cover-preview>img{width:100%;height:100%;object-fit:cover}
+.plot-cover-placeholder{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#96ac83;font-size:11px;padding-bottom:24px}
+.plot-cover-select{position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:7px;padding:8px 11px;background:#fffffff0;border:1px solid #e4ebdd;border-radius:7px;color:#4b7452;font-size:11px;box-shadow:0 2px 8px #30472808}
+.plot-cover-clear{position:absolute;right:9px;top:9px;width:26px;height:26px;display:grid;place-items:center;background:#fffffff0;border-radius:50%;color:#667e5c}
+.plot-map-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:#708568;margin-bottom:10px}
+.plot-map-toolbar>span,.plot-map-toolbar button{display:flex;align-items:center;gap:5px}
+.plot-map-toolbar button{font-size:10px;color:#387450;padding:5px 0}
+.plot-location-map{height:275px;width:100%;border:1px solid #dfe7d8;border-radius:10px;z-index:0;background:#e9efe3}
+.plot-location-map .leaflet-control-attribution{font-size:8px;background:#ffffffe6}
+.plot-coordinate-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:13px}
+.plot-coordinate-fields input{padding:9px 10px;font-variant-numeric:tabular-nums}
+.plot-coordinate-note{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:9px;line-height:1.7;color:#94a18a;margin-top:9px}
+.plot-coordinate-note button{color:#66855a;font-size:10px;white-space:nowrap;padding:0}
+.plot-map-pin{background:transparent;border:0}
+.plot-map-pin>span{display:block;width:24px;height:24px;background:#32734d;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 6px #253d3750}
+.plot-map-pin>span::after{content:"";position:absolute;width:6px;height:6px;top:6px;left:6px;border-radius:50%;background:#fff}
+.plot-map-message{font-size:10px;line-height:1.8;color:#a67d45;margin-top:8px}
+.plot-editor-error{padding:11px 13px;border-radius:8px;background:#fff2e9;color:#a56e45;font-size:12px;line-height:1.8}
+.plot-map-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:#4c7c50;margin-top:8px}
+.plot-draft-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid #e4ecdc;border-radius:8px;background:#f3f7ee;color:#7d9271;font-size:11px;line-height:1.7}
+.plot-draft-status button{padding:0;font-size:11px;color:#597a4d;white-space:nowrap}
+.plot-cover-carousel{position:relative}
+.plot-cover-track{position:relative;z-index:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none}
+.plot-cover-track::-webkit-scrollbar{display:none}
+.plot-card-slide{position:relative;flex:0 0 100%;min-width:0;height:160px;scroll-snap-align:start;scroll-snap-stop:always;background:#edf2e7;overflow:hidden}
+.plot-card-slide>.plot-landscape{height:100%}
+.plot-card-map{position:absolute;inset:0;z-index:0;pointer-events:none}
+.plot-card-map .leaflet-control-attribution{font-size:8px;pointer-events:auto;background:#ffffffe6}
+.plot-card-coordinates{position:absolute;top:10px;left:10px;max-width:calc(100% - 20px);padding:5px 7px;border:1px solid #e2e9db;border-radius:5px;background:#fffffff0;font-size:9px;color:#4c7050;font-variant-numeric:tabular-nums;line-height:1.6}
+.plot-card-map-error{position:absolute;top:42px;left:10px;padding:4px 7px;background:#fff9eae8;border-radius:4px;color:#9b854f;font-size:9px}
+.plot-map-empty{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;color:#8ba17c;font-size:11px;padding-bottom:20px}
+.plot-map-empty small{font-size:9px;color:#a2af95}
+.plot-cover-arrow{position:absolute;z-index:1;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:25px;height:29px;padding:0;border-radius:7px;background:#ffffffe8;border:1px solid #e1e8da;color:#59794d;box-shadow:0 2px 6px #243d2510}
+.plot-cover-arrow.previous{left:8px}
+.plot-cover-arrow.next{right:8px}
+.plot-cover-arrow:disabled{opacity:.35;cursor:default}
+.plot-cover-pages{position:absolute;z-index:1;left:10px;bottom:10px;display:flex;gap:2px;padding:3px;border:1px solid #e4eada;border-radius:7px;background:#fffffff0}
+.plot-cover-pages button{font-size:9px;padding:3px 7px;color:#98a58b;border-radius:4px}
+.plot-cover-pages button[aria-pressed=true]{background:#e5eedb;color:#507246}
+@media(max-width:650px){.plot-editor-layout{grid-template-columns:minmax(0,1fr);gap:22px}.plot-editor-details,.plot-editor-position{gap:15px}.plot-cover-preview{height:150px}.plot-location-map{height:260px}.plot-coordinate-note{flex-wrap:wrap}.plot-cover-field .quiet{font-size:7px}}

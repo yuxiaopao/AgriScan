@@ -3,7 +3,7 @@ import {ArrowLeft, ArrowUp, GripHorizontal, History, LoaderCircle, Maximize2, Mi
 import {api} from './api'
 import type {Detection, User} from './types'
 import {Badge} from './components'
-import {useFloatingPosition} from './useFloatingPosition'
+import {useFloatingPosition, useLauncherPosition} from './useFloatingPosition'
 import {confidenceText} from './PredictionScores'
 import {Xiaohe, type XiaoheState} from './Xiaohe'
 import './assistant.css'
@@ -54,6 +54,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
   const handled = useRef(new Set<string>())
   const floating = useFloatingPosition(open)
   const launcher = useRef<HTMLButtonElement>(null)
+  const launcherPosition = useLauncherPosition(launcher, !open)
   const input = useRef<HTMLTextAreaElement>(null)
   const log = useRef<HTMLDivElement>(null)
   const alive = useRef(true)
@@ -143,7 +144,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     } catch(e) {if (alive.current) setError((e as Error).message)}
     finally {if (alive.current) setBusy(false)}
   }
-  return <div className="assistant-widget">
+  return <div className="assistant-widget" style={!open ? launcherPosition.style : undefined}>
     {open && <section ref={floating.panel} style={floating.style} id="xiaohe-window" className="assistant-window" role="dialog" aria-label="小禾聊天助手" onKeyDown={event => {
       if (event.key === 'Escape') {event.stopPropagation(); close()}
     }}>
@@ -195,7 +196,8 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
       </> : <div className="assistant-guest"><Xiaohe state="wave"/><h3>你好，田间的新朋友</h3><p>登录后就能和小禾聊天，<br/>你的对话也会自动保存。</p><a className="button primary" href="#login">登录后开始聊天</a></div>}
       {!floating.maximized && <button className="assistant-resize" {...floating.resizeHandlers} aria-label="调整窗口大小，方向键可放大或缩小" title="拖动调整大小；方向键也可调整"><span/></button>}
     </section>}
-    {!open && <button ref={launcher} className="assistant-launcher" aria-label="打开小禾助手" aria-expanded={false} aria-controls="xiaohe-window" onClick={() => setOpen(true)}
+    {!open && <button ref={launcher} className="assistant-launcher" aria-label="打开小禾助手" aria-expanded={false} aria-controls="xiaohe-window"
+      title="点击打开助手；拖动或使用方向键移动" {...launcherPosition.handlers} onClick={event => {if (!launcherPosition.consumeClick(event)) setOpen(true)}}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocus={() => setHovered(true)} onBlur={() => setHovered(false)}>
       <Xiaohe state={petState}/><span>小禾</span>{unread && <i aria-label="有新回复"/>}
     </button>}

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent} from 'react'
+import {useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent, type PointerEvent, type RefObject} from 'react'
 
 interface Rect {x: number; y: number; width: number; height: number}
 interface Gesture {pointer: number; origin: Rect; x: number; y: number; resize: boolean}
@@ -77,4 +77,67 @@ export function useFloatingPosition(open: boolean) {
     onKeyDown: (e: KeyboardEvent<HTMLElement>) => keyboard(e, resize)})
   const style: CSSProperties | undefined = rect ? {left: rect.x, top: rect.y, width: rect.width, height: rect.height, right: 'auto', bottom: 'auto'} : undefined
   return {panel, style, maximized, toggleMaximize, compact, dragHandlers: handlers(false), resizeHandlers: handlers(true)}
+}
+
+export function useLauncherPosition(element: RefObject<HTMLButtonElement | null>, shown: boolean) {
+  const [position, setPosition] = useState<{x: number; y: number} | null>(null)
+  const gesture = useRef<{pointer: number; x: number; y: number; origin: DOMRect} | null>(null)
+  const dragged = useRef(false)
+  function fitPosition(x: number, y: number, bounds: DOMRect) {
+    return {x: Math.max(margin, Math.min(x, window.innerWidth - bounds.width - margin)),
+      y: Math.max(margin, Math.min(y, window.innerHeight - bounds.height - margin))}
+  }
+  useEffect(() => {
+    if (!shown) {gesture.current = null; return}
+    const adjust = () => {
+      const bounds = element.current?.getBoundingClientRect()
+      if (bounds) setPosition(old => old ? fitPosition(old.x, old.y, bounds) : null)
+    }
+    const frame = requestAnimationFrame(adjust)
+    window.addEventListener('resize', adjust)
+    return () => {cancelAnimationFrame(frame); window.removeEventListener('resize', adjust)}
+  }, [shown, element])
+  function start(event: PointerEvent<HTMLButtonElement>) {
+    if (event.button !== 0 || !event.isPrimary) return
+    dragged.current = false
+    gesture.current = {pointer: event.pointerId, x: event.clientX, y: event.clientY,
+      origin: event.currentTarget.getBoundingClientRect()}
+    if (event.pointerType !== 'touch') event.currentTarget.setPointerCapture(event.pointerId)
+  }
+  function move(event: PointerEvent<HTMLButtonElement>) {
+    const start = gesture.current
+    if (!start || start.pointer !== event.pointerId) return
+    const dx = event.clientX - start.x, dy = event.clientY - start.y
+    if (!dragged.current && Math.hypot(dx, dy) < 5) return
+    dragged.current = true
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.setPointerCapture(event.pointerId)
+    setPosition(fitPosition(start.origin.left + dx, start.origin.top + dy, start.origin))
+  }
+  function end(event: PointerEvent<HTMLButtonElement>) {
+    if (gesture.current?.pointer !== event.pointerId) return
+    gesture.current = null
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
+    if (event.type === 'pointerup' && event.pointerType === 'touch' && !dragged.current) {
+      event.preventDefault()
+      event.currentTarget.click()
+    }
+  }
+  function consumeClick(event: MouseEvent<HTMLButtonElement>) {
+    const suppress = dragged.current && event.detail !== 0
+    dragged.current = false
+    if (suppress) {event.preventDefault(); event.stopPropagation()}
+    return suppress
+  }
+  function keyboard(event: KeyboardEvent<HTMLButtonElement>) {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+    event.preventDefault()
+    const bounds = event.currentTarget.getBoundingClientRect(), step = event.shiftKey ? 40 : 16
+    setPosition(fitPosition(bounds.left + (event.key === 'ArrowLeft' ? -step : event.key === 'ArrowRight' ? step : 0),
+      bounds.top + (event.key === 'ArrowUp' ? -step : event.key === 'ArrowDown' ? step : 0), bounds))
+  }
+  const style: CSSProperties | undefined = position ? {left: position.x, top: position.y, right: 'auto', bottom: 'auto'} : undefined
+  return {style, consumeClick, handlers: {onPointerDown: start, onPointerMove: move, onPointerUp: end,
+    onPointerCancel: end, onLostPointerCapture: (event: PointerEvent<HTMLButtonElement>) => {
+      if (event.target === event.currentTarget) end(event)
+    }, onKeyDown: keyboard}}
 }

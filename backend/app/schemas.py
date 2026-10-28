@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import AfterValidator, BaseModel, ConfigDict, Field, field_validator
+from pydantic import AfterValidator, BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from .inference import SUPPORTED_CROPS
 
@@ -18,7 +18,19 @@ class LoginBody(BaseModel):
     password: str = Field(min_length=1, max_length=256)
 
 
-class PlotCreate(BaseModel):
+class PlotCoordinates(BaseModel):
+    latitude: float | None = Field(default=None, ge=-90, le=90, allow_inf_nan=False)
+    longitude: float | None = Field(default=None, ge=-180, le=180, allow_inf_nan=False)
+
+    @model_validator(mode="after")
+    def coordinates_are_paired(self):
+        if (("latitude" in self.model_fields_set) != ("longitude" in self.model_fields_set)
+                or (self.latitude is None) != (self.longitude is None)):
+            raise ValueError("请同时填写经度和纬度，或同时清除坐标。")
+        return self
+
+
+class PlotCreate(PlotCoordinates):
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
     name: str = Field(min_length=1, max_length=100)
     crop: CropName
@@ -27,7 +39,7 @@ class PlotCreate(BaseModel):
     manager: str = Field(default="", max_length=80)
 
 
-class PlotUpdate(BaseModel):
+class PlotUpdate(PlotCoordinates):
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
     name: str | None = Field(default=None, min_length=1, max_length=100)
     crop: CropName | None = None

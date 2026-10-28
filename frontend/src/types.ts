@@ -23,6 +23,9 @@ export interface Plot {
   area: number
   location: string
   manager: string
+  cover_url?: string | null
+  latitude?: number | null
+  longitude?: number | null
   health_score: number | null
   detections: number
 }

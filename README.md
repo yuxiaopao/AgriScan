@@ -78,7 +78,7 @@ MySQL 数据、Redis 持久化数据和上传文件分别保存在三个 Docker 
 
 ## 不启动 Docker 的本地演示
 
-要求 Node.js 22.12 或更高版本、Python 3.12 或更高版本。此方式明确使用 **SQLite 演示数据库**；该启动方式本身不会使用 MySQL 与 Redis，完整技术栈请使用上面的 Compose 启动方式。
+要求 Node.js 22.12 或更高版本、Python 3.12 或更高版本。未配置数据库连接时，此方式默认使用 **SQLite 演示数据库**，不启用 Redis。连接 Docker 数据库见下文；完整容器部署请使用上面的 Compose 启动方式。
 
 Windows 可直接在项目根目录运行开发脚本：
 
@@ -123,6 +123,30 @@ npm run dev -- --host 127.0.0.1
 
 SQLite 文件保存在 `backend/data/`，上传文件保存在 `backend/uploads/`，均已排除版本控制。两端分别按 `Ctrl+C` 即可停止。
 
+## 本地开发连接 Docker 中的 MySQL 与 Redis
+
+前后端在 Windows 本地运行时，可以只把 MySQL 和 Redis 放在 Docker Desktop 中。先准备项目根目录 `.env`，设置其中的数据库密码，然后执行：
+
+```powershell
+if (!(Test-Path .env)) { Copy-Item .env.example .env }
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --wait mysql redis
+```
+
+`docker-compose.local.yml` 只向本机开放 MySQL `3306` 和 Redis `6379`。在 `backend/.env` 中配置以下连接，将数据库密码替换为根目录 `.env` 中的 `MYSQL_PASSWORD`；如果密码含有 URL 特殊字符，需要进行 URL 编码。
+
+```dotenv
+DATABASE_URL=mysql+pymysql://agriscan:<MYSQL_PASSWORD>@127.0.0.1:3306/agriscan?charset=utf8mb4
+REDIS_URL=redis://127.0.0.1:6379/0
+```
+
+开发启动脚本会读取这些连接配置；未配置时仍默认使用 SQLite、关闭 Redis。修改后重新启动开发服务。新 MySQL 库由应用自动建表，并在演示模式初始化示例数据；不会自动导入旧 SQLite 数据，原数据库文件保留。
+
+MySQL 和 Redis 数据分别持久化在 `agriscan_mysql_data`、`agriscan_redis_data` Docker 数据卷中，可在 Docker Desktop 的 Volumes 页面查看。停止数据库但保留数据：
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.local.yml stop mysql redis
+```
+
 ## 项目结构与请求链路
 
 ```text
@@ -156,12 +180,14 @@ React 负责展示与交互；FastAPI 负责校验、认证和业务接口；MyS
 | 总览工作台 | `#dashboard` | 作物与地块概览、趋势、近期任务、农业 IP 引导 |
 | 作物检测 | `#detect` | 上传作物图片、关联地块、保存待模型接入的任务 |
 | 检测记录 | `#records` | 记录查询、筛选、详情与 CSV 导出 |
-| 地块管理 | `#plots` | 地块新增、修改和删除 |
+| 地块管理 | `#plots` | 地块新增、修改和删除、实景封面上传、地图选点 |
 | 病害知识库 | `#knowledge` | 浏览与检索作物病害知识、调用配置的大模型问答 |
 | 模型管理 | `#models` | 上传训练权重、查看文件信息与 SHA256、删除登记 |
 | 系统设置 | `#settings` | 服务状态、界面偏好、管理员查看邮件及大模型配置 |
 
 首次访问进入欢迎页，通过独立登录页进入工作空间。自助注册账户为普通成员，可浏览共享业务数据、上传样本和使用小禾问答；地块修改、删除样本和管理权重需要管理员身份。演示模式允许匿名浏览示例数据。没有适配并启用模型时，图片上传后的任务状态为 `awaiting_model`，不生成虚构置信度或检测框。
+
+编辑地块时，未保存的文字、坐标和待上传封面会自动缓存在当前浏览器的 IndexedDB 中，按账号和地块区分。关闭弹窗或刷新页面后重新编辑即可恢复；保存成功或点击“放弃草稿”会清除对应草稿。此缓存不在设备间同步，清理浏览器站点数据会移除草稿。地块卡片封面支持手动左右切换“封面 / 地图”两页，不自动播放、不首尾循环；地图页显示已保存的坐标标记，未定位的地块显示空状态。
 
 ## 注册、邮件验证与大模型配置
 

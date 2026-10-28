@@ -1,8 +1,8 @@
 .assistant-widget{position:fixed;right:28px;bottom:24px;z-index:45;font-size:13px}
-.assistant-launcher{display:flex;align-items:center;justify-content:center;position:relative;width:65px;height:65px;margin-left:auto;border:1px solid #cedec0;border-radius:23px;background:linear-gradient(145deg,#f8fce9,#e0ecd4);box-shadow:0 6px 25px #28463024;padding:0}
-.assistant-launcher:hover{transform:translateY(-3px);box-shadow:0 9px 30px #28463032}
+.assistant-launcher{display:flex;align-items:center;justify-content:center;position:relative;width:65px;height:65px;margin-left:auto;border:0;border-radius:23px;background:transparent;box-shadow:none;padding:0;cursor:grab;touch-action:none;user-select:none}
+.assistant-launcher:active{cursor:grabbing}
 .assistant-launcher>img{width:67px;height:67px;object-fit:contain;transform:translateY(-5px)}
-.assistant-launcher>span:not(.xiaohe-sprite){position:absolute;bottom:3px;font-size:9px;letter-spacing:2px;background:#ffffffd9;border-radius:6px;padding:2px 6px;color:#466241}
+.assistant-launcher>span:not(.xiaohe-sprite){position:absolute;bottom:3px;font-size:9px;letter-spacing:2px;background:transparent;padding:0;color:#466241}
 .assistant-launcher>i{position:absolute;right:0;top:0;width:10px;height:10px;border:2px solid white;border-radius:50%;background:#d59743}
 .assistant-launcher.is-open{width:48px;height:48px;border-radius:17px}.assistant-launcher.is-open>img{width:48px;height:48px;transform:none}
 .assistant-window{position:absolute;right:0;bottom:78px;display:flex;flex-direction:column;width:400px;height:580px;max-height:calc(100dvh - 125px);border:1px solid #dae5d3;border-radius:22px;background:#fff;box-shadow:0 18px 65px #233b342c,0 2px 8px #233b340a;overflow:hidden;animation:assistant-appear .2s ease-out}
@@ -64,7 +64,6 @@
 .assistant-detection-card p{font-size:10px;color:#899b77;overflow-wrap:anywhere;margin-bottom:10px}
 .assistant-detection-card>span{font-size:11px;color:#698555}
 .assistant-detection-card small{display:block;font-size:9px;line-height:1.7;color:#94a083;margin-top:9px}
-.detection-assistant-note{font-size:11px;line-height:1.8;color:#819273;margin:14px 0 20px}
 @media(max-width:650px){.assistant-window{right:16px;bottom:16px;max-height:calc(100dvh - 32px)}.assistant-header p{font-size:9px}}
 /* User-controlled floating dimensions; content scrolls independently. */
 .assistant-header{gap:7px;padding:13px 14px}
