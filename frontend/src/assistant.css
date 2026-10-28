@@ -77,3 +77,27 @@
 .assistant-resize:focus-visible{outline:2px solid #577b42;outline-offset:-3px}
 .assistant-composer>p{padding-right:12px}
 .assistant-window{max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px)}
+/* History sits beside the chat; the message log and composer stay mounted. */
+.assistant-window{overflow:visible}
+.assistant-header{border-radius:21px 21px 0 0}
+.assistant-main{display:flex;flex-direction:column;flex:1;min-height:0;min-width:0;overflow:hidden;border-radius:0 0 21px 21px}
+.assistant-history-menu{position:absolute;right:calc(100% + 12px);top:-1px;width:236px;height:min(440px,100%);display:flex;flex-direction:column;background:var(--crop-canvas,#fbfdf8);border:1px solid #dfe7d8;border-radius:16px;box-shadow:0 12px 40px #233b3424;overflow:hidden;animation:assistant-history-reveal .16s ease-out}
+.assistant-history-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 13px 5px;flex-shrink:0}
+.assistant-history-heading h3{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--crop-dark,#42613a);font-weight:600}
+.assistant-history-heading .icon-button{width:25px;height:25px;color:#859579}
+.assistant-history-caption{padding:0 14px 10px;font-size:9px;color:#94a28a;line-height:1.6;flex-shrink:0;border-bottom:1px solid #e6ecdf}
+.assistant-history-menu .assistant-history{padding:10px;min-height:0}
+.assistant-history-menu .assistant-history>button{padding:11px 8px;gap:7px;margin-bottom:6px;border-radius:9px;background:white}
+.assistant-history-menu .assistant-history>button.active,.assistant-history-menu .assistant-history>button:hover{background:var(--crop-soft,#f1f6e9);border-color:var(--crop-soft,#dfebd2)}
+.assistant-history-menu .assistant-history strong{font-size:11px;color:var(--crop-dark,#536d45)}
+.assistant-history-menu .assistant-history small{font-size:9px}
+.assistant-history-menu .assistant-history-empty{padding:28px 10px;font-size:11px}
+.assistant-toolbar button[aria-expanded=true]{color:var(--crop-dark,#42613a);font-weight:600}
+@keyframes assistant-history-reveal{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+@media(max-width:599px){
+  .assistant-history-menu{position:static;width:auto;height:auto;max-height:32%;flex:0 1 170px;border:0;border-bottom:1px solid #e4ebdd;border-radius:0;box-shadow:none;animation:none}
+  .assistant-history-heading{padding:8px 12px 3px}.assistant-history-caption{padding:0 13px 5px}
+  .assistant-history-menu .assistant-history{padding:6px 10px}.assistant-history-menu .assistant-history-empty{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){.assistant-history-menu{animation:none}}
+.reduce-motion .assistant-history-menu{animation:none}
