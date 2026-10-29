@@ -1,5 +1,7 @@
 # 2026-10-28 生产部署与公网访问证据
 
+> 历史记录：本文保留 2026-10-28 的旧域测试证据。当前服务已迁移至 `agriscan.ming-ai.top`，见 [2026-10-29 域名迁移](domain-migration-20261029.md)。
+
 生产入口：<https://flowly-ai.top/agriscan/>；工作台 `/agriscan/workspace/`；管理端 `/agriscan/admin/`。本轮运行标识 `qa20261028_1935`，以下时间为北京时间，证书日期另标 UTC。
 
 ## 当前结论

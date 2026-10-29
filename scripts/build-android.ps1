@@ -33,7 +33,7 @@ try {
 
     if ($Release -and $AllowLocalHttp) { throw 'Release builds require HTTPS. Remove -AllowLocalHttp.' }
     if (!$ApiBaseUrl) { $ApiBaseUrl = $env:VITE_API_BASE_URL }
-    if (!$ApiBaseUrl) { $ApiBaseUrl = 'https://flowly-ai.top/agriscan' }
+    if (!$ApiBaseUrl) { $ApiBaseUrl = 'https://agriscan.ming-ai.top/agriscan' }
     $apiUri = $null
     if (![Uri]::TryCreate($ApiBaseUrl, [UriKind]::Absolute, [ref]$apiUri) -or $apiUri.Scheme -notin @('https', 'http') -or $apiUri.UserInfo -or $apiUri.Query -or $apiUri.Fragment) {
         throw 'ApiBaseUrl must be an absolute HTTPS service address without credentials, query parameters or a fragment.'

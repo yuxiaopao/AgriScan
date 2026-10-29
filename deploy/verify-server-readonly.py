@@ -17,9 +17,12 @@ import httpx
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-id', required=True)
+    parser.add_argument('--domain', default='agriscan.ming-ai.top')
     args = parser.parse_args()
     if not args.run_id.replace('_', '').isalnum():
         raise SystemExit('Invalid QA run id.')
+    if not args.domain or any(character not in 'abcdefghijklmnopqrstuvwxyz0123456789.-' for character in args.domain):
+        raise SystemExit('Domain must be a lowercase hostname, without a URL scheme or path.')
     spec = importlib.util.spec_from_file_location('smoke_helpers', Path(__file__).with_name('smoke-server.py'))
     helpers = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(helpers)
@@ -150,11 +153,11 @@ def main():
 
             tls = subprocess.run(['curl', '--silent', '--show-error', '--noproxy', '*', '--fail',
                                   '--connect-timeout', '10', '--max-time', '30', '--resolve',
-                                  'flowly-ai.top:443:127.0.0.1', 'https://flowly-ai.top/agriscan/api/health'],
+                                  f'{args.domain}:443:127.0.0.1', f'https://{args.domain}/agriscan/api/health'],
                                  capture_output=True, timeout=35)
             require(tls.returncode == 0 and json.loads(tls.stdout) == health,
                     'Verified source Nginx HTTPS health failed.')
-            report['https'] = {'domain': 'flowly-ai.top', 'resolve_ip': '127.0.0.1', 'certificate_verification': True}
+            report['https'] = {'domain': args.domain, 'resolve_ip': '127.0.0.1', 'certificate_verification': True}
             report['configuration_version_finish'] = request('/api/admin/config').json()['version']
             report['service_after'] = helpers.service_snapshot()
             require(report['service_before']['MainPID'] == report['service_after']['MainPID']

@@ -10,16 +10,16 @@
     <img alt="Android 测试版" src="https://img.shields.io/badge/Android-公开测试版-3DDC84?style=flat-square&amp;logo=android&amp;logoColor=white">
   </p>
   <p>
-    <a href="https://flowly-ai.top/agriscan/">访问官网</a> ·
-    <a href="https://flowly-ai.top/agriscan/workspace/#login">打开网页版</a> ·
-    <a href="https://flowly-ai.top/agriscan/admin/">管理控制台</a> ·
-    <a href="https://flowly-ai.top/agriscan/downloads/agriscan-test.apk">下载 Android 测试版</a>
+    <a href="https://agriscan.ming-ai.top/agriscan/">访问官网</a> ·
+    <a href="https://agriscan.ming-ai.top/agriscan/workspace/#login">打开网页版</a> ·
+    <a href="https://agriscan.ming-ai.top/agriscan/admin/">管理控制台</a> ·
+    <a href="https://agriscan.ming-ai.top/agriscan/downloads/agriscan-test.apk">下载 Android 测试版</a>
   </p>
 </div>
 
 > **分支说明**：`main` 保留初始代码并更新项目展示；最新完整功能位于 [`codex/workspace-ui-and-plot-management-20261028`](https://github.com/yuxiaopao/AgriScan/tree/codex/workspace-ui-and-plot-management-20261028)。体验源码请克隆该功能分支，下方技术文档也指向该分支。
 >
-> **在线访问**：当前域名尚未完成 ICP 备案，国内部分网络可能被拦截。Android 下载为独立发布的调试签名测试包，不随 Git 源码提交；真机体验仍需自行验证。
+> **在线访问**：官网已迁移至 `agriscan.ming-ai.top`，直接访问域名会进入官网。Android 下载为独立发布的调试签名测试包，不随 Git 源码提交；真机体验仍需自行验证。
 
 ## 从观察一片叶子开始
 
@@ -115,6 +115,7 @@ docs/       配置、验收与项目文档       design/     小禾 IP 与界面
 | [后端与数据](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md) | API、数据库迁移与旧数据导入 |
 | [当前检测模型](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md) | 38 类映射、ONNX 导出及一致性校验边界 |
 | [生产部署](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/deploy/README.md) | 域名前缀、独立服务、模型与安装包发布 |
+| [新域名迁移验收](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/domain-migration-20261029.md) | 当前网址、证书续期、APP 升级与真实生产检查 |
 | [生产验收记录](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/QA-2026-10-28.md) | 真实页面点击、检测结果、已知限制与证据 |
 
 <div align="center"><sub>禾观 AgriScan · 用心守护每一份绿意</sub></div>

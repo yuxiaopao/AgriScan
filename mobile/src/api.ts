@@ -1,5 +1,17 @@
 const BASE_KEY = 'agriscan-mobile-service'
-export const getServiceBase = () => localStorage.getItem(BASE_KEY) ?? (import.meta.env.VITE_API_BASE_URL || '')
+const DEFAULT_SERVICE_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const PREVIOUS_OFFICIAL_BASE = 'https://flowly-ai.top/agriscan'
+const OFFICIAL_BASE = 'https://agriscan.ming-ai.top/agriscan'
+export function getServiceBase() {
+  const stored = localStorage.getItem(BASE_KEY)
+  if (DEFAULT_SERVICE_BASE === OFFICIAL_BASE && (stored === PREVIOUS_OFFICIAL_BASE || stored === PREVIOUS_OFFICIAL_BASE + '/')) {
+    localStorage.setItem(BASE_KEY, OFFICIAL_BASE)
+    // Changing the official origin requires a fresh login; never forward an old token.
+    localStorage.removeItem(`agriscan-mobile-token:${OFFICIAL_BASE}`)
+    return OFFICIAL_BASE
+  }
+  return stored ?? DEFAULT_SERVICE_BASE
+}
 const tokenKey = (base=getServiceBase()) => `agriscan-mobile-token:${base || 'proxy'}`
 export const getToken = () => localStorage.getItem(tokenKey())
 export const setToken = (token: string | null) => token ? localStorage.setItem(tokenKey(), token) : localStorage.removeItem(tokenKey())

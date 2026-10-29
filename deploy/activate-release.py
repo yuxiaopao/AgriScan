@@ -11,6 +11,12 @@ import time
 from urllib.request import urlopen
 
 root = Path('/srv/agriscan')
+domain = os.environ.get('AGRISCAN_DOMAIN', 'agriscan.ming-ai.top')
+if not re.fullmatch(r'[a-z0-9](?:[a-z0-9.-]{0,251}[a-z0-9])?', domain):
+    raise SystemExit('AGRISCAN_DOMAIN must be a hostname, without a URL scheme or path.')
+config = Path(os.environ.get('AGRISCAN_NGINX_CONFIG', '/etc/nginx/conf.d/zz-agriscan.conf'))
+if not config.is_file():
+    raise SystemExit('Provision the dedicated AgriScan HTTPS virtual host before activating a release.')
 archive = root / 'bootstrap/agriscan-release.tar.gz'
 expected = sys.argv[1]
 if hashlib.file_digest(archive.open('rb'), 'sha256').hexdigest() != expected:
@@ -74,7 +80,6 @@ if public_link.exists() and not public_link.is_symlink():
 if not public_link.is_symlink():
     public_link.symlink_to(current / 'public', target_is_directory=True)
 
-config = Path('/etc/nginx/conf.d/flowly-share.conf')
 original = config.read_text(encoding='utf8')
 include = '    include /etc/nginx/agriscan-locations.inc;\n'
 if include not in original:
@@ -91,7 +96,8 @@ if include not in original:
                 depth -= 1
             end += 1
         block = original[start:end]
-        if re.search(r'listen\s+443\s+ssl', block) and re.search(r'server_name\s+flowly-ai\.top\s+www\.flowly-ai\.top\s*;', block):
+        server_names = re.search(r'\bserver_name\s+([^;]+);', block)
+        if re.search(r'listen\s+443\s+ssl', block) and server_names and domain in server_names.group(1).split():
             offset = block.index('    location ')
             updated = original[:start + offset] + include + '\n' + original[start + offset:]
             found = True
@@ -109,5 +115,5 @@ if include not in original:
 subprocess.run(['nginx', '-t'], check=True)
 subprocess.run(['systemctl', 'reload', 'nginx'], check=True)
 print('Activated release:', release)
-print('HTTPS website: https://flowly-ai.top/agriscan/')
+print(f'HTTPS website: https://{domain}/agriscan/')
 print('Existing Flowly root and /app.apk retained. Credentials remain in /srv/agriscan/shared/production.env.')

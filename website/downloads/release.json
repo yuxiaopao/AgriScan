@@ -1,14 +1,14 @@
 {
   "status": "ready",
-  "version": "1.0",
-  "version_code": 1,
+  "version": "1.0.1",
+  "version_code": 2,
   "channel": "公开测试版 · 调试签名",
   "url": "./downloads/agriscan-test.apk",
-  "size_bytes": 18744536,
-  "sha256": "7b195441f02683ef861aa8b35ed21ef4ebe6593e9de2b914b3c0f82cd24a2135",
+  "size_bytes": 18744600,
+  "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
   "package_id": "cn.agriscan.mobile",
   "min_android": "7.0",
   "target_sdk": 36,
-  "api_base_url": "https://flowly-ai.top/agriscan",
-  "published_at": "2026-10-28"
+  "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+  "published_at": "2026-10-29"
 }

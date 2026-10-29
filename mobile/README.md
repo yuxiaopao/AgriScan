@@ -28,7 +28,9 @@ npm.cmd run dev
 
 工程在 `android/`，应用 ID 为 `cn.agriscan.mobile`。构建需要 **JDK 21、Android SDK 36**，并设置本机 `JAVA_HOME` 和 `ANDROID_HOME`（或 `android/local.properties` 的 `sdk.dir`）。
 
-若项目中存在 `.runtime/android-toolchain/`，脚本会自动使用其中的隔离 JDK、SDK、Gradle 缓存与 Android 用户目录，结束时恢复当前进程环境；不会修改系统 Java 设置。构建默认服务地址为 `https://flowly-ai.top/agriscan`，可通过 `VITE_API_BASE_URL` 或 `-ApiBaseUrl` 覆盖。
+若项目中存在 `.runtime/android-toolchain/`，脚本会自动使用其中的隔离 JDK、SDK、Gradle 缓存与 Android 用户目录，结束时恢复当前进程环境；不会修改系统 Java 设置。构建默认服务地址为 `https://agriscan.ming-ai.top/agriscan`，可通过 `VITE_API_BASE_URL` 或 `-ApiBaseUrl` 覆盖。
+
+当前测试版为 **1.0.1 / versionCode 2**。使用新官方默认地址构建时，已保存的旧官方地址 `https://flowly-ai.top/agriscan`（含末尾斜线的同义写法）会在升级后迁移到新地址，并要求重新登录；自定义局域网或其他域名保持不变。服务地址对应的令牌相互隔离，不会把旧域名令牌转发至新域名。沿用原测试包签名的 APK 可作为升级包安装，仍需真机验证。
 
 ```powershell
 # 仓库根目录：构建可安装的调试 APK

@@ -349,7 +349,7 @@ def main():
     parser.add_argument('--env-file', type=Path, default=Path('/srv/agriscan/shared/production.env'))
     parser.add_argument('--fixture', type=Path, default=Path(__file__).with_name('smoke-apple-scab.jpg'))
     parser.add_argument('--report-dir', type=Path, default=Path('/srv/agriscan/shared/logs'))
-    parser.add_argument('--domain', default='flowly-ai.top')
+    parser.add_argument('--domain', default='agriscan.ming-ai.top')
     parser.add_argument('--resolve-ip', default='127.0.0.1', choices=['127.0.0.1'])
     parser.add_argument('--prefix', default='/agriscan/api')
     args = parser.parse_args()

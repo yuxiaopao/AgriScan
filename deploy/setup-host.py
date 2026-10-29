@@ -37,7 +37,7 @@ if not ENV.exists():
         'UPLOAD_DIR': str(SHARED / 'uploads'), 'DEMO_MODE': 'false',
         'JWT_SECRET': secrets.token_urlsafe(48), 'ADMIN_USERNAME': 'admin',
         'ADMIN_PASSWORD': secrets.token_urlsafe(24),
-        'CORS_ORIGINS': 'https://flowly-ai.top,https://www.flowly-ai.top,https://localhost,http://localhost,capacitor://localhost',
+        'CORS_ORIGINS': 'https://agriscan.ming-ai.top,https://flowly-ai.top,https://www.flowly-ai.top,https://localhost,http://localhost,capacitor://localhost',
         'CONFIG_ENCRYPTION_KEY': base64.urlsafe_b64encode(os.urandom(32)).decode(),
         'REGISTRATION_ENABLED': 'true', 'EMAIL_VERIFICATION_ENABLED': 'false',
         'LLM_ENABLED': 'false', 'LLM_BASE_URL': 'https://api.openai.com/v1', 'LLM_API_KEY': '',
