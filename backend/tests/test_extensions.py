@@ -31,8 +31,8 @@ def test_registration_toggle_validation_duplicates_and_permissions(client):
     headers = member_auth(client)
     assert client.post("/api/auth/register", json=account()).status_code == 409
     assert client.get("/api/settings/integrations", headers=headers).status_code == 403
-    assert client.post("/api/plots", headers=headers, json={"name": "test", "crop": "番茄", "area": 1}).status_code == 403
-    assert client.delete("/api/detections/demo-001", headers=headers).status_code == 403
+    assert client.post("/api/plots", headers=headers, json={"name": "test", "crop": "番茄", "area": 1}).status_code == 201
+    assert client.delete("/api/detections/demo-001", headers=headers).status_code == 404
     assert client.post("/api/models", headers=headers, data={"name": "model"},
                        files={"file": ("test.pt", b"test")}).status_code == 403
     upload = client.post("/api/detections", headers=headers, data={"crop": "番茄"},

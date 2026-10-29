@@ -118,8 +118,8 @@ def main():
                     and exported.headers.get('cache-control') == 'no-store', 'CSV encoding/headers are invalid.')
             rows = list(csv.DictReader(io.StringIO(exported.content.decode('utf-8-sig'), newline='')))
             require(list(rows[0]) == ['id', 'name', 'crop', 'plot_name', 'status', 'result', 'confidence',
-                                     'created_at', 'is_demo', 'note'] if rows else
-                    exported.content.decode('utf-8-sig').startswith('id,name,crop,plot_name,status,result,confidence,created_at,is_demo,note'),
+                                     'created_at', 'is_demo', 'note', 'owner_id', 'owner_username', 'owner_name'] if rows else
+                    exported.content.decode('utf-8-sig').startswith('id,name,crop,plot_name,status,result,confidence,created_at,is_demo,note,owner_id,owner_username,owner_name'),
                     'CSV schema differs from its API contract.')
             for row in rows:
                 require(not any(value.lstrip(' \t\r\n').startswith(('=', '+', '-', '@'))
@@ -143,7 +143,7 @@ def main():
                                         and 0 <= value <= 1 for value in coordinates)
                                 and coordinates[0] < coordinates[2] and coordinates[1] < coordinates[3],
                                 'A persisted QA box violates the normalized original-image rectangle contract.')
-                    require(request('/api/detections/' + row['id']).json()['boxes'] == row['boxes'],
+                    require(request('/api/admin/detections/' + row['id']).json()['boxes'] == row['boxes'],
                             'Persisted boxes changed between administrative and user reads.')
                 if row.get('image_url'):
                     require(request(row['image_url']).headers.get('content-type', '').startswith('image/'),

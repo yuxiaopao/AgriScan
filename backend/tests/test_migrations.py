@@ -14,6 +14,7 @@ from sqlalchemy.dialects import mysql, sqlite
 from app.db import Base, Detection, Plot, make_database
 from app.migrations import SCHEMA_REVISION, migrate_database
 from app import admin_models, assistant, detection_assistant, extensions
+from migration_helpers import upgrade_to_revision
 
 
 def test_upgrade_legacy_database_preserves_rows_and_creates_restorable_backup(tmp_path):
@@ -43,11 +44,13 @@ def test_upgrade_legacy_database_preserves_rows_and_creates_restorable_backup(tm
             assert row["is_active"] == 1 and row["token_version"] == 0
             assert row["created_at"] is None  # Registration time was never collected.
             assert connection.scalar(text("SELECT name FROM plots WHERE id='legacy-plot'")) == "已有地块"
-            assert connection.scalar(text("SELECT sql FROM sqlite_master WHERE name='plots'")) == previous_plot_ddl
+            assert connection.scalar(text("SELECT owner_id FROM plots WHERE id='legacy-plot'")) is None
+            assert 'owner_id' in {column['name'] for column in inspect(connection).get_columns('plots')}
         backup = next((tmp_path / "backups").glob("*.sqlite3"))
         with sqlite3.connect(backup) as connection:
             assert connection.execute("SELECT name FROM users").fetchone()[0] == "已有成员"
             assert "is_active" not in {row[1] for row in connection.execute("PRAGMA table_info(users)")}
+            assert connection.execute("SELECT sql FROM sqlite_master WHERE name='plots'").fetchone()[0] == previous_plot_ddl
         migrate_database(engine)
         assert len(list((tmp_path / "backups").glob("*.sqlite3"))) == 1
     finally:
@@ -60,6 +63,22 @@ def test_fresh_database_matches_current_models_and_preserves_foreign_keys(tmp_pa
         migrate_database(engine)
         with engine.connect() as connection:
             differences = compare_metadata(MigrationContext.configure(connection), Base.metadata)
+            # SQLite enforces an ALTER-added inline REFERENCES clause correctly,
+            # while SQLAlchemy reflection omits its ON DELETE option. Verify the
+            # real database constraint before excluding only this known diff.
+            for table in ('plots','detections'):
+                keys=connection.exec_driver_sql(f'PRAGMA foreign_key_list({table})').mappings().all()
+                assert any(key['from']=='owner_id' and key['table']=='users' and key['to']=='id'
+                           and key['on_delete']=='SET NULL' for key in keys)
+            def inline_owner_difference(change):
+                if change[0] not in {'add_fk','remove_fk'}:return False
+                foreign_key=change[1]
+                return (foreign_key.table.name in {'plots','detections'}
+                        and list(foreign_key.columns.keys())==['owner_id']
+                        and [element.target_fullname for element in foreign_key.elements]==['users.id']
+                        and foreign_key.ondelete in {None,'SET NULL'}
+                        and foreign_key.onupdate is None and foreign_key.deferrable is None)
+            differences=[change for change in differences if not inline_owner_difference(change)]
             assert differences == []
             assert connection.scalar(text("PRAGMA foreign_keys")) == 1
             assert {"knowledge_articles", "audit_logs", "plot_details"} <= set(inspect(connection).get_table_names())
@@ -107,5 +126,41 @@ def test_sqlite_03_to_04_keeps_ddl_and_exact_existing_float_values(tmp_path):
             assert connection.scalar(text("SELECT area FROM plots WHERE id='p'")) == area
             assert connection.scalar(text("SELECT confidence FROM detections WHERE id='d'")) == confidence
             assert dict(connection.execute(text("SELECT name, sql FROM sqlite_master WHERE type='table' AND name IN ('plots','detections')")).all()) == ddl
+    finally:
+        engine.dispose()
+
+
+def test_05_to_06_adds_nullable_ownership_without_attributing_legacy_rows(tmp_path):
+    engine,_=make_database(f"sqlite:///{tmp_path/'ownership.db'}")
+    try:
+        upgrade_to_revision(engine,'20261028_05')
+        with engine.begin() as connection:
+            connection.execute(text("INSERT INTO users (id,username,password_hash,name,role,is_active,token_version) VALUES ('u','legacy','preserved-hash','已有用户','member',1,0)"))
+            connection.execute(text("INSERT INTO plots (id,name,crop,area,location,manager) VALUES ('p','历史地块','番茄',2,'原位置','原负责人')"))
+            connection.execute(text("INSERT INTO detections (id,name,crop,plot_id,status,result,confidence,created_at,is_demo,note) VALUES ('d','历史照片','番茄','p','attention','原结果',0.88,'2026-10-28 03:04:05',0,'保留')"))
+        migrate_database(engine)
+        with engine.connect() as connection:
+            for table in ('plots','detections'):
+                inspector=inspect(connection)
+                column=next(column for column in inspector.get_columns(table) if column['name']=='owner_id')
+                assert column['nullable'] is True
+                assert any(item['constrained_columns']==['owner_id'] and item['referred_table']=='users'
+                           for item in inspector.get_foreign_keys(table))
+                assert any(item['from']=='owner_id' and item['on_delete']=='SET NULL'
+                           for item in connection.exec_driver_sql(f'PRAGMA foreign_key_list({table})').mappings())
+                assert any(item['column_names']==['owner_id'] for item in inspector.get_indexes(table))
+                assert connection.scalar(text(f'SELECT owner_id FROM {table}')) is None
+            assert connection.execute(text("SELECT name,result,note FROM detections WHERE id='d'")).one()==('历史照片','原结果','保留')
+            assert connection.scalar(text('SELECT version_num FROM alembic_version'))==SCHEMA_REVISION
+        # A later account deletion preserves attributable records as unassigned.
+        with engine.begin() as connection:
+            connection.execute(text("UPDATE plots SET owner_id='u'"))
+            connection.execute(text("UPDATE detections SET owner_id='u'"))
+            connection.execute(text("DELETE FROM users WHERE id='u'"))
+        migrate_database(engine)
+        with engine.connect() as connection:
+            assert connection.scalar(text('SELECT owner_id FROM plots')) is None
+            assert connection.scalar(text('SELECT owner_id FROM detections')) is None
+            assert connection.scalar(text('SELECT count(*) FROM detections'))==1
     finally:
         engine.dispose()

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, type FormEvent} from 'react'
+import {useEffect, useRef, useState, type FormEvent, type ReactNode} from 'react'
 import {ImagePlus, Trash2, Upload, X} from 'lucide-react'
 import {api} from './api'
 import {Modal, SecureImage} from './components'
@@ -7,15 +7,15 @@ import {readPlotDraft, writePlotDraft, type PlotDraft} from './plotDrafts'
 import type {Plot} from './types'
 import './plot-editor.css'
 
-interface Props {plot: Plot | null; crops: string[]; owner: string; onChange: () => void; onClose: () => void; toast: (message: string) => void}
+interface Props {plot: Plot | null; crops: string[]; owner: string; onChange: () => void; onClose: () => void; toast: (message: string) => void; apiPrefix?:'/plots'|'/admin/plots'; ownerId?:string|null; ownerField?:ReactNode}
 
-export default function PlotEditor({plot, crops, owner, onChange, onClose, toast}: Props) {
+export default function PlotEditor({plot, crops, owner, onChange, onClose, toast, apiPrefix='/plots', ownerId, ownerField}: Props) {
   const initial = useRef<PlotDraft>({name: plot?.name ?? '', crop: plot?.crop ?? crops[0] ?? '', area: plot?.area.toString() ?? '',
     location: plot?.location ?? '', manager: plot?.manager ?? '', latitude: plot?.latitude?.toString() ?? '',
     longitude: plot?.longitude?.toString() ?? '', file: null, removeCover: false, savedId: plot?.id})
   const [draft, setDraft] = useState(initial.current)
   const currentDraft = useRef(initial.current)
-  const key = JSON.stringify([owner, plot?.id ?? 'new'])
+  const key = JSON.stringify([apiPrefix, owner, plot?.id ?? 'new'])
   const [ready, setReady] = useState(false)
   const [hasDraft, setHasDraft] = useState(false)
   const [cacheMessage, setCacheMessage] = useState('')
@@ -79,11 +79,11 @@ export default function PlotEditor({plot, crops, owner, onChange, onClose, toast
     event.preventDefault()
     if (busy || !ready) return
     const {file: pendingFile, savedId, removeCover: deleteCover, latitude: lat, longitude: lng, ...fields} = currentDraft.current
-    const body = {...fields, area: Number(fields.area), latitude: lat === '' ? null : Number(lat), longitude: lng === '' ? null : Number(lng)}
+    const body = {...fields, area: Number(fields.area), latitude: lat === '' ? null : Number(lat), longitude: lng === '' ? null : Number(lng), ...(apiPrefix==='/admin/plots'&&ownerId!==undefined?{owner_id:ownerId}:{})}
     setBusy(true); setError('')
     let detailsSaved = false
     try {
-      const saved = await api<Plot>(`/plots${savedId ? `/${savedId}` : ''}`, {
+      const saved = await api<Plot>(`${apiPrefix}${savedId ? `/${savedId}` : ''}`, {
         method: savedId ? 'PATCH' : 'POST', body: JSON.stringify(body),
       })
       updateDraft({savedId: saved.id})
@@ -91,11 +91,11 @@ export default function PlotEditor({plot, crops, owner, onChange, onClose, toast
       detailsSaved = true
       if (pendingFile) {
         const upload = new FormData(); upload.append('file', pendingFile)
-        const updated = await api<Plot>(`/plots/${saved.id}/cover`, {method: 'POST', body: upload})
+        const updated = await api<Plot>(`${apiPrefix}/${saved.id}/cover`, {method: 'POST', body: upload})
         setSavedCoverUrl(updated.cover_url ?? null)
         updateDraft({file: null, removeCover: false})
       } else if (deleteCover) {
-        const updated = await api<Plot>(`/plots/${saved.id}/cover`, {method: 'DELETE'})
+        const updated = await api<Plot>(`${apiPrefix}/${saved.id}/cover`, {method: 'DELETE'})
         setSavedCoverUrl(updated.cover_url ?? null)
         updateDraft({removeCover: false})
       }
@@ -113,6 +113,7 @@ export default function PlotEditor({plot, crops, owner, onChange, onClose, toast
   return <Modal title={plot ? '编辑地块' : '添加地块'} wide onClose={() => void close()}>
     <form className="modal-form plot-editor" onSubmit={save}>
       {error && <div className="plot-editor-error" role="alert">{error}</div>}
+      {apiPrefix==='/admin/plots'&&<fieldset disabled={busy}>{ownerField}<p className="plot-draft-status">变更归属会改变用户端可见范围。有关联其他用户检测记录的地块不能直接转移，请先调整关联；不会批量转移历史样本。</p></fieldset>}
       {!ready && <div className="plot-draft-status" role="status">正在恢复草稿…</div>}
       {cacheMessage && <div className="plot-draft-status" role="status"><span>{cacheMessage}</span>{hasDraft && <button type="button" onClick={() => void discard()} disabled={busy}>放弃草稿</button>}</div>}
       {ready && <fieldset disabled={busy}><div className="plot-editor-layout"><section className="plot-editor-details">

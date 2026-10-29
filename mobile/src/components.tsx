@@ -21,7 +21,7 @@ export function SecureImage({url, alt, className = ''}: {url: string; alt: strin
     const resolved = new URL(mediaUrl(url), window.location.origin)
     const service = new URL(getServiceBase() || window.location.origin)
     const token = getToken()
-    fetch(resolved, {headers: token && resolved.origin === service.origin ? {Authorization: `Bearer ${token}`} : undefined, signal: controller.signal})
+    fetch(resolved, {headers: token && resolved.origin === service.origin ? {Authorization: `Bearer ${token}`} : undefined, cache: 'no-store', signal: controller.signal})
       .then(response => {if (!response.ok) throw new Error(); return response.blob()})
       .then(blob => {objectUrl = URL.createObjectURL(blob); if (alive) setSource(objectUrl); else URL.revokeObjectURL(objectUrl)})
       .catch(() => {if (alive) setFailed(true)})

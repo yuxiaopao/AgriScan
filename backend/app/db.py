@@ -39,6 +39,7 @@ class User(Base):
 class Plot(Base):
     __tablename__ = "plots"
     id: Mapped[str] = mapped_column(String(32), primary_key=True, default=new_id)
+    owner_id: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
     name: Mapped[str] = mapped_column(String(100))
     crop: Mapped[str] = mapped_column(String(40))
     area: Mapped[float] = mapped_column(Float().with_variant(Double(), "mysql"))
@@ -61,6 +62,7 @@ class Detection(Base):
     __tablename__ = "detections"
     __table_args__ = (Index("ix_detections_created_id", "created_at", "id"),)
     id: Mapped[str] = mapped_column(String(32), primary_key=True, default=new_id)
+    owner_id: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
     name: Mapped[str] = mapped_column(String(200))
     crop: Mapped[str] = mapped_column(String(40), index=True)
     plot_id: Mapped[str | None] = mapped_column(ForeignKey("plots.id", ondelete="SET NULL"), nullable=True)

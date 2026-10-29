@@ -4,7 +4,7 @@ import json
 import sqlite3
 
 import pytest
-from sqlalchemy import func, insert, select, text
+from sqlalchemy import MetaData, Table, func, insert, select, text
 from sqlalchemy.exc import OperationalError
 
 from app.admin_models import AuditLog, KnowledgeArticle
@@ -15,6 +15,7 @@ from app.detection_assistant import DetectionDiscussion
 from app.extensions import EmailChallenge, ModelArtifact, UserEmail
 from app.import_legacy import LegacyImportError, file_sha256, import_legacy
 from app.migrations import SCHEMA_REVISION, migrate_database
+from migration_helpers import upgrade_to_revision
 
 
 @pytest.fixture
@@ -28,7 +29,7 @@ def legacy(tmp_path):
     for relative, value in files.items():
         (uploads / relative).write_bytes(value)
     engine, _ = make_database(f"sqlite:///{source}")
-    migrate_database(engine)
+    upgrade_to_revision(engine,'20261028_05')
     from datetime import datetime
     instant = datetime(2026, 10, 28, 3, 4, 5, 123456)
     with engine.begin() as connection:
@@ -86,8 +87,14 @@ def table_rows(database):
     engine, _ = make_database(f"sqlite:///{database}")
     try:
         with engine.connect() as connection:
-            return {table.name: [dict(row) for row in connection.execute(select(table).order_by(*table.primary_key.columns)).mappings()]
-                    for table in Base.metadata.sorted_tables}
+            rows={}
+            for model_table in Base.metadata.sorted_tables:
+                table=Table(model_table.name,MetaData(),autoload_with=connection)
+                records=[dict(row) for row in connection.execute(select(table).order_by(*table.primary_key.columns)).mappings()]
+                if table.name in {'plots','detections'}:
+                    for row in records:row.setdefault('owner_id',None)
+                rows[table.name]=records
+            return rows
     finally:
         engine.dispose()
 
@@ -129,6 +136,25 @@ def test_supported_snapshot_imports_without_source_upgrade(legacy, tmp_path, ver
     with sqlite3.connect(tmp_path / "target.db") as connection:
         assert connection.execute("SELECT version_num FROM alembic_version").fetchone()[0] == SCHEMA_REVISION
         assert connection.execute('SELECT count(*) FROM workspace_configuration').fetchone()[0] == 0
+        assert connection.execute("SELECT owner_id FROM detections WHERE id='d1'").fetchone()[0] is None
+        assert connection.execute("SELECT owner_id FROM plots WHERE id='p1'").fetchone()[0] is None
+
+
+def test_06_snapshot_preserves_explicit_ownership_without_rewriting_source(legacy,tmp_path):
+    source,uploads,_=legacy
+    engine,_=make_database(f'sqlite:///{source}')
+    try:migrate_database(engine)
+    finally:engine.dispose()
+    with sqlite3.connect(source) as connection:
+        connection.execute("UPDATE plots SET owner_id='u1' WHERE id='p1'")
+        connection.execute("UPDATE detections SET owner_id='u1' WHERE id='d1'")
+    before,checksum=table_rows(source),file_sha256(source)
+    import_legacy(source,uploads,target_settings(tmp_path))
+    assert table_rows(tmp_path/'target.db')==before
+    assert file_sha256(source)==checksum
+    with sqlite3.connect(tmp_path/'target.db') as connection:
+        assert connection.execute("SELECT owner_id FROM plots WHERE id='p1'").fetchone()[0]=='u1'
+        assert connection.execute("SELECT owner_id FROM detections WHERE id='d1'").fetchone()[0]=='u1'
 
 
 def test_05_snapshot_preserves_encrypted_configuration_without_exporting_its_key(legacy, tmp_path, monkeypatch):

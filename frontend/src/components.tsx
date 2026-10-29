@@ -66,7 +66,7 @@ export function SecureImage({url, alt, className}: {url: string; alt: string; cl
     const controller = new AbortController()
     const resolved = new URL(apiResourceUrl(url), window.location.origin)
     const headers = token && resolved.origin === window.location.origin ? {Authorization: `Bearer ${token}`} : undefined
-    fetch(resolved, {headers, signal: controller.signal})
+    fetch(resolved, {headers, cache: 'no-store', signal: controller.signal})
       .then(response => {if (!response.ok) throw new Error(); return response.blob()})
       .then(blob => {objectUrl = URL.createObjectURL(blob); if (alive) setSource(objectUrl); else URL.revokeObjectURL(objectUrl)})
       .catch(() => {if (alive) setFailed(true)})

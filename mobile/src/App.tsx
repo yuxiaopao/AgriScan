@@ -43,7 +43,9 @@ function Application() {
   useEffect(()=>{
     let alive=true
     if(!getToken()||needsService){setChecking(false);return}
-    setChecking(true);api<User>('/auth/me').then(value=>{if(alive)setUser(value)}).catch(()=>{if(alive)setUser(null)}).finally(()=>{if(alive)setChecking(false)})
+    const token=getToken(),base=getServiceBase()
+    const stillCurrent=()=>alive&&getToken()===token&&getServiceBase()===base
+    setChecking(true);api<User>('/auth/me').then(value=>{if(stillCurrent())setUser(value)}).catch(()=>{if(stillCurrent()){dataVersion.current++;setUser(null);setData(emptyWorkspace);setSelected(null);setAnalysis(null)}}).finally(()=>{if(alive)setChecking(false)})
     return()=>{alive=false}
   },[serviceVersion,needsService])
   useEffect(()=>{if(user)void refresh()},[user,refresh])
@@ -57,10 +59,10 @@ function Application() {
   const recognized=useCallback((crop:string)=>applyCropTheme(crop),[])
   function ask(record:Detection){if(!config.features.assistant){setToast('小禾新问答已由管理员暂停，已有对话仍可阅读。');return}setSelected(null);setAnalysis(record);recognized(record.crop);navigate('assistant')}
   function serviceSaved(){dataVersion.current++;setToken(null);setUser(null);setData(emptyWorkspace);setSelected(null);setAnalysis(null);setServiceVersion(value=>value+1);setToast('连接设置已保存，请登录对应服务。');navigate('login')}
-  async function logout(){try{await api('/auth/logout',{method:'POST'})}catch{setToast('已退出本机账户。服务暂不可用。')}finally{dataVersion.current++;setToken(null);setUser(null);setData(emptyWorkspace);setAnalysis(null);setSelected(null);navigate('login')}}
+  async function logout(){const token=getToken(),base=getServiceBase();try{await api('/auth/logout',{method:'POST'})}catch{if(getServiceBase()===base&&getToken()===token)setToast('已退出本机账户。服务暂不可用。')}finally{if(getServiceBase()===base&&(!getToken()||getToken()===token)){dataVersion.current++;setToken(null);setUser(null);setData(emptyWorkspace);setAnalysis(null);setSelected(null);setError('');navigate('login')}}}
   if(checking)return <div className="app-frame"><div className="startup"><Leaf size={30}/><h1>禾观</h1><Loading text="正在连接你的田间工作空间…"/></div></div>
-  if(!user&&authPage&&!(needsService&&page!=='welcome'))return <div className="app-frame"><Access key={serviceVersion} page={page} onLogin={value=>{setUser(value);navigate('home')}} onSettings={()=>navigate('settings')}/>{toast&&<div className="toast" role="status">{toast}</div>}</div>
-  return <div className={`app-frame page-${page}`}><header className="app-topbar"><button className="icon-button" aria-label={tabs.some(tab=>tab.id===page)?'打开首页':'返回'} onClick={()=>navigate(user?'home':'login')}>{tabs.some(tab=>tab.id===page)?<Leaf size={23}/>:<ArrowLeft size={22}/>}</button><strong>{needsService?'连接禾观服务':(page==='home'?config.brand.app_name:titles[page])||config.brand.app_name}<small>{page==='home'?'AGRISCAN':''}</small></strong>{user?<button className="icon-button" aria-label="和小禾聊天" onClick={()=>navigate('assistant')}><MessageCircle size={21}/></button>:<span className="topbar-spacer"/>}</header>
+  if(!user&&authPage&&!(needsService&&page!=='welcome'))return <div className="app-frame"><Access key={serviceVersion} page={page} onLogin={value=>{dataVersion.current++;setData(emptyWorkspace);setSelected(null);setAnalysis(null);setError('');setToast('');setUser(value);navigate('home')}} onSettings={()=>navigate('settings')}/>{toast&&<div className="toast" role="status">{toast}</div>}</div>
+  return <div className={`app-frame page-${page}`} key={`${getServiceBase()}:${user?.username??'guest'}`}><header className="app-topbar"><button className="icon-button" aria-label={tabs.some(tab=>tab.id===page)?'打开首页':'返回'} onClick={()=>navigate(user?'home':'login')}>{tabs.some(tab=>tab.id===page)?<Leaf size={23}/>:<ArrowLeft size={22}/>}</button><strong>{needsService?'连接禾观服务':(page==='home'?config.brand.app_name:titles[page])||config.brand.app_name}<small>{page==='home'?'AGRISCAN':''}</small></strong>{user?<button className="icon-button" aria-label="和小禾聊天" onClick={()=>navigate('assistant')}><MessageCircle size={21}/></button>:<span className="topbar-spacer"/>}</header>
     <main className={`app-main ${user?'with-tabs':''} ${page==='assistant'?'chat-main':''}`}>
       {config.brand.announcement&&<div className="client-announcement" role="status"><Leaf size={15}/><p>{config.brand.announcement}</p></div>}{configError&&<p className="config-refresh-note">{configError}<button onClick={()=>void refreshConfig()}>重试</button></p>}
       {(page==='settings'||needsService)?<><div className="first-service-note">{needsService&&<><Leaf size={20}/><p>欢迎来到禾观。先填写可访问的农业检测服务地址，之后就能登录、上传照片和与小禾交流。</p></>}</div><ServiceSettings key={serviceVersion} user={user} onSaved={serviceSaved} onLogout={user?()=>void logout():undefined}/></>:

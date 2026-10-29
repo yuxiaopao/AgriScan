@@ -9,7 +9,7 @@ from alembic.config import Config
 from alembic.migration import MigrationContext
 from sqlalchemy import inspect, text
 
-SCHEMA_REVISION = "20261028_05"
+SCHEMA_REVISION = "20261029_06"
 _migration_lock = RLock()
 
 

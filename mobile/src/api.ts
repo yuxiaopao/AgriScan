@@ -39,7 +39,7 @@ export async function api<T>(path: string, options: RequestInit = {}, timeout = 
   let response: Response
   const timeoutSignal = AbortSignal.timeout(timeout)
   const signal = options.signal ? AbortSignal.any([options.signal, timeoutSignal]) : timeoutSignal
-  try {response = await fetch(`${base}/api${path}`, {...options, headers, signal})}
+  try {response = await fetch(`${base}/api${path}`, {...options, headers, cache: 'no-store', signal})}
   catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') throw new Error('已停止等待本次请求。')
     if (error instanceof DOMException && error.name === 'TimeoutError') throw new Error('服务响应超时，请稍后重试。')
@@ -47,7 +47,7 @@ export async function api<T>(path: string, options: RequestInit = {}, timeout = 
   }
   if (!response.ok) {
     const body = await response.json().catch(() => ({}))
-    if (response.status === 401&&token) {localStorage.removeItem(tokenKey(base));if(getServiceBase()===base)window.dispatchEvent(new Event('agriscan-mobile-auth-expired'))}
+    if (response.status === 401&&token&&localStorage.getItem(tokenKey(base))===token) {localStorage.removeItem(tokenKey(base));if(getServiceBase()===base)window.dispatchEvent(new Event('agriscan-mobile-auth-expired'))}
     const detail = Array.isArray(body.detail) ? body.detail.map((item: {msg?: string}) => item.msg).filter(Boolean).join('；') : body.detail
     throw new ApiError(typeof detail === 'string' ? detail : `操作未完成（${response.status}），请稍后重试。`,response.status)
   }

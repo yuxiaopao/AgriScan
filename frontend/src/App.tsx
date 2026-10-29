@@ -30,6 +30,7 @@ interface Resources {dashboard: DashboardData; records: Detection[]; plots: Plot
 
 export default function App() {
   const client = useClientConfiguration()
+  const sessionToken = getToken()
   const {crop: activeCrop, theme} = useCropTheme()
   const [accessPage, setAccessPage] = useState(accessFromHash)
   const [authLoading, setAuthLoading] = useState(Boolean(getToken()))
@@ -42,7 +43,7 @@ export default function App() {
   const [refresh, setRefresh] = useState(0)
   const [user, setUser] = useState<User | null>(null)
   const [detectionRequests, setDetectionRequests] = useState<Detection[]>([])
-  const queueDetection = useCallback((record: Detection) => setDetectionRequests(old => [...old, record]), [])
+  const queueDetection = useCallback((record: Detection) => {if(sessionToken===getToken())setDetectionRequests(old => [...old, record])}, [sessionToken])
   const handledDetection = useCallback((id: string) => setDetectionRequests(old => old.filter(record => record.id !== id)), [])
   const [search, setSearch] = useState('')
   const [recordStatus, setRecordStatus] = useState('')
@@ -60,18 +61,20 @@ export default function App() {
   const toast = useCallback((message: string) => setToastMessage(message), [])
   const navigate = (next: Page) => {window.location.hash = next; setMenu(false); setNotifications(false); setAccountOpen(false)}
   const requireAuth = () => {if (user && getToken()) return true; setSelected(null); setDeleteRecord(false); (window.location.hash = 'login'); return false}
+  function clearAccountData(){setData(null);setSelected(null);setDeleteRecord(false);setDeleteBusy(false);setDetectionRequests([]);setSearch('');setRecordStatus('');setPeriod(7);setError('');setToastMessage('');setNotifications(false);setAccountOpen(false)}
 
   useEffect(() => {
     const onHash = () => {if (isAdminHash()) {window.location.replace(adminUrl + window.location.hash); return}; setPage(pageFromHash()); setAccessPage(accessFromHash()); setAccountOpen(false); window.scrollTo({top: 0, behavior: 'instant'})}
     if (isAdminHash()) window.location.replace(adminUrl + window.location.hash)
-    const expired = () => {setUser(null); setDetectionRequests([]); (window.location.hash = 'login')}
+    const expired = () => {clearAccountData();setUser(null);(window.location.hash = 'login')}
     const dismiss = (event: KeyboardEvent) => {if (event.key === 'Escape') {setMenu(false); setNotifications(false); setAccountOpen(false)}}
     window.addEventListener('hashchange', onHash)
     window.addEventListener('agriscan-auth-expired', expired)
     window.addEventListener('keydown', dismiss)
     document.documentElement.classList.toggle('compact', localStorage.getItem('agriscan-compact') === 'true')
     document.documentElement.classList.toggle('reduce-motion', localStorage.getItem('agriscan-motion') === 'false')
-    if (getToken()) api<User>('/auth/me').then(setUser).catch(() => setUser(null)).finally(() => setAuthLoading(false))
+    const bootToken=getToken()
+    if (bootToken) api<User>('/auth/me').then(value=>{if(getToken()===bootToken)setUser(value)}).catch(() => {if(getToken()===bootToken){clearAccountData();setUser(null)}}).finally(() => setAuthLoading(false))
     else setAuthLoading(false)
     return () => {window.removeEventListener('hashchange', onHash); window.removeEventListener('agriscan-auth-expired', expired); window.removeEventListener('keydown', dismiss)}
   }, [])
@@ -86,21 +89,26 @@ export default function App() {
   }, [accountOpen])
   useEffect(() => {
     if (accessPage || isAdminHash()) return
+    const requestToken=getToken()
+    if(!user||!requestToken){setData(null);setLoading(false);if(!authLoading)window.location.hash='login';return}
     let current = true
+    const controller=new AbortController()
+    const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(20000)])
+    const stillCurrent=()=>current&&getToken()===requestToken
     setError('')
     if (!data) setLoading(true)
-    api<Health>('/health').then(value => {if (current) setHealth(value)}).catch(() => {if (current) setHealth(null)})
+    api<Health>('/health',{signal}).then(value => {if (stillCurrent()) setHealth(value)}).catch(() => {if (stillCurrent()) setHealth(null)})
     Promise.all([
-      api<DashboardData>(`/dashboard?days=${period}`),
-      api<Detection[]>('/detections'),
-      api<Plot[]>('/plots'),
-      api<Article[]>('/knowledge'),
-      api<ModelInfo>('/models'),
-    ]).then(([dashboard, records, plots, articles, model]) => {if (current) setData({dashboard, records, plots, articles, model})}).catch(e => {if (current) setError((e as Error).message)}).finally(() => {if (current) setLoading(false)})
-    return () => {current = false}
+      api<DashboardData>(`/dashboard?days=${period}`,{signal}),
+      api<Detection[]>('/detections',{signal}),
+      api<Plot[]>('/plots',{signal}),
+      api<Article[]>('/knowledge',{signal}),
+      api<ModelInfo>('/models',{signal}),
+    ]).then(([dashboard, records, plots, articles, model]) => {if (stillCurrent()) setData({dashboard, records, plots, articles, model})}).catch(e => {if (stillCurrent()) setError((e as Error).message)}).finally(() => {if (stillCurrent()) setLoading(false)})
+    return () => {current = false;controller.abort()}
     // Data remains visible during refresh; only inputs below trigger a request.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh, period, accessPage])
+  }, [refresh, period, accessPage, user?.username, authLoading])
   useEffect(() => {if (!toastMessage) return; const timer = setTimeout(() => setToastMessage(''), 5000); return () => clearTimeout(timer)}, [toastMessage])
   useEffect(() => {document.title = `${accessPage ? ({welcome:'欢迎来到禾观',login:'登录',register:'创建账户'}[accessPage]) : navigation.find(item => item.page === page)?.name ?? '系统设置'} · ${client.brand.app_name}`}, [page, accessPage, client.brand.app_name])
   async function logout() {
@@ -111,7 +119,7 @@ export default function App() {
     finally {
       const currentToken = getToken()
       if (!currentToken || currentToken === logoutToken) {
-        setToken(null); setUser(null); setData(null); setDetectionRequests([]); setSelected(null); setDeleteRecord(false)
+        setToken(null);setUser(null);clearAccountData()
         window.location.hash = 'welcome'; reload(); toast(logoutError ? `已退出本地登录。${logoutError}` : '已退出登录。')
       }
     }
@@ -119,15 +127,16 @@ export default function App() {
   async function removeRecord() {
     if (!selected) return
     setDeleteBusy(true)
-    try {await api(`/detections/${selected.id}`, {method: 'DELETE'}); setSelected(null); setDeleteRecord(false); reload(); toast('检测样本已删除。')}
-    catch (e) {toast((e as Error).message)}
-    finally {setDeleteBusy(false)}
+    const requestToken=getToken()
+    try {await api(`/detections/${selected.id}`, {method: 'DELETE'});if(getToken()===requestToken){setSelected(null);setDeleteRecord(false);reload();toast('我的检测样本已删除。')}}
+    catch (e) {if(getToken()===requestToken)toast((e as Error).message)}
+    finally {if(getToken()===requestToken)setDeleteBusy(false)}
   }
   const currentPageName = navigation.find(item => item.page === page)?.name ?? '系统设置'
   if (isAdminHash()) return <main className="main-content"><section className="panel empty"><ShieldCheck size={36}/><h1>正在打开独立管理控制台</h1><a className="button primary" href={adminUrl}>前往管理端</a></section></main>
   if (authLoading) return <main className="main-content"><Loading/></main>
-  if (accessPage) return <Access page={accessPage} onLogin={value => {setUser(value); window.location.hash = 'dashboard'; reload()}}/>
-  return <div className="app-shell">
+  if (accessPage) return <Access page={accessPage} onLogin={value => {clearAccountData();setUser(value);window.location.hash = 'dashboard';reload()}}/>
+  return <div className="app-shell" key={user?.username??'guest'}>
     {menu && <button className="sidebar-scrim" aria-label="关闭导航" onClick={() => setMenu(false)}/>}
     <aside className={`sidebar ${menu ? 'open' : ''}`}>
       <a className="brand" href="#dashboard" onClick={() => setMenu(false)}><img className="brand-logo" src="/brand/logo.svg" alt="禾观 AgriScan" width="166" height="60"/></a>
@@ -172,7 +181,7 @@ export default function App() {
         {page === 'dashboard' && <Suspense fallback={<Loading/>}><Dashboard data={data.dashboard} plots={data.plots} period={period} setPeriod={setPeriod} navigate={navigate} onSelect={setSelected} onExport={() => exportRecords(data.records)} onAttention={() => {setRecordStatus('attention'); setSearch(''); navigate('records')}}/></Suspense>}
         {page === 'detect' && <DetectPage plots={data.plots} model={data.model} requireAuth={requireAuth} onChange={reload} toast={toast} onDetected={client.features.assistant ? queueDetection : () => {}}/>}
         {page === 'records' && <RecordsPage records={data.records} crops={data.model.available_crops} onSelect={setSelected} search={search} setSearch={setSearch} status={recordStatus} setStatus={setRecordStatus}/>}
-        {page === 'plots' && (client.features.plots ? <PlotsPage canManage={user?.role === 'admin'} plots={data.plots} crops={data.model.available_crops} draftOwner={user?.username ?? 'guest'} requireAuth={requireAuth} onChange={reload} toast={toast}/> : <section className="panel empty"><h2>地块入口暂未开放</h2><p>请联系管理员调整客户端功能配置。</p></section>)}
+        {page === 'plots' && (client.features.plots ? <PlotsPage canManage={Boolean(user)} plots={data.plots} crops={data.model.available_crops} draftOwner={user?.username ?? 'guest'} requireAuth={requireAuth} onChange={reload} toast={toast}/> : <section className="panel empty"><h2>地块入口暂未开放</h2><p>请联系管理员调整客户端功能配置。</p></section>)}
         {page === 'knowledge' && (client.features.knowledge ? <KnowledgePage articles={data.articles}/> : <section className="panel empty"><h2>知识入口暂未开放</h2><p>管理员已暂停此入口。</p></section>)}
         {page === 'models' && <ModelsPage model={data.model} health={health}/>}
         {page === 'settings' && <SettingsPage health={health} user={user} onLogin={() => (window.location.hash = 'login')} onLogout={logout}/>}
@@ -182,7 +191,7 @@ export default function App() {
     </div>
     <FloatingAssistant key={user?.username || 'guest'} user={user} detectionRequests={detectionRequests} onDetectionHandled={handledDetection}/>
     {toastMessage && <div className="toast" role="status"><CircleAlert size={17}/><span>{toastMessage}</span><button aria-label="关闭提示" onClick={() => setToastMessage('')}><X size={15}/></button></div>}
-    {selected && <Modal title="检测样本详情" wide onClose={() => {if (!deleteBusy) {setSelected(null); setDeleteRecord(false)}}}><div className="detection-detail"><div className="detail-image">{selected.image_url ? <SecureImage url={selected.image_url} alt={selected.name}/> : <><CropIcon crop={selected.crop} size={90}/><span>示例样本 · 无原始图片</span></>}</div><div className="detail-info"><div className="detail-title"><h3>{selected.name}</h3><Badge status={selected.status}/></div>{selected.is_demo && <div className="sample-disclaimer"><CircleAlert size={14}/>该条为示例数据，不代表真实检测结果。</div>}<dl><div><dt>作物类型</dt><dd>{selected.crop}</dd></div><div><dt>所属地块</dt><dd>{selected.plot_name}</dd></div><div><dt>检测结果</dt><dd>{selected.result || '等待模型接入'}</dd></div><div><dt>置信度</dt><dd>{confidenceText(selected.confidence)}</dd></div><div><dt>采集时间</dt><dd>{new Date(selected.created_at).toLocaleString('zh-CN')}</dd></div></dl><PredictionScores record={selected}/><div className="detail-note"><span>样本备注</span><p>{selected.note || '暂无备注'}</p></div></div></div>{deleteRecord ? <div className="delete-confirm"><span>确认删除这份样本及原始图片？此操作无法撤销。</span><button className="button outline small" disabled={deleteBusy} onClick={() => setDeleteRecord(false)}>取消</button><button className="button danger small" disabled={deleteBusy} onClick={removeRecord}>{deleteBusy ? '删除中…' : '确认删除'}</button></div> : <div className="detail-actions"><span><ShieldCheck size={14}/>数据已保存至工作空间</span><button className="text-button danger-text" onClick={() => {if (requireAuth()) setDeleteRecord(true)}}><Trash2 size={14}/>删除样本</button></div>}</Modal>}
+    {selected && <Modal title="检测样本详情" wide onClose={() => {if (!deleteBusy) {setSelected(null); setDeleteRecord(false)}}}><div className="detection-detail"><div className="detail-image">{selected.image_url ? <SecureImage url={selected.image_url} alt={selected.name}/> : <><CropIcon crop={selected.crop} size={90}/><span>示例样本 · 无原始图片</span></>}</div><div className="detail-info"><div className="detail-title"><h3>{selected.name}</h3><Badge status={selected.status}/></div>{selected.is_demo && <div className="sample-disclaimer"><CircleAlert size={14}/>该条为示例数据，不代表真实检测结果。</div>}<dl><div><dt>作物类型</dt><dd>{selected.crop}</dd></div><div><dt>所属地块</dt><dd>{selected.plot_name}</dd></div><div><dt>检测结果</dt><dd>{selected.result || '等待模型接入'}</dd></div><div><dt>置信度</dt><dd>{confidenceText(selected.confidence)}</dd></div><div><dt>采集时间</dt><dd>{new Date(selected.created_at).toLocaleString('zh-CN')}</dd></div></dl><PredictionScores record={selected}/><div className="detail-note"><span>样本备注</span><p>{selected.note || '暂无备注'}</p></div></div></div>{deleteRecord ? <div className="delete-confirm"><span>确认删除这份样本及原始图片？此操作无法撤销。</span><button className="button outline small" disabled={deleteBusy} onClick={() => setDeleteRecord(false)}>取消</button><button className="button danger small" disabled={deleteBusy} onClick={removeRecord}>{deleteBusy ? '删除中…' : '确认删除'}</button></div> : <div className="detail-actions"><span><ShieldCheck size={14}/>数据已保存至我的账户</span><button className="text-button danger-text" onClick={() => {if (requireAuth()) setDeleteRecord(true)}}><Trash2 size={14}/>删除样本</button></div>}</Modal>}
     {help && <Modal title="开始使用禾观" onClose={() => setHelp(false)}><div className="help-content"><p>用一张照片，开启作物健康管理。</p>{[['管理地块', '添加种植地块、作物与面积，让样本有迹可循。'], ['采集样本', '登录后上传清晰的叶片图片，可关联地块并填写备注。'], ['查看记录', '筛选上传样本，查看详情，或导出 CSV 检测档案。'], ['接入模型', '模型管理页显示当前状态；正式权重接入前仅保存样本。']].map(([title, content], index) => <div key={title}><span>{index + 1}</span><section><h3>{title}</h3><p>{content}</p></section></div>)}<button className="button primary full" onClick={() => {setHelp(false); navigate('detect')}}>开始采集样本<ArrowRight size={16}/></button></div></Modal>}
   </div>
 }

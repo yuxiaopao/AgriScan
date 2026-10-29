@@ -1,5 +1,7 @@
 # DeepSeek 接入与小禾对话区验收 · 2026-10-29
 
+> 本文保留接入时点的测试结果。后续已升级为个人数据隔离，原先未知归属记录及检测讨论不再向普通账户展示，见[用户数据隔离验收](user-isolation-20261029.md)。
+
 生产环境已通过测试接入 DeepSeek，使用 `deepseek-flash`，配置版本为 v6。地址、模型、超时和启用状态存入数据库；API 密钥使用现有 Fernet 机制加密存入 `workspace_configuration.encrypted_secrets`，没有写入前端、APK 或 Git。
 
 ## 管理员入口

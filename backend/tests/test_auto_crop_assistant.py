@@ -6,7 +6,7 @@ import json
 from PIL import Image
 import pytest
 
-from test_api import auth, picture
+from test_api import owned_demo_auth as auth, picture
 from test_assistant import fake_provider
 from test_inference import model_client
 
@@ -56,6 +56,6 @@ def test_automatic_detection_flows_into_image_analysis_and_saved_conversation(
         assert answer['content'] == '记下叶片变化与采样日期。'
         chat = client.get(f"/api/assistant/conversations/{detail['conversation']['id']}", headers=headers)
         assert chat.status_code == 200 and chat.json() == detail
-        assert client.get(f"/api/detections/{detection['id']}").json() == detection
+        assert client.get(f"/api/detections/{detection['id']}", headers=auth(client)).json() == detection
         assert client.post(route, headers=headers).json() == detail
         assert len(calls) == 1

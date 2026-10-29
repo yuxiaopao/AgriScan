@@ -10,7 +10,7 @@ from sqlalchemy import func, select
 from app.db import Detection, DetectionPrediction
 from app.inference import InferenceResult
 from app.media import install_media
-from test_api import auth, client, picture
+from test_api import owned_demo_auth as auth, client, picture
 
 
 class Classifier:
@@ -78,7 +78,7 @@ def test_frame_predicts_without_persisting_and_removes_temporary_image(media_cli
     assert row['confidence'] == 0.9 and row['candidates'][0]['crop'] == '玉米'
     assert row['prediction_model']['name'] == 'SYNTHETIC_TEST_ONLY'
     assert row['is_demo'] is False and row['image_url'] is None
-    assert client.get('/api/dashboard').json()['stats']['total'] == 12
+    assert client.get('/api/dashboard',headers=auth(client)).json()['stats']['total'] == 12
     assert list(client.app.state.settings.upload_dir.iterdir()) == []
     assert client.app.state.inference.paths and all(not path.exists() for path in client.app.state.inference.paths)
 
@@ -153,9 +153,9 @@ def test_video_samples_real_frames_uniformly_and_persists_snapshots(media_client
         row = item['detection']
         assert row['crop'] == '玉米' and row['plot_id'] == 'plot-corn'
         assert row['candidates'][0]['confidence'] == 0.9 and '试验田视频' in row['note']
-        assert client.get('/api/detections/' + row['id']).json() == row
-        assert client.get(row['image_url']).status_code == 200
-    assert client.get('/api/dashboard').json()['stats']['total'] == 20
+        assert client.get('/api/detections/' + row['id'], headers=auth(client)).json() == row
+        assert client.get(row['image_url'], headers=auth(client)).status_code == 200
+    assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 20
     assert len(list(client.app.state.settings.upload_dir.iterdir())) == 8
     with client.app.state.session() as db:
         assert db.scalar(select(func.count()).select_from(DetectionPrediction)) == 8
@@ -188,7 +188,7 @@ def test_video_storage_failure_removes_partial_files_and_rows(media_client, tmp_
     response = post_video(media_client, auth(media_client), video(tmp_path))
     assert response.status_code == 503
     assert count == 3
-    assert media_client.get('/api/dashboard').json()['stats']['total'] == 12
+    assert media_client.get('/api/dashboard',headers=auth(media_client)).json()['stats']['total'] == 12
     assert list(media_client.app.state.settings.upload_dir.iterdir()) == []
     with media_client.app.state.session() as db:
         assert db.scalar(select(func.count()).select_from(DetectionPrediction)) == 0
@@ -252,7 +252,7 @@ def test_video_failure_rolls_back_entire_batch(media_client, tmp_path, fail_at, 
     client.app.state.inference.fail_at = fail_at
     response = post_video(client, auth(client), video(tmp_path), **({'plot_id': plot_id} if plot_id else {}))
     assert response.status_code == expected
-    assert client.get('/api/dashboard').json()['stats']['total'] == 12
+    assert client.get('/api/dashboard',headers=auth(client)).json()['stats']['total'] == 12
     assert list(client.app.state.settings.upload_dir.iterdir()) == []
     with client.app.state.session() as db:
         assert db.scalar(select(func.count()).select_from(DetectionPrediction)) == 0

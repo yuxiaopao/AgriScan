@@ -21,7 +21,7 @@ export default function Dashboard({data, plots, period, setPeriod, navigate, onS
   const healthRate = completed ? Math.round(stats.healthy / completed * 100) : 0
   const distributionTotal = data.distribution.reduce((sum, crop) => sum + crop.value, 0)
   const cards = [
-    {title: '累计检测样本', number: stats.total, unit: '份', icon: ScanLine, tone: 'green', foot: '每一份样本，都让生长可见', detail: '所有样本'},
+    {title: '累计检测样本', number: stats.total, unit: '份', icon: ScanLine, tone: 'green', foot: '每一份样本，都让生长可见', detail: '我的样本'},
     {title: '健康作物样本', number: stats.healthy, unit: '份', icon: ShieldCheck, tone: 'sage', foot: `占已完成检测的 ${healthRate}%`, detail: '健康状态'},
     {title: '需要关注', number: stats.attention, unit: '份', icon: CircleAlert, tone: 'orange', foot: '及时查看异常，守护作物生长', detail: '查看记录'},
     {title: '待检测样本', number: stats.pending, unit: '份', icon: Clock3, tone: 'blue', foot: '接入模型后可继续处理', detail: '等待处理'},
@@ -35,7 +35,7 @@ export default function Dashboard({data, plots, period, setPeriod, navigate, onS
       <span className="hero-corner">GROW WITH CARE / AGRISCAN</span>
     </section>
 
-    <div className="section-caption"><span><span className="live-dot"/>田间数据一览</span><span>全量记录统计 · 示例数据已标注</span></div>
+    <div className="section-caption"><span><span className="live-dot"/>我的田间数据</span><span>仅统计我的记录 · 示例数据已标注</span></div>
     <section className="stats-grid" aria-label="样本统计">
       {cards.map(card => <div className={`stat-card ${card.tone}`} key={card.title}><div className="stat-top"><span>{card.title}</span><span className="stat-icon"><card.icon size={19}/></span></div><div className="stat-number">{card.number.toLocaleString()}<span>{card.unit}</span></div><div className="stat-bottom"><span>{card.foot}</span>{card.tone === 'orange' ? <button aria-label="查看需要关注的检测记录" onClick={onAttention}><ArrowUpRight size={16}/></button> : <span className="stat-decoration"/>}</div></div>)}
     </section>

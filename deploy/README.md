@@ -41,9 +41,9 @@ OpenCloudOS 9.6，MySQL 8.0.45、Redis 7.2.15、系统 Nginx、独立 Python 3.1
 
 当前检测包来自用户 `best.pt`，38类，目标框为原图归一化 `xyxy`。已修正 Ultralytics 旧版双头权重的推理分支兼容问题，并完成5图 PyTorch/ONNX 一致性验证；没有独立检测 mAP，不使用旧分类模型成绩。细节见 `models/candidates/user-detect-fafc2bb3ce9e/README.md`。
 
-Android 使用 `scripts/build-android.ps1`，默认生产 API 是 `https://agriscan.ming-ai.top/agriscan`。已实际构建调试签名的公开测试版 `cn.agriscan.mobile` v1.0.1 / code2，Android 7.0+、四种 ABI，18,744,600 字节；签名 v2、ZIP、清单和默认 HTTPS 配置均核验通过；1.0.1沿用原测试签名，可覆盖安装，升级后旧官方服务地址迁移至新域并重新登录。尚未进行真机交互验收。
+Android 使用 `scripts/build-android.ps1`，默认生产 API 是 `https://agriscan.ming-ai.top/agriscan`。已实际构建调试签名的公开测试版 `cn.agriscan.mobile` v1.0.2 / code3，Android 7.0+、四种 ABI，18,744,688 字节；签名 v2、ZIP、清单和默认 HTTPS 配置均核验通过；新版沿用原测试签名，可覆盖安装，升级后旧官方服务地址迁移至新域并重新登录。尚未进行真机交互验收。
 
-官网只在真实 APK、签名校验、大小及 SHA256 核对后把 `downloads/release.json` 标为 ready；安装包用 `upload-artifact.py` 单独传输、核对并原子发布，密钥和工具链不进入静态目录。当前测试包 SHA256 为 `ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85`。测试版不等于正式签名发行；后续正式分发需项目所有者保管稳定的发布签名。
+官网只在真实 APK、签名校验、大小及 SHA256 核对后把 `downloads/release.json` 标为 ready；安装包用 `upload-artifact.py` 单独传输、核对并原子发布，密钥和工具链不进入静态目录。当前测试包 SHA256 为 `e343102879bd91e6a59715ec8fa3a491800520e603dfc1605e938ca25d91a605`。测试版不等于正式签名发行；后续正式分发需项目所有者保管稳定的发布签名。
 
 ## 运维与验收
 
@@ -58,4 +58,6 @@ nginx -t
 
 2026-10-29 已从旧域名迁移到 `agriscan.ming-ai.top`。旧域的 2026-10-28 验收与备案拦截记录保留在历史报告中，不改写为新域的测试结果。新域已验证正常 DNS 公网访问、HTTPS 证书、域名根跳转、登录、检测与 APK 下载；不能用源站 `--resolve` 自检替代外部浏览器检查，也不关闭证书校验。详见[域名迁移验收](../docs/domain-migration-20261029.md)。
 
-回滚时先确认目标为 `/srv/agriscan/releases/` 下已保留的版本，再原子替换 `current` 软链接、重启 `agriscan-api`。用户上传、生产配置和数据库在 shared/独立服务中，按版本切换不会删除。数据库与 `CONFIG_ENCRYPTION_KEY`、JWT配置、上传文件应分别保留安全备份。
+2026-10-29 已升级到 `20261029_06` 个人归属隔离；历史未知归属数据仅在管理端待分配。迁移前完整备份 MySQL，测试双账户、真实 Redis、公网及清理结果见[用户数据隔离验收](../docs/user-isolation-20261029.md)。
+
+回滚仅限兼容 06 迁移且保留归属校验的已验证版本，不能恢复会跨账户读取数据的旧代码。先确认目标为 `/srv/agriscan/releases/` 下的匹配版本，再原子替换 `current` 软链接、重启 `agriscan-api` 并验证隔离。用户上传、生产配置和数据库在 shared/独立服务中，按版本切换不会删除。数据库与 `CONFIG_ENCRYPTION_KEY`、JWT配置、上传文件应分别保留安全备份。

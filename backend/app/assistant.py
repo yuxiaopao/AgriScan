@@ -4,10 +4,10 @@ from uuid import uuid4
 
 from fastapi import Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, func, select, update
+from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, exists, func, or_, select, update
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .db import Timestamp, Base, utcnow
+from .db import Timestamp, Base, Detection, utcnow
 from .security import current_user
 
 
@@ -44,16 +44,28 @@ def message_data(row):
 
 
 def install_assistant(app, get_db, answer_for):
+    def visible_discussion(user_id):
+        # Imported after both models are registered, avoiding their definition
+        # cycle. A legacy discussion is not proof that its author owned a leaf.
+        from .detection_assistant import DetectionDiscussion
+        linked = exists(select(DetectionDiscussion.conversation_id).where(
+            DetectionDiscussion.conversation_id == Conversation.id))
+        authorized = exists(select(DetectionDiscussion.conversation_id).join(
+            Detection, Detection.id == DetectionDiscussion.detection_id).where(
+                DetectionDiscussion.conversation_id == Conversation.id,
+                DetectionDiscussion.user_id == user_id, Detection.owner_id == user_id))
+        return or_(~linked, authorized)
+
     def owned(db, conversation_id, user):
         row = db.scalar(select(Conversation).where(
-            Conversation.id == conversation_id, Conversation.user_id == user.id))
+            Conversation.id == conversation_id, Conversation.user_id == user.id, visible_discussion(user.id)))
         if not row:
             raise HTTPException(404, "对话不存在。")
         return row
 
     @app.get("/api/assistant/conversations")
     def conversations(user=Depends(current_user), db=Depends(get_db)):
-        rows = db.scalars(select(Conversation).where(Conversation.user_id == user.id)
+        rows = db.scalars(select(Conversation).where(Conversation.user_id == user.id, visible_discussion(user.id))
                           .order_by(Conversation.updated_at.desc()).limit(100)).all()
         return [conversation_data(row) for row in rows]
 

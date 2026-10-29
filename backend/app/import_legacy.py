@@ -22,7 +22,7 @@ from . import admin_models, assistant, detection_assistant, extensions, runtime_
 from .config import Settings
 from .db import Base, Detection, PlotDetails, make_database
 from .extensions import ModelArtifact
-from .migrations import migrate_database
+from .migrations import SCHEMA_REVISION, migrate_database
 
 
 class LegacyImportError(RuntimeError):
@@ -68,18 +68,21 @@ def validate_source(connection):
     if "alembic_version" not in names:
         raise LegacyImportError("源数据库缺少迁移版本，不支持；请先在原系统完成升级后重新备份。")
     revisions = connection.execute(text("SELECT version_num FROM alembic_version")).scalars().all()
-    previous_revisions = {"20261028_02", "20261028_03", "20261028_04"}
-    if len(revisions) != 1 or revisions[0] not in previous_revisions | {"20261028_05"}:
-        raise LegacyImportError("仅支持版本 20261028_02 至 20261028_05 的源数据库；不会修改或升级原库。")
+    previous_revisions = {"20261028_02", "20261028_03", "20261028_04", "20261028_05"}
+    if len(revisions) != 1 or revisions[0] not in previous_revisions | {SCHEMA_REVISION}:
+        raise LegacyImportError("仅支持版本 20261028_02 至 20261029_06 的源数据库；不会修改或升级原库。")
     if names - expected - {"alembic_version", "sqlite_sequence"}:
         raise LegacyImportError("源数据库含当前程序不认识的业务表，不支持自动导入。")
     for table in Base.metadata.sorted_tables:
         if table.name not in names:
-            if table.name == 'workspace_configuration' and revisions[0] in previous_revisions:
+            if table.name == 'workspace_configuration' and revisions[0] in previous_revisions - {'20261028_05'}:
                 continue
             raise LegacyImportError(f"源数据库缺少表 {table.name}，不支持自动导入。")
         actual = {column["name"] for column in inspector.get_columns(table.name)}
-        if actual != set(table.columns.keys()):
+        expected_columns = set(table.columns.keys())
+        old_ownership_columns = (table.name in {'plots', 'detections'} and revisions[0] in previous_revisions
+                                 and actual == expected_columns - {'owner_id'})
+        if actual != expected_columns and not old_ownership_columns:
             raise LegacyImportError(f"源表 {table.name} 的列与当前版本不一致，不支持自动导入。")
     if connection.exec_driver_sql("PRAGMA quick_check").scalar() != "ok":
         raise LegacyImportError("源数据库完整性检查失败。")
@@ -182,6 +185,8 @@ def import_legacy(source, uploads, settings=None):
             original.exec_driver_sql("BEGIN")
             validate_source(original)
             source_tables = set(inspect(original).get_table_names())
+            source_columns = {name: {column['name'] for column in inspect(original).get_columns(name)}
+                              for name in source_tables}
             with target_engine.connect() as target:
                 assert_empty(target)
             target_root.mkdir(parents=True, exist_ok=True)
@@ -200,7 +205,11 @@ def import_legacy(source, uploads, settings=None):
                         if table.name not in source_tables:
                             counts[table.name] = 0
                             continue
-                        rows = original.execute(select(table)).mappings()
+                        # Old snapshots have no ownership column. Import only
+                        # columns physically present; nullable owner_id stays
+                        # unknown rather than being guessed from an admin name.
+                        projection = [column for column in table.columns if column.name in source_columns[table.name]]
+                        rows = original.execute(select(*projection)).mappings()
                         count = 0
                         while batch := rows.fetchmany(500):
                             target.execute(table.insert(), [dict(row) for row in batch])

@@ -3,7 +3,7 @@ from datetime import timedelta
 import httpx
 from app.assistant import Conversation
 from app.db import utcnow
-from test_api import client, auth, picture
+from test_api import client, auth, owned_demo_auth, picture
 from test_extensions import member_auth
 
 
@@ -109,9 +109,10 @@ def test_detection_analysis_uses_saved_facts_and_image_and_is_idempotent(client,
     chat_id = response.json()["conversation"]["id"]
     other = member_auth(client)
     assert client.get(f"/api/assistant/conversations/{chat_id}", headers=other).status_code == 404
-    # The persisted interpretation survives original sample deletion.
+    # The stored snapshot is retained, but access requires a verified source owner.
     assert client.delete(f"/api/detections/{detection['id']}", headers=headers).status_code == 200
-    assert client.get(f"/api/assistant/conversations/{chat_id}", headers=headers).status_code == 200
+    assert client.get(f"/api/assistant/conversations/{chat_id}", headers=headers).status_code == 404
+    assert chat_id not in {row['id'] for row in client.get('/api/assistant/conversations',headers=headers).json()}
 
 
 def test_analysis_failure_keeps_detection_and_can_retry(client, monkeypatch):
@@ -128,7 +129,7 @@ def test_analysis_failure_keeps_detection_and_can_retry(client, monkeypatch):
 
 def test_analysis_rejects_anonymous_missing_and_demo_records(client, monkeypatch):
     calls = fake_provider(client, monkeypatch)
-    headers = auth(client)
+    headers = owned_demo_auth(client)
     assert client.post("/api/assistant/detections/demo-001/analysis").status_code == 401
     assert client.post("/api/assistant/detections/demo-001/analysis", headers=headers).status_code == 422
     assert client.post("/api/assistant/detections/missing/analysis", headers=headers).status_code == 404

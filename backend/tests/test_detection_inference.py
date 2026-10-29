@@ -13,7 +13,7 @@ import pytest
 from app.config import Settings
 from app.detection_inference import OnnxDetectionProvider
 from app.main import create_app
-from test_api import auth
+from test_api import owned_demo_auth as auth
 from test_assistant import fake_provider
 
 
@@ -76,7 +76,7 @@ def test_real_detector_outputs_are_unletterboxed_persisted_and_sent_to_assistant
         assert len(row['boxes']) == 3
         assert [item['confidence'] for item in row['candidates']] == pytest.approx([0.9, 0.7])
         assert row['prediction_model']['task'] == 'detect' and 'boxes' not in row['prediction_model']
-        assert client.get('/api/detections/' + row['id']).json() == row
+        assert client.get('/api/detections/' + row['id'], headers=auth(client)).json() == row
         assert client.get('/api/models').json()['active']['test_top1'] is None
         interpreted = client.post(f"/api/assistant/detections/{row['id']}/analysis", headers=headers)
         assert interpreted.status_code == 200, interpreted.text
@@ -94,7 +94,7 @@ def test_multiple_crops_cannot_be_mistakenly_associated_to_one_plot(tmp_path):
         assert response.status_code == 422 and '地块' in response.json()['detail']
         assert '玉米' in response.json()['detail'] and '番茄' in response.json()['detail']
         assert list(client.app.state.settings.upload_dir.iterdir()) == []
-        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 12
 
 
 @pytest.mark.parametrize('secondary_class,expected', [(0, 200), (2, 422)])
@@ -107,7 +107,7 @@ def test_admin_plot_association_checks_every_saved_target_without_partial_edits(
         response = client.patch('/api/admin/detections/' + created['id'], headers=headers,
                                 json={'name': '复核后的样本', 'note': '管理员复核', 'plot_id': 'plot-tomato'})
         assert response.status_code == expected, response.text
-        stored = client.get('/api/detections/' + created['id']).json()
+        stored = client.get('/api/detections/' + created['id'], headers=auth(client)).json()
         if expected == 422:
             assert '地块' in response.json()['detail'] and '玉米' in response.json()['detail']
             assert stored == created
@@ -131,7 +131,7 @@ def test_admin_plot_association_checks_every_saved_target_without_partial_edits(
 def test_invalid_or_missing_targets_never_create_fake_results(tmp_path, rows, expected):
     with detector_client(tmp_path, rows) as client:
         assert upload(client, auth(client)).status_code == expected
-        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 12
         assert list(client.app.state.settings.upload_dir.iterdir()) == []
         guard = client.app.state.inference.guard
         assert guard.acquire(blocking=False)
@@ -172,7 +172,7 @@ def test_boxes_follow_the_exif_corrected_saved_image(tmp_path):
         assert response.status_code == 201, response.text
         row = response.json()
         assert row['boxes'][0]['bbox'] == pytest.approx([0, 0.375, 1, 0.625])
-        with Image.open(io.BytesIO(client.get(row['image_url']).content)) as saved:
+        with Image.open(io.BytesIO(client.get(row['image_url'], headers=auth(client)).content)) as saved:
             assert saved.size == (40, 80) and not saved.getexif()
 
 
@@ -183,7 +183,7 @@ def test_camera_and_video_keep_actual_detection_boxes(tmp_path):
         frame = client.post('/api/media/frame', headers=headers,
                             files={'file': ('camera.png', image_bytes(), 'image/png')})
         assert frame.status_code == 200 and len(frame.json()['boxes']) == 3
-        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 12
         result = client.post('/api/media/video', headers=headers,
                              files={'file': ('leaf.avi', video(tmp_path, frames=2, fps=1), 'video/x-msvideo')})
         assert result.status_code == 200, result.text
@@ -191,4 +191,4 @@ def test_camera_and_video_keep_actual_detection_boxes(tmp_path):
         for item in result.json()['results']:
             row = item['detection']
             assert len(row['boxes']) == 3 and row['prediction_model']['task'] == 'detect'
-            assert client.get('/api/detections/' + row['id']).json() == row
+            assert client.get('/api/detections/' + row['id'], headers=auth(client)).json() == row

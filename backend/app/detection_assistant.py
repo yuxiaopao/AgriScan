@@ -13,12 +13,14 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .assistant import Conversation, ChatMessage, conversation_data, message_data
 from .db import Base, Detection
 from .security import current_user
+from .ownership import owned_detection
 
 
 class DetectionDiscussion(Base):
     __tablename__ = "assistant_detection_discussions"
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
-    # A snapshot remains readable if the original detection is deleted.
+    # The snapshot is retained, but reading its conversation still requires
+    # a live source detection explicitly owned by that conversation's user.
     detection_id: Mapped[str] = mapped_column(String(32), primary_key=True)
     conversation_id: Mapped[str] = mapped_column(ForeignKey("assistant_conversations.id"), unique=True)
 
@@ -35,13 +37,11 @@ def install_detection_assistant(app, get_db, answer_for):
 
     @app.post("/api/assistant/detections/{detection_id}/analysis")
     def analyze(detection_id: str, user=Depends(current_user), db=Depends(get_db)):
+        detection = owned_detection(db, detection_id, user)
         key = (user.id, detection_id)
         existing = db.get(DetectionDiscussion, key)
         if existing:
             return detail(db, existing.conversation_id, user)
-        detection = db.get(Detection, detection_id)
-        if not detection:
-            raise HTTPException(404, "检测记录不存在。")
         if detection.is_demo or not detection.image_url:
             raise HTTPException(422, "请上传真实叶片图片后再进行解读。")
         folder = app.state.settings.upload_dir.resolve()
@@ -106,6 +106,9 @@ def install_detection_assistant(app, get_db, answer_for):
             f"{result_label}：{detection.result or '尚无模型结论'}\n置信度：{confidence}\n"
             f"检测状态：{status}\n备注：{detection.note or '无'}"
         )
+        # Inference can take time; do not create a fresh discussion if an
+        # administrator transferred this detection while the model replied.
+        owned_detection(db, detection_id, user, lock=True)
         row = Conversation(user_id=user.id, title=f"{detection.crop} · 叶片检测解读")
         try:
             db.add(row)

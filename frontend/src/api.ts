@@ -15,7 +15,7 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   const token = getToken()
   if (token) headers.set('Authorization', `Bearer ${token}`)
   let response: Response
-  try { response = await fetch(apiUrl(path), {...options, headers, signal: options.signal ?? AbortSignal.timeout(20000)}) }
+  try { response = await fetch(apiUrl(path), {...options, headers, cache: 'no-store', signal: options.signal ?? AbortSignal.timeout(20000)}) }
   catch (error) {
     if (error instanceof DOMException && error.name === 'TimeoutError') throw new Error('请求等待超时，请稍后重试。')
     if (error instanceof DOMException && error.name === 'AbortError') throw new Error('请求已取消。')

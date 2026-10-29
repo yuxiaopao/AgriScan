@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 from app.config import Settings
 from app.inference import AwaitingWeightsProvider, InferenceResult, OnnxClassificationProvider
 from app.main import create_app
-from test_api import auth, client, picture
+from test_api import owned_demo_auth as auth, client, picture
 
 
 def model_fixture(folder, probabilities=(0.9, 0.08, 0.02), **overrides):
@@ -71,11 +71,11 @@ def test_automatic_crop_uses_global_prediction_and_persists_candidates(tmp_path,
         assert row["note"] == "无需先选作物" and row["plot_id"] is None
         assert [item["crop"] for item in row["candidates"]] == ["玉米", "番茄", "番茄"]
         assert [item["confidence"] for item in row["candidates"]] == pytest.approx([0.95, 0.03, 0.02])
-        saved = client.get(f"/api/detections/{row['id']}").json()
+        saved = client.get(f"/api/detections/{row['id']}", headers=auth(client)).json()
         assert saved == row
-        filtered = client.get('/api/detections', params={"crop": "玉米"}).json()
+        filtered = client.get('/api/detections', params={"crop": "玉米"}, headers=auth(client)).json()
         assert any(item["id"] == row["id"] for item in filtered)
-        assert client.get(row["image_url"]).status_code == 200
+        assert client.get(row["image_url"], headers=auth(client)).status_code == 200
 
 
 @pytest.mark.parametrize("probabilities,expected_crop,expected_label", [
@@ -91,16 +91,16 @@ def test_automatic_disease_and_low_confidence_remain_attention(tmp_path, probabi
         assert row["status"] == "attention"
         assert row["confidence"] == pytest.approx(max(probabilities))
         assert row["candidates"][0]["crop"] == expected_crop
-        assert client.get('/api/dashboard').json()["stats"]["healthy"] == 8
+        assert client.get('/api/dashboard', headers=auth(client)).json()["stats"]["healthy"] == 8
 
 
 @pytest.mark.parametrize("crop", [None, ""])
 def test_automatic_crop_without_model_has_clear_error_and_saves_nothing(client, crop):
-    before = client.get('/api/dashboard').json()["stats"]["total"]
+    before = client.get('/api/dashboard', headers=auth(client)).json()["stats"]["total"]
     response = upload(client, crop)
     assert response.status_code == 422
     assert "模型" in response.json()["detail"] and "作物" in response.json()["detail"]
-    assert client.get('/api/dashboard').json()["stats"]["total"] == before
+    assert client.get('/api/dashboard', headers=auth(client)).json()["stats"]["total"] == before
     assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
@@ -120,7 +120,7 @@ def test_automatic_inference_failure_leaves_no_image_or_record(tmp_path):
     with model_client(tmp_path, (float('nan'), 0.1, 0.2)) as client:
         response = upload(client, None)
         assert response.status_code == 503
-        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 12
         assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
@@ -131,7 +131,7 @@ def test_automatic_crop_links_matching_plot(tmp_path):
         row = response.json()
         assert row['crop'] == '玉米' and row['plot_id'] == 'plot-corn'
         assert row['plot_name'] == '03 号玉米种植区'
-        assert client.get(f"/api/detections/{row['id']}").json() == row
+        assert client.get(f"/api/detections/{row['id']}", headers=auth(client)).json() == row
 
 
 @pytest.mark.parametrize('plot_id,expected', [('missing', 404), ('plot-tomato', 422)])
@@ -141,7 +141,7 @@ def test_automatic_crop_rejects_invalid_plot_without_saving(tmp_path, plot_id, e
         assert response.status_code == expected
         if expected == 422:
             assert '玉米' in response.json()['detail'] and '取消关联' in response.json()['detail']
-        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 12
         assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
@@ -150,7 +150,7 @@ def test_automatic_crop_requires_valid_species_from_provider(tmp_path, monkeypat
         monkeypatch.setattr(client.app.state.inference, 'predict',
                             lambda path, crop=None: InferenceResult('attention', 'unknown', 0.4))
         assert upload(client, None).status_code == 503
-        assert client.get('/api/dashboard').json()['stats']['total'] == 12
+        assert client.get('/api/dashboard', headers=auth(client)).json()['stats']['total'] == 12
         assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
@@ -166,7 +166,7 @@ def test_real_onnx_execution_is_saved_and_visible_in_api(tmp_path):
         assert [item["crop"] for item in row["candidates"]] == ["番茄", "番茄", "玉米"]
         assert row["prediction_model"]["task"] == "classify"
         assert row["is_demo"] is False
-        saved = client.get(f"/api/detections/{row['id']}").json()
+        saved = client.get(f"/api/detections/{row['id']}", headers=auth(client)).json()
         assert saved["result"] == "番茄健康"
         assert saved["candidates"] == row["candidates"]
         assert saved["prediction_model"] == row["prediction_model"]
@@ -175,9 +175,9 @@ def test_real_onnx_execution_is_saved_and_visible_in_api(tmp_path):
         assert info["active"]["task"] == "classify"
         assert set(info["supported_crops"]) == {"番茄", "玉米"}
         assert "苹果" in info["available_crops"]
-        assert client.get("/api/dashboard").json()["stats"]["healthy"] == 9
+        assert client.get("/api/dashboard", headers=auth(client)).json()["stats"]["healthy"] == 9
         assert client.delete(f"/api/detections/{row['id']}", headers=auth(client)).status_code == 200
-        assert client.get(f"/api/detections/{row['id']}").status_code == 404
+        assert client.get(f"/api/detections/{row['id']}", headers=auth(client)).status_code == 404
 
 
 @pytest.mark.parametrize("probabilities,expected", [
@@ -190,7 +190,7 @@ def test_disease_and_uncertainty_are_not_counted_as_healthy(tmp_path, probabilit
         assert result.status_code == 201
         assert result.json()["status"] == "attention"
         assert expected in result.json()["result"]
-        assert client.get("/api/dashboard").json()["stats"]["healthy"] == 8
+        assert client.get("/api/dashboard", headers=auth(client)).json()["stats"]["healthy"] == 8
 
 
 @pytest.mark.parametrize("crop", ["水稻", "玉米"])
@@ -198,7 +198,7 @@ def test_uncovered_and_mismatched_crops_leave_no_record_or_image(tmp_path, crop)
     with model_client(tmp_path) as client:
         result = upload(client, crop)
         assert result.status_code == 422
-        assert client.get("/api/dashboard").json()["stats"]["total"] == 12
+        assert client.get("/api/dashboard", headers=auth(client)).json()["stats"]["total"] == 12
         assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
@@ -256,8 +256,8 @@ def test_every_available_crop_can_be_uploaded_filtered_and_shown_on_dashboard(cl
         response = client.post("/api/detections", headers=headers, data={"crop": crop},
                                files={"file": (f"{crop}.png", picture(), "image/png")})
         assert response.status_code == 201
-        assert client.get("/api/detections", params={"crop": crop}).status_code == 200
-    dashboard = client.get("/api/dashboard")
+        assert client.get("/api/detections", params={"crop": crop}, headers=auth(client)).status_code == 200
+    dashboard = client.get("/api/dashboard", headers=auth(client))
     assert dashboard.status_code == 200
     distribution = dashboard.json()["distribution"]
     assert {item["name"] for item in distribution} == set(crops)

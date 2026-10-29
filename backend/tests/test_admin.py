@@ -284,11 +284,14 @@ def test_detection_dates_and_overview_use_china_calendar_boundaries(client, monk
 
 def test_detection_csv_exports_all_filtered_pages_and_escapes_formulas(client):
     headers = auth(client)
+    owner = new_user(client,headers,'csv_owner',name='=所属人公式')
     names = ["=SUM(1,1)", "+1+1", "-1+1", "@SUM(1)", "\tformula", "\rformula", "  =1+1"]
     with client.app.state.session() as db:
-        db.get(Plot, "plot-tomato").name = "=地块公式"
+        plot=db.get(Plot, "plot-tomato")
+        plot.name = "=地块公式"
+        plot.owner_id=owner['id']
         db.add_all(Detection(id=f"csv-{index}", name=name, crop="番茄", plot_id="plot-tomato",
-                             status="attention", result="=结果公式", confidence=0.8,
+                             status="attention", result="=结果公式", confidence=0.8,owner_id=owner['id'],
                              note="@备注公式\n含换行", created_at=datetime(2026, 10, 20, 8), is_demo=False)
                    for index, name in enumerate(names))
         db.commit()
@@ -302,10 +305,12 @@ def test_detection_csv_exports_all_filtered_pages_and_escapes_formulas(client):
     assert response.headers["content-disposition"] == 'attachment; filename="agriscan-detections.csv"'
     rows = list(csv.DictReader(io.StringIO(response.content.decode("utf-8-sig"), newline="")))
     assert len(rows) == 7 and {row["id"] for row in rows} == {f"csv-{index}" for index in range(7)}
-    assert set(rows[0]) == {"id", "name", "crop", "plot_name", "status", "result", "confidence", "created_at", "is_demo", "note"}
+    assert set(rows[0]) == {"id", "name", "crop", "plot_name", "status", "result", "confidence", "created_at", "is_demo", "note", "owner_id", "owner_name", "owner_username"}
     assert {row["name"] for row in rows} == {"'" + name for name in names}
     assert all(row["plot_name"] == "'=地块公式" and row["result"] == "'=结果公式"
                and row["note"] == "'@备注公式\n含换行" and row["is_demo"] == "false" for row in rows)
+    assert all(row['owner_name']=="'=所属人公式" and row['owner_username']=='csv_owner'
+               and row['owner_id']==owner['id'] for row in rows)
     assert client.get("/api/admin/detections/export.csv", headers=headers,
                       params={**filters, "date_to": "2026-10-19"}).status_code == 422
 

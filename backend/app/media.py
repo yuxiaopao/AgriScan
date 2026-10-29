@@ -22,6 +22,7 @@ from .db import Detection, DetectionPrediction, Plot, utcnow
 from .inference import SUPPORTED_CROPS, prediction_snapshot, public_prediction_model
 from .security import current_user
 from .runtime_config import client_config_for
+from .ownership import associated_plot, owned_plot
 
 logger = logging.getLogger(__name__)
 MAX_FRAME_BYTES = 10 * 1024 * 1024
@@ -169,9 +170,10 @@ def sample_video(data, folder, provider, limits=None):
 
 
 def detection_data(row):
+    plot = associated_plot(row)
     return {
-        'id': row.id, 'name': row.name, 'crop': row.crop, 'plot_id': row.plot_id,
-        'plot_name': row.plot.name if row.plot else '未关联地块', 'status': row.status,
+        'id': row.id, 'name': row.name, 'crop': row.crop, 'plot_id': plot.id if plot else None,
+        'plot_name': plot.name if plot else '未关联地块', 'status': row.status,
         'result': row.result, 'confidence': row.confidence,
         'candidates': row.prediction.candidates if row.prediction else [],
         'prediction_model': public_prediction_model(row.prediction.model) if row.prediction else None,
@@ -236,16 +238,16 @@ def install_media(app, get_db):
     async def uploaded_video(file: UploadFile = File(...), plot_id: str | None = Form(None),
                              note: str = Form(default='', max_length=2000),
                              user=Depends(current_user), db=Depends(get_db)):
+        plot = owned_plot(db, plot_id, user) if plot_id else None
         with admitted(user, 'video') as (provider, limits):
-            plot = db.get(Plot, plot_id) if plot_id else None
-            if plot_id and not plot:
-                raise HTTPException(404, '关联地块不存在。')
             data = await read_bounded(file, limits['video_max_mb'] * 1024 * 1024)
             filename = (file.filename or 'video').replace('\\', '/').split('/')[-1][:180]
             video_id = uuid4().hex
             targets, rows = [], []
             with TemporaryDirectory(prefix='agriscan-video-') as folder:
                 duration, samples = await run_in_threadpool(sample_video, data, Path(folder), provider, limits)
+                if plot_id:
+                    plot = owned_plot(db, plot_id, user, lock=True)
                 if plot and any(prediction.crop != plot.crop or any(box['crop'] != plot.crop for box in prediction.boxes)
                                 for _, _, prediction in samples):
                     raise HTTPException(422, '视频识别作物与所选地块不一致，请更换地块或取消关联后重试。')
@@ -256,6 +258,7 @@ def install_media(app, get_db):
                         targets.append(target)
                         shutil.copyfile(source, target)
                         row = Detection(id=uuid4().hex, name=f'{filename[:150]} · {timestamp:.3f}s',
+                                        owner_id=user.id,
                                         crop=prediction.crop, plot=plot, status=prediction.status,
                                         result=prediction.label, confidence=prediction.confidence,
                                         image_url=f'/api/uploads/{image_name}', is_demo=False,
@@ -279,7 +282,7 @@ def install_media(app, get_db):
                         raise
                     logger.exception('Could not save video samples.')
                     raise HTTPException(503, '视频采样暂时无法保存，请稍后重试。') from error
-        app.state.cache.invalidate()
+        app.state.cache.invalidate(user.id)
         return {'id': video_id, 'filename': filename, 'duration_seconds': duration,
                 'sampled_frames': len(results), 'results': results,
                 'summary': {'total': len(results), 'healthy': sum(row.status == 'healthy' for _, row in rows),

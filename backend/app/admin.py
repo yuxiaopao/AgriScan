@@ -2,22 +2,26 @@
 from datetime import date, datetime, time, timedelta, timezone
 import csv
 import io
+from pathlib import Path
 import re
 from typing import Literal
 from urllib.parse import urlsplit
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from fastapi.responses import Response
+from fastapi import APIRouter, Depends, File, HTTPException, Query, Request, UploadFile
+from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from sqlalchemy import case, func, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import lazyload, selectinload
 
 from .admin_models import AuditLog, KnowledgeArticle, add_audit, article_data, audit_data, iso_time
-from .db import AppMeta, Detection, Plot, User, utcnow
+from .db import AppMeta, Detection, Plot, PlotDetails, User, utcnow
 from .extensions import ModelArtifact, UserEmail
 from .inference import SUPPORTED_CROPS
 from .security import bearer, current_user, hash_password
+from .schemas import PlotCreate, PlotUpdate
+from . import plot_operations
+from .ownership import image_referenced
 
 Role = Literal["admin", "member"]
 ArticleStatus = Literal["draft", "published", "archived"]
@@ -188,6 +192,7 @@ class DetectionPatch(AdminBody):
     name: str | None = Field(default=None, min_length=1, max_length=180)
     note: str | None = Field(default=None, max_length=2000)
     plot_id: str | None = Field(default=None, max_length=32)
+    owner_id: str | None = Field(default=None, min_length=1, max_length=32)
 
     @field_validator("name", "note")
     @classmethod
@@ -202,6 +207,14 @@ class DetectionPatch(AdminBody):
         if not value.strip():
             raise ValueError("样本名称不能为空。")
         return value.strip()
+
+
+class AdministrativePlotCreate(PlotCreate):
+    owner_id: str | None = Field(default=None, min_length=1, max_length=32)
+
+
+class AdministrativePlotPatch(PlotUpdate):
+    owner_id: str | None = Field(default=None, min_length=1, max_length=32)
 
 
 def administrator(request: Request, credentials=Depends(bearer)):
@@ -270,7 +283,7 @@ def local_boundary(day, end=False):
         raise HTTPException(422, "日期超出可查询范围。")
 
 
-def filtered_detections(search, crop, status, plot_id, source, date_from, date_to):
+def filtered_detections(search, crop, status, plot_id, source, date_from, date_to, owner_id=""):
     """Use identical filters for administrative pagination and full-result export."""
     if crop and crop not in SUPPORTED_CROPS:
         raise HTTPException(422, "暂不支持该作物。")
@@ -279,6 +292,8 @@ def filtered_detections(search, crop, status, plot_id, source, date_from, date_t
     if date_from and date_to and date_from > date_to:
         raise HTTPException(422, "起始日期不能晚于结束日期。")
     query = select(Detection).options(selectinload(Detection.plot))
+    if owner_id:
+        query = query.where(Detection.owner_id.is_(None) if owner_id == 'unassigned' else Detection.owner_id == owner_id)
     if crop:
         query = query.where(Detection.crop == crop)
     if status:
@@ -307,6 +322,63 @@ def csv_cell(value):
 
 def install_admin(app, get_db, detection_data, plot_data):
     router = APIRouter(prefix="/api/admin", tags=["admin"])
+
+    def valid_owner(db, owner_id):
+        if owner_id is not None and db.get(User, owner_id) is None:
+            raise HTTPException(404, '归属用户不存在。')
+        return owner_id
+
+    def serializer(db, kind):
+        owners = {}
+
+        def serialize(row):
+            if kind == 'plot':
+                data = plot_data(row, administrative=True)
+                if data.get('cover_url'):
+                    data['cover_url'] = data['cover_url'].replace('/api/uploads/', '/api/admin/uploads/', 1)
+            else:
+                data = detection_data(row)
+                # A management view may inspect inconsistent historical links;
+                # personal serializers deliberately hide them.
+                data['plot_id'] = row.plot_id
+                data['plot_name'] = row.plot.name if row.plot else '未关联地块'
+                if data.get('image_url'):
+                    data['image_url'] = data['image_url'].replace('/api/uploads/', '/api/admin/uploads/', 1)
+            if row.owner_id not in owners:
+                owners[row.owner_id] = db.get(User, row.owner_id) if row.owner_id else None
+            owner = owners[row.owner_id]
+            return {**data, 'owner_id': row.owner_id, 'owner_name': owner.name if owner else '',
+                    'owner_username': owner.username if owner else ''}
+        return serialize
+
+    def global_plot(db, plot_id, lock=False):
+        query = select(Plot).options(selectinload(Plot.detections), selectinload(Plot.details)).where(Plot.id == plot_id)
+        if lock:
+            query = query.with_for_update().execution_options(populate_existing=True)
+        row = db.scalar(query)
+        if row is None:
+            raise HTTPException(404, '地块不存在。')
+        return row
+
+    def global_detection(db, detection_id, lock=False):
+        query = select(Detection).options(selectinload(Detection.plot)).where(Detection.id == detection_id)
+        if lock:
+            query = query.with_for_update().execution_options(populate_existing=True)
+        row = db.scalar(query)
+        if row is None:
+            raise HTTPException(404, '检测记录不存在。')
+        return row
+
+    @router.get('/uploads/{filename}')
+    def management_image(filename: str, actor=Depends(administrator), db=Depends(get_db)):
+        if re.fullmatch(r'[0-9a-f]{32}\.jpg', filename) is None:
+            raise HTTPException(404, '图片不存在。')
+        folder = Path(app.state.settings.upload_dir).resolve()
+        target = (folder / filename).resolve()
+        if target.parent != folder or not target.is_file() or not image_referenced(db, filename):
+            raise HTTPException(404, '图片不存在。')
+        return FileResponse(target, media_type='image/jpeg', headers={
+            'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'private, no-store', 'Vary': 'Authorization'})
 
     def serialize_user(db, row, actor):
         email = db.scalar(select(UserEmail.email).where(UserEmail.user_id == row.id)) or ""
@@ -500,17 +572,19 @@ def install_admin(app, get_db, detection_data, plot_data):
     def detections(search: str = Query("", max_length=100), crop: str = "", status: str = "",
                    plot_id: str = "", source: Literal["all", "demo", "real", "upload"] = "all",
                    date_from: date | None = None, date_to: date | None = None,
+                   owner_id: str = Query('', max_length=32),
                    page: int = Query(1, ge=1), page_size: int = Query(20, ge=1, le=100),
                    actor=Depends(administrator), db=Depends(get_db)):
-        query = filtered_detections(search, crop, status, plot_id, source, date_from, date_to)
-        return paginated(db, query, page, page_size, detection_data)
+        query = filtered_detections(search, crop, status, plot_id, source, date_from, date_to, owner_id)
+        return paginated(db, query, page, page_size, serializer(db, 'detection'))
 
     @router.get("/detections/export.csv")
     def export_detections(search: str = Query("", max_length=100), crop: str = "", status: str = "",
                           plot_id: str = "", source: Literal["all", "demo", "real", "upload"] = "all",
                           date_from: date | None = None, date_to: date | None = None,
+                          owner_id: str = Query('', max_length=32),
                           actor=Depends(administrator), db=Depends(get_db)):
-        query = filtered_detections(search, crop, status, plot_id, source, date_from, date_to)
+        query = filtered_detections(search, crop, status, plot_id, source, date_from, date_to, owner_id)
         total = db.scalar(select(func.count()).select_from(query.order_by(None).subquery()))
         if total > MAX_EXPORT_ROWS:
             raise HTTPException(422, "匹配记录超过 10000 条，请缩小日期、作物或地块筛选范围后重试导出。")
@@ -519,30 +593,51 @@ def install_admin(app, get_db, detection_data, plot_data):
             raise HTTPException(422, "匹配记录超过 10000 条，请缩小筛选范围后重试导出。")
         output = io.StringIO(newline="")
         writer = csv.writer(output)
-        writer.writerow(["id", "name", "crop", "plot_name", "status", "result", "confidence", "created_at", "is_demo", "note"])
+        writer.writerow(["id", "name", "crop", "plot_name", "status", "result", "confidence", "created_at", "is_demo", "note", "owner_id", "owner_username", "owner_name"])
+        owner_cache = {}
         for row in rows:
+            if row.owner_id not in owner_cache:
+                owner_cache[row.owner_id] = db.get(User, row.owner_id) if row.owner_id else None
+            owner = owner_cache[row.owner_id]
             writer.writerow([csv_cell(value) for value in (
                 row.id, row.name, row.crop, row.plot.name if row.plot else "未关联地块",
                 row.status, row.result, row.confidence, iso_time(row.created_at),
                 "true" if row.is_demo else "false", row.note,
+                row.owner_id, owner.username if owner else '', owner.name if owner else '',
             )])
         return Response(
             content=("\ufeff" + output.getvalue()).encode("utf-8"), media_type="text/csv; charset=utf-8",
             headers={"Content-Disposition": 'attachment; filename="agriscan-detections.csv"', "Cache-Control": "no-store"},
         )
 
+    @router.get('/detections/{detection_id}')
+    def detection_detail(detection_id: str, actor=Depends(administrator), db=Depends(get_db)):
+        return serializer(db, 'detection')(global_detection(db, detection_id))
+
+    @router.delete('/detections/{detection_id}')
+    def remove_detection(detection_id: str, actor=Depends(administrator), db=Depends(get_db)):
+        row = global_detection(db, detection_id, lock=True)
+        filename = Path(row.image_url).name if row.image_url and row.image_url.startswith('/api/uploads/') else None
+        add_audit(db, actor, 'delete', 'detection', row.id, f'删除检测样本：{row.name}')
+        db.delete(row)
+        commit(db)
+        if filename:
+            plot_operations.remove_unreferenced_image(db, app.state.settings.upload_dir, filename)
+        changed()
+        return {'message': '检测记录已删除。'}
+
     @router.patch("/detections/{detection_id}")
     def update_detection(detection_id: str, body: DetectionPatch, actor=Depends(administrator), db=Depends(get_db)):
-        row = db.scalar(select(Detection).options(selectinload(Detection.plot))
-                        .where(Detection.id == detection_id).with_for_update())
-        if not row:
-            raise HTTPException(404, "检测记录不存在。")
+        row = global_detection(db, detection_id, lock=True)
         values = body.model_dump(exclude_unset=True)
+        owner_id = valid_owner(db, values.pop('owner_id')) if 'owner_id' in values else row.owner_id
+        plot_id = (values.get('plot_id') or None) if 'plot_id' in values else row.plot_id
+        locked_plots = {value: global_plot(db, value, lock=True) for value in sorted({value for value in (row.plot_id, plot_id) if value})}
+        plot = locked_plots.get(plot_id)
+        if plot is not None and plot.owner_id != owner_id:
+            raise HTTPException(422, '检测与地块必须归属同一用户；转移归属前请取消原地块关联或选择该用户的地块。')
         if "plot_id" in values:
-            plot_id = values.pop("plot_id") or None
-            plot = db.get(Plot, plot_id) if plot_id else None
-            if plot_id and not plot:
-                raise HTTPException(404, "关联地块不存在。")
+            values.pop('plot_id')
             detected_crops = {row.crop}
             if row.prediction:
                 detected_crops.update(box['crop'] for box in row.prediction.model.get('boxes', []) if box.get('crop'))
@@ -550,26 +645,91 @@ def install_admin(app, get_db, detection_data, plot_data):
                 crop_summary = '、'.join(sorted(detected_crops))
                 raise HTTPException(422, f"检测目标包含{crop_summary}，与所选{plot.crop}地块不一致，请更换地块或取消关联后重试。")
             row.plot = plot
+        if row.owner_id != owner_id:
+            add_audit(db, actor, 'detection.owner', 'detection', row.id, f'调整检测归属：{row.owner_id or "待分配"} → {owner_id or "待分配"}')
+            row.owner_id = owner_id
         for key, value in values.items():
             setattr(row, key, value.strip() if key == "note" else value)
         add_audit(db, actor, "detection.update", "detection", row.id, f"更新样本 {row.name} 的名称、备注或地块关联")
         commit(db)
         changed()
-        return detection_data(row)
+        return serializer(db, 'detection')(row)
 
     @router.get("/plots")
     def plots(search: str = Query("", max_length=100), crop: str = "",
+              owner_id: str = Query('', max_length=32),
               page: int = Query(1, ge=1), page_size: int = Query(20, ge=1, le=100),
               actor=Depends(administrator), db=Depends(get_db)):
         if crop and crop not in SUPPORTED_CROPS:
             raise HTTPException(422, "暂不支持该作物。")
         query = select(Plot).options(selectinload(Plot.detections), selectinload(Plot.details))
+        if owner_id:
+            query = query.where(Plot.owner_id.is_(None) if owner_id == 'unassigned' else Plot.owner_id == owner_id)
         if crop:
             query = query.where(Plot.crop == crop)
         if search.strip():
             query = query.where(or_(*[column.contains(search.strip(), autoescape=True) for column in (
                 Plot.name, Plot.location, Plot.manager)]))
-        return paginated(db, query.order_by(Plot.name, Plot.id), page, page_size, plot_data)
+        return paginated(db, query.order_by(Plot.name, Plot.id), page, page_size, serializer(db, 'plot'))
+
+    @router.get('/plots/{plot_id}')
+    def plot_detail(plot_id: str, actor=Depends(administrator), db=Depends(get_db)):
+        return serializer(db, 'plot')(global_plot(db, plot_id))
+
+    @router.get('/plots/{plot_id}/detections')
+    def plot_detections(plot_id: str, actor=Depends(administrator), db=Depends(get_db)):
+        global_plot(db, plot_id)
+        rows = db.scalars(select(Detection).options(selectinload(Detection.plot)).where(
+            Detection.plot_id == plot_id).order_by(Detection.created_at.desc(), Detection.id.desc())).all()
+        serialize = serializer(db, 'detection')
+        return [serialize(row) for row in rows]
+
+    @router.post('/plots', status_code=201)
+    def create_management_plot(body: AdministrativePlotCreate, actor=Depends(administrator), db=Depends(get_db)):
+        owner_id = valid_owner(db, body.owner_id) if 'owner_id' in body.model_fields_set else actor.id
+        values = PlotCreate(**body.model_dump(exclude={'owner_id'}, exclude_unset=True))
+        plot = plot_operations.create_plot(db, values, owner_id, actor)
+        changed()
+        return serializer(db, 'plot')(plot)
+
+    @router.patch('/plots/{plot_id}')
+    def update_management_plot(plot_id: str, body: AdministrativePlotPatch, actor=Depends(administrator), db=Depends(get_db)):
+        plot = global_plot(db, plot_id, lock=True)
+        if 'owner_id' in body.model_fields_set:
+            owner_id = valid_owner(db, body.owner_id)
+            if owner_id != plot.owner_id:
+                conflicts = db.scalar(select(func.count()).select_from(Detection).where(
+                    Detection.plot_id == plot.id, Detection.owner_id.is_distinct_from(owner_id)))
+                if conflicts:
+                    raise HTTPException(409, '地块存在归属不一致的检测；请先转移或解除这些检测的关联，再修改地块归属。')
+                add_audit(db, actor, 'plot.owner', 'plot', plot.id, f'调整地块归属：{plot.owner_id or "待分配"} → {owner_id or "待分配"}')
+                plot.owner_id = owner_id
+        values = PlotUpdate(**body.model_dump(exclude={'owner_id'}, exclude_unset=True))
+        plot_operations.update_plot(db, plot, values, actor)
+        changed()
+        return serializer(db, 'plot')(plot)
+
+    @router.delete('/plots/{plot_id}')
+    def delete_management_plot(plot_id: str, actor=Depends(administrator), db=Depends(get_db)):
+        result = plot_operations.delete_plot(db, global_plot(db, plot_id, lock=True), actor, app.state.settings.upload_dir)
+        changed()
+        return result
+
+    @router.post('/plots/{plot_id}/cover')
+    async def management_cover(plot_id: str, file: UploadFile = File(...), actor=Depends(administrator), db=Depends(get_db)):
+        from .main import read_uploaded_image
+        plot = global_plot(db, plot_id, lock=True)
+        await plot_operations.upload_cover(db, plot, file, actor, app.state.settings.upload_dir,
+                                          app.state.settings.max_upload_bytes, read_uploaded_image)
+        changed()
+        return serializer(db, 'plot')(plot)
+
+    @router.delete('/plots/{plot_id}/cover')
+    def remove_management_cover(plot_id: str, actor=Depends(administrator), db=Depends(get_db)):
+        plot = global_plot(db, plot_id, lock=True)
+        plot_operations.delete_cover(db, plot, actor, app.state.settings.upload_dir)
+        changed()
+        return serializer(db, 'plot')(plot)
 
     @router.get("/audit")
     def audit(action: str = Query("", max_length=80), resource_type: str = Query("", max_length=40),
