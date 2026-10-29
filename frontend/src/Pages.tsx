@@ -1,4 +1,9 @@
 import {Xiaohe} from './Xiaohe'
+import DetectionJourney from './DetectionJourney'
+import {AccountEmailSettings} from './EmailForms'
+import DetectResultView from './DetectResultView'
+import {DetectionTaskProgress,taskFinished,type DetectionTasksBinding} from './DetectionTasks'
+import {ExportButton, reducedMotion} from './motion'
 import {useClientConfiguration} from './ClientConfig'
 import {CropRoom} from './CropRoom'
 import {useCropTheme} from './CropTheme'
@@ -6,81 +11,80 @@ import {XiaoheMotionDemo} from './XiaoheMotionDemo'
 import PlotEditor from './PlotEditor'
 import PlotCoverCarousel from './PlotCoverCarousel'
 import DetectionImageComparison from './DetectionImageComparison'
-import {confidenceText, PredictionScores} from './PredictionScores'
+import RunningModels from './RunningModels'
 import type {ReactNode} from 'react'
 import {useEffect, useRef, useState, type FormEvent} from 'react'
-import {ArrowRight, ArrowUpRight, BookOpen, Check, CheckCircle2, CircleAlert, CloudUpload, FileImage, Filter, FlaskConical, HardDrive, Layers3, Leaf, LoaderCircle, MapPin, Pencil, Plus, ScanLine, Search, Server, Settings2, ShieldCheck, Sprout, Trash2, Upload, X} from 'lucide-react'
-import {api, downloadCsv} from './api'
-import {Badge, CropIcon, DetectionTable, Empty, Modal, statusLabels} from './components'
+import {ArrowUpRight, BookOpen, Check, CheckCircle2, CircleAlert, CloudUpload, FileImage, Filter, FlaskConical, HardDrive, Layers3, Leaf, LoaderCircle, MapPin, Pencil, Plus, ScanLine, Search, Server, Settings2, ShieldCheck, Sprout, Trash2, Upload, X} from 'lucide-react'
+import {api, downloadCsv, getToken} from './api'
+import {CropIcon, DetectionTable, Empty, Modal, statusLabels} from './components'
 import type {Article, Detection, Health, ModelInfo, Plot, User} from './types'
 
 interface ProtectedProps {requireAuth: () => boolean; onChange: () => void; toast: (message: string) => void}
-export function DetectPage({plots, model, requireAuth, onChange, toast, onDetected}: {plots: Plot[]; model: ModelInfo; onDetected: (record: Detection) => void} & ProtectedProps) {
-  const client = useClientConfiguration()
-  const imageMax = client.limits.image_max_mb
-  const [file, setFile] = useState<File | null>(null)
-  const [preview, setPreview] = useState('')
-  const {crop, setCrop} = useCropTheme()
-  const [plotId, setPlotId] = useState('')
-  const [note, setNote] = useState('')
-  const [dragging, setDragging] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const [result, setResult] = useState<Detection | null>(null)
-  const input = useRef<HTMLInputElement>(null)
-  const modelReady = model.status === 'ready'
-  const crops = modelReady ? model.supported_crops : model.available_crops
-  const selectablePlots = modelReady ? plots : plots.filter(plot => plot.crop === crop)
-  const recognized = result && result.status !== 'awaiting_model' ? result : null
-  const targetDetection=result?.prediction_model?.task==='detect'
-  const fileOverLimit = Boolean(file && file.size > imageMax * 1024 * 1024)
-  useEffect(() => {
-    if (!client.features.plots && !busy) setPlotId('')
-  }, [client.features.plots, busy])
-  useEffect(() => {
-    if (!client.features.image_detection) setDragging(false)
-  }, [client.features.image_detection])
-  useEffect(() => {
-    if (!modelReady && crops.length && !crops.includes(crop)) {setCrop(crops[0]); setPlotId(''); setResult(null)}
-  }, [crops, crop, modelReady, setCrop])
-  const selectCrop = (next: string) => {
-    if (busy || crop === next || (!crops.includes(next) && !(modelReady && model.available_crops.includes(next)))) return
-    setCrop(next)
-    if (!modelReady) {setPlotId(''); setResult(null)}
+export function DetectPage({plots,model,requireAuth,toast,tasks,onViewAdvice}:{plots:Plot[];model:ModelInfo;tasks:DetectionTasksBinding;onViewAdvice?:(record:Detection)=>void}&ProtectedProps){
+  const client=useClientConfiguration(),imageMax=client.limits.image_max_mb
+  const [file,setFile]=useState<File|null>(null),[preview,setPreview]=useState(''),[plotId,setPlotId]=useState(''),[note,setNote]=useState(''),[dragging,setDragging]=useState(false),[submitError,setSubmitError]=useState('')
+  const {crop,setCrop}=useCropTheme()
+  const selectedJob=tasks.jobs.find(job=>job.key===tasks.selectedKey)
+  const result=selectedJob?.status==='completed'?tasks.records[selectedJob.key]??null:null
+  const busy=Boolean(selectedJob&&!taskFinished(selectedJob))
+  const completedUpload=useRef(false),acceptedToken=useRef<string|null>(null),previewKey=useRef<string|null>(null),mounted=useRef(true),viewedKey=useRef(tasks.selectedKey)
+  viewedKey.current=tasks.selectedKey
+  const input=useRef<HTMLInputElement>(null),details=useRef<HTMLDivElement>(null),resultHeading=useRef<HTMLHeadingElement>(null),resultMetadata=useRef<HTMLDetailsElement>(null),resultPanel=useRef<HTMLElement>(null)
+  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[])
+  const scrollTo=(node:HTMLElement|null)=>node?.scrollIntoView({block:'center',behavior:reducedMotion()?'instant':'smooth'})
+  const modelReady=model.status==='ready',crops=modelReady?model.supported_crops:model.available_crops
+  const selectablePlots=modelReady?plots:plots.filter(plot=>plot.crop===crop)
+  const recognized=result&&result.status!=='awaiting_model'?result:null
+  const fileOverLimit=Boolean(file&&file.size>imageMax*1024*1024)
+  useEffect(()=>{if(!client.features.plots&&!busy)setPlotId('')},[client.features.plots,busy])
+  useEffect(()=>{if(!client.features.image_detection)setDragging(false)},[client.features.image_detection])
+  useEffect(()=>{if(!result&&!modelReady&&crops.length&&!crops.includes(crop)){setCrop(crops[0]);setPlotId('')}},[crops,crop,modelReady,setCrop,result])
+  const selectCrop=(next:string)=>{if(busy||crop===next||(!crops.includes(next)&&!(modelReady&&model.available_crops.includes(next))))return;setCrop(next);if(!modelReady)setPlotId('')}
+  useEffect(()=>{if(!file){setPreview('');return};const url=URL.createObjectURL(file);setPreview(url);return()=>URL.revokeObjectURL(url)},[file])
+  useEffect(()=>{
+    if(!result||!tasks.selectedKey)return
+    const token=getToken(),key=tasks.selectedKey
+    if(!token)return
+    acceptedToken.current=token
+    if(result.status!=='awaiting_model')setCrop(result.crop)
+    const frame=requestAnimationFrame(()=>{if(!mounted.current||getToken()!==token||viewedKey.current!==key||document.querySelector('[role="dialog"]'))return;resultHeading.current?.focus({preventScroll:true});resultHeading.current?.scrollIntoView({block:'start',behavior:reducedMotion()?'instant':'smooth'})})
+    return()=>cancelAnimationFrame(frame)
+  },[result?.id,tasks.selectedKey,tasks.viewVersion,setCrop])
+  const openPicker=()=>{if(!client.features.image_detection)return;if(input.current){input.current.value='';input.current.click()}}
+  const removeFile=()=>{completedUpload.current=false;acceptedToken.current=null;previewKey.current=null;setFile(null);setSubmitError('');if(input.current)input.current.value=''}
+  const chooseFile=(next?:File)=>{
+    if(!next||!client.features.image_detection)return
+    if(!['image/jpeg','image/png','image/webp'].includes(next.type)){toast('请选择 JPG、PNG 或 WebP 格式的图片。');return}
+    if(next.size>imageMax*1024*1024){toast(`图片不能超过 ${imageMax} MB，请压缩后重新选择。`);return}
+    completedUpload.current=false;acceptedToken.current=null;previewKey.current=null;tasks.select(null);setFile(next);setSubmitError('')
   }
-  useEffect(() => {if (!file) {setPreview(''); return}; const url = URL.createObjectURL(file); setPreview(url); return () => URL.revokeObjectURL(url)}, [file])
-  const chooseFile = (next?: File) => {
-    if (busy || !next || !client.features.image_detection) return
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(next.type)) {toast('请选择 JPG、PNG 或 WebP 格式的图片。'); return}
-    if (next.size > imageMax * 1024 * 1024) {toast(`图片不能超过 ${imageMax} MB，请压缩后重新选择。`); return}
-    setFile(next); setResult(null)
-  }
-  async function submit(event: FormEvent) {
+  function submit(event:FormEvent){
     event.preventDefault()
-    if (busy || !file || fileOverLimit || !client.features.image_detection || !requireAuth()) return
-    setBusy(true); setDragging(false); setResult(null)
-    const body = new FormData()
-    body.append('file', file); if (!modelReady) body.append('crop', crop); if (plotId && client.features.plots) body.append('plot_id', plotId); body.append('note', note)
-    try {
-      const saved = await api<Detection>('/detections', {method: 'POST', body})
-      setCrop(saved.crop); setResult(saved); onChange(); onDetected(saved)
-      toast(saved.status === 'awaiting_model' ? '样本已保存。' : `已识别为${saved.crop}并进入对应检测室。${client.features.assistant ? '小禾正在整理处理与复检建议。' : ''}`)
-    }
-    catch (error) {toast((error as Error).message)}
-    finally {setBusy(false)}
+    if(completedUpload.current||!file||fileOverLimit||!client.features.image_detection||!requireAuth())return
+    if(!tasks.manager){setSubmitError('检测任务正在准备，请稍后重试。');return}
+    completedUpload.current=true;setDragging(false);setSubmitError('')
+    try{
+      const key=tasks.manager.enqueue({file,kind:'image',note,...(!modelReady?{crop}:{}),...(plotId&&client.features.plots?{plot_id:plotId}:{})})
+      previewKey.current=key;tasks.select(key);toast('已加入检测任务，可以切换其他模块或继续选择照片。')
+    }catch(reason){completedUpload.current=false;setSubmitError((reason as Error).message)}
   }
   return <>
+    <input ref={input} type="file" disabled={!client.features.image_detection} accept="image/jpeg,image/png,image/webp" className="sr-only" aria-label="选择作物图片" onClick={event=>{event.currentTarget.value=''}} onChange={event=>chooseFile(event.target.files?.[0])}/>
+    <DetectionJourney phase={busy?'detecting':result?(result.status==='awaiting_model'?'saved':'complete'):selectedJob?.status==='failed'?'failed':selectedJob?.status==='cancelled'?'cancelled':selectedJob?.status==='completed'?'result_loading':file?'details':'choose'} modelReady={modelReady} canUpload={client.features.image_detection} onUpload={selectedJob?()=>scrollTo(resultPanel.current):openPicker} onDetails={()=>{if(result){if(resultMetadata.current){resultMetadata.current.open=true;scrollTo(resultMetadata.current);resultMetadata.current.querySelector('summary')?.focus({preventScroll:true})}}else{scrollTo(details.current);details.current?.querySelector<HTMLElement>('select, textarea')?.focus({preventScroll:true})}}} onResult={()=>{scrollTo(resultHeading.current);resultHeading.current?.focus({preventScroll:true})}}/>
+    {result?<DetectResultView record={result} originalUrl={previewKey.current===tasks.selectedKey?preview:''} canChoose={client.features.image_detection} canAsk={client.features.assistant&&Boolean(onViewAdvice)} headingRef={resultHeading} comparisonRef={resultPanel} metadataRef={resultMetadata} onChooseNext={openPicker} onViewAdvice={()=>{if(mounted.current&&getToken()===acceptedToken.current)onViewAdvice?.(result)}}/>:selectedJob?<section className="panel detect-running-task" ref={resultPanel}><h2>{selectedJob.filename}</h2><DetectionTaskProgress job={selectedJob}/>{selectedJob.status==='completed'&&<p role="status">{tasks.errors[selectedJob.key]||'正在加载本次结果…'}</p>}<div className="detect-running-task-actions"><button type="button" className="button primary" onClick={openPicker} disabled={!client.features.image_detection}>再检测一张</button>{selectedJob.status==='completed'&&tasks.errors[selectedJob.key]&&<button type="button" className="button outline" onClick={()=>tasks.select(selectedJob.key)}>重新加载结果</button>}{!taskFinished(selectedJob)&&<button type="button" className="button outline" disabled={selectedJob.status==='cancelling'} onClick={()=>void tasks.manager?.cancel(selectedJob.key)}>取消任务</button>}</div></section>:<>
+    {submitError&&<div className="form-error detect-upload-error" role="alert">{submitError}</div>}
     <CropRoom crops={crops} availableCrops={model.available_crops} busy={busy} automatic={modelReady} onSelect={selectCrop}/>
     {!client.features.image_detection && <div className="notice" role="status"><ScanLine size={19}/><div><strong>图片检测暂未开放</strong><p>管理员已暂停新上传和新检测，当前照片、备注与已有结果仍保留；重新开放后可以继续。</p></div></div>}
     {fileOverLimit && <div className="notice" role="status"><CircleAlert size={19}/><p>当前图片超过最新的 {imageMax} MB 上限，请重新选择较小图片后再提交。</p></div>}
     <div className={`detect-grid ${result ? 'has-result' : ''}`}><form className="panel upload-panel has-comparison" onSubmit={submit} aria-busy={busy}><div className="panel-header"><h2><span className="step-number">01</span>上传作物图片</h2><span className="quiet">单图检测</span></div>
-      <div className="upload-workspace"><DetectionImageComparison originalUrl={preview} record={result} busy={busy} modelReady={modelReady} detections={result?.boxes} original={<div className="upload-media"><input ref={input} type="file" disabled={busy || !client.features.image_detection} accept="image/jpeg,image/png,image/webp" className="sr-only" aria-label="选择作物图片" onChange={event => chooseFile(event.target.files?.[0])}/>
+      <div className="upload-workspace"><DetectionImageComparison originalUrl={preview} record={null} busy={busy} modelReady={modelReady} original={<div className="upload-media">
       <div className={`drop-zone ${dragging ? 'dragging' : ''} ${preview ? 'has-preview' : ''}`} onDragOver={event => {event.preventDefault(); setDragging(!busy && client.features.image_detection)}} onDragLeave={() => setDragging(false)} onDrop={event => {event.preventDefault(); setDragging(false); chooseFile(event.dataTransfer.files[0])}}>
-        {preview ? <><img src={preview} className="upload-preview" alt="待检测作物预览"/><button type="button" disabled={busy} className="preview-remove" onClick={() => {setFile(null); setResult(null); if (input.current) input.current.value = ''}} aria-label="移除已选图片"><X size={18}/></button><div className="file-chip"><FileImage size={15}/><span>{file?.name}</span><small>{((file?.size ?? 0) / 1024 / 1024).toFixed(2)} MB</small></div></> : <><div className="upload-guidance"><h3>拍得清楚，看得更准</h3><ol>{[['自然光线', '避开强烈反光，保留叶片真实颜色。'], ['主体清晰', '靠近叶片拍摄，让病斑与纹理清楚可见。'], ['完整记录', '一次选择一张图片，并补充采集备注。']].map(([title, content], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{title}</strong><p>{content}</p></div></li>)}</ol></div><button type="button" className="button primary" disabled={busy || !client.features.image_detection} onClick={() => input.current?.click()}><Upload size={16}/>选择图片</button><span className="upload-hint">支持 JPG、PNG、WebP · 最大 {imageMax} MB</span></>}
+        {preview ? <><img src={preview} className="upload-preview" alt="待检测作物预览"/><button type="button" disabled={busy} className="preview-remove" onClick={removeFile} aria-label="移除已选图片"><X size={18}/></button><div className="file-chip"><FileImage size={15}/><span>{file?.name}</span><small>{((file?.size ?? 0) / 1024 / 1024).toFixed(2)} MB</small></div></> : <><div className="upload-guidance"><h3>拍得清楚，看得更准</h3><ol>{[['自然光线', '避开强烈反光，保留叶片真实颜色。'], ['主体清晰', '靠近叶片拍摄，让病斑与纹理清楚可见。'], ['完整记录', '一次选择一张图片，并补充采集备注。']].map(([title, content], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{title}</strong><p>{content}</p></div></li>)}</ol></div><button type="button" className="button primary" disabled={busy || !client.features.image_detection} onClick={openPicker}><Upload size={16}/>选择图片</button><span className="upload-hint">支持 JPG、PNG、WebP · 最大 {imageMax} MB</span></>}
       </div>
-      {file && <button className="text-button change-file" type="button" disabled={busy || !client.features.image_detection} onClick={() => input.current?.click()}>重新选择图片</button>}
-      </div>}/><div className="form-section"><h2><span className="step-number">02</span>检测与样本信息</h2><div className="form-grid">{modelReady ? <div className="crop-auto-status" role="status" aria-live="polite"><span><ScanLine size={15}/>作物识别</span><strong>{busy ? '正在辨认照片中的作物…' : recognized ? `模型识别：${recognized.crop}` : '自动识别，无需选择作物'}</strong><p>{recognized && !busy ? '病害或健康状态与置信度见本次检测结果；主题浏览不会改写结果。' : '点击“识别并保存”后，自动识别作物与叶片状况，并进入对应检测室。'}</p><small>{crops.length} 种作物 · {model.active?.task==='detect'?'叶片目标检测':'单叶图像分类'}</small></div> : <label>采集作物<select value={crop} disabled={busy || !crops.length} onChange={event => selectCrop(event.target.value)}>{crops.map(item => <option key={item}>{item}</option>)}</select></label>}<label>所属地块 <span>（选填）</span><select value={plotId} disabled={busy || !client.features.plots} onChange={event => setPlotId(event.target.value)}><option value="">暂不关联地块</option>{selectablePlots.map(plot => <option key={plot.id} value={plot.id}>{plot.name}{modelReady ? ` · ${plot.crop}` : ''}</option>)}</select>{!client.features.plots ? <small className="auto-plot-hint" role="status">{busy?'管理员已暂停地块关联；当前请求使用提交时的信息，后续检测不关联地块。':'管理员已暂停地块关联，原选择已取消，本次不关联地块。'}</small> : modelReady && <small className="auto-plot-hint">可不关联；所选地块的作物须与照片识别结果一致。</small>}</label></div><label>样本备注 <span>（选填）</span><textarea value={note} disabled={busy} onChange={event => setNote(event.target.value)} maxLength={500} placeholder="例如：叶片出现黄斑，采集于植株中部…" rows={3}/></label></div>
-      </div><div className="upload-actions"><span><ShieldCheck size={14}/>图片用于检测与小禾解读</span><button className="button primary" type="submit" disabled={!file || busy || fileOverLimit || !client.features.image_detection}>{busy ? <LoaderCircle size={17} className="spin"/> : <CloudUpload size={17}/>} {busy ? (modelReady ? '正在识别…' : '正在保存…') : (modelReady ? '识别并保存' : '保存检测样本')}</button></div>
-    </form>{result && <aside className="detect-aside"><section className="panel result-panel"><div className="result-icon"><CheckCircle2 size={32}/></div><h2>{result.status === 'awaiting_model' ? '样本保存成功' : '识别完成'}</h2><p>结果已保存至检测记录。</p><Badge status={result.status}/><dl><div><dt>样本编号</dt><dd>{result.id.slice(0, 12)}</dd></div><div><dt>{result.status === 'awaiting_model' ? '采集作物' : '模型识别作物'}</dt><dd>{result.crop}</dd></div><div><dt>病害 / 健康状态</dt><dd>{result.result || '等待模型接入'}</dd></div><div className="result-confidence"><dt>{targetDetection?'检测目标置信度':'分类置信度'}</dt><dd title={`原始输出：${result.confidence ?? "未提供"}`}>{confidenceText(result.confidence)}</dd></div></dl><PredictionScores record={result}/><a className="button outline full" href="#records">查看检测记录<ArrowRight size={15}/></a></section></aside>}</div>
+      {file && <button className="text-button change-file" type="button" disabled={busy || !client.features.image_detection} onClick={openPicker}>重新选择图片</button>}
+      </div>}/><div className="form-section" ref={details}><h2><span className="step-number">02</span>检测与样本信息</h2><div className="form-grid">{modelReady ? <div className="crop-auto-status" role="status" aria-live="polite"><span><ScanLine size={15}/>作物识别</span><strong>{busy ? '正在辨认照片中的作物…' : recognized ? `模型识别：${recognized.crop}` : '自动识别，无需选择作物'}</strong><p>{recognized && !busy ? '病害或健康状态与置信度见本次检测结果；主题浏览不会改写结果。' : '点击“识别并保存”后，自动识别作物与叶片状况，并进入对应检测室。'}</p><small>{crops.length} 种作物 · {model.active?.task==='detect'?'叶片目标检测':'单叶图像分类'}</small></div> : <label>采集作物<select value={crop} disabled={busy || !crops.length} onChange={event => selectCrop(event.target.value)}>{crops.map(item => <option key={item}>{item}</option>)}</select></label>}<label>所属地块 <span>（选填）</span><select value={plotId} disabled={busy || !client.features.plots} onChange={event => setPlotId(event.target.value)}><option value="">暂不关联地块</option>{selectablePlots.map(plot => <option key={plot.id} value={plot.id}>{plot.name}{modelReady ? ` · ${plot.crop}` : ''}</option>)}</select>{!client.features.plots ? <small className="auto-plot-hint" role="status">{busy?'管理员已暂停地块关联；当前请求使用提交时的信息，后续检测不关联地块。':'管理员已暂停地块关联，原选择已取消，本次不关联地块。'}</small> : modelReady && <small className="auto-plot-hint">可不关联；所选地块的作物须与照片识别结果一致。</small>}</label></div><label>样本备注 <span>（选填）</span><textarea value={note} disabled={busy} onChange={event => setNote(event.target.value)} maxLength={500} placeholder="例如：叶片出现黄斑，采集于植株中部…" rows={3}/></label></div>
+      </div><div className="upload-actions"><span><ShieldCheck size={14}/>图片用于检测与小禾解读</span><button className="button primary detection-submit" type="submit" aria-busy={busy} disabled={!file||busy||fileOverLimit||!client.features.image_detection}>{busy?<LoaderCircle size={17} className="spin"/>:<CloudUpload size={17}/>} {busy?(modelReady?'正在识别…':'正在保存…'):(modelReady?'识别并保存':'保存检测样本')}</button></div>
+    </form></div></>}
   </>
 }
 
@@ -88,11 +92,16 @@ export function RecordsPage({records, crops, onSelect, search, setSearch, status
   const [crop, setCrop] = useState('')
   const [source, setSource] = useState('')
   const [page, setPage] = useState(1)
+  const [checked, setChecked] = useState<Set<string>>(new Set())
   const filtered = records.filter(record => `${record.name} ${record.crop} ${record.plot_name} ${record.id}`.toLowerCase().includes(search.toLowerCase()) && (!crop || record.crop === crop) && (!status || record.status === status) && (!source || (source === 'demo' ? record.is_demo : !record.is_demo)))
   const pages = Math.max(1, Math.ceil(filtered.length / 8))
   const currentPage = Math.min(page, pages)
-  useEffect(() => setPage(1), [search, crop, status, source])
-  return <><section className="panel records-panel"><div className="records-toolbar"><div className="input-search"><Search size={17}/><input aria-label="搜索检测记录" placeholder="搜索样本、作物、地块…" value={search} onChange={event => setSearch(event.target.value)}/>{search && <button className="icon-button" aria-label="清除搜索" onClick={() => setSearch('')}><X size={14}/></button>}</div><div className="filter-selects"><Filter size={16}/><select aria-label="筛选作物" value={crop} onChange={event => setCrop(event.target.value)}><option value="">全部作物</option>{crops.map(item => <option key={item}>{item}</option>)}</select><select aria-label="筛选检测状态" value={status} onChange={event => setStatus(event.target.value)}><option value="">全部状态</option>{Object.entries(statusLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select><select aria-label="筛选样本来源" value={source} onChange={event => setSource(event.target.value)}><option value="">全部来源</option><option value="upload">上传样本</option><option value="demo">示例样本</option></select></div></div>{filtered.length ? <DetectionTable records={filtered.slice((currentPage - 1) * 8, currentPage * 8)} onSelect={onSelect}/> : <Empty title="没有找到匹配的记录" description="试试其他关键词，或调整筛选条件。"/>}<div className="pagination"><span>共 {filtered.length} 条记录 <span className="quiet">· 示例结果仅用于界面演示</span></span><div><button disabled={currentPage <= 1} onClick={() => setPage(currentPage - 1)}>上一页</button><span>{currentPage} / {pages}</span><button disabled={currentPage >= pages} onClick={() => setPage(currentPage + 1)}>下一页</button></div></div></section></>
+  useEffect(() => {setPage(1); setChecked(new Set())}, [search, crop, status, source])
+  const visible = filtered.slice((currentPage - 1) * 8, currentPage * 8)
+  const selectedRecords = filtered.filter(record => checked.has(record.id))
+  const toggle = (id: string) => setChecked(old => {const next = new Set(old); if (next.has(id)) next.delete(id); else next.add(id); return next})
+  const toggleAll = () => setChecked(old => {const next = new Set(old); const all = visible.every(record => next.has(record.id)); visible.forEach(record => all ? next.delete(record.id) : next.add(record.id)); return next})
+  return <><section className="panel records-panel"><div className="records-toolbar"><div className="input-search"><Search size={17}/><input aria-label="搜索检测记录" placeholder="搜索样本、作物、地块…" value={search} onChange={event => setSearch(event.target.value)}/>{search && <button className="icon-button" aria-label="清除搜索" onClick={() => setSearch('')}><X size={14}/></button>}</div><div className="filter-selects"><Filter size={16}/><select aria-label="筛选作物" value={crop} onChange={event => setCrop(event.target.value)}><option value="">全部作物</option>{crops.map(item => <option key={item}>{item}</option>)}</select><select aria-label="筛选检测状态" value={status} onChange={event => setStatus(event.target.value)}><option value="">全部状态</option>{Object.entries(statusLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select><select aria-label="筛选样本来源" value={source} onChange={event => setSource(event.target.value)}><option value="">全部来源</option><option value="upload">上传样本</option><option value="demo">示例样本</option></select></div></div>{filtered.length ? <DetectionTable records={visible} onSelect={onSelect} selected={checked} onToggle={toggle} onToggleAll={toggleAll}/> : <Empty title="没有找到匹配的记录" description="试试其他关键词，或调整筛选条件。"/>}<div className={`record-selection-bar ${selectedRecords.length ? 'has-selection' : ''}`}><span role="status">{selectedRecords.length ? `已选择 ${selectedRecords.length} 份记录` : '勾选记录，可一起导出田间档案'}</span><div>{selectedRecords.length > 0 && <button className="text-button" onClick={() => setChecked(new Set())}>取消选择</button>}<ExportButton disabled={!filtered.length} onAction={() => exportRecords(selectedRecords.length ? selectedRecords : filtered)}>{selectedRecords.length ? '导出所选' : '导出筛选结果'}</ExportButton></div></div><div className="pagination"><span>共 {filtered.length} 条记录 <span className="quiet">· 示例结果仅用于界面演示</span></span><div><button disabled={currentPage <= 1} onClick={() => setPage(currentPage - 1)}>上一页</button><span>{currentPage} / {pages}</span><button disabled={currentPage >= pages} onClick={() => setPage(currentPage + 1)}>下一页</button></div></div></section></>
 }
 
 export function exportRecords(records: Detection[]) {
@@ -131,14 +140,16 @@ export function ModelsPage({model, health, children}: {model: ModelInfo; health:
   const targetDetection=model.active?.task==='detect'
   const top1=model.active?.test_top1,macroF1=model.active?.test_macro_f1
   const evaluation=!model.active?'准备数据集，训练并验证作物识别模型。':targetDetection?'已完成目标检测接入校验；尚未提供可核验的独立检测评估指标，不沿用分类 Top-1 / F1。':typeof top1==='number'&&Number.isFinite(top1)&&typeof macroF1==='number'&&Number.isFinite(macroF1)?`独立测试集 Top-1 ${(top1*100).toFixed(2)}%，宏平均 F1 ${(macroF1*100).toFixed(2)}%。`:'当前发布模型未提供可核验的独立测试指标。'
-  return <><section className="panel model-hero"><div className="model-icon"><FlaskConical size={35}/></div><div><span className={`badge ${model.active ? 'healthy' : 'awaiting_model'}`}>{model.active ? '模型已启用' : '等待训练模型'}</span><h2>{model.active?.name || '下一步，让小禾学会观察。'}</h2><p>{model.message || '检测流程与数据存储已准备就绪，接入训练好的模型即可启用图像分析。'}</p></div><img src="/images/xiaohe.png" alt="等待学习的小禾"/></section>{children}<div className="model-grid"><section className="panel model-details"><div className="panel-header"><h2>推理服务状态</h2><span className="quiet">INFERENCE ENGINE</span></div><dl className="status-list"><div><dt><Server size={17}/>应用服务</dt><dd><span className="live-dot"/>{health?.status === 'ok' ? '运行中' : '服务可访问'}</dd></div><div><dt><HardDrive size={17}/>数据存储</dt><dd>{connectionLabel(health?.database)}</dd></div><div><dt><Layers3 size={17}/>活动模型</dt><dd>{model.active?.name || '尚未配置'}</dd></div><div><dt><Settings2 size={17}/>模型适配器</dt><dd>{model.active ? `ONNX · ${model.active.class_count} 类${targetDetection?'目标检测':'叶片分类'}` : '待训练模型验证'}</dd></div></dl><div className="model-supported"><span>{model.active ? '模型支持作物' : '当前可采集作物'}</span><div>{(model.active ? model.supported_crops : model.available_crops).map(crop => <span key={crop}><CropIcon crop={crop} size={26}/>{crop}</span>)}</div></div></section><section className="panel model-roadmap"><div className="panel-header"><h2>接入流程</h2><Sprout size={20}/></div>{[['基础系统', '图片上传、样本管理与数据存储已就绪。', true], [targetDetection?'训练与接入校验':'训练与验证', evaluation, !!model.active], ['适配推理接口', 'ONNX 推理、类别映射与置信度校验。', !!model.active], ['上线识别', '启用后分析新上传的图片；历史待检测样本保留原状态。', !!model.active]].map(([title, description, done], index) => <div className={`roadmap-step ${done ? 'done' : ''}`} key={String(title)}><span>{done ? <Check size={15}/> : index + 1}</span><div><h3>{title}</h3><p>{description}</p></div></div>)}</section></div><div className="notice"><ShieldCheck size={19}/><div><strong>结果真实，才能判断可靠</strong><p>没有加载并验证模型时，上传记录会保留为“等待模型”，不会生成模拟识别结果。</p></div></div></>
+  return <><section className="panel model-hero"><div className="model-icon"><FlaskConical size={35}/></div><div><span className={`badge ${model.active ? 'healthy' : 'awaiting_model'}`}>{model.active ? '模型已启用' : '等待训练模型'}</span><h2>{model.active?.name || '下一步，让小禾学会观察。'}</h2><p>{model.message || '检测流程与数据存储已准备就绪，接入训练好的模型即可启用图像分析。'}</p></div><img src="/images/xiaohe.png" alt="等待学习的小禾"/></section>{children}<RunningModels model={model}/><div className="model-grid"><section className="panel model-details"><div className="panel-header"><h2>推理服务状态</h2><span className="quiet">INFERENCE ENGINE</span></div><dl className="status-list"><div><dt><Server size={17}/>应用服务</dt><dd><span className="live-dot"/>{health?.status === 'ok' ? '运行中' : '服务可访问'}</dd></div><div><dt><HardDrive size={17}/>数据存储</dt><dd>{connectionLabel(health?.database)}</dd></div><div><dt><Layers3 size={17}/>主要识别模型</dt><dd>{model.active?.name || '尚未配置'}</dd></div><div><dt><Settings2 size={17}/>主模型适配器</dt><dd>{model.active ? `ONNX · ${model.active.class_count} 类${targetDetection?'目标检测':'叶片分类'}` : '待训练模型验证'}</dd></div></dl><div className="model-supported"><span>{model.active ? '模型支持作物' : '当前可采集作物'}</span><div>{(model.active ? model.supported_crops : model.available_crops).map(crop => <span key={crop}><CropIcon crop={crop} size={26}/>{crop}</span>)}</div></div></section><section className="panel model-roadmap"><div className="panel-header"><h2>接入流程</h2><Sprout size={20}/></div>{[['基础系统', '图片上传、样本管理与数据存储已就绪。', true], [targetDetection?'训练与接入校验':'训练与验证', evaluation, !!model.active], ['适配推理接口', 'ONNX 推理、类别映射与置信度校验。', !!model.active], ['上线识别', '启用后分析新上传的图片；历史待检测样本保留原状态。', !!model.active]].map(([title, description, done], index) => <div className={`roadmap-step ${done ? 'done' : ''}`} key={String(title)}><span>{done ? <Check size={15}/> : index + 1}</span><div><h3>{title}</h3><p>{description}</p></div></div>)}</section></div><div className="notice"><ShieldCheck size={19}/><div><strong>结果真实，才能判断可靠</strong><p>没有加载并验证模型时，上传记录会保留为“等待模型”，不会生成模拟识别结果。</p></div></div></>
 }
 
 export function SettingsPage({health, user, onLogin, onLogout}: {health: Health | null; user: User | null; onLogin: () => void; onLogout: () => void}) {
   const [compact, setCompact] = useState(localStorage.getItem('agriscan-compact') === 'true')
   const [motion, setMotion] = useState(localStorage.getItem('agriscan-motion') !== 'false')
-  const change = (key: string, value: boolean) => {localStorage.setItem(`agriscan-${key}`, String(value)); document.documentElement.classList.toggle(key === 'compact' ? 'compact' : 'reduce-motion', key === 'compact' ? value : !value)}
-  return <><div className="settings-grid"><section className="panel settings-panel"><div className="panel-header"><h2>个人与偏好</h2><Settings2 size={19}/></div><div className="account-card"><div className="avatar">{user ? user.name.charAt(0) : '访'}</div><div><strong>{user?.name || '访客'}</strong><p>{user ? (user.role === 'admin' ? '管理员 · 此处仅管理我的地块与样本' : '普通成员 · 管理我的地块与检测记录') : '登录后可以上传样本、管理地块'}</p></div><button className="button outline" onClick={user ? onLogout : onLogin}>{user ? '退出登录' : '登录账户'}</button></div><div className="setting-row"><div><strong>紧凑布局</strong><p>缩小表格行距，在同一屏展示更多记录</p></div><button className={`switch ${compact ? 'on' : ''}`} role="switch" aria-checked={compact} aria-label="紧凑布局" onClick={() => {setCompact(!compact); change('compact', !compact)}}><span/></button></div><div className="setting-row"><div><strong>界面动效</strong><p>小禾逐帧动画与界面过渡，关闭后显示静态形象</p></div><button className={`switch ${motion ? 'on' : ''}`} role="switch" aria-checked={motion} aria-label="界面动效" onClick={() => {setMotion(!motion); change('motion', !motion)}}><span/></button></div></section><section className="panel settings-panel"><div className="panel-header"><h2>系统信息</h2><Leaf size={19}/></div><dl className="status-list"><div><dt>系统名称</dt><dd>AgriScan 禾观</dd></div><div><dt>版本</dt><dd>1.0.0 · 基础版</dd></div><div><dt>运行模式</dt><dd>{health?.mode === 'demo' ? '演示模式' : '标准模式'}</dd></div><div><dt>数据库</dt><dd>{connectionLabel(health?.database)}</dd></div><div><dt>Redis</dt><dd>{connectionLabel(health?.redis)}</dd></div><div><dt>技术栈</dt><dd>React · FastAPI</dd></div></dl>{import.meta.env.DEV && <a href="/docs" target="_blank" rel="noreferrer" className="text-button api-link">本地 API 文档 <ArrowUpRight size={15}/></a>}</section></div><XiaoheMotionDemo/></>
+  const [saved, setSaved] = useState('')
+  useEffect(() => {if (!saved) return; const timer = setTimeout(() => setSaved(''), 2600); return () => clearTimeout(timer)}, [saved])
+  const change = (key: string, value: boolean) => {setSaved(`${key === 'compact' ? '布局' : '动效'}偏好已保存`); localStorage.setItem(`agriscan-${key}`, String(value)); document.documentElement.classList.toggle(key === 'compact' ? 'compact' : 'reduce-motion', key === 'compact' ? value : !value)}
+  return <>{saved && <div className="preference-feedback" role="status"><CheckCircle2 size={16}/>{saved}</div>}<div className="settings-grid"><section className="panel settings-panel"><div className="panel-header"><h2>个人与偏好</h2><Settings2 size={19}/></div><div className="account-card"><div className="avatar">{user ? user.name.charAt(0) : '访'}</div><div><strong>{user?.name || '访客'}</strong><p>{user ? (user.role === 'admin' ? '管理员 · 此处仅管理我的地块与样本' : '普通成员 · 管理我的地块与检测记录') : '登录后可以上传样本、管理地块'}</p></div><button className="button outline" onClick={user ? onLogout : onLogin}>{user ? '退出登录' : '登录账户'}</button></div><div className="setting-row"><div><strong>紧凑布局</strong><p>缩小表格行距，在同一屏展示更多记录</p></div><button className={`switch ${compact ? 'on' : ''}`} role="switch" aria-checked={compact} aria-label="紧凑布局" onClick={() => {setCompact(!compact); change('compact', !compact)}}><span/></button></div><div className="setting-row"><div><strong>界面动效</strong><p>小禾逐帧动画与界面过渡，关闭后显示静态形象</p></div><button className={`switch ${motion ? 'on' : ''}`} role="switch" aria-checked={motion} aria-label="界面动效" onClick={() => {setMotion(!motion); change('motion', !motion)}}><span/></button></div></section><section className="panel settings-panel"><div className="panel-header"><h2>系统信息</h2><Leaf size={19}/></div><dl className="status-list"><div><dt>系统名称</dt><dd>AgriScan 禾观</dd></div><div><dt>版本</dt><dd>{import.meta.env.VITE_RELEASE_VERSION ? `${import.meta.env.VITE_RELEASE_VERSION} · 网页工作台` : '开发版本 · 网页工作台'}</dd></div><div><dt>运行模式</dt><dd>{health?.mode === 'demo' ? '演示模式' : '标准模式'}</dd></div><div><dt>数据库</dt><dd>{connectionLabel(health?.database)}</dd></div><div><dt>Redis</dt><dd>{connectionLabel(health?.redis)}</dd></div><div><dt>技术栈</dt><dd>React · FastAPI</dd></div></dl>{import.meta.env.DEV && <a href="/docs" target="_blank" rel="noreferrer" className="text-button api-link">本地 API 文档 <ArrowUpRight size={15}/></a>}</section></div>{user&&<AccountEmailSettings key={`${user.username}:${getToken()}`}/>}<XiaoheMotionDemo/></>
 }
 
 function connectionLabel(status?: string) { return status === 'connected' ? '已连接' : status === 'disabled' ? '本地演示未启用' : status === 'unavailable' ? '连接异常' : status || '未连接' }

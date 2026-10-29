@@ -31,6 +31,10 @@
 .plot-map-pin>span{display:block;width:24px;height:24px;background:#32734d;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 6px #253d3750}
 .plot-map-pin>span::after{content:"";position:absolute;width:6px;height:6px;top:6px;left:6px;border-radius:50%;background:#fff}
 .plot-map-message{font-size:10px;line-height:1.8;color:#a67d45;margin-top:8px}
+.plot-map-feedback{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;padding:8px 10px;border:1px solid #e4e9da;border-radius:8px;background:#f8faf4;color:#7e754f;font-size:12px;line-height:1.6}
+.plot-map-feedback>div{min-width:0;display:grid;gap:2px}.plot-map-feedback strong{display:flex;align-items:center;gap:6px;font-weight:600}.plot-map-feedback span{font-size:12px;color:#7e8770}.plot-map-feedback button{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;font-size:12px;color:#387450;padding:5px 0}
+.plot-map-ready{font-size:12px;line-height:1.6;color:#708568;margin-top:8px}.plot-map-feedback.compact{position:absolute;z-index:1;top:42px;left:10px;right:10px;margin:0;padding:6px 8px;background:#fffffff0;flex-wrap:wrap;gap:4px 10px}
+@media(max-width:400px){.plot-map-feedback{flex-wrap:wrap}.plot-map-feedback button{padding:3px 0}}
 .plot-editor-error{padding:11px 13px;border-radius:8px;background:#fff2e9;color:#a56e45;font-size:12px;line-height:1.8}
 .plot-map-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:#4c7c50;margin-top:8px}
 .plot-draft-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid #e4ecdc;border-radius:8px;background:#f3f7ee;color:#7d9271;font-size:11px;line-height:1.7}

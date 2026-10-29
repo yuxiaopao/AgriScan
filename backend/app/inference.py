@@ -1,4 +1,4 @@
-"""Validated ONNX classification adapter; uploaded pickle weights remain inert."""
+"""Validated ONNX providers and inference snapshots; uploaded pickle stays inert."""
 from dataclasses import dataclass, field
 import hashlib
 import json
@@ -24,6 +24,7 @@ class InferenceResult:
     model: dict | None = None
     crop: str | None = None
     boxes: list[dict] = field(default_factory=list)
+    key: str | None = None
 
 
 def prediction_snapshot(result):
@@ -132,11 +133,11 @@ class OnnxClassificationProvider:
             model = {key: self.active[key] for key in ("name", "task", "onnx_sha256")}
             if confidence < self.threshold:
                 return InferenceResult("attention", f"置信度不足，请人工复核（候选：{label['label']}）",
-                                       confidence, candidates, model, label["crop"])
+                                       confidence, candidates, model, label["crop"], key=label['key'])
             if crop and label["crop"] != crop:
                 raise HTTPException(422, f"图片更接近{label['crop']}，与所选{crop}不一致，请核对作物和照片。")
             return InferenceResult("healthy" if label["healthy"] else "attention",
-                                   label["label"], confidence, candidates, model, label["crop"])
+                                   label["label"], confidence, candidates, model, label["crop"], key=label['key'])
         except HTTPException:
             raise
         except Exception:
@@ -147,9 +148,18 @@ class OnnxClassificationProvider:
 
 def create_provider(settings):
     if not settings.model_manifest:
+        if settings.classification_model_manifest:
+            raise ValueError('Independent classification verification requires a primary detection manifest')
         return AwaitingWeightsProvider()
     metadata = json.loads(Path(settings.model_manifest).read_text(encoding='utf-8'))
     if metadata.get('task') == 'detect':
         from .detection_inference import OnnxDetectionProvider
-        return OnnxDetectionProvider(settings.model_manifest, settings.inference_threads)
+        detector = OnnxDetectionProvider(settings.model_manifest, settings.inference_threads)
+        if settings.classification_model_manifest:
+            from .combined_inference import DetectionWithClassificationProvider
+            classifier = OnnxClassificationProvider(settings.classification_model_manifest, settings.inference_threads)
+            return DetectionWithClassificationProvider(detector, classifier)
+        return detector
+    if settings.classification_model_manifest:
+        raise ValueError('Independent classification verification requires a primary detection model')
     return OnnxClassificationProvider(settings.model_manifest, settings.inference_threads)

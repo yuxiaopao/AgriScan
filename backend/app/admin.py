@@ -21,7 +21,7 @@ from .inference import SUPPORTED_CROPS
 from .security import bearer, current_user, hash_password
 from .schemas import PlotCreate, PlotUpdate
 from . import plot_operations
-from .ownership import image_referenced
+from .ownership import _lock_query, image_referenced
 
 Role = Literal["admin", "member"]
 ArticleStatus = Literal["draft", "published", "archived"]
@@ -255,13 +255,19 @@ def paginated(db, statement, page, page_size, serializer):
     return {"items": [serializer(row) for row in rows], "total": total, "page": page, "page_size": page_size}
 
 
-def set_email(db, user_id, email):
-    previous = db.scalar(select(UserEmail).where(UserEmail.user_id == user_id))
+def set_email(db, user_id, email, settings):
+    from .account_recovery import invalidate_email_proof
+    previous = db.scalar(_lock_query(db, select(UserEmail).where(UserEmail.user_id == user_id), True))
     if previous and previous.email == email:
         return
-    existing = db.get(UserEmail, email) if email else None
+    existing = db.scalar(_lock_query(db, select(UserEmail).where(UserEmail.email == email), True)) if email else None
     if existing and existing.user_id != user_id:
         raise HTTPException(409, "此邮箱已被使用。")
+    # Check target availability before invalidating any verification or OTP.
+    if previous:
+        invalidate_email_proof(db, previous.email, user_id, settings)
+    if email:
+        invalidate_email_proof(db, email, user_id, settings)
     if previous:
         db.delete(previous)
         db.flush()
@@ -453,7 +459,7 @@ def install_admin(app, get_db, detection_data, plot_data):
         db.add(row)
         try:
             db.flush()
-            set_email(db, row.id, body.email)
+            set_email(db, row.id, body.email, app.state.settings)
             add_audit(db, actor, "user.create", "user", row.id, f"创建账号 {row.username}，角色 {row.role}")
             commit(db)
         except IntegrityError:
@@ -483,7 +489,7 @@ def install_admin(app, get_db, detection_data, plot_data):
                 raise HTTPException(409, "必须保留至少一位启用的管理员。")
         credential_changed = any(key in values and values[key] != getattr(row, key) for key in ("role", "is_active"))
         if "email" in values:
-            set_email(db, row.id, values.pop("email"))
+            set_email(db, row.id, values.pop("email"), app.state.settings)
         for key, value in values.items():
             setattr(row, key, value)
         if credential_changed:

@@ -5,26 +5,26 @@ import 'leaflet/dist/leaflet.css'
 import {SecureImage} from './components'
 import {validCoordinates} from './plotCoordinates'
 import type {Plot} from './types'
+import {attachMapTiles,initialMapTileStatus} from './mapTiles'
+import MapTileFeedback from './MapTileFeedback'
 
 function PlotCardMap({latitude, longitude}: {latitude: number; longitude: number}) {
   const host = useRef<HTMLDivElement>(null)
-  const [failed, setFailed] = useState(false)
+  const [tileStatus,setTileStatus]=useState(initialMapTileStatus)
+  const tileControl=useRef<ReturnType<typeof attachMapTiles>|null>(null)
   useEffect(() => {
     if (!host.current) return
-    setFailed(false)
     const map = L.map(host.current, {zoomControl: false, dragging: false, scrollWheelZoom: false,
       touchZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false}).setView([latitude, longitude], 17)
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors',
-    }).on('tileerror', () => setFailed(true)).on('tileload', () => setFailed(false)).addTo(map)
+    tileControl.current=attachMapTiles(map,setTileStatus)
     L.marker([latitude, longitude], {keyboard: false, title: '地块精确位置',
       icon: L.divIcon({className: 'plot-map-pin', html: '<span></span>', iconSize: [26, 32], iconAnchor: [13, 32]}),
     }).addTo(map)
     const observer = new ResizeObserver(() => map.invalidateSize({animate: false}))
     observer.observe(host.current)
-    return () => {observer.disconnect(); map.remove()}
+    return () => {tileControl.current?.dispose();tileControl.current=null;observer.disconnect();map.remove()}
   }, [latitude, longitude])
-  return <><div ref={host} className="plot-card-map" role="img" aria-label={`地块地图：纬度 ${latitude.toFixed(6)}，经度 ${longitude.toFixed(6)}`}/><span className="plot-card-coordinates">纬 {latitude.toFixed(6)} · 经 {longitude.toFixed(6)}</span>{failed && <span className="plot-card-map-error">底图暂不可用，坐标已标记</span>}</>
+  return <><div ref={host} className="plot-card-map" role="img" aria-label={`地块地图：纬度 ${latitude.toFixed(6)}，经度 ${longitude.toFixed(6)}`} data-map-state={tileStatus.state}/><span className="plot-card-coordinates">纬 {latitude.toFixed(6)} · 经 {longitude.toFixed(6)}</span><MapTileFeedback status={tileStatus} onRetry={()=>tileControl.current?.retry()} compact/></>
 }
 
 export default function PlotCoverCarousel({plot, index}: {plot: Plot; index: number}) {

@@ -9,7 +9,7 @@ import math
 from pathlib import Path
 import shutil
 from tempfile import TemporaryDirectory
-from threading import BoundedSemaphore, Lock
+from threading import Lock
 from time import monotonic
 from uuid import uuid4
 import warnings
@@ -23,6 +23,7 @@ from .inference import SUPPORTED_CROPS, prediction_snapshot, public_prediction_m
 from .security import current_user
 from .runtime_config import client_config_for
 from .ownership import associated_plot, owned_plot
+from .inference_scheduler import ScheduledProvider
 
 logger = logging.getLogger(__name__)
 MAX_FRAME_BYTES = 10 * 1024 * 1024
@@ -116,8 +117,13 @@ def sample_video(data, folder, provider, limits=None):
         import cv2
     except ImportError:
         raise HTTPException(503, '视频解码组件尚未安装，请联系管理员安装媒体依赖。')
-    source = folder / ('source' + video_suffix(data))
-    source.write_bytes(data)
+    if isinstance(data, Path):
+        with data.open('rb') as header:
+            video_suffix(header.read(16))
+        source = data
+    else:
+        source = folder / ('source' + video_suffix(data))
+        source.write_bytes(data)
     capture = cv2.VideoCapture(str(source), cv2.CAP_FFMPEG, [
         cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 5000, cv2.CAP_PROP_READ_TIMEOUT_MSEC, 5000,
     ])
@@ -184,7 +190,7 @@ def detection_data(row):
 
 
 def install_media(app, get_db):
-    app.state.media_guard = BoundedSemaphore(1)
+    app.state.media_guard = app.state.inference_scheduler.video_slot
     app.state.media_limiter = MediaRateLimiter()
 
     def effective_configuration():
@@ -212,15 +218,14 @@ def install_media(app, get_db):
         if provider.status != 'ready':
             raise HTTPException(503, '作物分类模型尚未就绪，暂时无法检测图片或视频。')
         app.state.media_limiter.check(user.id, mode, limits['frame_interval_ms'])
-        if not app.state.media_guard.acquire(blocking=False):
-            raise HTTPException(503, '媒体检测正在处理另一项请求，请稍后重试。', headers={'Retry-After': '1'})
-        try:
-            yield provider, limits
-        finally:
-            app.state.media_guard.release()
+        yield ScheduledProvider(app.state.inference_scheduler, provider), limits
 
     @app.post('/api/media/frame')
     async def camera_frame(file: UploadFile = File(...), user=Depends(current_user)):
+        async with app.state.inference_scheduler.legacy_processing():
+            return await camera_frame_admitted(file, user)
+
+    async def camera_frame_admitted(file, user):
         with admitted(user, 'frame') as (provider, limits):
             data = await read_bounded(file, limits['image_max_mb'] * 1024 * 1024)
             with TemporaryDirectory(prefix='agriscan-camera-') as folder:
@@ -238,6 +243,12 @@ def install_media(app, get_db):
     async def uploaded_video(file: UploadFile = File(...), plot_id: str | None = Form(None),
                              note: str = Form(default='', max_length=2000),
                              user=Depends(current_user), db=Depends(get_db)):
+        if plot_id:
+            owned_plot(db, plot_id, user)
+        async with app.state.inference_scheduler.legacy_processing(video=True):
+            return await video_admitted(file, plot_id, note, user, db)
+
+    async def video_admitted(file, plot_id, note, user, db):
         plot = owned_plot(db, plot_id, user) if plot_id else None
         with admitted(user, 'video') as (provider, limits):
             data = await read_bounded(file, limits['video_max_mb'] * 1024 * 1024)

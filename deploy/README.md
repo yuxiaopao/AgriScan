@@ -41,9 +41,11 @@ OpenCloudOS 9.6，MySQL 8.0.45、Redis 7.2.15、系统 Nginx、独立 Python 3.1
 
 当前检测包来自用户 `best.pt`，38类，目标框为原图归一化 `xyxy`。已修正 Ultralytics 旧版双头权重的推理分支兼容问题，并完成5图 PyTorch/ONNX 一致性验证；没有独立检测 mAP，不使用旧分类模型成绩。细节见 `models/candidates/user-detect-fafc2bb3ce9e/README.md`。
 
-Android 使用 `scripts/build-android.ps1`，默认生产 API 是 `https://agriscan.ming-ai.top/agriscan`。已实际构建调试签名的公开测试版 `cn.agriscan.mobile` v1.0.2 / code3，Android 7.0+、四种 ABI，18,744,688 字节；签名 v2、ZIP、清单和默认 HTTPS 配置均核验通过；新版沿用原测试签名，可覆盖安装，升级后旧官方服务地址迁移至新域并重新登录。尚未进行真机交互验收。
+Android 使用 `scripts/build-android.ps1`，默认生产 API 是 `https://agriscan.ming-ai.top/agriscan`。已实际构建调试签名的公开测试版 `cn.agriscan.mobile` v1.0.4 / code5，Android 7.0+、四种 ABI，24,164,454 字节，包含本人地块维护、跨模块后台任务、双模型校验及邮箱找回密码；签名 v2、ZIP、清单和默认 HTTPS 配置均核验通过；新版沿用原测试签名，可覆盖安装，升级后旧官方服务地址迁移至新域并重新登录。尚未进行真机交互验收。
 
-官网只在真实 APK、签名校验、大小及 SHA256 核对后把 `downloads/release.json` 标为 ready；安装包用 `upload-artifact.py` 单独传输、核对并原子发布，密钥和工具链不进入静态目录。当前测试包 SHA256 为 `e343102879bd91e6a59715ec8fa3a491800520e603dfc1605e938ca25d91a605`。测试版不等于正式签名发行；后续正式分发需项目所有者保管稳定的发布签名。
+官网只在真实 APK、签名校验、大小及 SHA256 核对后把 `downloads/release.json` 标为 ready；安装包用 `upload-artifact.py` 传输、核对，并随版本原子发布，密钥和工具链不进入静态目录。当前测试包 SHA256 为 `6cbf093162521271ed4fca39aa8e6a3694286653bf13440d056443c210b98026`。测试版不等于正式签名发行；后续正式分发需项目所有者保管稳定的发布签名。
+
+2026-10-29 13:44 的历史完整界面发布为 `release-20261029-full-ui-134431`，包含桌面、管理端、官网和 APK 1.0.3。发布根目录的 `release-info.json` 记录 244 个应用源文件的 SHA256，`payload-files.json` 记录构建产物校验值。该次仅切换静态文件，未重启 API 或迁移数据库；官网固定文件名资源设置重新验证缓存，并在 HTML 中添加内容哈希版本参数，保留上一版带哈希资源供已经打开的页面继续加载。验收见[服务器版本核查](../docs/server-latest-20261029.md)。
 
 ## 运维与验收
 
@@ -61,3 +63,11 @@ nginx -t
 2026-10-29 已升级到 `20261029_06` 个人归属隔离；历史未知归属数据仅在管理端待分配。迁移前完整备份 MySQL，测试双账户、真实 Redis、公网及清理结果见[用户数据隔离验收](../docs/user-isolation-20261029.md)。
 
 回滚仅限兼容 06 迁移且保留归属校验的已验证版本，不能恢复会跨账户读取数据的旧代码。先确认目标为 `/srv/agriscan/releases/` 下的匹配版本，再原子替换 `current` 软链接、重启 `agriscan-api` 并验证隔离。用户上传、生产配置和数据库在 shared/独立服务中，按版本切换不会删除。数据库与 `CONFIG_ENCRYPTION_KEY`、JWT配置、上传文件应分别保留安全备份。
+
+## 后台任务发布约束
+
+上传代理必须设置 `proxy_request_buffering off` 和 `proxy_http_version 1.1`，让后端在传输时接收并统计字节，避免整包缓冲消耗任务预留时间。生产改动先 `nginx -t`，再平滑 reload，不重启 API。
+
+后台任务保留在单进程内存中。仅前端或 APK 更新时，应校验后端与两套模型字节均未变化，再原子切换静态版本并保持 API PID；涉及后端更新时仍需受控重启，客户端会提示旧任务失效并由用户重新提交。systemd 使用 `deploy/agriscan-graceful.conf` 的 180 秒停止等待，给已接受的请求留出结束时间。
+
+1.0.4 的双模型、邮件、生产点击与静态修复发布见[本次验收](../docs/server-dual-model-20261029.md)。

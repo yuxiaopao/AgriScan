@@ -8,10 +8,11 @@ from datetime import datetime, timedelta
 from email.message import EmailMessage
 from pathlib import Path
 from uuid import uuid4
+from threading import RLock
 
 import httpx
-from fastapi import Depends, File, Form, HTTPException, Request, UploadFile
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
+from pydantic import BaseModel, Field, SecretStr
 from sqlalchemy import BigInteger, DateTime, ForeignKey, String, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Mapped, mapped_column
@@ -22,6 +23,7 @@ from .security import current_user, hash_password, readable
 from .assistant import install_assistant
 from .detection_assistant import install_detection_assistant
 from .admin_models import add_audit
+from .ownership import _lock_query
 
 
 class UserEmail(Base):
@@ -58,9 +60,9 @@ class EmailBody(BaseModel):
 class RegisterBody(BaseModel):
     username: str = Field(min_length=3, max_length=40, pattern=r"^[a-zA-Z0-9_-]+$")
     name: str = Field(min_length=1, max_length=80)
-    password: str = Field(min_length=10, max_length=128)
+    password: SecretStr = Field(min_length=10, max_length=128)
     email: str = Field(default="", max_length=254)
-    code: str = Field(default="", max_length=6)
+    code: SecretStr = Field(default=SecretStr(""), max_length=6)
 
 
 class AskBody(BaseModel):
@@ -73,12 +75,13 @@ def admin_user(user=Depends(current_user)):
     return user
 
 
-def send_code(settings, email, code):
+def send_code(settings, email, code, purpose="register"):
     message = EmailMessage()
-    message["Subject"] = "禾观 · 注册邮箱验证码"
+    label = {"register": "注册邮箱", "password_reset": "重置密码", "email_bind": "绑定邮箱"}[purpose]
+    message["Subject"] = f"禾观 · {label}验证码"
     message["From"] = settings.smtp_from
     message["To"] = email
-    message.set_content(f"你的注册验证码是 {code}，10 分钟内有效。如非本人操作，请忽略此邮件。")
+    message.set_content(f"你的{label}验证码是 {code}，10 分钟内有效。验证码仅用于本次{label}操作，请勿提供给他人。如非本人操作，请忽略此邮件。")
     connection = smtplib.SMTP_SSL if settings.smtp_security == "ssl" else smtplib.SMTP
     options = {"context": ssl.create_default_context()} if settings.smtp_security == "ssl" else {}
     with connection(settings.smtp_host, settings.smtp_port, timeout=15, **options) as smtp:
@@ -90,54 +93,72 @@ def send_code(settings, email, code):
 
 
 def install_extensions(app, settings, get_db):
+    from .account_recovery import install_account_recovery, mark_verified, smtp_ready
+    from .runtime_config import ConfigRoute
+    app.state.email_lock = RLock()
+    rate_lock = RLock()
+    auth_router = APIRouter(prefix="/api/auth", route_class=ConfigRoute)
     limits = {}
 
     def limit(key, maximum=8):
-        now = utcnow()
-        # Bound memory while retaining active per-IP limits.
-        for stale in [k for k, v in limits.items() if (now - v[0]).total_seconds() > 3600]:
-            del limits[stale]
-        if key not in limits:
-            if len(limits) >= 10000:
-                raise HTTPException(429, "请求过多，请稍后重试。")
-            limits[key] = [now, 0]
-        limits[key][1] += 1
-        if limits[key][1] > maximum:
-            raise HTTPException(429, "请求过于频繁，请一小时后重试。")
+        with rate_lock:
+            now = utcnow()
+            # Bound memory while retaining active per-IP limits.
+            for stale in [k for k, v in limits.items() if (now - v[0]).total_seconds() > 3600]:
+                del limits[stale]
+            if key not in limits:
+                if len(limits) >= 10000:
+                    raise HTTPException(429, "请求过多，请稍后重试。")
+                limits[key] = [now, 0]
+            limits[key][1] += 1
+            if limits[key][1] > maximum:
+                raise HTTPException(429, "请求过于频繁，请一小时后重试。")
 
     def digest(email, code):
         return hmac.new(settings.jwt_secret.encode(), f"{email}:{code}".encode(), hashlib.sha256).hexdigest()
 
-    @app.get("/api/auth/config")
+    @auth_router.get("/config")
     def auth_config():
         return {"registration_enabled": settings.registration_enabled,
-                "email_verification_enabled": settings.email_verification_enabled}
+                "email_verification_enabled": settings.email_verification_enabled,
+                "password_reset_enabled": smtp_ready(settings)}
 
-    @app.post("/api/auth/email-code")
+    @auth_router.post("/email-code")
     def email_code(body: EmailBody, request: Request, db=Depends(get_db)):
         if not settings.registration_enabled or not settings.email_verification_enabled:
             raise HTTPException(403, "当前未开启邮件验证注册。")
         limit(("mail", request.client.host))
+        with app.state.email_lock:
+            return issue_registration_code(body, db)
+
+    def issue_registration_code(body, db):
         email = body.email.lower().strip()
         old = db.get(EmailChallenge, email)
         now = utcnow()
         if old and (now - old.sent_at).total_seconds() < 60:
             raise HTTPException(429, "请等待 60 秒后再发送。")
         code = f"{secrets.randbelow(1000000):06d}"
+        if old:
+            db.delete(old)
+            db.commit()
         try:
             send_code(settings, email, code)
         except Exception:
-            raise HTTPException(503, "邮件发送失败，请管理员检查 SMTP 配置。")
+            raise HTTPException(503, "邮件发送失败，请管理员检查 SMTP 配置。") from None
         db.merge(EmailChallenge(email=email, digest=digest(email, code), sent_at=now,
                                 expires_at=now + timedelta(minutes=10), attempts=0))
         db.commit()
         return {"message": "验证码已发送，10 分钟内有效。"}
 
-    @app.post("/api/auth/register", status_code=201)
+    @auth_router.post("/register", status_code=201)
     def register(body: RegisterBody, request: Request, db=Depends(get_db)):
         if not settings.registration_enabled:
             raise HTTPException(403, "管理员已关闭注册。")
         limit(("register", request.client.host), 20)
+        with app.state.email_lock:
+            return register_locked(body, db)
+
+    def register_locked(body, db):
         email = body.email.strip().lower()
         if email:
             try:
@@ -146,15 +167,15 @@ def install_extensions(app, settings, get_db):
                 raise HTTPException(422, "请输入有效邮箱。")
         challenge = None
         if settings.email_verification_enabled:
-            challenge = db.get(EmailChallenge, email)
+            challenge = db.scalar(_lock_query(db, select(EmailChallenge).where(EmailChallenge.email == email), True))
             if not challenge or challenge.expires_at < utcnow() or challenge.attempts >= 5:
                 raise HTTPException(400, "验证码失效，请重新获取。")
             challenge.attempts += 1
-            db.commit()
-            if not hmac.compare_digest(challenge.digest, digest(email, body.code)):
+            if not hmac.compare_digest(challenge.digest, digest(email, body.code.get_secret_value())):
+                db.commit()
                 raise HTTPException(400, "验证码不正确。")
         user = User(username=body.username, name=body.name.strip(), role="member",
-                    password_hash=hash_password(body.password))
+                    password_hash=hash_password(body.password.get_secret_value()))
         if not user.name:
             raise HTTPException(422, "昵称不能为空。")
         try:
@@ -163,12 +184,17 @@ def install_extensions(app, settings, get_db):
             if email:
                 db.add(UserEmail(email=email, user_id=user.id))
             if challenge:
+                mark_verified(db, email, user.id)
                 db.delete(challenge)
             db.commit()
         except IntegrityError:
             db.rollback()
             raise HTTPException(409, "用户名或邮箱已注册。")
         return {"message": "注册成功，请使用新账户登录。"}
+
+    app.include_router(auth_router)
+    install_account_recovery(app, settings, get_db, EmailBody, limit,
+                             lambda settings, email, code, purpose: send_code(settings, email, code, purpose))
 
     @app.get("/api/settings/integrations", dependencies=[Depends(admin_user)])
     def integrations():
@@ -185,7 +211,10 @@ def install_extensions(app, settings, get_db):
         provider = app.state.inference
         return {"active": provider.active, "status": provider.status,
                 "supported_crops": provider.supported_crops, "available_crops": SUPPORTED_CROPS,
-                "message": ("已启用农业目标检测；返回检测目标矩形框，不代表病斑精确边界。" if provider.active.get("task") == "detect" else "已启用单叶病害分类；不输出位置框，低置信度结果需人工复核。") if provider.active else "训练模型尚未启用，当前仅保存样本。",
+                "message": ("已启用目标检测与独立整图分类复核；保留检测主结论，分数不融合，多目标不能逐框复核。"
+                            if provider.active.get('pipeline') == 'detection_with_classification' else
+                            "已启用农业目标检测；返回检测目标矩形框，不代表病斑精确边界。" if provider.active.get("task") == "detect" else
+                            "已启用单叶病害分类；不输出位置框，低置信度结果需人工复核。") if provider.active else "训练模型尚未启用，当前仅保存样本。",
                 "items": [{"id": r.id, "name": r.name, "filename": r.filename, "framework": r.framework,
                            "size": r.size, "sha256": r.sha256, "status": "pending_validation",
                            "created_at": r.created_at.isoformat()} for r in rows],

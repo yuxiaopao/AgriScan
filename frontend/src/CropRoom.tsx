@@ -1,6 +1,7 @@
 import {Check, Palette, ScanLine} from 'lucide-react'
 import {useCropTheme} from './CropTheme'
 import {getCropTheme} from './cropThemes'
+import {revealCropTheme} from './motion'
 import {Xiaohe} from './Xiaohe'
 import type {CSSProperties} from 'react'
 
@@ -25,7 +26,7 @@ export function CropRoom({crops, availableCrops, busy, automatic, onSelect}: {
         return <button key={item} type="button" aria-pressed={crop === item} disabled={busy || (!automatic && !supported)}
           aria-label={`${item}${automatic ? '主题' : '检测室'}${supported ? '' : automatic ? '，仅主题，模型未支持' : '，当前模型未支持'}`}
           title={automatic ? `浏览${item}主题 · ${itemTheme?.name ?? '田园主题'}${supported ? '；不影响自动识别' : '；当前模型尚未覆盖该作物'}` : supported ? `切换到${item}检测室 · ${itemTheme?.name ?? '田园主题'}` : '当前模型尚未支持该作物，接入对应权重后开放'}
-          onClick={() => onSelect(item)} style={{'--option-accent': itemTheme?.accent, '--option-soft': itemTheme?.soft} as CSSProperties}>
+          onClick={event => {if (crop !== item) {const box = event.currentTarget.getBoundingClientRect(); revealCropTheme(itemTheme?.soft || '#f1f5ed', {x: box.left + box.width / 2, y: box.top + box.height / 2}); onSelect(item)}}} style={{'--option-accent': itemTheme?.accent, '--option-soft': itemTheme?.soft} as CSSProperties}>
           <span className="crop-room-emoji" aria-hidden="true">{itemTheme?.icon ?? '🌱'}</span><span>{item}</span>{crop === item && <Check size={13}/>} {!supported && <small>{automatic ? '仅主题' : '待接入'}</small>}
         </button>
       })}</div>

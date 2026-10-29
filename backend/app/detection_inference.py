@@ -128,7 +128,7 @@ class OnnxDetectionProvider:
             model['multiple_crops'] = len({box['crop'] for box in boxes}) > 1
             return InferenceResult('attention' if any(not box['healthy'] for box in boxes) else 'healthy',
                                    primary['label'], primary['confidence'], list(unique.values())[:5], model,
-                                   primary_crop, boxes)
+                                   primary_crop, boxes, key=primary['key'])
         except HTTPException:
             raise
         except Exception:

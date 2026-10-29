@@ -1,11 +1,12 @@
 import {useEffect, useLayoutEffect, useRef, useState, type FormEvent} from 'react'
 import {ArrowDown, ArrowLeft, ArrowUp, CircleAlert, FileImage, GripHorizontal, History, LoaderCircle, Maximize2, Minimize2, MessageCircle, Minus, Plus, RotateCcw, Shrink, Sprout, X} from 'lucide-react'
-import {api} from './api'
+import {api,getToken} from './api'
 import {useClientConfiguration} from './ClientConfig'
 import type {Detection, User} from './types'
 import {Badge} from './components'
 import {useFloatingPosition, useLauncherPosition} from './useFloatingPosition'
 import {confidenceText} from './PredictionScores'
+import ModelVerification from './ModelVerification'
 import {Xiaohe, type XiaoheState} from './Xiaohe'
 import AssistantMessageBody from './AssistantMessageBody'
 import './assistant.css'
@@ -14,8 +15,8 @@ interface Conversation {id: string; title: string; updated_at: string}
 interface Message {id: number; role: 'user' | 'assistant'; content: string; created_at: string}
 interface Detail {conversation: Conversation; messages: Message[]}
 
-export default function FloatingAssistant({user, detectionRequests, onDetectionHandled}: {
-  user: User | null; detectionRequests: Detection[]; onDetectionHandled: (id: string) => void
+export default function FloatingAssistant({user, detectionRequests, onDetectionHandled,adviceRequest=null,onAdviceHandled}: {
+  user: User | null; detectionRequests: Detection[]; onDetectionHandled: (id: string) => void;adviceRequest?:Detection|null;onAdviceHandled?:()=>void
 }) {
   const {features} = useClientConfiguration()
   const [open, setOpen] = useState(false)
@@ -59,6 +60,8 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     : error || detection?.status === 'attention' ? 'concern'
     : celebrating ? 'success' : greeting || hovered ? 'wave' : 'idle'
   const handled = useRef(new Set<string>())
+  const analysisCache=useRef(new Map<string,{record:Detection;detail:Detail|null;error:string}>())
+  const analyzingRecord=useRef<string|null>(null)
   const floating = useFloatingPosition(open, history && wide ? 248 : 0)
   const launcher = useRef<HTMLButtonElement>(null)
   const launcherPosition = useLauncherPosition(launcher, !open)
@@ -69,15 +72,18 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
   const scrollMode = useRef<'start'|'end'|null>('end')
   const logWasOpen = useRef(false)
   const alive = useRef(true)
+  const mountToken=useRef(getToken())
+  const currentSession=()=>alive.current&&getToken()===mountToken.current
   const openRef = useRef(open)
   openRef.current = open
 
   useEffect(() => {
+    if(!currentSession())return
     if (!features.assistant) {
       detectionRequests.forEach(record => onDetectionHandled(record.id))
       return
     }
-    if (detectionRequests.length) {setOpen(true); setHistory(false)}
+    if (detectionRequests.length) {setOpen(false); setHistory(false)}
     const next = detectionRequests[0]
     if (!next || !user || loading || busy || handled.current.has(next.id)) return
     handled.current.add(next.id)
@@ -87,20 +93,39 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detectionRequests, user, loading, busy, onDetectionHandled, features.assistant])
 
+  useEffect(()=>{
+    if(!adviceRequest||!user||!currentSession()||loading)return
+    if(!features.assistant){onAdviceHandled?.();return}
+    let cached=analysisCache.current.get(adviceRequest.id)
+    if(!cached){
+      if(busy||analyzingRecord.current)return
+      handled.current.add(adviceRequest.id);onDetectionHandled(adviceRequest.id)
+      void analyzeDetection(adviceRequest)
+      cached=analysisCache.current.get(adviceRequest.id)
+    }
+    // Existing queued/cached analyses are reused. If the feature was disabled
+    // when saved, this explicit request starts its first analysis only once.
+    if(!cached||(analyzingRecord.current&&analyzingRecord.current!==adviceRequest.id)||(busy&&!analyzingRecord.current))return
+    setOpen(true);setHistory(false);scrollMode.current='start';setDetection(cached.record)
+    if(cached.detail){setMessages(cached.detail.messages);setActive(cached.detail.conversation);setError('');setFailedDetection(null)}
+    else if(cached.error){setMessages([]);setActive(null);setError(cached.error);setFailedDetection(cached.record)}
+    onAdviceHandled?.()
+  },[adviceRequest,user,features.assistant,loading,busy,detection?.id,onAdviceHandled,onDetectionHandled])
+
   useEffect(() => {
     alive.current = true
     let disposed = false
-    if (user) {
+    if (user&&currentSession()) {
       api<Conversation[]>('/assistant/conversations').then(async items => {
-        if (disposed) return
+        if (disposed||!currentSession()) return
         setChats(items)
         if (items[0]) {
           const detail = await api<Detail>(`/assistant/conversations/${items[0].id}`)
-          if (!disposed) {setActive(detail.conversation); setMessages(detail.messages)}
+          if (!disposed&&currentSession()) {setActive(detail.conversation); setMessages(detail.messages)}
         }
-      }).catch(e => {if (!disposed) setError(e.message)}).finally(() => {if (!disposed) setLoading(false)})
+      }).catch(e => {if (!disposed&&currentSession()) setError(e.message)}).finally(() => {if (!disposed&&currentSession()) setLoading(false)})
     }
-    return () => {disposed = true; alive.current = false}
+    return () => {disposed = true; alive.current = false;analysisCache.current.clear();handled.current.clear()}
   }, [user])
   useEffect(() => {
     const resize = () => setWide(window.innerWidth >= 600)
@@ -108,12 +133,12 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     return () => window.removeEventListener('resize', resize)
   }, [])
   useEffect(() => {
-    if (open && !history && !busy && !loading) {input.current?.focus({preventScroll:true}); setUnread(false)}
+    if (currentSession()&&open && !history && !busy && !loading) {input.current?.focus({preventScroll:true}); setUnread(false)}
     // Toggling history must preserve the chat's focus and reading position.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, busy, loading])
   useEffect(() => {
-    if (!open || !history) return
+    if (!currentSession()||!open || !history) return
     const panel = historyPanel.current
     const target = panel?.querySelector<HTMLButtonElement>('button[aria-current="true"]:not(:disabled)')
       ?? panel?.querySelector<HTMLButtonElement>('.assistant-history button:not(:disabled)')
@@ -147,60 +172,71 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     followLatest.current=true;setShowLatest(false)
   }
 
-  function closeHistory() {setHistory(false); requestAnimationFrame(() => historyButton.current?.focus({preventScroll: true}))}
-  function close() {setOpen(false); setHistory(false); requestAnimationFrame(() => launcher.current?.focus())}
+  function closeHistory() {setHistory(false); requestAnimationFrame(() => {if(currentSession())historyButton.current?.focus({preventScroll: true})})}
+  function close() {setOpen(false); setHistory(false); requestAnimationFrame(() => {if(currentSession())launcher.current?.focus()})}
   function fresh() {scrollMode.current='end';setShowLatest(false);setActive(null); setMessages([]); setDraft(''); setError(''); setHistory(false); setDetection(null); setFailedDetection(null)}
   function updateChat(chat: Conversation) {
     setActive(chat); setChats(old => [chat, ...old.filter(item => item.id !== chat.id)].slice(0, 100))
   }
+  function rememberConversation(detail:Detail){
+    if(!currentSession())return
+    for(const [id,cached] of analysisCache.current)if(cached.detail?.conversation.id===detail.conversation.id)analysisCache.current.set(id,{...cached,detail,error:''})
+  }
   async function selectChat(chat: Conversation) {
+    if(!currentSession())return
     setLoading(true); setError('')
     try {
       const detail = await api<Detail>(`/assistant/conversations/${chat.id}`)
-      if (alive.current) {scrollMode.current='end';setActive(detail.conversation); setMessages(detail.messages); setDraft(''); setHistory(false); setDetection(null); setFailedDetection(null)}
-    } catch(e) {if (alive.current) setError((e as Error).message)}
-    finally {if (alive.current) setLoading(false)}
+      if (currentSession()) {rememberConversation(detail);scrollMode.current='end';setActive(detail.conversation); setMessages(detail.messages); setDraft(''); setHistory(false); setDetection(null); setFailedDetection(null)}
+    } catch(e) {if (currentSession()) setError((e as Error).message)}
+    finally {if (currentSession()) setLoading(false)}
   }
   async function analyzeDetection(record: Detection) {
-    if (!features.assistant) return
+    if (!currentSession()||!features.assistant||analyzingRecord.current) return
+    analyzingRecord.current=record.id
+    analysisCache.current.set(record.id,{record,detail:null,error:''})
     scrollMode.current='start'
-    setOpen(true); setHistory(false); setDetection(record); setFailedDetection(null)
+    setHistory(false);setDetection(record);setFailedDetection(null)
     setActive(null); setMessages([]); setError(''); setBusy(true); setAnalyzing(true)
     try {
       const result = await api<Detail>(`/assistant/detections/${record.id}/analysis`, {
         method: 'POST', signal: AbortSignal.timeout(130000),
       })
-      if (alive.current) {
+      if (currentSession()) {
+        analysisCache.current.set(record.id,{record,detail:result,error:''})
         scrollMode.current='start'
         setMessages(result.messages); updateChat(result.conversation)
         if (!openRef.current) setUnread(true)
       }
     } catch(e) {
-      if (alive.current) {setError(`检测结果已保存，图片解读暂未完成。${(e as Error).message}`); setFailedDetection(record)}
-    } finally {if (alive.current) {setBusy(false); setAnalyzing(false)}}
+      if (currentSession()) {const message=`检测结果已保存，图片解读暂未完成。${(e as Error).message}`;analysisCache.current.set(record.id,{record,detail:null,error:message});setError(message);setFailedDetection(record)}
+    } finally {if(analyzingRecord.current===record.id)analyzingRecord.current=null;if (currentSession()) {setBusy(false); setAnalyzing(false)}}
   }
   async function send(event: FormEvent) {
     event.preventDefault()
     const question = draft.trim()
-    if (!features.assistant || busy || loading || question.length < 2 || !user || (detection && !active)) return
+    if (!currentSession()||!features.assistant || busy || loading || question.length < 2 || !user || (detection && !active)) return
     scrollMode.current='end';setBusy(true); setError('')
     try {
       let chat = active
       if (!chat) {
         chat = await api<Conversation>('/assistant/conversations', {method: 'POST'})
-        if (!alive.current) return
+        if (!currentSession()) return
         updateChat(chat)
       }
       const result = await api<Detail>(`/assistant/conversations/${chat.id}/messages`, {
         method: 'POST', body: JSON.stringify({question}), signal: AbortSignal.timeout(130000),
       })
-      if (alive.current) {
-        setMessages(old => [...old, ...result.messages]); updateChat(result.conversation); setDraft('')
+      if (currentSession()) {
+        const nextMessages=[...messages,...result.messages]
+        rememberConversation({conversation:result.conversation,messages:nextMessages})
+        setMessages(nextMessages);updateChat(result.conversation);setDraft('')
         if (!openRef.current) setUnread(true)
       }
-    } catch(e) {if (alive.current) setError((e as Error).message)}
-    finally {if (alive.current) setBusy(false)}
+    } catch(e) {if (currentSession()) setError((e as Error).message)}
+    finally {if (currentSession()) setBusy(false)}
   }
+  if(!currentSession())return null
   return <div className="assistant-widget" style={!open ? launcherPosition.style : undefined}>
     {open && <section ref={floating.panel} style={floating.style} id="xiaohe-window" className="assistant-window" role="dialog" aria-label="小禾聊天助手" onKeyDown={event => {
       if (event.key === 'Escape') {event.stopPropagation(); if (history) closeHistory(); else close()}
@@ -241,6 +277,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
             <div className="assistant-context-heading"><strong><Sprout size={13}/>本次叶片观察</strong><Badge status={detection.status}/></div>
             <h3>{detection.crop}<span>{detection.result || '尚无模型结论'}</span></h3>
             <div className="assistant-context-metrics"><span>{detection.prediction_model?.task === 'detect' || detection.boxes?.length ? '检测目标置信度' : '分类置信度'}<strong>{confidenceText(detection.confidence)}</strong></span>{!!detection.boxes?.length&&<span>识别目标<strong>{detection.boxes.length}<small>个</small></strong></span>}</div>
+            <ModelVerification verification={detection.prediction_model?.verification} compact/>
             <details className="assistant-context-details"><summary><FileImage size={12}/><span>{detection.name}</span><span className="assistant-context-more">样本信息</span></summary><p>采样时间：{new Date(detection.created_at).toLocaleString('zh-CN')}</p>{detection.note&&<p>备注：{detection.note}</p>}</details>
             <small className="assistant-context-note">结合照片与检测结果辅助分析，仍需现场观察确认。</small>
           </section>}

@@ -2,6 +2,8 @@
 location = /agriscan { return 301 /agriscan/; }
 location /agriscan/api/ {
     proxy_pass http://127.0.0.1:18000/api/;
+    proxy_http_version 1.1;
+    proxy_request_buffering off;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -11,6 +13,11 @@ location /agriscan/api/ {
     proxy_connect_timeout 10s;
     proxy_send_timeout 180s;
     proxy_read_timeout 300s;
+    add_header X-Content-Type-Options nosniff always;
+}
+location ~ ^/agriscan/(index\.html|app\.js|style\.css)$ {
+    root /var/www/sites;
+    add_header Cache-Control "no-cache, must-revalidate" always;
     add_header X-Content-Type-Options nosniff always;
 }
 location = /agriscan/workspace/index.html {

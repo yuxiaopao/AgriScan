@@ -44,6 +44,7 @@ class Settings:
     llm_timeout: int = field(default_factory=lambda: int(os.getenv("LLM_TIMEOUT", "30")))
     model_max_mb: int = field(default_factory=lambda: int(os.getenv("MODEL_MAX_UPLOAD_MB", "200")))
     model_manifest: str = field(default_factory=lambda: os.getenv("MODEL_MANIFEST", ""))
+    classification_model_manifest: str = field(default_factory=lambda: os.getenv("CLASSIFICATION_MODEL_MANIFEST", ""))
     inference_threads: int = field(default_factory=lambda: int(os.getenv("INFERENCE_THREADS", "2")))
     max_upload_bytes: int = 10 * 1024 * 1024
 

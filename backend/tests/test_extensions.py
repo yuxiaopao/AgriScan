@@ -24,7 +24,7 @@ def member_auth(client):
 
 def test_registration_toggle_validation_duplicates_and_permissions(client):
     assert client.get("/api/auth/config").json() == {
-        "registration_enabled": True, "email_verification_enabled": False,
+        "registration_enabled": True, "email_verification_enabled": False, "password_reset_enabled": False,
     }
     assert client.post("/api/auth/register", json=account(password="short")).status_code == 422
     assert client.post("/api/auth/register", json=account(email="bad-address")).status_code == 422

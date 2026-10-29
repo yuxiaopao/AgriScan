@@ -7,7 +7,7 @@ export function apiResourceUrl(path: string) {
 }
 export const getToken = () => sessionStorage.getItem(TOKEN_KEY)
 export const setToken = (token: string | null) => token ? sessionStorage.setItem(TOKEN_KEY, token) : sessionStorage.removeItem(TOKEN_KEY)
-const publicAuthPaths = new Set(['/auth/login', '/auth/register', '/auth/email-code', '/auth/config'])
+const publicAuthPaths = new Set(['/auth/login', '/auth/register', '/auth/email-code','/auth/password-reset-code','/auth/password-reset','/auth/config'])
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers = new Headers(options.headers)

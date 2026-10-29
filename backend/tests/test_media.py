@@ -128,11 +128,11 @@ def test_frame_rejects_species_not_covered_by_model(media_client, monkeypatch):
     assert list(media_client.app.state.settings.upload_dir.iterdir()) == []
 
 
-def test_busy_media_request_returns_service_unavailable(media_client):
+def test_video_decoder_does_not_block_camera_inference(media_client):
     guard = media_client.app.state.media_guard
     assert guard.acquire(blocking=False)
     try:
-        assert post_frame(media_client, auth(media_client)).status_code == 503
+        assert post_frame(media_client, auth(media_client)).status_code == 200
     finally:
         guard.release()
 

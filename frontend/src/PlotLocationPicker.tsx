@@ -2,6 +2,8 @@ import {useEffect, useRef, useState} from 'react'
 import {LocateFixed, MapPin} from 'lucide-react'
 import L from 'leaflet'
 import {validCoordinates} from './plotCoordinates'
+import {attachMapTiles,initialMapTileStatus} from './mapTiles'
+import MapTileFeedback from './MapTileFeedback'
 import 'leaflet/dist/leaflet.css'
 
 interface Props {latitude: string; longitude: string; disabled?: boolean; onChange: (latitude: string, longitude: string) => void}
@@ -16,7 +18,9 @@ export default function PlotLocationPicker({latitude, longitude, disabled = fals
   disabledRef.current = disabled
   const locationRequest = useRef(0)
   const initial = useRef({latitude, longitude})
-  const [tileError, setTileError] = useState(false)
+  const [tileStatus,setTileStatus]=useState(initialMapTileStatus)
+  const tileControl=useRef<ReturnType<typeof attachMapTiles>|null>(null)
+  const tileReady=useRef(false)
   const [locationError, setLocationError] = useState('')
   const [locating, setLocating] = useState(false)
 
@@ -24,19 +28,19 @@ export default function PlotLocationPicker({latitude, longitude, disabled = fals
     if (disabledRef.current) return
     locationRequest.current++
     setLocating(false)
+    setLocationError('')
     change.current(lat, lng)
   }
 
   useEffect(() => {
     if (!host.current) return
     const selected = validCoordinates(initial.current.latitude, initial.current.longitude)
-    const instance = L.map(host.current, {scrollWheelZoom: false}).setView(selected ?? [35.86, 104.2], selected ? 17 : 4)
+    // The editor can close mid-zoom; Leaflet 1.9's transition fallback outlives remove().
+    const instance = L.map(host.current, {scrollWheelZoom: false,zoomAnimation:false}).setView(selected ?? [35.86, 104.2], selected ? 17 : 4)
     map.current = instance
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors',
-    }).on('tileerror', () => setTileError(true)).on('tileload', () => setTileError(false)).addTo(instance)
+    tileControl.current=attachMapTiles(instance,status=>{tileReady.current=status.state==='ready';setTileStatus(status)})
     instance.on('click', (event: L.LeafletMouseEvent) => {
-      if (disabledRef.current) return
+      if (disabledRef.current||!tileReady.current) return
       const point = event.latlng.wrap()
       manualChange(point.lat.toFixed(6), point.lng.toFixed(6))
     })
@@ -44,7 +48,7 @@ export default function PlotLocationPicker({latitude, longitude, disabled = fals
     instance.getContainer().querySelector('.leaflet-control-zoom-out')?.setAttribute('aria-label', '缩小地图')
     const observer = new ResizeObserver(() => instance.invalidateSize({animate: false}))
     observer.observe(host.current)
-    return () => {locationRequest.current++; observer.disconnect(); instance.remove(); map.current = null; marker.current = null}
+    return () => {locationRequest.current++;tileControl.current?.dispose();tileControl.current=null;tileReady.current=false;observer.disconnect();instance.remove();map.current=null;marker.current=null}
   }, [])
 
   useEffect(() => {
@@ -55,10 +59,10 @@ export default function PlotLocationPicker({latitude, longitude, disabled = fals
     const [lat, lng] = selected
     if (!marker.current) {
       marker.current = L.marker([lat, lng], {
-        draggable: !disabledRef.current, title: '地块位置标记（可拖动）',
+        draggable: !disabledRef.current&&tileReady.current, title: '地块位置标记（底图加载后可拖动）',
         icon: L.divIcon({className: 'plot-map-pin', html: '<span></span>', iconSize: [26, 32], iconAnchor: [13, 32]}),
       }).on('dragend', () => {
-        if (disabledRef.current || !marker.current) return
+        if (disabledRef.current||!tileReady.current||!marker.current) return
         const point = marker.current!.getLatLng().wrap()
         manualChange(point.lat.toFixed(6), point.lng.toFixed(6))
       }).addTo(instance)
@@ -71,13 +75,15 @@ export default function PlotLocationPicker({latitude, longitude, disabled = fals
     const instance = map.current
     if (!instance) return
     if (disabled) {locationRequest.current++; setLocating(false)}
-    for (const handler of [instance.dragging, instance.doubleClickZoom, instance.boxZoom, instance.keyboard, instance.touchZoom, marker.current?.dragging]) {
+    for (const handler of [instance.dragging, instance.doubleClickZoom, instance.boxZoom, instance.keyboard, instance.touchZoom]) {
       if (disabled) handler?.disable()
       else handler?.enable()
     }
+    if(disabled||tileStatus.state!=='ready')marker.current?.dragging?.disable()
+    else marker.current?.dragging?.enable()
     instance.getContainer().setAttribute('aria-disabled', String(disabled))
     instance.getContainer().querySelectorAll('.leaflet-control-zoom a').forEach(control => control.setAttribute('tabindex', disabled ? '-1' : '0'))
-  }, [disabled, latitude, longitude])
+  }, [disabled, latitude, longitude,tileStatus.state])
 
   function locate() {
     if (disabledRef.current || locating) return
@@ -100,10 +106,10 @@ export default function PlotLocationPicker({latitude, longitude, disabled = fals
 
   return <div className="plot-location-picker">
     <div className="plot-map-toolbar"><span><MapPin size={14}/>在地图上标记地块</span><button type="button" onClick={locate} disabled={disabled || locating}><LocateFixed size={14}/>{locating ? '定位中…' : '使用当前位置'}</button></div>
-    <div ref={host} className="plot-location-map" role="region" aria-label="地块位置地图" aria-disabled={disabled}/>
-    {tileError && <p className="plot-map-message" role="status">底图暂时无法加载，仍可填写经纬度后保存。</p>}
+    <div ref={host} className="plot-location-map" role="region" aria-label="地块位置地图" aria-disabled={disabled} aria-busy={tileStatus.state==='loading'||tileStatus.state==='slow'} data-map-state={tileStatus.state}/>
+    <MapTileFeedback status={tileStatus} disabled={disabled} onRetry={()=>tileControl.current?.retry()}/>
     {locationError && <p className="plot-map-message" role="status">{locationError}</p>}
     <div className="plot-coordinate-fields"><label>纬度<input name="latitude" type="number" min="-90" max="90" step="any" disabled={disabled} required={longitude !== ''} value={latitude} placeholder="例如 26.572145" onChange={event => manualChange(event.target.value, longitude)}/></label><label>经度<input name="longitude" type="number" min="-180" max="180" step="any" disabled={disabled} required={latitude !== ''} value={longitude} placeholder="例如 106.713841" onChange={event => manualChange(latitude, event.target.value)}/></label></div>
-    <div className="plot-coordinate-note"><span>WGS84 坐标 · 点击地图或拖动标记调整</span>{(latitude || longitude) && <button type="button" disabled={disabled} onClick={() => manualChange('', '')}>清除标记</button>}</div>
+    <div className="plot-coordinate-note"><span>{tileStatus.state==='ready'?'WGS84 坐标 · 点击地图或拖动标记调整':'WGS84 坐标 · 底图完整加载后可选点，经纬度可手填'}</span>{(latitude || longitude) && <button type="button" disabled={disabled} onClick={() => manualChange('', '')}>清除标记</button>}</div>
   </div>
 }

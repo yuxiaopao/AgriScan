@@ -28,11 +28,19 @@ from .media import install_media
 from .runtime_config import RuntimeSettings, install_runtime_config
 from .ownership import associated_plot, detection_scope, owned_detection, owned_plot, plot_scope
 from . import plot_operations
+from .inference_scheduler import InferenceScheduler
+from .detection_tasks import install_detection_tasks
 
 VALID_STATUSES = {"healthy", "attention", "awaiting_model", "queued", "processing", "failed"}
 async def read_uploaded_image(file, max_bytes):
     raw = await file.read(max_bytes + 1)
     await file.close()
+    if len(raw) > max_bytes:
+        raise HTTPException(413, f"图片大小不能超过 {max_bytes // (1024 * 1024)} MB。")
+    return decode_uploaded_image(raw, max_bytes)
+
+
+def decode_uploaded_image(raw, max_bytes):
     if len(raw) > max_bytes:
         raise HTTPException(413, f"图片大小不能超过 {max_bytes // (1024 * 1024)} MB。")
     try:
@@ -102,7 +110,12 @@ def create_app(settings=None):
             db.execute(delete(RevokedToken).where(RevokedToken.expires_at < utcnow()))
             db.commit()
         app.state.cache.invalidate()
-        yield
+        app.state.detection_tasks.start()
+        try:
+            yield
+        finally:
+            await run_in_threadpool(app.state.email_mailer.close)
+            await run_in_threadpool(app.state.detection_tasks.close)
         app.state.cache.close()
         engine.dispose()
 
@@ -123,6 +136,7 @@ def create_app(settings=None):
     app.state.engine = engine
     app.state.cache = DashboardCache(settings.redis_url)
     app.state.inference = create_provider(settings)
+    app.state.inference_scheduler = InferenceScheduler()
     app.state.login_attempts = {}
     app.state.dummy_password_hash = hash_password("dummy-password-for-timing-safety")
     def get_db():
@@ -171,11 +185,13 @@ def create_app(settings=None):
     @app.post("/api/auth/logout")
     def logout(request: Request, user=Depends(current_user), db=Depends(get_db)):
         payload = request.state.token_payload
-        db.merge(RevokedToken(
-            jti=payload["jti"],
-            expires_at=datetime.fromtimestamp(payload["exp"], timezone.utc).replace(tzinfo=None),
-        ))
-        db.commit()
+        with app.state.detection_tasks.condition:
+            db.merge(RevokedToken(
+                jti=payload["jti"],
+                expires_at=datetime.fromtimestamp(payload["exp"], timezone.utc).replace(tzinfo=None),
+            ))
+            db.commit()
+            app.state.detection_tasks.cancel_session(payload["jti"])
         return {"message": "已安全退出登录。"}
 
     @app.get("/api/dashboard")
@@ -262,13 +278,24 @@ def create_app(settings=None):
             plot = owned_plot(db, plot_id, user)
             if crop and plot.crop != crop:
                 raise HTTPException(422, "作物类型与所选地块不一致。")
+        async with app.state.inference_scheduler.legacy_processing():
+            return await upload_admitted(file, crop, plot_id, note, user, db)
+
+    async def upload_admitted(file, crop, plot_id, note, user, db):
+        plot = owned_plot(db, plot_id, user) if plot_id else None
         original = await read_uploaded_image(file, settings.max_upload_bytes)
-        normalized = ImageOps.exif_transpose(original).convert("RGB")
+        try:
+            normalized = ImageOps.exif_transpose(original).convert("RGB")
+        finally:
+            original.close()
         filename = f"{uuid4().hex}.jpg"
         target = settings.upload_dir / filename
         try:
-            normalized.save(target, format="JPEG", quality=90)
-            predicted = await run_in_threadpool(app.state.inference.predict, target, crop)
+            try:
+                normalized.save(target, format="JPEG", quality=90)
+            finally:
+                normalized.close()
+            predicted = await run_in_threadpool(app.state.inference_scheduler.predict, app.state.inference, target, crop)
             identified_crop = crop or predicted.crop
             if identified_crop not in SUPPORTED_CROPS:
                 raise HTTPException(503, "模型未返回有效的作物识别结果，请检查模型服务或稍后重试。")
@@ -374,11 +401,12 @@ def create_app(settings=None):
     install_extensions(app, settings, get_db)
     install_admin(app, get_db, detection_data, plot_data)
     install_media(app, get_db)
+    install_detection_tasks(app, decode_uploaded_image)
     install_runtime_config(app, settings, get_db)
     # CORS wraps feature restrictions so native clients can read their errors.
     app.add_middleware(
         CORSMiddleware, allow_origins=[x.strip() for x in settings.cors_origins if x.strip()],
-        allow_credentials=False, allow_methods=["GET", "POST", "PATCH", "DELETE"],
+        allow_credentials=False, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
         allow_headers=["Authorization", "Content-Type"],
     )
     return app
