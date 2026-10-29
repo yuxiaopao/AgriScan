@@ -22,6 +22,7 @@ from starlette.concurrency import run_in_threadpool
 from .admin_models import add_audit
 from .db import Base, Timestamp, utcnow
 from .extensions import admin_user
+from .llm_probe import LLMTestBody, test_llm_connection
 
 SECRETS = {'smtp_password', 'llm_api_key'}
 _request_config = ContextVar('agriscan_runtime_configuration', default=None)
@@ -370,6 +371,10 @@ def install_runtime_config(app, settings, get_db):
     @router.patch('/admin/config')
     def update_configuration(body: ConfigurationPatch, user=Depends(admin_user), db=Depends(get_db)):
         return manager.save(db, user, body)
+
+    @router.post('/admin/config/llm/test')
+    async def test_llm_configuration(body: LLMTestBody, user=Depends(admin_user)):
+        return await test_llm_connection(body, settings)
 
     app.include_router(router)
     return manager

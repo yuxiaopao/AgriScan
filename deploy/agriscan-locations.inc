@@ -13,6 +13,16 @@ location /agriscan/api/ {
     proxy_read_timeout 300s;
     add_header X-Content-Type-Options nosniff always;
 }
+location = /agriscan/workspace/index.html {
+    root /var/www/sites;
+    add_header Cache-Control "no-cache, must-revalidate" always;
+    add_header X-Content-Type-Options nosniff always;
+}
+location = /agriscan/admin/index.html {
+    root /var/www/sites;
+    add_header Cache-Control "no-cache, must-revalidate" always;
+    add_header X-Content-Type-Options nosniff always;
+}
 location /agriscan/workspace/ {
     root /var/www/sites;
     try_files $uri $uri/ /agriscan/workspace/index.html;

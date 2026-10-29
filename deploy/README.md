@@ -29,6 +29,8 @@ OpenCloudOS 9.6，MySQL 8.0.45、Redis 7.2.15、系统 Nginx、独立 Python 3.1
 
 `setup-host.py` 初始化独立账户、运行目录和服务，并生成强凭据；已有生产配置会被保留。数据库采用生产模式，不迁移本机演示账号、示例检测或本机小禾服务密钥。大模型默认未启用，管理员可在「系统配置」填写可用服务。
 
+2026-10-29 的生产运行配置已通过测试启用 DeepSeek，密钥加密保存在数据库；初始化默认值不代表当前已保存配置。管理员可在系统配置中先测文字/图片连接，再明确保存。见[接入与对话区验收](../docs/deepseek-assistant-20261029.md)。网页入口 HTML 设置重新验证缓存，部署后旧页面首次使用请刷新。
+
 ## 构建与发布
 
 桌面构建设置 `VITE_WEB_BASE=/agriscan/workspace/`、`VITE_API_PREFIX=/agriscan`、`VITE_ADMIN_URL=/agriscan/admin/`；管理端设置 `VITE_ADMIN_BASE=/agriscan/admin/`、相同 API 前缀及 `VITE_WORKSPACE_URL=/agriscan/workspace/#login`。静态素材通过构建期路径转换随应用前缀发布。

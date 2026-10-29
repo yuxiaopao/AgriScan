@@ -1,5 +1,5 @@
-import {useEffect, useRef, useState, type FormEvent} from 'react'
-import {ArrowLeft, ArrowUp, GripHorizontal, History, LoaderCircle, Maximize2, Minimize2, MessageCircle, Minus, Plus, Shrink, Sprout, X} from 'lucide-react'
+import {useEffect, useLayoutEffect, useRef, useState, type FormEvent} from 'react'
+import {ArrowDown, ArrowLeft, ArrowUp, CircleAlert, FileImage, GripHorizontal, History, LoaderCircle, Maximize2, Minimize2, MessageCircle, Minus, Plus, RotateCcw, Shrink, Sprout, X} from 'lucide-react'
 import {api} from './api'
 import {useClientConfiguration} from './ClientConfig'
 import type {Detection, User} from './types'
@@ -7,6 +7,7 @@ import {Badge} from './components'
 import {useFloatingPosition, useLauncherPosition} from './useFloatingPosition'
 import {confidenceText} from './PredictionScores'
 import {Xiaohe, type XiaoheState} from './Xiaohe'
+import AssistantMessageBody from './AssistantMessageBody'
 import './assistant.css'
 
 interface Conversation {id: string; title: string; updated_at: string}
@@ -36,6 +37,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
   const [greeting, setGreeting] = useState(false)
   const [hovered, setHovered] = useState(false)
   const [celebrating, setCelebrating] = useState(false)
+  const [showLatest, setShowLatest] = useState(false)
   const wasBusy = useRef(false)
   useEffect(() => {
     if (!open) return
@@ -62,6 +64,10 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
   const launcherPosition = useLauncherPosition(launcher, !open)
   const input = useRef<HTMLTextAreaElement>(null)
   const log = useRef<HTMLDivElement>(null)
+  const followLatest = useRef(true)
+  const readingPosition = useRef(0)
+  const scrollMode = useRef<'start'|'end'|null>('end')
+  const logWasOpen = useRef(false)
   const alive = useRef(true)
   const openRef = useRef(open)
   openRef.current = open
@@ -102,7 +108,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     return () => window.removeEventListener('resize', resize)
   }, [])
   useEffect(() => {
-    if (open && !history && !busy && !loading) {input.current?.focus(); setUnread(false)}
+    if (open && !history && !busy && !loading) {input.current?.focus({preventScroll:true}); setUnread(false)}
     // Toggling history must preserve the chat's focus and reading position.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, busy, loading])
@@ -114,13 +120,36 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
       ?? panel?.querySelector<HTMLButtonElement>('button')
     target?.focus({preventScroll: true})
   }, [open, history])
-  useEffect(() => {
-    if (log.current) log.current.scrollTop = detection && messages.length === 2 && !busy ? 0 : log.current.scrollHeight
+  useLayoutEffect(() => {
+    const reopened = open && !logWasOpen.current
+    logWasOpen.current = open
+    const element = log.current
+    if (!open || !element) return
+    if (scrollMode.current) {
+      element.scrollTop = scrollMode.current === 'start' ? 0 : element.scrollHeight
+      scrollMode.current = null
+    } else if (followLatest.current) element.scrollTop = element.scrollHeight
+    else if (reopened) element.scrollTop = readingPosition.current
+    readingPosition.current = element.scrollTop
+    followLatest.current = element.scrollHeight - element.clientHeight - element.scrollTop < 64
+    setShowLatest(!followLatest.current)
   }, [messages, busy, open, detection])
+  useLayoutEffect(() => {
+    const element=input.current
+    if(!element)return
+    element.style.height='0px'
+    element.style.height=`${Math.min(104,Math.max(44,element.scrollHeight))}px`
+  },[draft,open])
+
+  function scrollToLatest() {
+    const element=log.current
+    if(element){element.scrollTop=element.scrollHeight;readingPosition.current=element.scrollTop}
+    followLatest.current=true;setShowLatest(false)
+  }
 
   function closeHistory() {setHistory(false); requestAnimationFrame(() => historyButton.current?.focus({preventScroll: true}))}
   function close() {setOpen(false); setHistory(false); requestAnimationFrame(() => launcher.current?.focus())}
-  function fresh() {setActive(null); setMessages([]); setDraft(''); setError(''); setHistory(false); setDetection(null); setFailedDetection(null)}
+  function fresh() {scrollMode.current='end';setShowLatest(false);setActive(null); setMessages([]); setDraft(''); setError(''); setHistory(false); setDetection(null); setFailedDetection(null)}
   function updateChat(chat: Conversation) {
     setActive(chat); setChats(old => [chat, ...old.filter(item => item.id !== chat.id)].slice(0, 100))
   }
@@ -128,12 +157,13 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     setLoading(true); setError('')
     try {
       const detail = await api<Detail>(`/assistant/conversations/${chat.id}`)
-      if (alive.current) {setActive(detail.conversation); setMessages(detail.messages); setDraft(''); setHistory(false); setDetection(null); setFailedDetection(null)}
+      if (alive.current) {scrollMode.current='end';setActive(detail.conversation); setMessages(detail.messages); setDraft(''); setHistory(false); setDetection(null); setFailedDetection(null)}
     } catch(e) {if (alive.current) setError((e as Error).message)}
     finally {if (alive.current) setLoading(false)}
   }
   async function analyzeDetection(record: Detection) {
     if (!features.assistant) return
+    scrollMode.current='start'
     setOpen(true); setHistory(false); setDetection(record); setFailedDetection(null)
     setActive(null); setMessages([]); setError(''); setBusy(true); setAnalyzing(true)
     try {
@@ -141,6 +171,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
         method: 'POST', signal: AbortSignal.timeout(130000),
       })
       if (alive.current) {
+        scrollMode.current='start'
         setMessages(result.messages); updateChat(result.conversation)
         if (!openRef.current) setUnread(true)
       }
@@ -152,7 +183,7 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
     event.preventDefault()
     const question = draft.trim()
     if (!features.assistant || busy || loading || question.length < 2 || !user || (detection && !active)) return
-    setBusy(true); setError('')
+    scrollMode.current='end';setBusy(true); setError('')
     try {
       let chat = active
       if (!chat) {
@@ -199,31 +230,39 @@ export default function FloatingAssistant({user, detectionRequests, onDetectionH
           <span title={active?.title}>{active?.title || '新的田间话题'}</span>
           <button onClick={fresh} disabled={!features.assistant || busy || loading} aria-label="新建对话"><Plus size={15}/>新对话</button>
         </div>
-        <div className="assistant-log" ref={log} role="log" aria-label="与小禾的对话" aria-live="polite" aria-relevant="additions">
-          {detection && <div className="assistant-detection-card">
-            <div><strong>刚刚完成的检测</strong><Badge status={detection.status}/></div>
-            <h3>{detection.crop} · {detection.result || '尚无模型结论'}</h3>
-            <p>{detection.name}</p>
-            <span>{detection.prediction_model?.task === 'detect' || detection.boxes?.length ? '检测目标置信度' : '分类置信度'}：{confidenceText(detection.confidence)}</span>
-            <small>识别与照片解读仅供辅助判断，不能据此排除虫害。</small>
-          </div>}
-          {loading ? <div className="assistant-loading"><LoaderCircle size={20} className="spin"/>正在找回你的田间笔记…</div> : !messages.length && !busy && !detection && <div className="assistant-welcome">
-            <Xiaohe state={greeting ? 'wave' : 'idle'}/><span>每一次观察，都值得被记住</span><h3>你好，我是小禾 🌱</h3><p>叶片有了新变化，或是想聊聊种植？<br/>把你的问题告诉我吧。</p>
+        <div className="assistant-conversation">
+        <div className="assistant-log" ref={log} role="log" aria-label="与小禾的对话" aria-live="polite" aria-relevant="additions" aria-busy={loading||busy} onScroll={event=>{
+          const element=event.currentTarget
+          readingPosition.current=element.scrollTop
+          followLatest.current=element.scrollHeight-element.clientHeight-element.scrollTop<64
+          setShowLatest(!followLatest.current)
+        }}>
+          {detection && <section className="assistant-detection-card" aria-label="本次检测上下文">
+            <div className="assistant-context-heading"><strong><Sprout size={13}/>本次叶片观察</strong><Badge status={detection.status}/></div>
+            <h3>{detection.crop}<span>{detection.result || '尚无模型结论'}</span></h3>
+            <div className="assistant-context-metrics"><span>{detection.prediction_model?.task === 'detect' || detection.boxes?.length ? '检测目标置信度' : '分类置信度'}<strong>{confidenceText(detection.confidence)}</strong></span>{!!detection.boxes?.length&&<span>识别目标<strong>{detection.boxes.length}<small>个</small></strong></span>}</div>
+            <details className="assistant-context-details"><summary><FileImage size={12}/><span>{detection.name}</span><span className="assistant-context-more">样本信息</span></summary><p>采样时间：{new Date(detection.created_at).toLocaleString('zh-CN')}</p>{detection.note&&<p>备注：{detection.note}</p>}</details>
+            <small className="assistant-context-note">结合照片与检测结果辅助分析，仍需现场观察确认。</small>
+          </section>}
+          {loading ? <div className="assistant-loading" role="status"><LoaderCircle size={22} className="spin"/><div><strong>正在找回你的田间笔记</strong><span>准备好后，就能接着聊。</span></div></div> : !messages.length && !busy && !detection && <div className="assistant-welcome">
+            <Xiaohe state={greeting ? 'wave' : 'idle'}/><span>每一次观察，都值得被记住</span><h3>你好，我是小禾</h3><p>叶片有了新变化，或是想聊聊种植？<br/>告诉我作物、环境和最近的变化，一起理清线索。</p>
             {['巡田时应该记录哪些信息？', '怎样拍清楚叶片上的病斑？'].map(text => <button key={text} disabled={busy} onClick={() => {setDraft(text); input.current?.focus()}}>{text}<ArrowUp size={13}/></button>)}
           </div>}
           {messages.filter((message, index) => !(detection && index === 0 && message.role === 'user')).map(message => <article key={message.id} className={`chat-message ${message.role}`}>
-            <span className="chat-speaker">{message.role === 'assistant' ? <><Sprout size={13}/>小禾</> : '我'}<time>{new Date(message.created_at).toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'})}</time></span>
-            <p>{message.content}</p>
+            <span className="chat-speaker">{message.role === 'assistant' ? <><span className="chat-avatar" aria-hidden="true"><Sprout size={13}/></span><strong>小禾</strong><span className="chat-role">田间好帮手</span></> : <strong>我的提问</strong>}<time dateTime={message.created_at} title={new Date(message.created_at).toLocaleString('zh-CN')}>{new Date(message.created_at).toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'})}</time></span>
+            {message.role==='assistant'?<AssistantMessageBody content={message.content}/>:<p>{message.content}</p>}
           </article>)}
-          {busy && <>{!analyzing && <article className="chat-message user"><span className="chat-speaker">我</span><p>{draft.trim()}</p></article>}<div className="assistant-thinking" role="status"><Sprout size={15}/><span>{analyzing ? '正在整理病虫害线索与复检建议' : '小禾正在思考'}</span><i/><i/><i/></div></>}
+          {busy && <>{!analyzing && <article className="chat-message user pending"><span className="chat-speaker"><strong>我的提问</strong><span className="chat-delivery">等待回复</span></span><p>{draft.trim()}</p></article>}<div className="assistant-thinking" role="status"><span className="assistant-thinking-icon"><Sprout size={18}/></span><div><strong>{analyzing ? '小禾正在看这片叶子' : '小禾正在整理思路'}<span className="assistant-thinking-dots"><i/><i/><i/></span></strong><p>{analyzing?'结合照片，整理可见线索与复检建议。':'把观察变成更清晰、可执行的建议。'}</p></div></div></>}
         </div>
-        {error && <div className="assistant-error" role="alert">{error}{failedDetection ? <button disabled={!features.assistant || busy} onClick={() => analyzeDetection(failedDetection)}>重试图片解读</button> : <button onClick={() => window.location.reload()} hidden={!loading && !!active}>重新连接</button>}</div>}
+        {showLatest&&<button type="button" className="assistant-latest" onClick={scrollToLatest}><ArrowDown size={13}/>回到最新</button>}
+        </div>
+        {error && <div className="assistant-error" role="alert"><CircleAlert size={15}/><div><strong>{failedDetection?'图片解读暂未完成':'这次连接没有完成'}</strong><p>{error}</p>{failedDetection ? <button type="button" disabled={!features.assistant || busy} onClick={() => analyzeDetection(failedDetection)}><RotateCcw size={12}/>重试图片解读</button> : active&&draft.trim().length>=2 ? <button type="button" disabled={!features.assistant||busy||loading} onClick={()=>input.current?.form?.requestSubmit()}><RotateCcw size={12}/>再次发送</button> : <button type="button" onClick={() => window.location.reload()}>重新连接</button>}</div></div>}
         {!features.assistant && <div className="assistant-error" role="status">管理员已暂停小禾新问答，历史对话仍可查看。</div>}
         <form className="assistant-composer" onSubmit={send}>
-          <div><textarea ref={input} aria-label="发送给小禾的问题" placeholder={failedDetection ? '请重试图片解读，或新建对话…' : '和小禾聊聊你的田间发现…'} value={draft} onChange={event => setDraft(event.target.value)} disabled={!features.assistant || busy || loading || !!(detection && !active)} maxLength={2000} rows={2} onKeyDown={event => {
+          <div className="assistant-input-wrap"><textarea ref={input} aria-label="发送给小禾的问题" aria-describedby="xiaohe-composer-hint" placeholder={failedDetection ? '重试图片解读，或新建一个话题…' : busy ? '小禾正在回复，请稍等…' : detection?'还想了解这片叶子的哪些情况？':'写下作物、环境或叶片的新变化…'} value={draft} onChange={event => setDraft(event.target.value)} disabled={!features.assistant || busy || loading || !!(detection && !active)} maxLength={2000} rows={2} onKeyDown={event => {
             if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {event.preventDefault(); event.currentTarget.form?.requestSubmit()}
           }}/><button type="submit" aria-label="发送消息" disabled={!features.assistant || busy || loading || !!(detection && !active) || draft.trim().length < 2}>{busy ? <LoaderCircle size={17} className="spin"/> : <ArrowUp size={19}/>}</button></div>
-          <p>AI 回答仅供参考 · Enter 发送，Shift + Enter 换行</p>
+          <div className="assistant-composer-meta" id="xiaohe-composer-hint"><span>AI 建议仅供参考</span>{draft.length>0?<span className={draft.length>1800?'near-limit':''}>{draft.length} / 2000</span>:<span className="assistant-keyboard-hint">Enter 发送 · Shift + Enter 换行</span>}</div>
         </form>
       </> : <div className="assistant-guest"><Xiaohe state="wave"/><h3>你好，田间的新朋友</h3><p>登录后就能和小禾聊天，<br/>你的对话也会自动保存。</p><a className="button primary" href="#login">登录后开始聊天</a></div>}
       </div>
