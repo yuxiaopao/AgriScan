@@ -1,0 +1,92 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-10-28",
+  "reference_image": "frontend/public/images/xiaohe.png",
+  "icon_packaging": "Generated 1254px source is preserved as design/app-assets/icon-source.png; final launcher PNG is resized to 1024px with Pillow for Android packaging. WebP variants are format conversion only, same image content.",
+  "assets": [
+    {
+      "asset": "app-hero",
+      "png": "mobile/public/images/app-hero.png",
+      "webp": "mobile/public/images/app-hero.webp",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "alpha_range": null,
+      "png_bytes": 2154751,
+      "webp_bytes": 217848,
+      "prompt": "Use case: stylized-concept. Asset type: production mobile agricultural app welcome hero illustration, landscape 4:3 composition, no text. Reference image 1 is the exact original Xiaohe mascot identity, not an edit target. Preserve its cream-white rounded ceramic robot body, dark forest-green glossy face visor, luminous friendly green eyes, two bright green leaves sprouting from its head, green ear discs and short green boots. Show the same single character joyfully walking through a tiny lush crop garden, holding a compact cream-and-green tablet with a simple leaf scanning symbol, one hand waving. Warm pale ivory and soft pistachio agricultural palette, subtle tomato-red and corn-yellow crop details, soft morning sunshine and beautifully polished 3D collectible toy rendering, gentle ground shadow, tasteful miniature plants and rows of soil around it. Keep the mascot large and completely visible, relaxed uncluttered scene with generous pale airy margins suitable for a phone screen. No writing, letters, numbers, watermarks, extra robots or interface mockup. This is a unique derivative scene for the existing AgriScan Xiaohe IP; preserve identity carefully.",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a181c7-b620-7b73-889a-d3a63f06945c\\exec-f1d8448a-3f4f-4ca0-9e86-824c091f20b5.png"
+    },
+    {
+      "asset": "feature-camera",
+      "png": "mobile/public/images/feature-camera.png",
+      "webp": "mobile/public/images/feature-camera.webp",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "png_bytes": 1326418,
+      "webp_bytes": 252592,
+      "prompt": "Use case: stylized-concept. Asset type: polished 3D mascot feature illustration for the AgriScan mobile agricultural app. Reference image 1 is the exact Xiaohe mascot identity. Preserve the cream-white rounded ceramic robot body, dark forest-green glossy face visor, friendly luminous green eyes, two bright green leaves sprouting from its head, circular green ear discs, short green boots and compact cute proportions. One single robot, full body, completely visible with generous transparent margin. Premium collectible toy style, soft studio lighting and gentle contact shadow, clean agricultural cream, green and warm accents. No text, letters, numbers, watermarks or additional robots. Primary request: Xiaohe is actively taking a close photo of a bright green leaf using a charming compact camera held in both hands. A small tomato plant with just a few leaves stands next to it; one leaf framed by the camera lens. The camera uses cream-white and dark green materials matching the robot. A few delicate green scanning light brackets around the leaf convey live camera detection. Simple centered composition on a genuinely transparent background. No opaque background or enclosing tile.",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a181c7-b620-7b73-889a-d3a63f06945c\\exec-62ef5259-075a-46e8-b9eb-02ce687474fe.png"
+    },
+    {
+      "asset": "feature-video",
+      "png": "mobile/public/images/feature-video.png",
+      "webp": "mobile/public/images/feature-video.webp",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "png_bytes": 1120507,
+      "webp_bytes": 186668,
+      "prompt": "Use case: stylized-concept. Asset type: polished 3D mascot feature illustration for the AgriScan mobile agricultural app. Reference image 1 is the exact Xiaohe mascot identity. Preserve the cream-white rounded ceramic robot body, dark forest-green glossy face visor, friendly luminous green eyes, two bright green leaves sprouting from its head, circular green ear discs, short green boots and compact cute proportions. One single robot, full body, completely visible with generous transparent margin. Premium collectible toy style, soft studio lighting and gentle contact shadow, clean agricultural cream, green and warm accents. No text, letters, numbers, watermarks or additional robots. Primary request: Xiaohe proudly holds a small rounded cream-and-green video display and a miniature film clapperboard. The display contains only a simple green leaf with a small white triangular play symbol, no words or numbers. A restrained warm orange record-indicator dot helps distinguish this video feature. Full body character centered, playful confident pose. Genuinely transparent background, no enclosing tile, no scenery.",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a181c7-b620-7b73-889a-d3a63f06945c\\exec-54dcda26-cd0c-4b07-b9de-be6c57978089.png"
+    },
+    {
+      "asset": "feature-image",
+      "png": "mobile/public/images/feature-image.png",
+      "webp": "mobile/public/images/feature-image.webp",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "png_bytes": 1089191,
+      "webp_bytes": 179722,
+      "prompt": "Use case: stylized-concept. Asset type: polished 3D mascot feature illustration for the AgriScan mobile agricultural app. Reference image 1 is the exact Xiaohe mascot identity. Preserve the cream-white rounded ceramic robot body, dark forest-green glossy face visor, friendly luminous green eyes, two bright green leaves sprouting from its head, circular green ear discs, short green boots and compact cute proportions. One single robot, full body, completely visible with generous transparent margin. Premium collectible toy style, soft studio lighting and gentle contact shadow, clean agricultural cream, green and warm accents. No text, letters, numbers, watermarks or additional robots. Primary request: Xiaohe looks at two overlapping rounded photo prints held like a fan, one shows a simple bright green leaf close-up, the other shows a ripe tomato on its vine. The robot smiles at the viewer and holds a small green magnifying glass in the other hand. Distinct from camera and video icons: the photo prints are prominent and easy to recognize at small size. Full body character centered on a genuinely transparent background, no enclosing tile and no scenery.",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a181c7-b620-7b73-889a-d3a63f06945c\\exec-39a94e3c-b326-40ed-9ad5-f4ce2cd0274b.png"
+    },
+    {
+      "asset": "icon",
+      "png": "mobile/public/images/icon.png",
+      "webp": "mobile/public/images/icon.webp",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "alpha_range": null,
+      "png_bytes": 1027467,
+      "webp_bytes": 69004,
+      "prompt": "Use case: logo-brand. Asset type: final 1024 by 1024 square Android launcher app icon, full bleed opaque background, no outer rounded mask. Reference image 1 is the exact Xiaohe agricultural robot identity. Create a close, cheerful, front-facing bust portrait with the cream-white rounded robot head, dark forest-green glossy visor, friendly luminous green eyes, green circular ears and two bright green leaf sprouts. Large simple silhouette, bold readable face, soft premium 3D collectible toy shading. The entire head including leaf sprouts must sit safely inside the central 66 percent adaptive icon safe region with ample edge margins. Background is an uncluttered pale pistachio to warm ivory subtle gradient, no scenery. A tiny abstract green leaf badge on its chest if visible. No camera, no tablet, no other props, no border, no words, no letters, no numbers, no watermark. Preserve exact mascot identity and colors.",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a181c7-b620-7b73-889a-d3a63f06945c\\exec-e0af12a6-b332-48e8-a5cf-ba69885f2bc1.png"
+    }
+  ]
+}

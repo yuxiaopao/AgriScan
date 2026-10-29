@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "scope": "Five technical parity smoke images, including one non-square image; not independent detection accuracy evaluation.",
+  "source_sha256": "fafc2bb3ce9ef66189436e0ad175bf07a8a0973d52cf6ece210f827798733be4",
+  "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "results": [
+    {
+      "sample": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Apple___Apple_scab\\0261a6e4-21f8-481a-8827-b674e6955644___FREC_Scab 3055.JPG",
+      "image_shape": [
+        256,
+        256
+      ],
+      "box_count": 1,
+      "result": "苹果黑星病",
+      "inference_seconds_local_cpu": 0.5249153999902774,
+      "matches": [
+        {
+          "class_id": 0,
+          "label": "苹果黑星病",
+          "iou": 0.999999810082555,
+          "confidence_difference": 7.092952728271484e-06,
+          "maximum_normalized_edge_difference": 9.46223735823204e-08
+        }
+      ]
+    },
+    {
+      "sample": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Corn_(maize)___Common_rust_\\RS_Rust 1563.JPG",
+      "image_shape": [
+        256,
+        256
+      ],
+      "box_count": 2,
+      "result": "玉米普通锈病",
+      "inference_seconds_local_cpu": 0.43282459999318235,
+      "matches": [
+        {
+          "class_id": 8,
+          "label": "玉米普通锈病",
+          "iou": 0.9999997419824529,
+          "confidence_difference": 4.172325134277344e-07,
+          "maximum_normalized_edge_difference": 9.611248970309294e-08
+        },
+        {
+          "class_id": 8,
+          "label": "玉米普通锈病",
+          "iou": 0.9999999104303856,
+          "confidence_difference": 8.07642936706543e-06,
+          "maximum_normalized_edge_difference": 4.619359970231551e-08
+        }
+      ]
+    },
+    {
+      "sample": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Tomato___Early_blight\\0012b9d2-2130-4a06-a834-b1f3af34f57e___RS_Erly.B 8389.JPG",
+      "image_shape": [
+        256,
+        256
+      ],
+      "box_count": 2,
+      "result": "番茄斑枯病",
+      "inference_seconds_local_cpu": 0.4313554000109434,
+      "matches": [
+        {
+          "class_id": 32,
+          "label": "番茄斑枯病",
+          "iou": 0.9999995646113966,
+          "confidence_difference": 1.1622905731201172e-06,
+          "maximum_normalized_edge_difference": 1.6689300541550267e-07
+        },
+        {
+          "class_id": 29,
+          "label": "番茄早疫病",
+          "iou": 0.9999997750955654,
+          "confidence_difference": 1.043081283569336e-06,
+          "maximum_normalized_edge_difference": 9.536743161842054e-08
+        }
+      ]
+    },
+    {
+      "sample": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Tomato___healthy\\00bce074-967b-4d50-967a-31fdaa35e688___RS_HL 0223.JPG",
+      "image_shape": [
+        256,
+        256
+      ],
+      "box_count": 1,
+      "result": "番茄健康",
+      "inference_seconds_local_cpu": 0.4457309999852441,
+      "matches": [
+        {
+          "class_id": 37,
+          "label": "番茄健康",
+          "iou": 0.9999998422053734,
+          "confidence_difference": 0.0,
+          "maximum_normalized_edge_difference": 9.238719940463103e-08
+        }
+      ]
+    },
+    {
+      "sample": "E:\\AgriScan\\.runtime\\detect-export\\nonsquare-leaf.jpg",
+      "image_shape": [
+        256,
+        512
+      ],
+      "box_count": 1,
+      "result": "番茄健康",
+      "inference_seconds_local_cpu": 0.4435077999951318,
+      "matches": [
+        {
+          "class_id": 37,
+          "label": "番茄健康",
+          "iou": 0.9999998117002145,
+          "confidence_difference": 0.0,
+          "maximum_normalized_edge_difference": 4.470348358154297e-08
+        }
+      ]
+    }
+  ],
+  "real_api_smoke": {
+    "saved_crop": "苹果",
+    "saved_result": "苹果黑星病",
+    "saved_boxes": 1,
+    "background_rejected_status": 422,
+    "failed_background_added_records": false
+  }
+}

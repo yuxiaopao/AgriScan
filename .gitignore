@@ -70,3 +70,11 @@ training/system-test-record.png
 Thumbs.db
 .idea/
 .vscode/
+
+# Public installation packages are deployment artifacts, not application source.
+website/downloads/*.apk
+.transfer-parts/
+
+# User-supplied detector artifacts stay local; source and verification metadata are published.
+models/candidates/user-detect-fafc2bb3ce9e/*.pt
+models/candidates/user-detect-fafc2bb3ce9e/*.onnx

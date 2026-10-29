@@ -25,7 +25,7 @@ class Settings:
     admin_password: str = field(default_factory=lambda: os.getenv("ADMIN_PASSWORD", "admin12345"))
     cors_origins: list[str] = field(
         default_factory=lambda: os.getenv(
-            "CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000"
+            "CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5175,http://127.0.0.1:5175,https://localhost,http://localhost,capacitor://localhost"
         ).split(",")
     )
     token_hours: int = 12
@@ -44,6 +44,7 @@ class Settings:
     llm_timeout: int = field(default_factory=lambda: int(os.getenv("LLM_TIMEOUT", "30")))
     model_max_mb: int = field(default_factory=lambda: int(os.getenv("MODEL_MAX_UPLOAD_MB", "200")))
     model_manifest: str = field(default_factory=lambda: os.getenv("MODEL_MANIFEST", ""))
+    classification_model_manifest: str = field(default_factory=lambda: os.getenv("CLASSIFICATION_MODEL_MANIFEST", ""))
     inference_threads: int = field(default_factory=lambda: int(os.getenv("INFERENCE_THREADS", "2")))
     max_upload_bytes: int = 10 * 1024 * 1024
 

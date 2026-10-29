@@ -1,0 +1,67 @@
+{
+  "source_sha256": "fafc2bb3ce9ef66189436e0ad175bf07a8a0973d52cf6ece210f827798733be4",
+  "task": "detect",
+  "classes": {
+    "0": "Apple_Apple_scab",
+    "1": "Apple_Black_rot",
+    "2": "Apple_Cedar_apple_rust",
+    "3": "Apple_healthy",
+    "4": "Blueberry_healthy",
+    "5": "Cherry_Powdery_mildew",
+    "6": "Cherry_healthy",
+    "7": "Corn_Cercospora_leaf_spot_Gray_leaf_spot",
+    "8": "Corn_Common_rust",
+    "9": "Corn_Northern_Leaf_Blight",
+    "10": "Corn_healthy",
+    "11": "Grape_Black_rot",
+    "12": "Grape_Esca_(Black_Measles)",
+    "13": "Grape_Leaf_blight_(Isariopsis_Leaf_Spot)",
+    "14": "Grape_healthy",
+    "15": "Orange_Haunglongbing_(Citrus_greening)",
+    "16": "Peach_Bacterial_spot",
+    "17": "Peach_healthy",
+    "18": "Pepper,_bell_Bacterial_spot",
+    "19": "Pepper,_bell_healthy",
+    "20": "Potato_Early_blight",
+    "21": "Potato_Late_blight",
+    "22": "Potato_healthy",
+    "23": "Raspberry_healthy",
+    "24": "Soybean_healthy",
+    "25": "Squash_Powdery_mildew",
+    "26": "Strawberry_Leaf_scorch",
+    "27": "Strawberry_healthy",
+    "28": "Tomato_Bacterial_spot",
+    "29": "Tomato_Early_blight",
+    "30": "Tomato_Late_blight",
+    "31": "Tomato_Leaf_Mold",
+    "32": "Tomato_Septoria_leaf_spot",
+    "33": "Tomato_Spider_mites_Two-spotted_spider_mite",
+    "34": "Tomato_Target_Spot",
+    "35": "Tomato_Tomato_Yellow_Leaf_Curl_Virus",
+    "36": "Tomato_Tomato_mosaic_virus",
+    "37": "Tomato_healthy"
+  },
+  "onnx_path": "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\best.onnx",
+  "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "inputs": [
+    {
+      "name": "images",
+      "shape": [
+        1,
+        3,
+        640,
+        640
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output0",
+      "shape": [
+        1,
+        300,
+        6
+      ]
+    }
+  ]
+}

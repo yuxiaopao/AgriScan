@@ -7,6 +7,8 @@ from PIL import Image
 from app.config import Settings
 from app.main import create_app
 from app.seed import initialize_data
+from app.db import Detection, Plot, User
+from sqlalchemy import select, update
 
 
 @pytest.fixture()
@@ -26,6 +28,25 @@ def auth(client):
     result = client.post("/api/auth/login", json={"username": "admin", "password": "admin12345"})
     assert result.status_code == 200
     return {"Authorization": f"Bearer {result.json()['access_token']}"}
+
+
+def owned_demo_auth(client):
+    """Explicitly own synthetic seed fixtures for personal workflow tests.
+
+    Production migration never guesses these owners. Isolation tests use auth()
+    and ordinary member accounts instead, preserving unassigned legacy rows.
+    """
+    cached=getattr(client,'_owned_demo_headers',None)
+    if cached:return cached
+    headers=auth(client)
+    with client.app.state.session() as db:
+        user_id=db.scalar(select(User.id).where(User.username=='admin'))
+        db.execute(update(Plot).where(Plot.owner_id.is_(None),Plot.id.like('plot-%')).values(owner_id=user_id))
+        db.execute(update(Detection).where(Detection.owner_id.is_(None),Detection.is_demo.is_(True)).values(owner_id=user_id))
+        db.commit()
+    client.app.state.cache.invalidate()
+    client._owned_demo_headers=headers
+    return headers
 
 
 def picture():
@@ -69,7 +90,7 @@ def test_mutations_require_login_and_logout_revokes_token(client):
 
 
 def test_upload_persists_real_image_without_diagnosis_then_deletes(client):
-    headers = auth(client)
+    headers = owned_demo_auth(client)
     response = client.post(
         "/api/detections", headers=headers,
         data={"crop": "番茄", "plot_id": "plot-tomato", "note": "现场采样"},
@@ -82,15 +103,33 @@ def test_upload_persists_real_image_without_diagnosis_then_deletes(client):
     assert row["plot_name"] == "01 号番茄温室"
     assert row["status"] == "awaiting_model"
     assert row["confidence"] is None and row["result"] is None
-    stored = client.get(row["image_url"])
+    stored = client.get(row["image_url"], headers=owned_demo_auth(client))
     assert stored.status_code == 200 and stored.headers["content-type"] == "image/jpeg"
     assert Image.open(io.BytesIO(stored.content)).size == (32, 32)
-    assert client.get("/api/dashboard").json()["stats"]["pending"] == 1
-    assert client.get(f"/api/detections/{row['id']}").json()["note"] == "现场采样"
-    assert client.get("/api/detections?status=awaiting_model").json()[0]["id"] == row["id"]
+    assert client.get("/api/dashboard", headers=owned_demo_auth(client)).json()["stats"]["pending"] == 1
+    assert client.get(f"/api/detections/{row['id']}", headers=owned_demo_auth(client)).json()["note"] == "现场采样"
+    assert client.get("/api/detections?status=awaiting_model", headers=owned_demo_auth(client)).json()[0]["id"] == row["id"]
     assert client.delete(f"/api/detections/{row['id']}", headers=headers).status_code == 200
-    assert client.get(row["image_url"]).status_code == 404
-    assert client.get("/api/dashboard").json()["stats"]["pending"] == 0
+    assert client.get(row["image_url"], headers=owned_demo_auth(client)).status_code == 404
+    assert client.get("/api/dashboard", headers=owned_demo_auth(client)).json()["stats"]["pending"] == 0
+
+
+def test_uploaded_jpeg_applies_exif_orientation_before_stripping_metadata(client):
+    image = Image.new('RGB', (80, 40), (220, 20, 20))
+    image.paste((20, 180, 30), (40, 0, 80, 40))
+    exif = Image.Exif()
+    exif[274] = 6  # Camera orientation: display the sensor pixels rotated 90 degrees clockwise.
+    data = io.BytesIO()
+    image.save(data, format='JPEG', quality=95, exif=exif)
+    response = client.post('/api/detections', headers=owned_demo_auth(client), data={'crop': '番茄'},
+                           files={'file': ('rotated.jpg', data.getvalue(), 'image/jpeg')})
+    assert response.status_code == 201, response.text
+    stored = client.get(response.json()['image_url'], headers=owned_demo_auth(client))
+    with Image.open(io.BytesIO(stored.content)) as saved:
+        assert saved.size == (40, 80) and not saved.getexif()
+        upper, lower = saved.getpixel((20, 10)), saved.getpixel((20, 70))
+        assert upper[0] > 180 and upper[1] < 60
+        assert lower[1] > 140 and lower[0] < 60
 
 
 @pytest.mark.parametrize(
@@ -106,16 +145,16 @@ def test_upload_persists_real_image_without_diagnosis_then_deletes(client):
 )
 def test_invalid_uploads_are_rejected(client, crop, plot_id, data, status):
     response = client.post(
-        "/api/detections", headers=auth(client), data={"crop": crop, "plot_id": plot_id},
+        "/api/detections", headers=owned_demo_auth(client), data={"crop": crop, "plot_id": plot_id},
         files={"file": ("bad.jpg", data, "image/jpeg")},
     )
     assert response.status_code == status
-    assert client.get("/api/dashboard").json()["stats"]["total"] == 12
+    assert client.get("/api/dashboard", headers=owned_demo_auth(client)).json()["stats"]["total"] == 12
     assert list(client.app.state.settings.upload_dir.iterdir()) == []
 
 
 def test_plot_crud_and_history_integrity(client):
-    headers = auth(client)
+    headers = owned_demo_auth(client)
     created = client.post(
         "/api/plots", headers=headers,
         json={"name": "新试验田", "crop": "小麦", "area": 5.5, "location": "东区", "manager": "赵明"},
@@ -130,9 +169,9 @@ def test_plot_crud_and_history_integrity(client):
     assert client.delete(f"/api/plots/{plot['id']}", headers=headers).status_code == 200
     assert client.patch("/api/plots/plot-tomato", headers=headers, json={"crop": "小麦"}).status_code == 409
     assert client.delete("/api/plots/plot-tomato", headers=headers).status_code == 200
-    record = client.get("/api/detections/demo-001").json()
+    record = client.get("/api/detections/demo-001", headers=owned_demo_auth(client)).json()
     assert record["plot_id"] is None and record["result"] == "番茄早疫病"
-    assert client.get("/api/dashboard").json()["stats"]["total"] == 12
+    assert client.get("/api/dashboard", headers=owned_demo_auth(client)).json()["stats"]["total"] == 12
 
 
 def test_search_and_status_filter_are_actual_database_queries(client):
@@ -148,11 +187,11 @@ def test_seed_runs_only_once_even_after_records_deleted(tmp_path):
     settings = Settings(database_url=f"sqlite:///{tmp_path / 'seed.db'}", upload_dir=tmp_path / "uploads", redis_url="", model_manifest="")
     app = create_app(settings)
     with TestClient(app) as client:
-        headers = auth(client)
-        for row in client.get("/api/detections").json():
+        headers = owned_demo_auth(client)
+        for row in client.get("/api/detections", headers=owned_demo_auth(client)).json():
             assert client.delete(f"/api/detections/{row['id']}", headers=headers).status_code == 200
     with TestClient(create_app(settings)) as client:
-        assert client.get("/api/detections").json() == []
+        assert client.get("/api/detections", headers=owned_demo_auth(client)).json() == []
 
 
 def test_production_rejects_insecure_configuration():
@@ -163,7 +202,7 @@ def test_production_rejects_insecure_configuration():
 def test_production_admin_rotation_replaces_password_and_revokes_existing_tokens(client):
     previous_token = auth(client)
     production_settings = replace(
-        client.app.state.settings, demo_mode=False, admin_password="new-production-password-2026",
+        client.app.state.settings.base, demo_mode=False, admin_password="new-production-password-2026",
     )
     # Run the same production startup initializer on a persisted SQLite test DB.
     # SQLAlchemy initialization is identical on MySQL; no model/DB service is mocked.
@@ -182,7 +221,7 @@ def test_production_admin_rotation_replaces_password_and_revokes_existing_tokens
 
 
 def test_managed_admin_can_be_renamed_without_leaving_old_login(client):
-    settings = replace(client.app.state.settings, admin_username="farm-owner", admin_password="new-password-2026")
+    settings = replace(client.app.state.settings.base, admin_username="farm-owner", admin_password="new-password-2026")
     with client.app.state.session() as db:
         initialize_data(db, settings)
     assert client.post(

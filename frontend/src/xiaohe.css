@@ -4,13 +4,12 @@
 @keyframes xiaohe-frames{from{transform:translateX(0)}to{transform:translateX(-100%)}}
 .xiaohe-sprite[data-paused=true] .xiaohe-film{animation-play-state:paused;will-change:auto}
 @media(prefers-reduced-motion:reduce){.xiaohe-sprite .xiaohe-film{animation:none!important;transform:none;will-change:auto}}
-.assistant-widget .assistant-launcher{width:86px;height:94px;border-radius:28px;background:linear-gradient(145deg,#f8fce9e8,#e0ecd4d9)}
+.assistant-widget .assistant-launcher{width:86px;height:94px;border-radius:28px}
 .assistant-launcher .xiaohe-sprite{width:94px;position:absolute;bottom:8px}
 .assistant-launcher>span:not(.xiaohe-sprite){z-index:2}
 .assistant-face .xiaohe-sprite{width:62px;height:67px;max-width:none;position:relative;top:14px}
 .assistant-welcome .xiaohe-sprite,.assistant-guest .xiaohe-sprite{display:block;width:116px;margin:0 auto 8px}
 .assistant-welcome>span.xiaohe-sprite{font-size:inherit;letter-spacing:normal}
-.mascot-tip .xiaohe-sprite{width:110px;margin-left:-4px}
 .welcome-mascot>.xiaohe-sprite{width:340px;z-index:1}
 .auth-story>.xiaohe-sprite{width:270px;display:block;margin:24px auto 0}
 .hero-art>.xiaohe-sprite{position:absolute;width:260px;left:20px;top:-8px}

@@ -41,10 +41,10 @@ def initialize_data(db, settings):
                 raise RuntimeError("检测到其他仍使用演示密码的账号，请重置或移除该账号后启动生产环境。")
     if settings.demo_mode and not db.get(AppMeta, "demo_seed_v1"):
         plots = [
-            Plot(id="plot-tomato", name="01 号番茄温室", crop="番茄", area=12.5, location="东区 · 智慧温室", manager="张明"),
-            Plot(id="plot-rice", name="02 号水稻试验田", crop="水稻", area=36.0, location="南区 · 试验基地", manager="李华"),
-            Plot(id="plot-corn", name="03 号玉米种植区", crop="玉米", area=28.0, location="西区 · 大田基地", manager="王芳"),
-            Plot(id="plot-cucumber", name="04 号黄瓜大棚", crop="黄瓜", area=8.5, location="北区 · 连栋大棚", manager="张明"),
+            Plot(id="plot-tomato", owner_id=None, name="01 号番茄温室", crop="番茄", area=12.5, location="东区 · 智慧温室", manager="张明"),
+            Plot(id="plot-rice", owner_id=None, name="02 号水稻试验田", crop="水稻", area=36.0, location="南区 · 试验基地", manager="李华"),
+            Plot(id="plot-corn", owner_id=None, name="03 号玉米种植区", crop="玉米", area=28.0, location="西区 · 大田基地", manager="王芳"),
+            Plot(id="plot-cucumber", owner_id=None, name="04 号黄瓜大棚", crop="黄瓜", area=8.5, location="北区 · 连栋大棚", manager="张明"),
         ]
         db.add_all(plots)
         db.flush()
@@ -66,7 +66,7 @@ def initialize_data(db, settings):
         for index, (name, plot_index, status, result, confidence, days_ago) in enumerate(demo_records):
             plot = plots[plot_index]
             db.add(Detection(
-                id=f"demo-{index + 1:03}", name=name, crop=plot.crop, plot_id=plot.id,
+                id=f"demo-{index + 1:03}", owner_id=None, name=name, crop=plot.crop, plot_id=plot.id,
                 status=status, result=result, confidence=confidence,
                 created_at=datetime(2026, 10, 20, 3, 30) - timedelta(days=days_ago, minutes=index * 13),
                 image_url=None, is_demo=True,

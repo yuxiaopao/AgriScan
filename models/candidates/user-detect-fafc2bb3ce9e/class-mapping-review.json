@@ -1,0 +1,306 @@
+[
+  {
+    "class_id": 0,
+    "model_key": "Apple_Apple_scab",
+    "label": "苹果黑星病",
+    "source_sheet": "Sheet1",
+    "source_row": 31,
+    "source_count": 1630
+  },
+  {
+    "class_id": 1,
+    "model_key": "Apple_Black_rot",
+    "label": "苹果黑腐病",
+    "source_sheet": "Sheet1",
+    "source_row": 32,
+    "source_count": 1621
+  },
+  {
+    "class_id": 2,
+    "model_key": "Apple_Cedar_apple_rust",
+    "label": "苹果雪松锈病",
+    "source_sheet": "Sheet1",
+    "source_row": 39,
+    "source_count": 1275
+  },
+  {
+    "class_id": 3,
+    "model_key": "Apple_healthy",
+    "label": "苹果健康",
+    "source_sheet": "Sheet1",
+    "source_row": 11,
+    "source_count": 3290
+  },
+  {
+    "class_id": 4,
+    "model_key": "Blueberry_healthy",
+    "label": "蓝莓健康",
+    "source_sheet": "Sheet1",
+    "source_row": 13,
+    "source_count": 3004
+  },
+  {
+    "class_id": 5,
+    "model_key": "Cherry_Powdery_mildew",
+    "label": "樱桃白粉病",
+    "source_sheet": "Sheet1",
+    "source_row": 23,
+    "source_count": 2104
+  },
+  {
+    "class_id": 6,
+    "model_key": "Cherry_healthy",
+    "label": "樱桃健康",
+    "source_sheet": "Sheet1",
+    "source_row": 30,
+    "source_count": 1854
+  },
+  {
+    "class_id": 7,
+    "model_key": "Corn_Cercospora_leaf_spot_Gray_leaf_spot",
+    "label": "玉米灰斑病",
+    "source_sheet": "Sheet1",
+    "source_row": 33,
+    "source_count": 1513
+  },
+  {
+    "class_id": 8,
+    "model_key": "Corn_Common_rust",
+    "label": "玉米普通锈病",
+    "source_sheet": "Sheet1",
+    "source_row": 17,
+    "source_count": 2384
+  },
+  {
+    "class_id": 9,
+    "model_key": "Corn_Northern_Leaf_Blight",
+    "label": "玉米北方叶枯病",
+    "source_sheet": "Sheet1",
+    "source_row": 28,
+    "source_count": 1985
+  },
+  {
+    "class_id": 10,
+    "model_key": "Corn_healthy",
+    "label": "玉米健康",
+    "source_sheet": "Sheet1",
+    "source_row": 19,
+    "source_count": 2324
+  },
+  {
+    "class_id": 11,
+    "model_key": "Grape_Black_rot",
+    "label": "葡萄黑腐病",
+    "source_sheet": "Sheet1",
+    "source_row": 18,
+    "source_count": 2360
+  },
+  {
+    "class_id": 12,
+    "model_key": "Grape_Esca_(Black_Measles)",
+    "label": "葡萄黑麻疹",
+    "source_sheet": "Sheet1",
+    "source_row": 16,
+    "source_count": 2766
+  },
+  {
+    "class_id": 13,
+    "model_key": "Grape_Leaf_blight_(Isariopsis_Leaf_Spot)",
+    "label": "葡萄叶枯病",
+    "source_sheet": "Sheet1",
+    "source_row": 22,
+    "source_count": 2152
+  },
+  {
+    "class_id": 14,
+    "model_key": "Grape_healthy",
+    "label": "葡萄健康",
+    "source_sheet": "Sheet1",
+    "source_row": 35,
+    "source_count": 1423
+  },
+  {
+    "class_id": 15,
+    "model_key": "Orange_Haunglongbing_(Citrus_greening)",
+    "label": "柑橘黄龙病",
+    "source_sheet": "Sheet1",
+    "source_row": 2,
+    "source_count": 11014
+  },
+  {
+    "class_id": 16,
+    "model_key": "Peach_Bacterial_spot",
+    "label": "桃细菌性斑点",
+    "source_sheet": "Sheet1",
+    "source_row": 5,
+    "source_count": 4594
+  },
+  {
+    "class_id": 17,
+    "model_key": "Peach_healthy",
+    "label": "桃健康",
+    "source_sheet": "Sheet1",
+    "source_row": 38,
+    "source_count": 1360
+  },
+  {
+    "class_id": 18,
+    "model_key": "Pepper,_bell_Bacterial_spot",
+    "label": "甜椒细菌性斑点",
+    "source_sheet": "Sheet1",
+    "source_row": 27,
+    "source_count": 1997
+  },
+  {
+    "class_id": 19,
+    "model_key": "Pepper,_bell_healthy",
+    "label": "甜椒健康",
+    "source_sheet": "Sheet1",
+    "source_row": 14,
+    "source_count": 2956
+  },
+  {
+    "class_id": 20,
+    "model_key": "Potato_Early_blight",
+    "label": "马铃薯早疫病",
+    "source_sheet": "Sheet1",
+    "source_row": 24,
+    "source_count": 2000
+  },
+  {
+    "class_id": 21,
+    "model_key": "Potato_Late_blight",
+    "label": "马铃薯晚疫病",
+    "source_sheet": "Sheet1",
+    "source_row": 25,
+    "source_count": 2000
+  },
+  {
+    "class_id": 22,
+    "model_key": "Potato_healthy",
+    "label": "马铃薯健康",
+    "source_sheet": "Sheet1",
+    "source_row": 40,
+    "source_count": 1152
+  },
+  {
+    "class_id": 23,
+    "model_key": "Raspberry_healthy",
+    "label": "树莓健康",
+    "source_sheet": "Sheet1",
+    "source_row": 37,
+    "source_count": 1371
+  },
+  {
+    "class_id": 24,
+    "model_key": "Soybean_healthy",
+    "label": "大豆健康",
+    "source_sheet": "Sheet1",
+    "source_row": 4,
+    "source_count": 10180
+  },
+  {
+    "class_id": 25,
+    "model_key": "Squash_Powdery_mildew",
+    "label": "南瓜白粉病",
+    "source_sheet": "Sheet1",
+    "source_row": 8,
+    "source_count": 3670
+  },
+  {
+    "class_id": 26,
+    "model_key": "Strawberry_Leaf_scorch",
+    "label": "草莓叶焦病",
+    "source_sheet": "Sheet1",
+    "source_row": 21,
+    "source_count": 2218
+  },
+  {
+    "class_id": 27,
+    "model_key": "Strawberry_healthy",
+    "label": "草莓健康",
+    "source_sheet": "Sheet1",
+    "source_row": 34,
+    "source_count": 1456
+  },
+  {
+    "class_id": 28,
+    "model_key": "Tomato_Bacterial_spot",
+    "label": "番茄细菌性斑点",
+    "source_sheet": "Sheet1",
+    "source_row": 6,
+    "source_count": 4254
+  },
+  {
+    "class_id": 29,
+    "model_key": "Tomato_Early_blight",
+    "label": "番茄早疫病",
+    "source_sheet": "Sheet1",
+    "source_row": 26,
+    "source_count": 2000
+  },
+  {
+    "class_id": 30,
+    "model_key": "Tomato_Late_blight",
+    "label": "番茄晚疫病",
+    "source_sheet": "Sheet1",
+    "source_row": 7,
+    "source_count": 3818
+  },
+  {
+    "class_id": 31,
+    "model_key": "Tomato_Leaf_Mold",
+    "label": "番茄叶霉病",
+    "source_sheet": "Sheet1",
+    "source_row": 29,
+    "source_count": 1952
+  },
+  {
+    "class_id": 32,
+    "model_key": "Tomato_Septoria_leaf_spot",
+    "label": "番茄斑枯病",
+    "source_sheet": "Sheet1",
+    "source_row": 9,
+    "source_count": 3542
+  },
+  {
+    "class_id": 33,
+    "model_key": "Tomato_Spider_mites_Two-spotted_spider_mite",
+    "label": "番茄二斑叶螨",
+    "source_sheet": "Sheet1",
+    "source_row": 10,
+    "source_count": 3352
+  },
+  {
+    "class_id": 34,
+    "model_key": "Tomato_Target_Spot",
+    "label": "番茄靶斑病",
+    "source_sheet": "Sheet1",
+    "source_row": 15,
+    "source_count": 2808
+  },
+  {
+    "class_id": 35,
+    "model_key": "Tomato_Tomato_Yellow_Leaf_Curl_Virus",
+    "label": "番茄黄化曲叶病毒",
+    "source_sheet": "Sheet1",
+    "source_row": 3,
+    "source_count": 10714
+  },
+  {
+    "class_id": 36,
+    "model_key": "Tomato_Tomato_mosaic_virus",
+    "label": "番茄花叶病毒",
+    "source_sheet": "Sheet1",
+    "source_row": 36,
+    "source_count": 1373
+  },
+  {
+    "class_id": 37,
+    "model_key": "Tomato_healthy",
+    "label": "番茄健康",
+    "source_sheet": "Sheet1",
+    "source_row": 12,
+    "source_count": 3182
+  }
+]

@@ -1,15 +1,25 @@
 name: agriscan
 
+x-logging: &bounded-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+# Local infrastructure only. React and FastAPI run on the host.
 services:
   mysql:
     image: mysql:8.4
     restart: unless-stopped
+    logging: *bounded-logging
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-agriscan}
       MYSQL_USER: ${MYSQL_USER:-agriscan}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Copy .env.example to .env and set MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in root .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in root .env}
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    ports:
+      - "127.0.0.1:${MYSQL_PORT:-13308}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -18,11 +28,13 @@ services:
       timeout: 5s
       retries: 30
       start_period: 30s
-
   redis:
     image: redis:7-alpine
     restart: unless-stopped
+    logging: *bounded-logging
     command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-16380}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -30,67 +42,6 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
-
-  api:
-    build:
-      context: ./backend
-    restart: unless-stopped
-    environment:
-      DATABASE_URL: mysql+pymysql://${MYSQL_USER:-agriscan}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE:-agriscan}?charset=utf8mb4
-      REDIS_URL: redis://redis:6379/0
-      UPLOAD_DIR: /app/uploads
-      REGISTRATION_ENABLED: ${REGISTRATION_ENABLED:-true}
-      EMAIL_VERIFICATION_ENABLED: ${EMAIL_VERIFICATION_ENABLED:-false}
-      SMTP_HOST: ${SMTP_HOST:-}
-      SMTP_PORT: ${SMTP_PORT:-587}
-      SMTP_USERNAME: ${SMTP_USERNAME:-}
-      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      SMTP_FROM: ${SMTP_FROM:-}
-      SMTP_SECURITY: ${SMTP_SECURITY:-starttls}
-      LLM_ENABLED: ${LLM_ENABLED:-false}
-      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.openai.com/v1}
-      LLM_API_KEY: ${LLM_API_KEY:-}
-      LLM_MODEL: ${LLM_MODEL:-}
-      LLM_TIMEOUT: ${LLM_TIMEOUT:-30}
-      MODEL_MAX_UPLOAD_MB: ${MODEL_MAX_UPLOAD_MB:-200}
-      DEMO_MODE: ${DEMO_MODE:-true}
-      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
-      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}
-      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173}
-    ports:
-      - "127.0.0.1:${API_PORT:-8000}:8000"
-    volumes:
-      - uploads:/app/uploads
-    depends_on:
-      mysql:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "python", "-c", "import json, urllib.request; result = json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4)); raise SystemExit(0 if result.get('status') == 'ok' else 1)"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 30s
-
-  frontend:
-    build:
-      context: ./frontend
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:${WEB_PORT:-8080}:80"
-    depends_on:
-      api:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
 volumes:
   mysql_data:
   redis_data:
-  uploads:

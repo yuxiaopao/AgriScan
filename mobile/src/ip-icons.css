@@ -1,0 +1,70 @@
+/* Xiaohe's props identify destinations. Controls keep their familiar symbols. */
+.ip-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 500ms var(--motion-curve), opacity 300ms var(--motion-curve);
+}
+.bottom-tabs.bottom-tabs {min-height: 84px; padding-block: 8px}
+.bottom-tabs.bottom-tabs button {min-height: 64px; gap: 2px}
+.bottom-tabs.bottom-tabs button > span:has(.ip-icon) {
+  width: 56px;
+  height: 48px;
+  flex: 0 0 auto;
+  overflow: visible;
+  background: transparent;
+  border-radius: 20px;
+  box-shadow: none;
+}
+.bottom-tabs .ip-icon {width: 48px; height: 48px; min-width: 48px; min-height: 48px; opacity: .65; filter: saturate(.65); transition: transform 500ms var(--motion-curve), opacity 300ms var(--motion-curve)}
+.bottom-tabs.bottom-tabs button.active > span:has(.ip-icon) {background: #dbf2e9a6; box-shadow: inset 0 1px 0 #ffffffba; transform: none}
+.bottom-tabs button.active .ip-icon {opacity: 1; filter: saturate(1); transform: translateY(-3px)}
+.app-main.app-main.with-tabs {padding-bottom: calc(144px + env(safe-area-inset-bottom))}
+.journal-tools.journal-tools > button {gap: 8px; padding-top: 12px}
+.journal-tools.journal-tools > button > span:first-child:has(.ip-icon) {
+  width: 64px;
+  height: 64px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.journal-tools .ip-icon {width: 64px; height: 64px; min-width: 64px; min-height: 64px}
+.journal-secondary-modes.journal-secondary-modes > button {gap: 8px; padding-inline: 8px}
+.journal-secondary-modes .journal-mode-icon:has(.ip-icon) {width: 48px; height: 48px; border: 0; border-radius: 0; background: transparent}
+.journal-secondary-modes .ip-icon {width: 48px; height: 48px; min-width: 48px; min-height: 48px}
+.journal-secondary-modes.journal-secondary-modes > button:disabled .journal-mode-icon:has(.ip-icon) {opacity: 1}
+.journal-secondary-modes button:disabled .ip-icon, .journal-tools button:disabled .ip-icon, .link-row:disabled .ip-icon {opacity: .45; filter: saturate(.4)}
+.profile-links .link-row > .row-icon:has(.ip-icon) {width: 48px; height: 48px; background: transparent; border: 0; border-radius: 0}
+.profile-links .ip-icon {width: 44px; height: 44px; min-width: 44px; min-height: 44px}
+.mode-switch .ip-icon {width: 32px; height: 32px; min-width: 32px; min-height: 32px}
+.mode-switch button:disabled .ip-icon {opacity: .45; filter: saturate(.4)}
+.app-topbar .ip-icon {width: 32px; height: 32px; min-width: 32px; min-height: 32px}
+.button .ip-icon {width: 32px; height: 32px; min-width: 32px; min-height: 32px}
+.button.primary .ip-icon {filter: drop-shadow(0 1px 1px #ffffff66)}
+.mode-switch button {flex-wrap: wrap; row-gap: 4px}
+.empty-state .ip-icon {width: 72px; height: 72px; margin: 0 auto 8px}
+.record-leaf .ip-icon {width: 48px; height: 48px; min-width: 48px; min-height: 48px}
+.journal-plot-placeholder .ip-icon {width: 96px; height: 96px; min-width: 96px; min-height: 96px}
+.article-card .article-mark:has(.article-crop-ip) {width: 60px; height: 80px; gap: 4px; border-radius: 16px; background: #edf6f2}
+.article-card .article-crop-ip {width: 56px; height: 56px; max-width: none; margin: 0; object-fit: contain; flex-shrink: 0}
+.settings-service .section-heading .ip-icon {width: 32px; height: 32px; min-width: 32px; min-height: 32px}
+@media (hover: hover) {
+  .journal-tools button:not(:disabled):hover .ip-icon, .journal-secondary-modes button:not(:disabled):hover .ip-icon {transform: translateY(-3px)}
+}
+@media (max-width: 359px) {
+  .journal-secondary-modes.journal-secondary-modes > button {gap: 4px; padding-inline: 8px}
+  .journal-secondary-modes .journal-mode-icon:has(.ip-icon), .journal-secondary-modes .ip-icon {width: 44px; height: 44px; min-width: 44px; min-height: 44px}
+  .mode-switch .ip-icon {width: 28px; height: 28px; min-width: 28px; min-height: 28px}
+}
+@media (prefers-reduced-motion: reduce) {
+  .ip-icon.ip-icon {transition: none !important; animation: none !important; transform: none !important}
+}
+html.reduce-motion .ip-icon {transition: none !important; animation: none !important; transform: none !important}

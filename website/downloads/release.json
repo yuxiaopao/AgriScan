@@ -1,0 +1,14 @@
+{
+  "status": "ready",
+  "version": "1.0.4",
+  "version_code": 5,
+  "channel": "公开测试版 · 调试签名",
+  "url": "./downloads/agriscan-test.apk",
+  "size_bytes": 24164454,
+  "sha256": "6cbf093162521271ed4fca39aa8e6a3694286653bf13440d056443c210b98026",
+  "package_id": "cn.agriscan.mobile",
+  "min_android": "7.0",
+  "target_sdk": 36,
+  "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+  "published_at": "2026-10-29"
+}

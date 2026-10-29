@@ -23,9 +23,9 @@
 
 ## 从观察一片叶子开始
 
-上传图片后，禾观自动识别作物、切换对应主题，并给出病害类别、置信度与真实目标框。检测结果可以关联地块、保存原图、回看历史，再交给农业助手「小禾」继续分析。管理员在独立控制台维护数据与运行配置。
+上传图片后，禾观自动识别作物、切换对应主题，并进入本次结果页，对照原图、真实目标框、病害类别与置信度。检测结果可以关联地块、保存原图、回看历史，再从结果页查看农业助手「小禾」的分析建议。管理员在独立控制台维护数据与运行配置。
 
-当前接入 **14 种作物、38 个健康与病害类别**的 ONNX 目标检测模型，支持 CPU 推理。检测框标示模型识别的目标范围，不代表病斑精细分割；目前没有独立检测 mAP，不能沿用旧分类模型的准确率。
+当前接入覆盖 **14 种作物、38 个健康与病害类别**的两套 ONNX 模型，支持 CPU 推理：目标检测模型给出主结论与目标框，`plantvillage-yolo26m` 对整张图片独立分类复核。两套原始分数分别展示，不加权或平均；结果不一致时提示复核。整图分类不代表逐框判断，检测框也不代表病斑精细分割；目前没有独立检测 mAP，不能沿用分类模型的准确率。
 
 ## 界面一览
 
@@ -61,15 +61,21 @@
 
 | 能力 | 桌面用户端 | 手机 APP | 独立管理端 |
 | --- | --- | --- | --- |
-| 图片自动识别 | 作物、病害、原图与检测框对照 | 拍照 / 选图、识别与结果查看 | 检索、维护检测记录 |
+| 图片自动识别 | 完成后进入原图、检测框与结论结果页 | 拍照 / 选图、识别与结果查看 | 检索、维护检测记录 |
+| 双模型复核 | 目标检测主结论、整图分类独立分数与一致性提示 | 同步查看检测与分类复核结果 | 查看运行模型组件与记录详情 |
 | 视频检测 | — | 按时间采样，查看各时点结果 | 管理保存的采样记录 |
 | 实时相机 | — | 串行抽帧预览，按需保存 | 控制入口与请求间隔 |
-| 地块与观察档案 | 查看、筛选及权限内维护 | 地块、记录与历史详情 | 全局维护、筛选与 CSV 导出 |
+| 后台检测任务 | 跨模块上传、处理、取消与结果入口 | 图片、视频与保存帧任务，最多同时上传两份文件 | — |
+| 地块与观察档案 | 自建、查看及维护本账号地块 | 自建 / 编辑地块、设置封面与查看关联观察 | 全局维护、筛选与 CSV 导出 |
 | 农业知识 | 查阅已发布内容 | 分类浏览与搜索 | 草稿、编辑、发布与归档 |
 | 小禾农业助手 | 悬浮窗口、向左展开历史 | 私人会话与历史 | 配置服务地址、模型与密钥 |
-| 账号与系统 | 登录注册、个人偏好 | 欢迎引导、登录注册、服务设置 | 成员角色、停用、密码重置、品牌公告及功能限额 |
+| 账号与系统 | 登录注册、忘记密码、验证邮箱绑定与个人偏好 | 欢迎引导、登录注册、邮箱绑定与找回、服务设置 | 成员角色、停用、密码重置、品牌公告及功能限额 |
 
-小禾的正常问答、图片分析与建议依赖管理员配置可用的大模型服务；未配置或连接失败时显示真实错误。邮件验证码同样需要可用的 SMTP 服务。视频采用采样检测，实时模式按间隔识别，不提供连续目标追踪；各端权限由后端校验。
+后台任务覆盖同一登录会话、同一程序进程内的模块切换，不提供刷新、关闭应用或退出登录后的本机队列恢复。实时相机离开检测页会停止，已提交保存的观察帧继续按任务处理。
+
+小禾的正常问答、图片分析与建议依赖管理员配置可用的大模型服务；未配置或连接失败时显示真实错误。邮件验证码、邮箱绑定与密码找回需要可用的 SMTP 服务；找回只适用于已验证并绑定的邮箱，历史未验证邮箱需先登录完成本人核验。视频采用采样检测，实时模式按间隔识别，不提供连续目标追踪；各端权限由后端校验。
+
+注册支持 3–80 位普通用户名或邮箱格式用户名，错误提示已统一为中文。网页注册修复及 APP 安装包范围见[注册校验修复记录](docs/registration-hotfix-20261029.md)。
 
 ## 获取完整代码
 
@@ -82,9 +88,16 @@ cd AgriScan
 git lfs pull
 ```
 
-先按[后端配置说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md)准备根目录及 `backend/` 的 `.env`；当前检测清单为 `models/candidates/user-detect-fafc2bb3ce9e/manifest.json`。真实凭据、数据库和上传图片不随仓库提供。
+先按[后端配置说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md)准备根目录及 `backend/` 的 `.env`。双模型配置示例（路径以 `backend/` 为基准）：
 
-`git lfs pull` 获取仓库已有的分类模型；**新版检测 `model.onnx` 需单独取得**，按[模型恢复说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，可将 `MODEL_MANIFEST` 留空，此时不会生成识别结论。
+```dotenv
+MODEL_MANIFEST=../models/candidates/user-detect-fafc2bb3ce9e/manifest.json
+CLASSIFICATION_MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json
+```
+
+真实凭据、数据库和上传图片不随仓库提供。
+
+`git lfs pull` 获取仓库已有的分类模型；**新版检测 `model.onnx` 需单独取得**，按[模型恢复说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，将 `MODEL_MANIFEST` 和 `CLASSIFICATION_MODEL_MANIFEST` 均留空，此时不会生成识别结论。
 
 ```powershell
 .\scripts\start-dev.ps1 -Install      # API + 桌面端；首次安装依赖
@@ -114,6 +127,7 @@ docs/       配置、验收与项目文档       design/     小禾 IP 与界面
 | [运行配置](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/client-and-admin.md) | 品牌、开关、限额、SMTP / LLM 与密钥保管 |
 | [后端与数据](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md) | API、数据库迁移与旧数据导入 |
 | [当前检测模型](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md) | 38 类映射、ONNX 导出及一致性校验边界 |
+| [双模型与本轮发布](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/server-dual-model-20261029.md) | 两套模型配置、任务范围与发布说明 |
 | [生产部署](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/deploy/README.md) | 域名前缀、独立服务、模型与安装包发布 |
 | [新域名迁移验收](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/domain-migration-20261029.md) | 当前网址、证书续期、APP 升级与真实生产检查 |
 | [生产验收记录](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/QA-2026-10-28.md) | 真实页面点击、检测结果、已知限制与证据 |

@@ -1,4 +1,4 @@
-"""Validated ONNX classification adapter; uploaded pickle weights remain inert."""
+"""Validated ONNX providers and inference snapshots; uploaded pickle stays inert."""
 from dataclasses import dataclass, field
 import hashlib
 import json
@@ -22,6 +22,19 @@ class InferenceResult:
     confidence: float | None
     candidates: list[dict] = field(default_factory=list)
     model: dict | None = None
+    crop: str | None = None
+    boxes: list[dict] = field(default_factory=list)
+    key: str | None = None
+
+
+def prediction_snapshot(result):
+    if not result.model:
+        return None
+    return {**result.model, **({'boxes': result.boxes} if result.boxes else {})}
+
+
+def public_prediction_model(model):
+    return {key: value for key, value in model.items() if key != 'boxes'} if model else None
 
 
 class InferenceProvider(Protocol):
@@ -29,7 +42,7 @@ class InferenceProvider(Protocol):
     active: dict | None
     supported_crops: list[str]
 
-    def predict(self, image_path: Path, crop: str) -> InferenceResult:
+    def predict(self, image_path: Path, crop: str | None = None) -> InferenceResult:
         ...
 
 
@@ -38,8 +51,10 @@ class AwaitingWeightsProvider:
     active = None
     supported_crops = []
 
-    def predict(self, image_path: Path, crop: str) -> InferenceResult:
-        return InferenceResult(status="awaiting_model", label=None, confidence=None)
+    def predict(self, image_path: Path, crop: str | None = None) -> InferenceResult:
+        if not crop:
+            raise HTTPException(422, "尚未启用作物识别模型，无法自动识别。请选择作物以保存待检测样本。")
+        return InferenceResult(status="awaiting_model", label=None, confidence=None, crop=crop)
 
 
 class OnnxClassificationProvider:
@@ -92,9 +107,9 @@ class OnnxClassificationProvider:
         self.active["class_count"] = len(labels)
         self.active["scope"] = "单叶图像分类；不输出病斑位置框，田间泛化尚需独立验证。"
 
-    def predict(self, image_path: Path, crop: str) -> InferenceResult:
+    def predict(self, image_path: Path, crop: str | None = None) -> InferenceResult:
         import numpy as np
-        if crop not in self.supported_crops:
+        if crop and crop not in self.supported_crops:
             raise HTTPException(422, f"当前模型未覆盖{crop}，请选择模型支持的作物。")
         if not self.guard.acquire(blocking=False):
             raise HTTPException(503, "模型正在处理另一张图片，请稍后重试。")
@@ -118,11 +133,11 @@ class OnnxClassificationProvider:
             model = {key: self.active[key] for key in ("name", "task", "onnx_sha256")}
             if confidence < self.threshold:
                 return InferenceResult("attention", f"置信度不足，请人工复核（候选：{label['label']}）",
-                                       confidence, candidates, model)
-            if label["crop"] != crop:
+                                       confidence, candidates, model, label["crop"], key=label['key'])
+            if crop and label["crop"] != crop:
                 raise HTTPException(422, f"图片更接近{label['crop']}，与所选{crop}不一致，请核对作物和照片。")
             return InferenceResult("healthy" if label["healthy"] else "attention",
-                                   label["label"], confidence, candidates, model)
+                                   label["label"], confidence, candidates, model, label["crop"], key=label['key'])
         except HTTPException:
             raise
         except Exception:
@@ -133,5 +148,18 @@ class OnnxClassificationProvider:
 
 def create_provider(settings):
     if not settings.model_manifest:
+        if settings.classification_model_manifest:
+            raise ValueError('Independent classification verification requires a primary detection manifest')
         return AwaitingWeightsProvider()
+    metadata = json.loads(Path(settings.model_manifest).read_text(encoding='utf-8'))
+    if metadata.get('task') == 'detect':
+        from .detection_inference import OnnxDetectionProvider
+        detector = OnnxDetectionProvider(settings.model_manifest, settings.inference_threads)
+        if settings.classification_model_manifest:
+            from .combined_inference import DetectionWithClassificationProvider
+            classifier = OnnxClassificationProvider(settings.classification_model_manifest, settings.inference_threads)
+            return DetectionWithClassificationProvider(detector, classifier)
+        return detector
+    if settings.classification_model_manifest:
+        raise ValueError('Independent classification verification requires a primary detection model')
     return OnnxClassificationProvider(settings.model_manifest, settings.inference_threads)
