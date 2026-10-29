@@ -24,6 +24,7 @@ from .assistant import install_assistant
 from .detection_assistant import install_detection_assistant
 from .admin_models import add_audit
 from .ownership import _lock_query
+from .schemas import Username
 
 
 class UserEmail(Base):
@@ -58,7 +59,7 @@ class EmailBody(BaseModel):
 
 
 class RegisterBody(BaseModel):
-    username: str = Field(min_length=3, max_length=40, pattern=r"^[a-zA-Z0-9_-]+$")
+    username: Username
     name: str = Field(min_length=1, max_length=80)
     password: SecretStr = Field(min_length=10, max_length=128)
     email: str = Field(default="", max_length=254)

@@ -8,6 +8,7 @@ import {useClientConfig} from './ClientConfig'
 import {FeedbackButton} from './Motion'
 import PasswordReset from './PasswordReset'
 import './account-security.css'
+import {registrationUsernameError, USERNAME_HELP, USERNAME_MAX_LENGTH} from '../../shared/accountValidation'
 
 const slides = [
   {title: <>把田野，<br/>装进口袋里。</>, text: '拍下一片叶子，记下生长变化。小禾陪你把每一次巡田留成记录。', image: 'app-hero.webp'},
@@ -47,6 +48,7 @@ function AccountAccess({page, onLogin, onSettings}: {page: string; onLogin: (use
     event.preventDefault()
     if(submitting.current||(register&&!registrationAvailable)||created)return
     const form=new FormData(event.currentTarget), username=String(form.get('username')||'').trim(), password=String(form.get('password')||'')
+    if(register){const invalidUsername=registrationUsernameError(username);if(invalidUsername){setError(invalidUsername);event.currentTarget.querySelector<HTMLInputElement>('[name="username"]')?.focus();return}}
     if(register&&password!==form.get('confirm')){setError('两次密码不一致，请重新输入确认密码。');event.currentTarget.querySelector<HTMLInputElement>('[name="confirm"]')?.focus();return}
     const version=screen.current.version,service=getServiceBase()
     const current=()=>mounted.current&&screen.current.version===version&&service===getServiceBase()
@@ -88,7 +90,7 @@ function AccountAccess({page, onLogin, onSettings}: {page: string; onLogin: (use
     <div className="auth-intro"><Art src="/images/xiaohe.png" alt="小禾欢迎你"/><h1>{register?'创建你的禾观账户':'欢迎回到禾观'}</h1><p>{register?'记录照片与地块，开始自己的田间观察。':'登录后，接着上一次的观察继续记录。'}</p></div>
     <form className="auth-form" onSubmit={submit} key={page}><fieldset disabled={busy||created}>
       {register&&<label>昵称<input name="name" placeholder="怎么称呼你" autoComplete="name" required maxLength={80}/></label>}
-      <label>用户名<input name="username" aria-label="用户名" aria-describedby={register?'mobile-username-help':undefined} placeholder={register?'设置登录用户名':'输入用户名'} autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required minLength={register?3:1} maxLength={register?40:80} pattern={register?'[a-zA-Z0-9_-]+':undefined}/>{register&&<small id="mobile-username-help" className="form-hint">3 至 40 位，可使用字母、数字、下划线或短横线。</small>}</label>
+      <label>用户名<input name="username" aria-label="用户名" aria-describedby={register?'mobile-username-help':undefined} placeholder={register?'设置用户名，或使用邮箱地址':'输入注册时的用户名'} autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} required minLength={register?3:1} maxLength={USERNAME_MAX_LENGTH}/>{register&&<small id="mobile-username-help" className="form-hint">{USERNAME_HELP}</small>}</label>
       {register&&<label>邮箱 <span>{config?.email_verification_enabled?'需验证':'选填'}</span><input name="email" type="email" placeholder="you@example.com" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} required={config?.email_verification_enabled} disabled={sending} value={email} onChange={event=>{setEmail(event.target.value);setMessage('');setCooldown(0)}}/></label>}
       {register&&config?.email_verification_enabled&&<label>邮箱验证码<div className="code-field"><input name="code" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} placeholder="输入 6 位验证码" required/><button type="button" onClick={sendCode} disabled={sending||cooldown>0||!email||!registrationAvailable}>{sending?'正在发送':cooldown?`${cooldown} 秒后重发`:'获取验证码'}</button></div></label>}
       <label>密码<div className="password-field"><input name="password" aria-label="密码" type={showPassword?'text':'password'} required minLength={register?10:1} maxLength={128} autoComplete={register?'new-password':'current-password'} placeholder={register?'至少 10 位字符':'输入密码'}/><button type="button" aria-label={showPassword?'隐藏密码':'显示密码'} aria-pressed={showPassword} onClick={()=>setShowPassword(value=>!value)}>{showPassword?<EyeOff size={18}/>:<Eye size={18}/>}</button></div></label>

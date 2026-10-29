@@ -19,7 +19,7 @@ from .db import AppMeta, Detection, Plot, PlotDetails, User, utcnow
 from .extensions import ModelArtifact, UserEmail
 from .inference import SUPPORTED_CROPS
 from .security import bearer, current_user, hash_password
-from .schemas import PlotCreate, PlotUpdate
+from .schemas import PlotCreate, PlotUpdate, Username
 from . import plot_operations
 from .ownership import _lock_query, image_referenced
 
@@ -43,7 +43,7 @@ class AdminBody(BaseModel):
 
 
 class UserCreate(AdminBody):
-    username: str = Field(min_length=3, max_length=40, pattern=r"^[a-zA-Z0-9_-]+$")
+    username: Username
     name: str = Field(min_length=1, max_length=80)
     password: str = Field(min_length=10, max_length=128)
     role: Role = "member"

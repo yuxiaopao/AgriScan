@@ -1,3 +1,4 @@
+import re
 from typing import Annotated
 
 from pydantic import AfterValidator, BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -11,6 +12,29 @@ def validate_crop(value):
 
 
 CropName = Annotated[str, AfterValidator(validate_crop)]
+
+
+def validate_username(value):
+    """Keep login identifiers exact while accepting both legacy names and emails."""
+    message = "用户名需为 3–80 位字母、数字、下划线、短横线，或有效邮箱地址。"
+    if not 3 <= len(value) <= 80:
+        raise ValueError(message)
+    if re.fullmatch(r"[a-zA-Z0-9_-]+", value):
+        return value
+    if value.count("@") != 1:
+        raise ValueError(message)
+    local, domain = value.split("@")
+    labels = domain.split(".")
+    if (not 1 <= len(local) <= 64 or local.startswith(".") or local.endswith(".")
+            or ".." in local or not re.fullmatch(r"[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+", local)
+            or len(labels) < 2
+            or any(not 1 <= len(label) <= 63 or not re.fullmatch(
+                r"[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?", label) for label in labels)):
+        raise ValueError(message)
+    return value
+
+
+Username = Annotated[str, AfterValidator(validate_username)]
 
 
 class LoginBody(BaseModel):

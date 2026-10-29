@@ -1,3 +1,5 @@
+import {apiErrorMessage} from '../../shared/apiErrors'
+
 const BASE_KEY = 'agriscan-mobile-service'
 const DEFAULT_SERVICE_BASE = import.meta.env.VITE_API_BASE_URL || ''
 const PREVIOUS_OFFICIAL_BASE = 'https://flowly-ai.top/agriscan'
@@ -48,8 +50,7 @@ export async function api<T>(path: string, options: RequestInit = {}, timeout = 
   if (!response.ok) {
     const body = await response.json().catch(() => ({}))
     if (response.status === 401&&token&&localStorage.getItem(tokenKey(base))===token) {localStorage.removeItem(tokenKey(base));if(getServiceBase()===base)window.dispatchEvent(new Event('agriscan-mobile-auth-expired'))}
-    const detail = Array.isArray(body.detail) ? body.detail.map((item: {msg?: string}) => item.msg).filter(Boolean).join('；') : body.detail
-    throw new ApiError(typeof detail === 'string' ? detail : `操作未完成（${response.status}），请稍后重试。`,response.status)
+    throw new ApiError(apiErrorMessage(body.detail, `操作未完成（${response.status}），请稍后重试。`),response.status)
   }
   return response.status === 204 ? undefined as T : response.json() as Promise<T>
 }

@@ -71,3 +71,5 @@ nginx -t
 后台任务保留在单进程内存中。仅前端或 APK 更新时，应校验后端与两套模型字节均未变化，再原子切换静态版本并保持 API PID；涉及后端更新时仍需受控重启，客户端会提示旧任务失效并由用户重新提交。systemd 使用 `deploy/agriscan-graceful.conf` 的 180 秒停止等待，给已接受的请求留出结束时间。
 
 1.0.4 的双模型、邮件、生产点击与静态修复发布见[本次验收](../docs/server-dual-model-20261029.md)。
+
+后续注册热修复 `release-20261029-201833-registration-hotfix` 采用短时检测提交门禁与任务排空后重启 API，配置、模型和 APK 保留；以 `hotfix-info.json` 补充记录变化源码及网页入口，继承的 `release-info.json` 保留原始 1.0.4 发行信息。生产复核细节见[注册校验修复](../docs/registration-hotfix-20261029.md)。

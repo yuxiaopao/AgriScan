@@ -2,7 +2,9 @@
 
 正式入口：[官网](https://agriscan.ming-ai.top/agriscan/)、[网页版](https://agriscan.ming-ai.top/agriscan/workspace/#login)、[管理端](https://agriscan.ming-ai.top/agriscan/admin/)、[Android 测试版](https://agriscan.ming-ai.top/agriscan/downloads/agriscan-test.apk)。本次点击验收使用正式域名，未以本地页面或关闭 TLS 校验代替。
 
-## 当前版本
+后续注册热修复已发布为 `release-20261029-201833-registration-hotfix`，更新 API、桌面及管理端，保留本报告的模型、APK 与运行配置。下表记录双模型功能验收时的版本；最新网页入口和注册回归见[注册校验修复记录](registration-hotfix-20261029.md)。
+
+## 本次功能验收版本
 
 | 项目 | 最终结果 |
 | --- | --- |

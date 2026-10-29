@@ -1,3 +1,5 @@
+import {apiErrorMessage} from '../../shared/apiErrors'
+
 // Shared components use the session for the independently built application surface.
 const TOKEN_KEY = import.meta.env.VITE_APP_SURFACE === 'admin' ? 'agriscan-admin-token' : 'agriscan-token'
 export const API_PREFIX = (import.meta.env.VITE_API_PREFIX || '').replace(/\/+$/, '')
@@ -29,8 +31,7 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
       setToken(null)
       window.dispatchEvent(new Event('agriscan-auth-expired'))
     }
-    const validation = Array.isArray(body.detail) ? body.detail.map((item: {msg?: string}) => item.msg).filter(Boolean).slice(0, 3).join('；') : ''
-    const message = typeof body.detail === 'string' ? body.detail : validation || (response.status === 401 ? '请先登录，或重新登录后再试。' : `操作未完成（${response.status}），请检查输入后重试。`)
+    const message = apiErrorMessage(body.detail, response.status === 401 ? '请先登录，或重新登录后再试。' : `操作未完成（${response.status}），请检查输入后重试。`)
     throw new Error(message)
   }
   if (response.status === 204) return undefined as T
