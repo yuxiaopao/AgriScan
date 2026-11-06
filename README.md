@@ -17,8 +17,6 @@
   </p>
 </div>
 
-> **分支说明**：`main` 保留初始代码并更新项目展示；最新完整功能位于 [`codex/workspace-ui-and-plot-management-20261028`](https://github.com/yuxiaopao/AgriScan/tree/codex/workspace-ui-and-plot-management-20261028)。体验源码请克隆该功能分支，下方技术文档也指向该分支。
->
 > **在线访问**：官网已迁移至 `agriscan.ming-ai.top`，直接访问域名会进入官网。Android 下载为独立发布的调试签名测试包，不随 Git 源码提交；真机体验仍需自行验证。
 
 ## 从观察一片叶子开始
@@ -83,12 +81,12 @@
 
 ```powershell
 git lfs install
-git clone --branch codex/workspace-ui-and-plot-management-20261028 --single-branch https://github.com/yuxiaopao/AgriScan.git
+git clone https://github.com/yuxiaopao/AgriScan.git
 cd AgriScan
 git lfs pull
 ```
 
-先按[后端配置说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md)准备根目录及 `backend/` 的 `.env`。双模型配置示例（路径以 `backend/` 为基准）：
+先按[后端配置说明](backend/README.md)准备根目录及 `backend/` 的 `.env`。双模型配置示例（路径以 `backend/` 为基准）：
 
 ```dotenv
 MODEL_MANIFEST=../models/candidates/user-detect-fafc2bb3ce9e/manifest.json
@@ -97,7 +95,7 @@ CLASSIFICATION_MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6b
 
 真实凭据、数据库和上传图片不随仓库提供。
 
-`git lfs pull` 获取仓库已有的分类模型；**新版检测 `model.onnx` 需单独取得**，按[模型恢复说明](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，将 `MODEL_MANIFEST` 和 `CLASSIFICATION_MODEL_MANIFEST` 均留空，此时不会生成识别结论。
+`git lfs pull` 获取仓库已有的分类模型；**新版检测 `model.onnx` 需单独取得**，按[模型恢复说明](models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，将 `MODEL_MANIFEST` 和 `CLASSIFICATION_MODEL_MANIFEST` 均留空，此时不会生成识别结论。
 
 ```powershell
 .\scripts\start-dev.ps1 -Install      # API + 桌面端；首次安装依赖
@@ -106,9 +104,9 @@ CLASSIFICATION_MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6b
 
 本机入口：桌面 `http://127.0.0.1:5173` · 手机预览 `http://127.0.0.1:5174` · 管理端 `http://127.0.0.1:5175`。管理员使用 `backend/.env` 中配置的账户；三个界面分别管理登录会话。
 
-Android 构建另需 **JDK 21 + Android SDK 36**，执行 `scripts/build-android.ps1`；正式发行需项目所有者保管发布签名。完整步骤见 [APP 与 APK 文档](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/mobile/README.md)。
+Android 构建另需 **JDK 21 + Android SDK 36**，执行 `scripts/build-android.ps1`；正式发行需项目所有者保管发布签名。完整步骤见 [APP 与 APK 文档](mobile/README.md)。
 
-## 功能分支目录
+## 项目目录
 
 ```text
 frontend/   桌面工作台                 mobile/     手机界面与 Android 工程
@@ -122,14 +120,14 @@ docs/       配置、验收与项目文档       design/     小禾 IP 与界面
 
 | 文档 | 内容 |
 | --- | --- |
-| [APP 与 Android](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/mobile/README.md) | 手机功能、HTTPS 服务地址、权限与 APK 构建 |
-| [管理控制台](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/admin/README.md) | 独立登录、共享组件与部署 |
-| [运行配置](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/client-and-admin.md) | 品牌、开关、限额、SMTP / LLM 与密钥保管 |
-| [后端与数据](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/backend/README.md) | API、数据库迁移与旧数据导入 |
-| [当前检测模型](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/models/candidates/user-detect-fafc2bb3ce9e/README.md) | 38 类映射、ONNX 导出及一致性校验边界 |
-| [双模型与本轮发布](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/server-dual-model-20261029.md) | 两套模型配置、任务范围与发布说明 |
-| [生产部署](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/deploy/README.md) | 域名前缀、独立服务、模型与安装包发布 |
-| [新域名迁移验收](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/domain-migration-20261029.md) | 当前网址、证书续期、APP 升级与真实生产检查 |
-| [生产验收记录](https://github.com/yuxiaopao/AgriScan/blob/codex/workspace-ui-and-plot-management-20261028/docs/QA-2026-10-28.md) | 真实页面点击、检测结果、已知限制与证据 |
+| [APP 与 Android](mobile/README.md) | 手机功能、HTTPS 服务地址、权限与 APK 构建 |
+| [管理控制台](admin/README.md) | 独立登录、共享组件与部署 |
+| [运行配置](docs/client-and-admin.md) | 品牌、开关、限额、SMTP / LLM 与密钥保管 |
+| [后端与数据](backend/README.md) | API、数据库迁移与旧数据导入 |
+| [当前检测模型](models/candidates/user-detect-fafc2bb3ce9e/README.md) | 38 类映射、ONNX 导出及一致性校验边界 |
+| [双模型与本轮发布](docs/server-dual-model-20261029.md) | 两套模型配置、任务范围与发布说明 |
+| [生产部署](deploy/README.md) | 域名前缀、独立服务、模型与安装包发布 |
+| [新域名迁移验收](docs/domain-migration-20261029.md) | 当前网址、证书续期、APP 升级与真实生产检查 |
+| [生产验收记录](docs/QA-2026-10-28.md) | 真实页面点击、检测结果、已知限制与证据 |
 
 <div align="center"><sub>禾观 AgriScan · 用心守护每一份绿意</sub></div>
