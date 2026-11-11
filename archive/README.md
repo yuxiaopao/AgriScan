@@ -2,7 +2,7 @@
 
 2026 年 11 月 11 日公开归档包含项目源码、现有测试、环境依赖、训练数据、40 轮检查点、模型、安装包、历史验收记录、设计和答辩交付材料。
 
-源码、测试和交付材料可在 `main` 浏览。完整工作文件和大文件位于 [GitHub Releases](https://github.com/yuxiaopao/AgriScan/releases/tag/project-archive-20261111)，以 512 MiB 分卷保存。Releases 的总容量和下载带宽没有配额上限，单个附件须小于 2 GiB。本次大文件使用 Releases 保存。[GitHub 官方说明](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+源码、测试和交付材料可在 `main` 浏览。完整工作文件和大文件位于 [GitHub Releases](https://github.com/yuxiaopao/AgriScan/releases/tag/project-archive-20261111)，以 32 MiB 分卷保存。Releases 的总容量和下载带宽没有配额上限，单个附件须小于 2 GiB。本次大文件使用 Releases 保存。[GitHub 官方说明](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
 
 ## 下载和校验
 

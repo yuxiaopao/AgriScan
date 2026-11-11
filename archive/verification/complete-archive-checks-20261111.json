@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-11",
+  "status": "passed",
+  "archive_files_verified": 125705,
+  "archive_parts": 264,
+  "all_file_sizes_and_sha256_verified": true,
+  "hard_link_targets_verified": true,
+  "unsafe_paths": 0,
+  "dataset_matches_pinned_upstream_sha256": true,
+  "training_epoch_checkpoints": 40,
+  "source_bytes": 12596863586,
+  "sanitized_runtime_files": 98,
+  "archive_stream_sha256": "dc7b637cae22431ed2174eaec7b7f6b11459d9eb1e0cab9cc04e7a7adddbbe7a",
+  "rechunked_stream_matches_verified_archive": true
+}

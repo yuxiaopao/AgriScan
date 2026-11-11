@@ -1,0 +1,1629 @@
+{
+  "format": 1,
+  "snapshot_date": "2026-11-11",
+  "repository": "yuxiaopao/AgriScan",
+  "release_tag": "project-archive-20261111",
+  "release_url": "https://github.com/yuxiaopao/AgriScan/releases/tag/project-archive-20261111",
+  "file_count": 125705,
+  "source_bytes": 12596863586,
+  "unique_bytes": 9444564777,
+  "archive_parts": [
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0001",
+      "bytes": 33554432,
+      "sha256": "0699e307f7ea29e37b8c1cab7f7f8ff5b493e33feeecbd83b967da48a58fb980",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0001"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0002",
+      "bytes": 33554432,
+      "sha256": "8da94d9ba2dbba357abbdb745a6a88ad48be2224348f5cb913caac6d3e35d3d6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0002"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0003",
+      "bytes": 33554432,
+      "sha256": "5150680a5ca392eda6037fbc973e852da48ba0d34e1af6f2aa42034ade6f35d6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0003"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0004",
+      "bytes": 33554432,
+      "sha256": "367e41d50e5ab41fc51c2ffcfd852fd49c6fb7be87b9f18b5c023a8b561346a2",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0004"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0005",
+      "bytes": 33554432,
+      "sha256": "3c68286d55df4b5718ff162dfaf9551c038195e43b69ad89b320f706bcd9673a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0005"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0006",
+      "bytes": 33554432,
+      "sha256": "da12f289450f40aec514eaa7788f28fcf6e2f5f40bf11f493addb25edfc5c082",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0006"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0007",
+      "bytes": 33554432,
+      "sha256": "aa74887afd772d74ba1d0dcecad4f0bdffc7fb0e98cba90b6d130faa534e3c79",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0007"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0008",
+      "bytes": 33554432,
+      "sha256": "1674c3e6f99c28f5f905337d6b2c470f0b30df4525c9633ddaf499fa6874202c",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0008"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0009",
+      "bytes": 33554432,
+      "sha256": "5bf97fab6268895c812a06e64fbbfc43b454995a304ffe18d1bab1a94430f754",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0009"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0010",
+      "bytes": 33554432,
+      "sha256": "810cd5e5c558518f6772189a8261db84907aa0f675500a2dbf741fc72e00dfdc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0010"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0011",
+      "bytes": 33554432,
+      "sha256": "77de8865e6d025151b666fce04971a03bb9cdace19c48c00e5fb09728b5407a8",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0011"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0012",
+      "bytes": 33554432,
+      "sha256": "1ac2027d3249fe0d330c61a9f152781ca6f47312db339ed869bff24278f2530d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0012"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0013",
+      "bytes": 33554432,
+      "sha256": "6b6a6ab23163e24b0d3f27c23496032e7fee15f308a6adbc9217261c71947a56",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0013"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0014",
+      "bytes": 33554432,
+      "sha256": "6603b3ae765c0e7d53d4db1f477b47fa887b788cbfb16170ec4bffc4e9cd0c67",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0014"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0015",
+      "bytes": 33554432,
+      "sha256": "51b45b96edd9b7b5b7c3b679282217dbd97e481d9d43a8f25909dca76cd641bc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0015"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0016",
+      "bytes": 33554432,
+      "sha256": "7c086d83d94ee8e3eb12993a7fa0c26c4b974a782931677ff0ac45c335ce8b84",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0016"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0017",
+      "bytes": 33554432,
+      "sha256": "1d7632765b3c272f871f889e78d09805967da606975b1da5560a43449828ec2d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0017"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0018",
+      "bytes": 33554432,
+      "sha256": "7cb18693d407657c9dde1e3b21671d977f4b7c03102f698db94d852746f2a4f0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0018"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0019",
+      "bytes": 33554432,
+      "sha256": "9775dbc85c364bedb79dede9bded9401b531bd9d3b36c0a6693e4455c56c220e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0019"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0020",
+      "bytes": 33554432,
+      "sha256": "c12844f8a40680ae003e4ca56f6d1246438a8566ab22c8f9aa4f4534a96aee40",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0020"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0021",
+      "bytes": 33554432,
+      "sha256": "03cf8d83ec45801df7dd748c58786b08fbf1f65dd83365677ef0ba76bbc602dc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0021"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0022",
+      "bytes": 33554432,
+      "sha256": "7ac3cfa1cc0343d276e1e01e102f1331df4728d24548e3c4145d217823d3c1b4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0022"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0023",
+      "bytes": 33554432,
+      "sha256": "5ca87403542942c7b519572538496a8b9dafbd2744af9470df234dd84f48bccc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0023"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0024",
+      "bytes": 33554432,
+      "sha256": "d21222d339e8bbdc5ac13dcb570936ff33fe0f80caded7dc1a95377cdbddba71",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0024"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0025",
+      "bytes": 33554432,
+      "sha256": "4c3d25ed053ea612229c0cd4a9c072779a62b449e6ded6aa283a96937e6ed76d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0025"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0026",
+      "bytes": 33554432,
+      "sha256": "3825aeceaa88ac566a266bf9a27d133d7a2e7e1ef9d7df0ae6bb5aa02d77337d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0026"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0027",
+      "bytes": 33554432,
+      "sha256": "cf401c4135d3f625c69220c12da740b0e60bb970ea44cc7d486658a5478c0ec8",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0027"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0028",
+      "bytes": 33554432,
+      "sha256": "18389d5526eb470d3de5f6f0deef5cf10644debb753ae651481db0ae7d21e528",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0028"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0029",
+      "bytes": 33554432,
+      "sha256": "57c056dac535cf6215748444d3ed593b86664c34faa5a9dd6ef015ff61b3e451",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0029"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0030",
+      "bytes": 33554432,
+      "sha256": "0556d5a3a47c441ecd9f05e5b1fd366ad4d756a31a409435186ec7cbe2003ab3",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0030"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0031",
+      "bytes": 33554432,
+      "sha256": "8e82eccc1fa290926d01af7841fb4b1ea1185e708a4bd10a12bce06c7b5a098e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0031"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0032",
+      "bytes": 33554432,
+      "sha256": "35e616f2fb59370aca7cd452f1d5eddecc8804fcc34ea9a4839c152856a086da",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0032"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0033",
+      "bytes": 33554432,
+      "sha256": "7b016dd72a5e8e8b1eef8ca37edb4e3a8e5e27cd8ccdf1ff1c92c9fa551f6d02",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0033"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0034",
+      "bytes": 33554432,
+      "sha256": "9b1a4085d871e786f93ebf4fb0c34d3dd8ab3f8dab65f57f706734d1a1e29833",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0034"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0035",
+      "bytes": 33554432,
+      "sha256": "5f73daab16c3857a440ed6c2b9c8fcd20b929bb045273e578a72a4e83fb60b63",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0035"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0036",
+      "bytes": 33554432,
+      "sha256": "d9f41c0e2d853c2caa25ff96e47f7840c10e69245e7e4ab532b9db49a10bff62",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0036"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0037",
+      "bytes": 33554432,
+      "sha256": "677001d89c435eba43711cdd9a3414be57fa8d28a0fe31aa540a55678032165e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0037"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0038",
+      "bytes": 33554432,
+      "sha256": "3f11c23ce79d5f7930ac24ba782ba3f7061e28716ec2dcf04f2bf44a0a024849",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0038"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0039",
+      "bytes": 33554432,
+      "sha256": "af5593025c86a39b890305d863d052883564112d8f989f0629e2f6adad3ffde0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0039"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0040",
+      "bytes": 33554432,
+      "sha256": "756f9f2cf38c572b292366a019e227b43edc6730b942bdebcf7280b98318eb48",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0040"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0041",
+      "bytes": 33554432,
+      "sha256": "bf53ae0cc4f6bdccf6d327733812a7d36295689a505b7868d78695ce74b42277",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0041"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0042",
+      "bytes": 33554432,
+      "sha256": "6b437dd1306f7a44bc4e5dac488a68b0eac350564f1ee220759a16d651f4077d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0042"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0043",
+      "bytes": 33554432,
+      "sha256": "504f3b704836e1d3574d8553e09fad2db53b5e17f296e6744e92c95299885974",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0043"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0044",
+      "bytes": 33554432,
+      "sha256": "66a5362a54f1669beaf546a78539377e753e1cfe8ed1ab071341d6af4afbd3bd",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0044"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0045",
+      "bytes": 33554432,
+      "sha256": "f610e60e7410262a9cf0f7e5ead9a2809eaecb274ec22d40436530505d0a8c92",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0045"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0046",
+      "bytes": 33554432,
+      "sha256": "e50155734d7c8dc69bd63adf5c72312649c32d6db2cae6a1ba7d0de10100ec36",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0046"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0047",
+      "bytes": 33554432,
+      "sha256": "0d7e70417513cccc3f1df5249b7c89f22a703c81f8f4a01bda4b5cb35d9057de",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0047"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0048",
+      "bytes": 33554432,
+      "sha256": "4993f736f2cdf8d11f51555e039bfdba5d07e1daa6f7c8e589f52b7bef1801a2",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0048"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0049",
+      "bytes": 33554432,
+      "sha256": "96da8cc629ba50a9df0c93b82ecd23f2af9f8b1ce9c4f0c7fa5b5a0884d0ffe3",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0049"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0050",
+      "bytes": 33554432,
+      "sha256": "f73325fd6d94d7113521eb4936436f006e8d838e21381082d586d50873237c7a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0050"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0051",
+      "bytes": 33554432,
+      "sha256": "c087832597d464cbb949e220bca4809ece2ae35e5568a9b4a01141a24e5e98e4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0051"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0052",
+      "bytes": 33554432,
+      "sha256": "0baa1bf206ed4df8d02da2e37720d308e2941faab9f1f96d6f2edea9d01933a7",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0052"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0053",
+      "bytes": 33554432,
+      "sha256": "d00aec501ac5615f4bddff5f637985fac15e13950f0dd3bb9cc7714f1446e07e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0053"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0054",
+      "bytes": 33554432,
+      "sha256": "de9d2725300691262d9223934a4c1a5a1fe6030a6c9f65b981fd3a2dd52d8a38",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0054"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0055",
+      "bytes": 33554432,
+      "sha256": "582dd737cc8b00f2672948dcab9d7405857b1b0cebcfbb4463f202cd253c96f0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0055"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0056",
+      "bytes": 33554432,
+      "sha256": "11e0aec55f74b51947dd4a4cd89359cce0987d34251c402951c5eb71d192d22f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0056"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0057",
+      "bytes": 33554432,
+      "sha256": "03a8efd979729ac87cb1acf0228a8388ffee1d95b82616887e5e3ec1c4af7675",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0057"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0058",
+      "bytes": 33554432,
+      "sha256": "4f4a7fdeecb5da9dec0d10d19d071f82e6a6c3f3edada0cb37ed7dec7bcc6172",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0058"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0059",
+      "bytes": 33554432,
+      "sha256": "5cb8342f416712928355b3350bf27b57e50ab47e2ad1fadca867ed56d67f1313",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0059"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0060",
+      "bytes": 33554432,
+      "sha256": "1aa7a7162705acc8136ebbf29bf94941e1e6434ff36da48603beb6ba7837016b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0060"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0061",
+      "bytes": 33554432,
+      "sha256": "a1ed3152ffa1ce26020761746e4d50af1c7006997344508afc655b2a8352bf37",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0061"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0062",
+      "bytes": 33554432,
+      "sha256": "dbe3a92fa6f306eb46f5a03eec7f8a15e9de031d56b902eba2c87151aae8f207",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0062"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0063",
+      "bytes": 33554432,
+      "sha256": "16e3534d6873fb3d8077495b4bfc9d94015a220c067f6ae2dbeffe9be1d482a7",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0063"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0064",
+      "bytes": 33554432,
+      "sha256": "bc6d47c3edcee225727a6b34d824fe205ede9b12fcc7f1077bc5c5ec22f6023e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0064"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0065",
+      "bytes": 33554432,
+      "sha256": "2f3afdf74797f3dc480f08a245794734f9f226d53a63750fc7ce6e2b115f1aab",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0065"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0066",
+      "bytes": 33554432,
+      "sha256": "9f08d0dbfb4ececbc8e3093cb501ab1b00a6b3747ba951044291840c44c266e1",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0066"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0067",
+      "bytes": 33554432,
+      "sha256": "db6b6572d0b45522c179e8154d26815b952e8f0b68650d7310dc9eeda867651f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0067"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0068",
+      "bytes": 33554432,
+      "sha256": "506b89fa322ecf33034eb53d3c031f4e278a85876237ef466c365f964a1f4414",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0068"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0069",
+      "bytes": 33554432,
+      "sha256": "b1c977a7d1c8069f992a8a2280b11cb7679f5a4bb1b9da359e1ed5a491b2ccc4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0069"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0070",
+      "bytes": 33554432,
+      "sha256": "12781c5b744236fe29d1f877d65fea34ea0fb2dcdae2c99f30dd76c1db632c89",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0070"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0071",
+      "bytes": 33554432,
+      "sha256": "c78a04f59b1cc82f94898b74e603f4140699288b210cab4a2d5d39c2fe136780",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0071"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0072",
+      "bytes": 33554432,
+      "sha256": "7a365a73d2eac862c9a9053171bb350feabb546c2a4afb51dcdf36e2616c6a66",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0072"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0073",
+      "bytes": 33554432,
+      "sha256": "cc6dbbf091c7024cf06abe4d758c28d27eb1085c9fc991f7393c350a54257501",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0073"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0074",
+      "bytes": 33554432,
+      "sha256": "c541be147d9ce5a421ad790dc1360ce24abceec7c1b98845888deb984244d09f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0074"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0075",
+      "bytes": 33554432,
+      "sha256": "cb96801abdf6e1b99c048a5fd714be0de1a51166cc838ff4ce3beded317a8350",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0075"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0076",
+      "bytes": 33554432,
+      "sha256": "45c182fddf3fb78796d6d99e769f8ec52309422913e1a1fbcfd1ce237064d874",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0076"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0077",
+      "bytes": 33554432,
+      "sha256": "9100545a3a347336ee90e3cdbbcf0575b8858b611bbf9c6ec6cde68594fac169",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0077"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0078",
+      "bytes": 33554432,
+      "sha256": "e2e3d53c10d5838b51d5b483548d04f206b098335a1ba63e21f25a404121e1f6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0078"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0079",
+      "bytes": 33554432,
+      "sha256": "6fbabc18842fb301e23590b7f5d2f0c3e288c241029ce393094328c53e760534",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0079"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0080",
+      "bytes": 33554432,
+      "sha256": "a37777d568323fc56eca6c9a58c73b0d0b9f98103009ad2374673f23457685a9",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0080"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0081",
+      "bytes": 33554432,
+      "sha256": "b59e26ccec78502323c20f4a56b5caec05c4b47e86b5ab2ced9c957f3c107b88",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0081"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0082",
+      "bytes": 33554432,
+      "sha256": "f29ae1f397c82b16adff4bdaeb78cdb5406dd6ec50479c5184cea17d46648cdf",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0082"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0083",
+      "bytes": 33554432,
+      "sha256": "cf60d861135f5349eacdb7cd64d4ecb1e2d5a6c9875c5a8754493a2d77b54296",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0083"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0084",
+      "bytes": 33554432,
+      "sha256": "d5b3e27ccb014d68c8ce14218fdff9e8c327d9900b9ded2b4412064b4ba8020e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0084"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0085",
+      "bytes": 33554432,
+      "sha256": "ada5acd493e2302c3c73e5b258f9600d525736f48a7f73369e47f28745b93f5e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0085"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0086",
+      "bytes": 33554432,
+      "sha256": "795cc6609b8f253227ae4065743db8acb439b49d9ef7d170c31c47341fb0c746",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0086"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0087",
+      "bytes": 33554432,
+      "sha256": "1fed55bb0c9a685a436be083fbd3326ed0f6bfac097c0f65044eab6f7fb671ea",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0087"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0088",
+      "bytes": 33554432,
+      "sha256": "6153135986ef29617d9be9bedba27d498868389d04e73aa62dd72c1811914475",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0088"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0089",
+      "bytes": 33554432,
+      "sha256": "a2bced823e493a5c9a584393c5279ddde1c5b94ba42c548fc9b1ea073193cdf0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0089"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0090",
+      "bytes": 33554432,
+      "sha256": "61906f79c37431c281f5d174198b836c8d71ea939f4eab7f9dc4467e10681b91",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0090"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0091",
+      "bytes": 33554432,
+      "sha256": "8b0ffe8879dce7bd5343d6f3592e3d796827686ad9cec40510baef91a98e918d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0091"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0092",
+      "bytes": 33554432,
+      "sha256": "65f13267904674c3b13b370d2ad60c454a5c0845874290f8f336ce265ff1f34b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0092"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0093",
+      "bytes": 33554432,
+      "sha256": "df908575fe907d99e9313f67212d8a99409dae10aff211bd4ffe4135a34968b8",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0093"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0094",
+      "bytes": 33554432,
+      "sha256": "f46fffb8d9c6efe3e21559ce12a3c0473c911e11d4ceaae8ccb9454184a4d934",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0094"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0095",
+      "bytes": 33554432,
+      "sha256": "b6b71d9e3123d623192018dcd91b884fe30dec3b0d865eb2cc7707afdd37f452",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0095"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0096",
+      "bytes": 33554432,
+      "sha256": "9ff41e920a135b9c90e4fb4965c38083d681ab2a770242b103ec8627d4a21567",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0096"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0097",
+      "bytes": 33554432,
+      "sha256": "173b7d6b5fc1bb0681f5778fdf84108ccf65dfc7f23bd0e6e24d170d574ecda1",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0097"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0098",
+      "bytes": 33554432,
+      "sha256": "3fe29dbb46fa28c043b31dbbd99ae22b26e39aadcb55fe999af440ab27e94289",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0098"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0099",
+      "bytes": 33554432,
+      "sha256": "0c0a475323ff25695de22d370f1885c3abe5f67adcf54e76b040a61585b023f2",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0099"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0100",
+      "bytes": 33554432,
+      "sha256": "40732217c731b35c80d84999a0efc3893f0c3c071db634fb3bcf2741f3d05717",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0100"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0101",
+      "bytes": 33554432,
+      "sha256": "9d8853d0d141227054c9d1fce410575a627064cea23a9dfbdb4da20633c201a7",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0101"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0102",
+      "bytes": 33554432,
+      "sha256": "44501c42b336a74c0ae17b61b65ebba3e48acc94e74736ca602c4f1ec006bb3f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0102"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0103",
+      "bytes": 33554432,
+      "sha256": "08763d3b160f8d20d2f06e1908311271f87c4516b819112543ed7b1fec7e33c8",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0103"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0104",
+      "bytes": 33554432,
+      "sha256": "4df83272b50c812d78508c4d716f634cb77437ad044e53ffacaaec005dbf2f59",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0104"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0105",
+      "bytes": 33554432,
+      "sha256": "ede8c38215e4d1905e9f50b989a24e112f5998023ddcefb8fb6764e468691677",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0105"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0106",
+      "bytes": 33554432,
+      "sha256": "87545f4518cce6e9fc27677687422a49765534f5f5e3ad5c6bace6b1326e591c",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0106"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0107",
+      "bytes": 33554432,
+      "sha256": "a190d50402f5c7eb11cc043f65cf9dbf55e4d4a10aa0b4e3be710679f4144e21",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0107"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0108",
+      "bytes": 33554432,
+      "sha256": "3af875eda79dab005a408d8b58329de325209c2741f42f22dd4e6dba0a67f56d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0108"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0109",
+      "bytes": 33554432,
+      "sha256": "2b7f6c4d3cd0ebf9a4f82165887954bf43551ef59292dba4bbe89eb5fdee54c4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0109"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0110",
+      "bytes": 33554432,
+      "sha256": "12ba2c1e983a4a6efec7ee768ee73b2514c3cd4ba06295878e5027a9d5f57930",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0110"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0111",
+      "bytes": 33554432,
+      "sha256": "7e5d7966738bd79e81bee99ead3c1dbb8d7adf0d6b36680d6f69361a1adce867",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0111"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0112",
+      "bytes": 33554432,
+      "sha256": "aac4fce1ed9a6ca47d8f5972b2a612c1926e4587c4b9c0976c6d726e9c572e71",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0112"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0113",
+      "bytes": 33554432,
+      "sha256": "bf5d9d2765cff4b94be6da0f6fb9800ebe18b753bd9d9920b24312832a97d71d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0113"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0114",
+      "bytes": 33554432,
+      "sha256": "4db3d50e4e37f1b7356eb9229576f698a3a9134aa6d5104a9bbcf10e409c4bcc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0114"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0115",
+      "bytes": 33554432,
+      "sha256": "94b52a43838ec7d665855c6a1ae0e0374e6749ab52e6c4f3db91f3b2af0668f6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0115"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0116",
+      "bytes": 33554432,
+      "sha256": "3dd56b515329cc2e64867c11acdbbdbe4aade8f70d2319ad41951af31b861c2d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0116"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0117",
+      "bytes": 33554432,
+      "sha256": "68e2c5f744f86cb63195759506a206bb448ad2aacf34418bc6f4e22cf93ee503",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0117"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0118",
+      "bytes": 33554432,
+      "sha256": "dd812a1f9d01bb69265aa9ad7f14787f4573e2a2cfbd33a813da36bfa4363fb3",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0118"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0119",
+      "bytes": 33554432,
+      "sha256": "1f673b8d12f51662ce612f840e00819482afc2049be5dc57ed16bac3c876d679",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0119"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0120",
+      "bytes": 33554432,
+      "sha256": "d436896b7f68a7baaa17838acd6ac6de84db1e750682e02252e482421fa5e955",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0120"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0121",
+      "bytes": 33554432,
+      "sha256": "88d1c6c338148712418a0a102112507a52ed0dfc40a2cb3c4cc6b64c0d17a469",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0121"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0122",
+      "bytes": 33554432,
+      "sha256": "db97f57fd0fcd030d3fc82646d3464db3f11eb8b890f7ff781af504e9e365964",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0122"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0123",
+      "bytes": 33554432,
+      "sha256": "f0f181061f5bba344de9e70d595584d81d708dc56e5d18de7041349a94a3ee5b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0123"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0124",
+      "bytes": 33554432,
+      "sha256": "621765c6069114aa44e59e456a871789a49ba3d50b9cc28ff344c0403d3835fd",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0124"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0125",
+      "bytes": 33554432,
+      "sha256": "bab17d82fbe174909ebe14057b53315edea59a0a5e439ab01907e5866f588c67",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0125"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0126",
+      "bytes": 33554432,
+      "sha256": "5eac5f79ff33bb6dde88ecb63d56af6778cc2ecd379f2daacc6a7e18eee3dc32",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0126"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0127",
+      "bytes": 33554432,
+      "sha256": "45bd4d11a69dd2b38b15c7ac6e6d4b541f2cbc2af7a3ef6fd827072baf2402e6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0127"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0128",
+      "bytes": 33554432,
+      "sha256": "293eea96cf1f14d87bf0abbfc1bd7ada94cf116a1cd4c7479fbad7d06808249f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0128"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0129",
+      "bytes": 33554432,
+      "sha256": "45d4dfc0c6eae9391f342979f726a902f148750619ff1e073382fdacbb8d0ded",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0129"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0130",
+      "bytes": 33554432,
+      "sha256": "615b9c6e45bae9071c7022bda4699597030070ada8ab6a6b30785c5b7c31bbe2",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0130"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0131",
+      "bytes": 33554432,
+      "sha256": "8b926eadaf78d3004e59d826629543b09b53b8ff41e7426e0cb7b59d860c3e95",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0131"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0132",
+      "bytes": 33554432,
+      "sha256": "e3d534c3e897920290861377efa832fecf3ccaff60d44ccf6818ffa03e972f39",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0132"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0133",
+      "bytes": 33554432,
+      "sha256": "f291e341abd49944144d0c67f0f3496443e50f175632bff150fbd17e6ea97587",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0133"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0134",
+      "bytes": 33554432,
+      "sha256": "63de934c41b9d3405059dc4e054de343778b7637c4fdcb4692ce33d9b891059c",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0134"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0135",
+      "bytes": 33554432,
+      "sha256": "8f1c3ba4bec9b0880118cd965224ac9e21f8e693da559fda246ad40dd4c505f4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0135"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0136",
+      "bytes": 33554432,
+      "sha256": "d57447120be77e8a71311d8dd9921f4060fdaec52805c3d18a44fe3d4a705e6a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0136"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0137",
+      "bytes": 33554432,
+      "sha256": "3ea2c91653a3a42bc9c7ada5cd037100493dfbf3c1112327fff508af2dbcaeae",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0137"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0138",
+      "bytes": 33554432,
+      "sha256": "92bc57b574316437093139be7062a7fac70adab608b7ac790105cbaf72edd0c4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0138"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0139",
+      "bytes": 33554432,
+      "sha256": "535304a950481a1833dc5ad4d9e71fcdb4d6776f904be90580bbada1bb88c437",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0139"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0140",
+      "bytes": 33554432,
+      "sha256": "ce48a189a649a623d554a00fce6d8732458fc87c78076d25ba7fa0898befbd2e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0140"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0141",
+      "bytes": 33554432,
+      "sha256": "339c0eb64fc30b068d7e37acf0e15a9440a6d9e1daba97f6daedf10fb9162a00",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0141"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0142",
+      "bytes": 33554432,
+      "sha256": "45f0d3369a0dbf69030a269b1571b61890f2dbe0caf6eff91528694b54eede47",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0142"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0143",
+      "bytes": 33554432,
+      "sha256": "4136a47af66e8d0c19b69603bcb600a61ed18f575faf432d1f779aae1df3dfba",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0143"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0144",
+      "bytes": 33554432,
+      "sha256": "d79ad1b5ad2b8549bfc5ce86a470622d02fe3ed6b98def37c0743fd0ec4f8114",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0144"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0145",
+      "bytes": 33554432,
+      "sha256": "bcfb6d23f23251a6c8fd84c3a46aba2d47ed9a085e1cb58ba2e31bb87cefac02",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0145"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0146",
+      "bytes": 33554432,
+      "sha256": "ec535105fc18005224e37b823301515d28eeb9ef437a92412c37237d764a6128",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0146"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0147",
+      "bytes": 33554432,
+      "sha256": "af639a0be1e64312a29f6c9bdac4720030e57dee45e2505541431e1a9b0a6996",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0147"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0148",
+      "bytes": 33554432,
+      "sha256": "fca3ef640b69adcf302761c01b7b838bb9357f1885b610b53f12c3d3142c2e67",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0148"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0149",
+      "bytes": 33554432,
+      "sha256": "27e9f009cc20c1198bc54ff0d5c589ec36f41e7852ecf571696f86b02c4c1803",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0149"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0150",
+      "bytes": 33554432,
+      "sha256": "ba460b00b9ff051087a1d4f98f0f5df574009b06e7dddadba6b9f1aeb36f050b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0150"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0151",
+      "bytes": 33554432,
+      "sha256": "244d0d6a701a0de36c05362ee4cf00a38adcc1103a6a86007c7a3d6acdf5409c",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0151"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0152",
+      "bytes": 33554432,
+      "sha256": "f144e296660b743eeda50dc964f0fea8e728d005fd47f4050a7c69060455a8f4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0152"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0153",
+      "bytes": 33554432,
+      "sha256": "7d6875e3e356b32d5742f762fdcf17f91e9287a6999be88155b5f39afbb64272",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0153"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0154",
+      "bytes": 33554432,
+      "sha256": "bdf718790595d61bc499e10955012f0034d282239f87c8b085635b87a3fe66db",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0154"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0155",
+      "bytes": 33554432,
+      "sha256": "e3ab966c15f83fa85af48ade6aa86235316202beea11a5b5113bf011a1623dce",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0155"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0156",
+      "bytes": 33554432,
+      "sha256": "e9ccae4195a21c34dd25e29dfaadc123038a1a51758d3e428ccfcb99354f550b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0156"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0157",
+      "bytes": 33554432,
+      "sha256": "9d8bb983590a758f2d2b8c01cd183a4e7dfb47a2e29209bd2f495923665dd617",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0157"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0158",
+      "bytes": 33554432,
+      "sha256": "151623db909ee1a594cac4ef4c5c42bb8693b3ff42c4b802259fe594e8dc9d9e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0158"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0159",
+      "bytes": 33554432,
+      "sha256": "4156ea0833793fffcdaa40be4dc78c09d1bc09eb14b0dc1b6905eb8a73126633",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0159"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0160",
+      "bytes": 33554432,
+      "sha256": "9745badf11f51c87a667503f167e456a2a0269ac2fe2991fb6464ab45f087c62",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0160"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0161",
+      "bytes": 33554432,
+      "sha256": "7fa37bd9f9443baa0b63c60fc9c839f4e1456ccd8b35eed3a847a781013bf2a4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0161"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0162",
+      "bytes": 33554432,
+      "sha256": "b37b2fb71f586351ee7980747627704da9e314e7c4f65227bad73f21037c8bb6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0162"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0163",
+      "bytes": 33554432,
+      "sha256": "3571725cf86b5460702c033a97798862e2c0027be5ea6df35eb9e72397896589",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0163"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0164",
+      "bytes": 33554432,
+      "sha256": "5a2f04f94efce92d3eb1b6d4e0cb4eeace1c364f7c3db304258984e55503a598",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0164"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0165",
+      "bytes": 33554432,
+      "sha256": "819f7f7d0c7fac30af9439d65e0a4a3eeac4cd4add631a066818cc03c7a628c6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0165"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0166",
+      "bytes": 33554432,
+      "sha256": "466ef8613146b8df649f9a711032dd0df44065fc836c34b21fd90589546297e0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0166"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0167",
+      "bytes": 33554432,
+      "sha256": "7404a143f4ae9bb1c0fd43153ef8f4be6d238221582e353ad5ad33fe28a6392b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0167"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0168",
+      "bytes": 33554432,
+      "sha256": "3492089b892085cfa2b9837a06a49f37557b034b98af988931e1b89c8fae29cc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0168"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0169",
+      "bytes": 33554432,
+      "sha256": "9798b884559c07f11a47f710bdf64138af6ac5b3daeb4a4f40acaf25fc79be44",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0169"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0170",
+      "bytes": 33554432,
+      "sha256": "07176e730197ad6a178ff5b845fe3c28dc61b5837b15ce6fa485360d02642308",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0170"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0171",
+      "bytes": 33554432,
+      "sha256": "2aef6f9d39cb8c40cebb91a8d05fd411b22ba5575b484b059dfb1dce20f957f6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0171"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0172",
+      "bytes": 33554432,
+      "sha256": "6da6e47acc4d4d57f5414d0b7985ec0d18d518fccf1deb089fbd880ea504f230",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0172"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0173",
+      "bytes": 33554432,
+      "sha256": "6b96cdbf532c96047820d804406f9091a8734d1e0075cfa967c53147ab7dbb0b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0173"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0174",
+      "bytes": 33554432,
+      "sha256": "6b0a4f96cecfc75f2280cf80e7100550b9db7450b837773a3b1bb43def86f954",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0174"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0175",
+      "bytes": 33554432,
+      "sha256": "0a74bd96856f74b75880a2cdc432995f2385d6151c24a11a7a0d3d5876ae70d4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0175"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0176",
+      "bytes": 33554432,
+      "sha256": "1d9c56c0c79785852d7f8fb33a4461676fbf303be8734b1608eb6110164a35f1",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0176"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0177",
+      "bytes": 33554432,
+      "sha256": "3be27c3d81fa5e05e60164ce2ad20b0e3bd0e63fbdef3c23a12dd95128f38a11",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0177"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0178",
+      "bytes": 33554432,
+      "sha256": "f1e29d42e03a4ef04ac0ae6315c64200b364dae47faf982e03444f0dc6e16302",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0178"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0179",
+      "bytes": 33554432,
+      "sha256": "08210de36febaba8fdf49be51d78203dced170cee1138b8cf3e978841a3006d3",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0179"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0180",
+      "bytes": 33554432,
+      "sha256": "3a45e5c55823d638944e465cb2d5a820ccf905c732e53b6534d6120febc2597a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0180"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0181",
+      "bytes": 33554432,
+      "sha256": "d00ff74e9801a2beb934902acfcf73e6f69d185c398299f39e0bfb70465b7ec4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0181"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0182",
+      "bytes": 33554432,
+      "sha256": "c294a2241832c503ff58ad8c8ad412f19440cb50d83c05ceb566367f39c3abe2",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0182"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0183",
+      "bytes": 33554432,
+      "sha256": "43b61ab1410aaa7aa91fd6a756351137e56387bc5b8879c2184ee76285c6fe59",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0183"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0184",
+      "bytes": 33554432,
+      "sha256": "e56402d67b2032659a4d17dc2b3e3a388bffc5fb67b4884e6ec6c695b7f4818f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0184"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0185",
+      "bytes": 33554432,
+      "sha256": "3903c2a249b8027f26415ce48d83a4bc6078980a25ed578b6e9ebf11dab57cac",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0185"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0186",
+      "bytes": 33554432,
+      "sha256": "aea420b58222aef365a8f54f75b9e2e015c776c2bdd210676483b1b2007318d8",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0186"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0187",
+      "bytes": 33554432,
+      "sha256": "713b4acfffa0bd10709a14a98753cdeb0a54d10ff7e56474af7ea1825c763ff4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0187"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0188",
+      "bytes": 33554432,
+      "sha256": "07b19bfe7b210117fded080d6ef2d48d107e5ae06f22cd28c6ce1fc0ac47685a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0188"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0189",
+      "bytes": 33554432,
+      "sha256": "c2038fcafd3d364a6ede8c150c4c986505d647429e4f8c55fea278a274fb7e81",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0189"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0190",
+      "bytes": 33554432,
+      "sha256": "0025863233095cd36b6ad28df9c4532ad6a75edd297f2aaf97816c41de8dadd1",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0190"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0191",
+      "bytes": 33554432,
+      "sha256": "7e3de9c764dcce66d14f4005b8589fc8587f361bbc1bea5b141564eeb8e0c899",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0191"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0192",
+      "bytes": 33554432,
+      "sha256": "796fc22d0efc49c1879d97c38931a05ce67fa69eb43a0b20110dd3e1dfb12d60",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0192"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0193",
+      "bytes": 33554432,
+      "sha256": "e4d11539861af6df5c1f53f67f151f0bb67f1b3526e3263d012e4b107ca16396",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0193"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0194",
+      "bytes": 33554432,
+      "sha256": "7ec56a3a1fd9a15d4cb82a04c4b8587705a4f2ef5f32361949ab81f9e233afce",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0194"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0195",
+      "bytes": 33554432,
+      "sha256": "a6c0bdeaf87ae6173520056545ca1953bbf16b6c89a1cdad185754d80480f09e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0195"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0196",
+      "bytes": 33554432,
+      "sha256": "f3294bb8531f935d08a35056e0af26c7a3ee3a2715f6802c841ee1f1db853536",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0196"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0197",
+      "bytes": 33554432,
+      "sha256": "828d0e05df3ba47f258e87160a398ddd0fb3decd7d843b2c93a068a91ccbdc8f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0197"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0198",
+      "bytes": 33554432,
+      "sha256": "574aba2c80c0ce46fd81c77f93e567ba2ae477c99bac78476e9fddc7f1d336f6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0198"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0199",
+      "bytes": 33554432,
+      "sha256": "1a00139b33c034f10394ac19c7f241fd31557181cbd216bff4f1ff0e9ab9c77d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0199"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0200",
+      "bytes": 33554432,
+      "sha256": "6cf85a12719b2211b0205b40c6b48b5e668b0e730c62026c0d26ec0ba36d03b4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0200"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0201",
+      "bytes": 33554432,
+      "sha256": "363f58e5cea48a77c2b1cda4d3b3915f8a8a9697bbc4f70afeb9364f842a2faf",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0201"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0202",
+      "bytes": 33554432,
+      "sha256": "0432ebb83e8de9290c935f25e01b04a40c0e75238489f9e6611932f216b17be6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0202"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0203",
+      "bytes": 33554432,
+      "sha256": "1136c406510ba8aea58103d4178cdf72cbd9eb380830128c8eb6ea0b74028ad8",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0203"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0204",
+      "bytes": 33554432,
+      "sha256": "40d94bd2cc9784fe5d6345361d597bf72a086774e2395ced14d904dfba326070",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0204"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0205",
+      "bytes": 33554432,
+      "sha256": "0d2926c6095724a934a105e9ef98b33399100d6cd9fd3aa4cc0a8beea6a3982b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0205"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0206",
+      "bytes": 33554432,
+      "sha256": "047dcf42f046f23c6ffc72cab295625c34064fcbef69471a518c4bfaab0db3a9",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0206"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0207",
+      "bytes": 33554432,
+      "sha256": "8d80ca6f1eea132433a0850f5742ed2170b737f89fbd0d6aa818f73a9846f15e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0207"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0208",
+      "bytes": 33554432,
+      "sha256": "04c5716d8c2f9efec403a6936a65c3c5d1554c9eb57ef36bcec6bd3d28bc91c4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0208"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0209",
+      "bytes": 33554432,
+      "sha256": "4f64e24c0251ef6ad6f044a8bbf100ae56874f88cedba824a51fe275aaffa385",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0209"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0210",
+      "bytes": 33554432,
+      "sha256": "7d0c088ec713c0664a98944ec142462f94892d127730769bf844e45cf29b2bd4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0210"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0211",
+      "bytes": 33554432,
+      "sha256": "e5008bcbac1833ad30d25ad6e31b97e6bd22cd9861ce0b38f187c785a5336946",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0211"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0212",
+      "bytes": 33554432,
+      "sha256": "21c9ef54b51e610e79be4b4b0f6eeecdd4fba5d032252bc0331680ada40a07bb",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0212"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0213",
+      "bytes": 33554432,
+      "sha256": "3626cb08d94a20786007b295673a57f095512c001e047ef65034cfd961fe051c",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0213"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0214",
+      "bytes": 33554432,
+      "sha256": "b397fe24adeac8fa584a8f6f1a8020eea63f9950cb6d4eb562b9a11b2dd4cfc2",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0214"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0215",
+      "bytes": 33554432,
+      "sha256": "82b0b42f9d4b9a75389e303c5c5bb225b6e144289de7d2af85f9df8d8d7b4669",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0215"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0216",
+      "bytes": 33554432,
+      "sha256": "2a383d681acb9c3b6c8c96262b8379c616848649b862b13a083b0ae8fd75c413",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0216"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0217",
+      "bytes": 33554432,
+      "sha256": "83a3e489a733dc2e02a013324c0ec87f8d6c564d114337bd792713617abd7dc4",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0217"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0218",
+      "bytes": 33554432,
+      "sha256": "60e02381eb137a0d8d0f38fe3238d8968bbc38de35ee44e77eeeb5c69ad10bcf",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0218"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0219",
+      "bytes": 33554432,
+      "sha256": "965b93ebee3c811f8368002d05ec2074883e1eb9aa4c84666eb4fc93f2052d5e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0219"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0220",
+      "bytes": 33554432,
+      "sha256": "029004ebddc128849e646b56f43706878377f25a60606b7fe67f6b19265ae440",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0220"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0221",
+      "bytes": 33554432,
+      "sha256": "a024eb9921ea17e77b7c318bf429626270a25f90e46d5a64c0dd2b3fdf5d6caa",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0221"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0222",
+      "bytes": 33554432,
+      "sha256": "d753f09192cf8f22437021a2a3c7d84b434fad03dfda6475889b9da684c40455",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0222"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0223",
+      "bytes": 33554432,
+      "sha256": "cc0975c2e455b3c6220aac4ca95acedff01d923f9d4b6f8bfd1e8f9f8dcb18d0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0223"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0224",
+      "bytes": 33554432,
+      "sha256": "141301fea22f444137ac8c4234b1c9b6d61c5fec04442ba5324e48a2dd84d64b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0224"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0225",
+      "bytes": 33554432,
+      "sha256": "7e6e3308163c7fd4d3be81c86318d222f1919bd8671deec4b3aef122bf909bac",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0225"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0226",
+      "bytes": 33554432,
+      "sha256": "4842bb86ff4c90328b4cd156033cd301cfa95c1737ee1ab04e95be61639e3fa6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0226"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0227",
+      "bytes": 33554432,
+      "sha256": "db4059b133cf1d69e29214810b0d3a8b45531e0f0ed8fbd6910878313d89b421",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0227"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0228",
+      "bytes": 33554432,
+      "sha256": "8b08f8b67a2461a704098255b42f76993e18a492634f3f64024e31d82299a5f7",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0228"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0229",
+      "bytes": 33554432,
+      "sha256": "55cac68bc0f3f8c7852fe4bc44e3cc9bf3cbd749892622869153f648800c23fd",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0229"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0230",
+      "bytes": 33554432,
+      "sha256": "cfba52e7b1e781184c400c278f91051f30024183d0f3b22b2587b2c9474d2f3d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0230"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0231",
+      "bytes": 33554432,
+      "sha256": "0bf44827c1bfe36b8c82de24fd1110bf9c070a65a6765d1f00a6d20c9142e1e5",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0231"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0232",
+      "bytes": 33554432,
+      "sha256": "c82ea6e130eba82e2f7f4d87a9aaf52f2cf256c632935731b8e9a864996f5625",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0232"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0233",
+      "bytes": 33554432,
+      "sha256": "a1e073a0ea4b074a8dbd328f5b4dd8a46b872c055f316474ac647a80d33b6352",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0233"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0234",
+      "bytes": 33554432,
+      "sha256": "40c4025eda7ba47e927a1c64f54e0b08da1d9c2a798575fa7eb0581433d6b72b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0234"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0235",
+      "bytes": 33554432,
+      "sha256": "21fce4f00945618df4cf62b9247fe7e40a08ce57766441cfe4b446a292e34819",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0235"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0236",
+      "bytes": 33554432,
+      "sha256": "9dd5e81c94e8aa05564db4dc38e6a973989b1b4b56223edf903b65b340377571",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0236"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0237",
+      "bytes": 33554432,
+      "sha256": "dba227e9e952894274a40429fb1ee3ede9a12a2e50f919fa4e65c87be3981720",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0237"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0238",
+      "bytes": 33554432,
+      "sha256": "4093b02dafb3b56e974fd7473abc8276df96c627ef9ac3f66d3da910b0de6d92",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0238"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0239",
+      "bytes": 33554432,
+      "sha256": "62c82c218384a57ca75dfb1d2f84a9a8a5ece50ec547d4b354843bf70e7e49a9",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0239"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0240",
+      "bytes": 33554432,
+      "sha256": "62a84c005e7542889490f993be83c9b039afd661f1a2303c752ab96f82cac36d",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0240"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0241",
+      "bytes": 33554432,
+      "sha256": "a3d4fb100a0e948aa8be70ff0c8a72c330c5233ff8ed4cd2b0d3151d0ee188ac",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0241"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0242",
+      "bytes": 33554432,
+      "sha256": "789bf3f5d739476d5bdc07fb73beb56222e2483399afbaa306fd6a5674083c4f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0242"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0243",
+      "bytes": 33554432,
+      "sha256": "a88d38d74c083351e16bc58712bb9fd1711d9e587084e2d55a48d98d4ecd6e65",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0243"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0244",
+      "bytes": 33554432,
+      "sha256": "e4120ce1ceb139c20281bceb10fefe4686cf3441a925e56969841d5c7b20ccfc",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0244"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0245",
+      "bytes": 33554432,
+      "sha256": "ed905c1b70b188b9e5df237a393fafed36709a06ade623d9d3bbd294aa0cb7ce",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0245"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0246",
+      "bytes": 33554432,
+      "sha256": "472c9975c66644973521075048f730cf77e3fef3afa977ddaa1f4dbb4a0f1d59",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0246"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0247",
+      "bytes": 33554432,
+      "sha256": "2bb3b6b36d41e9f08f16ce8c353317dc2354f4cb1cca0a61830af8e6781fc4fa",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0247"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0248",
+      "bytes": 33554432,
+      "sha256": "25d18a05a21bea465a2e1151905c516566b52597fb447055be5e9112c7cbfb38",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0248"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0249",
+      "bytes": 33554432,
+      "sha256": "aa055302f5a4cf3d6bf5b6c584732104d5b24c22a5ce7614c51d17089eeb6e51",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0249"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0250",
+      "bytes": 33554432,
+      "sha256": "fcb2887e570531600046a4298232004aa1ab64045760a5741e250d3542e67b2a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0250"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0251",
+      "bytes": 33554432,
+      "sha256": "e6a027ac042d5cd392262cbaf11b659257ca3896e85d04148e4251387d1dd747",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0251"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0252",
+      "bytes": 33554432,
+      "sha256": "e88b9b6dc1cff156ab159a3dfdd602e3f1369873ff4f1b99cb5131fa7e0907a0",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0252"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0253",
+      "bytes": 33554432,
+      "sha256": "3e547a5ef7729ea429e16c84b598969703773d524ac506941d378eaab92e2ff3",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0253"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0254",
+      "bytes": 33554432,
+      "sha256": "f241c3c0ce4e8c82b7493c54af278795870434744fcfd290b7b2ecf82269283f",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0254"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0255",
+      "bytes": 33554432,
+      "sha256": "6c565e00d39cb88a46df75182a5d46aa21f526636916a49527bef6d7b90719ca",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0255"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0256",
+      "bytes": 33554432,
+      "sha256": "503fb7ed151af9be8e9844ba00db93e964630b217c0647423d114a2e05c42a0e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0256"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0257",
+      "bytes": 33554432,
+      "sha256": "1db29bdab8f1c0791fc950b4af7ef5cd1673b5750dcc78d6db3f2a758d68af2c",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0257"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0258",
+      "bytes": 33554432,
+      "sha256": "2ca7b20a02317b68ce338aece17361a5d653d528731acf4d26d64c9646d0776a",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0258"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0259",
+      "bytes": 33554432,
+      "sha256": "b6c979ed6c124460be46766d8a38834debcf6b1d106a82619639423b1b11090b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0259"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0260",
+      "bytes": 33554432,
+      "sha256": "ae78a4fe23ee898b561bd7eddb3629757db8ec478767de0bfc581739a38700b6",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0260"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0261",
+      "bytes": 33554432,
+      "sha256": "0fe14b129ce94d110268aff163db8dc64032d6c1f06b2318595c9e41099b2ed9",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0261"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0262",
+      "bytes": 33554432,
+      "sha256": "830a543d84049cb93acdb46d7aa58edc49cf4cafa22607d6ac47c3a441a58a03",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0262"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0263",
+      "bytes": 33554432,
+      "sha256": "ce34eccccd3f95b7324f5778c08ec11ee5d1ee87803b25a3753379e0f7967c5b",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0263"
+    },
+    {
+      "name": "agriscan-complete-20261111.tar.gz.part0264",
+      "bytes": 10365205,
+      "sha256": "d2be82dcd159df9d2d622393831f45082c6713387cb40e871e17b96f0e032a0e",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-complete-20261111.tar.gz.part0264"
+    }
+  ],
+  "additional_assets": [
+    {
+      "name": "detector-model.onnx",
+      "bytes": 81780544,
+      "sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/detector-model.onnx"
+    },
+    {
+      "name": "classifier-model.onnx",
+      "bytes": 44229475,
+      "sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/classifier-model.onnx"
+    },
+    {
+      "name": "classifier-best.pt",
+      "bytes": 22295066,
+      "sha256": "741bc89980acea93a995815ab779a79d959b848881baf0ffa9b5b7695db7beea",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/classifier-best.pt"
+    },
+    {
+      "name": "agriscan-test.apk",
+      "bytes": 24164454,
+      "sha256": "6cbf093162521271ed4fca39aa8e6a3694286653bf13440d056443c210b98026",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/agriscan-test.apk"
+    },
+    {
+      "name": "file-index.json.gz",
+      "bytes": 8424238,
+      "sha256": "6d49808b0bc757c40ebd0a9f8d668c79c93304c760165f05b89b8498e8de12fb",
+      "url": "https://github.com/yuxiaopao/AgriScan/releases/download/project-archive-20261111/file-index.json.gz"
+    }
+  ],
+  "archive_stream_sha256": "dc7b637cae22431ed2174eaec7b7f6b11459d9eb1e0cab9cc04e7a7adddbbe7a"
+}
