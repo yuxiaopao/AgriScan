@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-29",
+  "preview": "http://127.0.0.1:5174/#home",
+  "build": "npm run build (tsc -b && vite build): passed",
+  "font": {
+    "family": "Agri Sans",
+    "browser_verification": "CSS.getPlatformFontsForNode: isCustomFont=true, AgriSans-Bold on home headline",
+    "source_manifest": "mobile/public/fonts/font-source.json"
+  },
+  "browser_checks": [
+    "390px and 320px layouts without horizontal document overflow",
+    "320px layout at 200% root text size without horizontal document overflow",
+    "Photo and note survive image to video to browser Back",
+    "Main navigation preserves records filters and capture drafts",
+    "Report closes when browser Back changes route",
+    "Assistant Back closes and Forward restores the same draft",
+    "Nested assistant history closes first; focus and body scroll lock restore correctly",
+    "Connection probe succeeds without modifying the saved address or logging out",
+    "Unchanged connection address cannot be redundantly saved",
+    "Reduced motion mode preserves navigation and overlay behavior",
+    "Fresh final page load: no browser warning or error logs"
+  ],
+  "screenshots": [
+    ".runtime/ui-refinement/mobile-glass-home.png",
+    ".runtime/ui-refinement/mobile-glass-assistant.png",
+    ".runtime/ui-refinement/mobile-glass-notes.png",
+    ".runtime/ui-refinement/mobile-glass-profile.png"
+  ],
+  "limits": [
+    "Local preview uses an isolated service and test account; identification model is disabled",
+    "Physical Android camera, permission prompts and model inference were not hardware tested"
+  ]
+}

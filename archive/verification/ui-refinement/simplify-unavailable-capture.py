@@ -1,0 +1,12 @@
+from pathlib import Path
+p=Path('E:/AgriScan/mobile/src/DetectPage.tsx');s=p.read_text(encoding='utf-8')
+s=s.replace("{current!=='image'&&capabilityLoading&&", "{current!=='image'&&ready&&capabilityLoading&&")
+s=s.replace('    <form onSubmit={submit}>', '    {showCaptureForm&&<form onSubmit={submit}>',1)
+s=s.replace('<CaptureProgress sampleOnly={!ready}', '<CaptureProgress sampleOnly={current===\'image\'&&!ready}')
+s=s.replace('    </form>\n', '    </form>}\n',1)
+s=s.replace("{current==='camera'&&<CameraCapture", "{current==='camera'&&<div hidden={!liveReady&&!cameraHadSession}><CameraCapture")
+s=s.replace('onActive={setCameraActive}', 'onActive={cameraActivity}')
+s=s.replace('config.limits.frame_interval_ms)}/>}','config.limits.frame_interval_ms)}/></div>}')
+s=s.replace('    <div className="photo-tips">','    {showCaptureForm&&<div className="photo-tips">',1)
+s=s.replace("种作物。`:''}</p></div>\n", "种作物。`:''}</p></div>}\n",1)
+p.write_text(s,encoding='utf-8')

@@ -1,0 +1,92 @@
+{
+  "checkpoint_sha256_before": "fafc2bb3ce9ef66189436e0ad175bf07a8a0973d52cf6ece210f827798733be4",
+  "checkpoint_version": "8.4.37",
+  "epoch": 12,
+  "current_ultralytics": "8.4.183",
+  "torch": "2.9.1+cu128",
+  "train_args": {
+    "task": "detect",
+    "model": "E:\\project\\crop-health-ai\\yolo26m.pt",
+    "imgsz": 640,
+    "end2end": null
+  },
+  "head": "Detect",
+  "nc": 38,
+  "reg_max": 1,
+  "state_has_end2end": false,
+  "state_has_private_end2end": false,
+  "has_one2one_cv2": true,
+  "has_one2one_cv3": true,
+  "default_current_end2end": false,
+  "old_version_getter_equivalent": true,
+  "blank_inputs": [
+    {
+      "size": 320,
+      "default_decoded_shape": [
+        1,
+        42,
+        2100
+      ],
+      "branches": {
+        "one2many": {
+          "logit_min": -917.0438232421875,
+          "logit_max": 67.72865295410156,
+          "max_score": 1.0,
+          "scores_exactly_one": 524,
+          "scores_total": 79800,
+          "topk_over_025": 300,
+          "topk_exactly_one": 300,
+          "all_finite": true
+        },
+        "one2one": {
+          "logit_min": -62.517181396484375,
+          "logit_max": -5.156972885131836,
+          "max_score": 0.005726129747927189,
+          "scores_exactly_one": 0,
+          "scores_total": 79800,
+          "topk_over_025": 0,
+          "topk_exactly_one": 0,
+          "all_finite": true
+        }
+      }
+    },
+    {
+      "size": 640,
+      "default_decoded_shape": [
+        1,
+        42,
+        8400
+      ],
+      "branches": {
+        "one2many": {
+          "logit_min": -917.366455078125,
+          "logit_max": 67.95294189453125,
+          "max_score": 1.0,
+          "scores_exactly_one": 1842,
+          "scores_total": 319200,
+          "topk_over_025": 300,
+          "topk_exactly_one": 300,
+          "all_finite": true
+        },
+        "one2one": {
+          "logit_min": -54.04807662963867,
+          "logit_max": -7.376593589782715,
+          "max_score": 0.0006253374740481377,
+          "scores_exactly_one": 0,
+          "scores_total": 319200,
+          "topk_over_025": 0,
+          "topk_exactly_one": 0,
+          "all_finite": true
+        }
+      }
+    }
+  ],
+  "explicit_true_before_fuse": true,
+  "after_true_head_fuse": {
+    "end2end": true,
+    "one2many_removed": true,
+    "one2one_retained": true
+  },
+  "checkpoint_sha256_after": "fafc2bb3ce9ef66189436e0ad175bf07a8a0973d52cf6ece210f827798733be4",
+  "original_unchanged": true
+}

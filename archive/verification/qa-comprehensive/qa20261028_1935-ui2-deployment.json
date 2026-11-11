@@ -1,0 +1,78 @@
+{
+  "run_id": "qa20261028_1935",
+  "release": "/srv/agriscan/releases/release-20261028-190106",
+  "backup": "/srv/agriscan/shared/backups/qa20261028_1935-ui2-20261028T120446Z",
+  "started_at": "2026-10-28T12:04:46.385603+00:00",
+  "files": [
+    {
+      "path": "public/workspace/index.html",
+      "sha256": "38b4360c66db1f5d2f20e3ec00ad955a17e95c60598ec32be68ff180aab2c6f2",
+      "size": 827,
+      "old_sha256": "faa810130317f7eacbe58203ecab0890f3a36fadb18360d124f59731bc13148b"
+    },
+    {
+      "path": "public/workspace/assets/Dashboard-CXSDcrgq.js",
+      "sha256": "701efe382acdf48cd085c9f8afed35c6031c6dc8948de2d303f34bd8d99b66bb",
+      "size": 8359,
+      "old_sha256": null
+    },
+    {
+      "path": "public/workspace/assets/index-DSL3GJSm.js",
+      "sha256": "8ee5b6a4be543dcb81b4b6ddf28a0efbcd6cb27c29d983da7debb05b72b664e7",
+      "size": 475600,
+      "old_sha256": null
+    },
+    {
+      "path": "public/admin/index.html",
+      "sha256": "79d3cf8419fed69ec11b733ff8839dc855fddda9fba55a05e6cf92ffd5cda564",
+      "size": 831,
+      "old_sha256": "4d83ebc252e53f1352bb3b34d38c602e578a29e407ebd61e0056a648fa32e14a"
+    },
+    {
+      "path": "public/admin/assets/index-CsHJvBm3.js",
+      "sha256": "6566003fddc8b84ad0b3ecf2104e09cd1b9bdf32791511b2a9513ee5468edb42",
+      "size": 460101,
+      "old_sha256": null
+    }
+  ],
+  "unchanged_files": 92,
+  "service_before": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "679018496",
+    "MemoryPeak": "681279488",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "write_order": [
+    "public/admin/assets/index-CsHJvBm3.js",
+    "public/workspace/assets/Dashboard-CXSDcrgq.js",
+    "public/workspace/assets/index-DSL3GJSm.js",
+    "public/admin/index.html",
+    "public/workspace/index.html"
+  ],
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "verified_https_files": [
+    "public/admin/assets/index-CsHJvBm3.js",
+    "public/workspace/assets/Dashboard-CXSDcrgq.js",
+    "public/workspace/assets/index-DSL3GJSm.js",
+    "public/admin/index.html",
+    "public/workspace/index.html"
+  ],
+  "service_after": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "679276544",
+    "MemoryPeak": "681279488",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "status": "passed",
+  "finished_at": "2026-10-28T12:04:46.618052+00:00"
+}

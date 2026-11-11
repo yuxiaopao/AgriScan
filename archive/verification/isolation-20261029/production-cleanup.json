@@ -1,0 +1,154 @@
+{
+  "run_id": "qa_iso_20261029_ceca6f",
+  "started_at": "2026-10-29T03:17:33.910690+00:00",
+  "checks": [
+    "private checkpoint identifies the exact QA run",
+    "two exact disposable QA account IDs are known",
+    "exact a account id username and member role verified",
+    "exact b account id username and member role verified",
+    "all owned records and plots are on the explicit ID allowlist",
+    "no foreign business record is associated with a disposable QA plot",
+    "QA conversations have no in-flight message lease",
+    "no foreign discussion references a disposable QA conversation",
+    "runtime configuration v6 is snapshotted without modification",
+    "all disposable media paths resolve directly inside owned uploads directory",
+    "dedicated cleanup control session authenticated",
+    "exact a disposable identity authenticates before cleanup",
+    "a cleanup member session is explicitly revoked before account deletion",
+    "exact b disposable identity authenticates before cleanup",
+    "b cleanup member session is explicitly revoked before account deletion",
+    "PATCH /api/admin/users/2374945a3e7443eeaca40468e5099c23 returns 200",
+    "PATCH /api/admin/users/37884c0f282a4bc9b107e7651dc2a95c returns 200",
+    "GET /api/admin/detections/145fcace1ce743b89f090ce0f6943e63 returns 200",
+    "disposable detection identity rechecked immediately before deletion",
+    "DELETE /api/admin/detections/145fcace1ce743b89f090ce0f6943e63 returns 200",
+    "GET /api/admin/detections/929962b2a2874970b506b20d676b6232 returns 200",
+    "disposable detection identity rechecked immediately before deletion",
+    "DELETE /api/admin/detections/929962b2a2874970b506b20d676b6232 returns 200",
+    "GET /api/admin/detections/aab59684215642a4a2ee52faf5e433d5 returns 200",
+    "disposable detection identity rechecked immediately before deletion",
+    "DELETE /api/admin/detections/aab59684215642a4a2ee52faf5e433d5 returns 200",
+    "GET /api/admin/plots/40f2f78f176a42f2a417cf9f0bf81395 returns 200",
+    "disposable plot identity rechecked immediately before deletion",
+    "DELETE /api/admin/plots/40f2f78f176a42f2a417cf9f0bf81395 returns 200",
+    "GET /api/admin/plots/b4f6429f85e1474da298ba5ccd05aaea returns 200",
+    "disposable plot identity rechecked immediately before deletion",
+    "DELETE /api/admin/plots/b4f6429f85e1474da298ba5ccd05aaea returns 200",
+    "no QA detections remain before deleting test identities",
+    "no QA plots remain before deleting test identities",
+    "exactly the two disposable QA users were deleted",
+    "only known QA detection and cover files have been removed",
+    "a revoked session is unauthorized after its exact user ID is deleted",
+    "a removed disposable identity can no longer log in",
+    "b revoked session is unauthorized after its exact user ID is deleted",
+    "b removed disposable identity can no longer log in",
+    "all pre-cleanup non-QA users primary keys remain present",
+    "pre-cleanup non-QA users rows retain the same hash",
+    "all pre-cleanup non-QA plots primary keys remain present",
+    "pre-cleanup non-QA plots rows retain the same hash",
+    "all pre-cleanup non-QA plot_details primary keys remain present",
+    "pre-cleanup non-QA plot_details rows retain the same hash",
+    "all pre-cleanup non-QA detections primary keys remain present",
+    "pre-cleanup non-QA detections rows retain the same hash",
+    "all pre-cleanup non-QA detection_predictions primary keys remain present",
+    "pre-cleanup non-QA detection_predictions rows retain the same hash",
+    "all pre-cleanup non-QA assistant_conversations primary keys remain present",
+    "pre-cleanup non-QA assistant_conversations rows retain the same hash",
+    "all pre-cleanup non-QA assistant_messages primary keys remain present",
+    "pre-cleanup non-QA assistant_messages rows retain the same hash",
+    "all pre-cleanup non-QA assistant_detection_discussions primary keys remain present",
+    "pre-cleanup non-QA assistant_detection_discussions rows retain the same hash",
+    "all pre-cleanup non-QA workspace_configuration primary keys remain present",
+    "pre-cleanup non-QA workspace_configuration rows retain the same hash",
+    "all pre-cleanup non-QA user_emails primary keys remain present",
+    "pre-cleanup non-QA user_emails rows retain the same hash",
+    "exact disposable bootstrap path stays within bootstrap",
+    "exact bootstrap fixture digest matches the uploaded test artifact",
+    "exact disposable bootstrap path stays within bootstrap",
+    "exact bootstrap fixture digest matches the uploaded test artifact",
+    "exact disposable bootstrap path stays within bootstrap",
+    "exact bootstrap fixture digest matches the uploaded test artifact"
+  ],
+  "deleted": {
+    "conversations": 1,
+    "accounts": 2,
+    "detections": 3,
+    "plots": 2,
+    "media_files": 5,
+    "bootstrap_fixtures": 3
+  },
+  "unexpected_owned_detection_ids": [],
+  "unexpected_owned_plot_ids": [],
+  "protected_before": {
+    "users": {
+      "count": 3,
+      "sha256": "6489592380f0962628ebdc5e47064415cd1e292408256192be3f626a976275c4"
+    },
+    "plots": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "plot_details": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "detections": {
+      "count": 4,
+      "sha256": "a68ea583016ddf48824dd4eda4f24663ea0ad634537037485ca4cc5d3fc20af7"
+    },
+    "detection_predictions": {
+      "count": 4,
+      "sha256": "5023a8717d636a0ca7f5d48c7f86acaaec65072761e8111af6e1f7b49a56e13c"
+    },
+    "assistant_conversations": {
+      "count": 2,
+      "sha256": "13bfe54e55490e3a6912027ae70c1a9fe58db2044d6c525f6437401c77b2316c"
+    },
+    "assistant_messages": {
+      "count": 4,
+      "sha256": "4bdf51c9ca5e00b6fb521b69b8d9b5426f4213949524ec6044aed8fff64aabba"
+    },
+    "assistant_detection_discussions": {
+      "count": 1,
+      "sha256": "67491541eb985db2170308c937503069623bcb028550d2010bc2f42aa66851c6"
+    },
+    "workspace_configuration": {
+      "count": 1,
+      "sha256": "6eccafb80624a58e6f95697ad38e8edf9c4167ddeebcbeebf4c3bba8f4edc4cd"
+    },
+    "user_emails": {
+      "count": 2,
+      "sha256": "24eefe3e57afd33800d1155b807c85482b6e509a72cec4df31dd6704c3d4c4ed"
+    }
+  },
+  "deactivated_accounts": [
+    "2374945a3e7443eeaca40468e5099c23",
+    "37884c0f282a4bc9b107e7651dc2a95c"
+  ],
+  "deleted_ids": {
+    "users": [
+      "2374945a3e7443eeaca40468e5099c23",
+      "37884c0f282a4bc9b107e7651dc2a95c"
+    ],
+    "detections": [
+      "145fcace1ce743b89f090ce0f6943e63",
+      "929962b2a2874970b506b20d676b6232",
+      "aab59684215642a4a2ee52faf5e433d5"
+    ],
+    "plots": [
+      "40f2f78f176a42f2a417cf9f0bf81395",
+      "b4f6429f85e1474da298ba5ccd05aaea"
+    ],
+    "conversations": [
+      "34bcc527688844168b872816b73cac27"
+    ]
+  },
+  "removed_bootstrap_fixtures": [
+    "/srv/agriscan/bootstrap/qa_iso_20261029_ceca6f_apple.jpg",
+    "/srv/agriscan/bootstrap/qa_iso_20261029_ceca6f_corn_rust.jpg",
+    "/srv/agriscan/bootstrap/qa_iso_20261029_ceca6f_corn_healthy.jpg"
+  ],
+  "status": "passed",
+  "cleanup_session_revoked": true,
+  "finished_at": "2026-10-29T03:17:35.306797+00:00"
+}

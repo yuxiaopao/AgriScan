@@ -24,6 +24,6 @@ SHA256：`fafc2bb3ce9ef66189436e0ad175bf07a8a0973d52cf6ece210f827798733be4`。
 
 ## 从源码仓库恢复模型
 
-本次 GitHub 提交包含代码、类别映射、清单及验证报告，不上传用户提供的 `best.pt`、重复导出的 `best.onnx` 或运行产物 `model.onnx`。这些文件仍保留在本机和已部署服务器中；已有分类模型的 Git LFS 管理方式不变。
+代码、类别映射、清单及验证报告保存在 Git 仓库。用户提供的 `best.pt`、导出的 `best.onnx` 和运行产物 `model.onnx` 已纳入 [2026 年 11 月 11 日完整项目归档](https://github.com/yuxiaopao/AgriScan/releases/tag/project-archive-20261111)。检测模型同时提供独立附件 `detector-model.onnx`，原始权重提供独立附件 `detector-best.pt`。完整归档的恢复步骤见[项目归档说明](../../../archive/README.md)。
 
-新克隆仓库后，需要单独取得已验证的检测工件，将 `model.onnx` 放在本目录、与 `manifest.json` 相邻。其 SHA256 必须为 `ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773`，再按 `backend/.env.example` 配置 `MODEL_MANIFEST`。没有该工件时，不能把清单中的验证状态当作推理服务已经就绪。
+新克隆仓库后，下载 `detector-model.onnx` 并重命名为 `model.onnx`，放在本目录、与 `manifest.json` 相邻。其 SHA256 必须为 `ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773`，再按 `backend/.env.example` 配置 `MODEL_MANIFEST`。没有该工件时，不能把清单中的验证状态当作推理服务已经就绪。

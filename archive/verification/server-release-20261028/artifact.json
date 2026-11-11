@@ -1,0 +1,6 @@
+{
+  "archive": ".runtime\\server-release-20261028\\agriscan-release.tar.gz",
+  "sha256": "ad78b194f5dc30a91c1ff565246d18f6a2e61d94c64a8e59929fdc27c4e85216",
+  "bytes": 84957497,
+  "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773"
+}

@@ -1,0 +1,526 @@
+{
+  "id": "524cb683ce7c458f9f70e9e6ac702838",
+  "filename": "leaf-validation.avi",
+  "duration_seconds": 4.0,
+  "sampled_frames": 8,
+  "results": [
+    {
+      "timestamp_seconds": 0.0,
+      "detection": {
+        "id": "bc1ce95e420d4b249a6c43bc71ab1ddb",
+        "name": "leaf-validation.avi · 0.000s",
+        "crop": "番茄",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "番茄早疫病",
+        "confidence": 0.9992406368255615,
+        "candidates": [
+          {
+            "key": "Tomato___Early_blight",
+            "crop": "番茄",
+            "disease": "早疫病",
+            "label": "番茄早疫病",
+            "healthy": false,
+            "confidence": 0.9992406368255615
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 0.0004222668067086488
+          },
+          {
+            "key": "Tomato___Septoria_leaf_spot",
+            "crop": "番茄",
+            "disease": "斑枯病",
+            "label": "番茄斑枯病",
+            "healthy": false,
+            "confidence": 0.0002847317955456674
+          },
+          {
+            "key": "Pepper,_bell___Bacterial_spot",
+            "crop": "甜椒",
+            "disease": "细菌性斑点病",
+            "label": "甜椒细菌性斑点病",
+            "healthy": false,
+            "confidence": 4.591658216668293e-05
+          },
+          {
+            "key": "Potato___Early_blight",
+            "crop": "马铃薯",
+            "disease": "早疫病",
+            "label": "马铃薯早疫病",
+            "healthy": false,
+            "confidence": 1.962013811862562e-06
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/a7307a89820444e8a4073d31b24a1be2.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 0.000s"
+      }
+    },
+    {
+      "timestamp_seconds": 0.5,
+      "detection": {
+        "id": "ba8a4c0dcaff4a83804bd5dfc64afee6",
+        "name": "leaf-validation.avi · 0.500s",
+        "crop": "番茄",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "番茄早疫病",
+        "confidence": 0.9994335770606995,
+        "candidates": [
+          {
+            "key": "Tomato___Early_blight",
+            "crop": "番茄",
+            "disease": "早疫病",
+            "label": "番茄早疫病",
+            "healthy": false,
+            "confidence": 0.9994335770606995
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 0.00033174475538544357
+          },
+          {
+            "key": "Tomato___Septoria_leaf_spot",
+            "crop": "番茄",
+            "disease": "斑枯病",
+            "label": "番茄斑枯病",
+            "healthy": false,
+            "confidence": 0.00019447588420007378
+          },
+          {
+            "key": "Pepper,_bell___Bacterial_spot",
+            "crop": "甜椒",
+            "disease": "细菌性斑点病",
+            "label": "甜椒细菌性斑点病",
+            "healthy": false,
+            "confidence": 3.483473483356647e-05
+          },
+          {
+            "key": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+            "crop": "番茄",
+            "disease": "黄化曲叶病毒病",
+            "label": "番茄黄化曲叶病毒病",
+            "healthy": false,
+            "confidence": 1.3901679949412937e-06
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/34fb57dbebf04c7d90fc61281ddb20cb.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 0.500s"
+      }
+    },
+    {
+      "timestamp_seconds": 1.0,
+      "detection": {
+        "id": "013c86ca20d24f51bab3262ad5e3006f",
+        "name": "leaf-validation.avi · 1.000s",
+        "crop": "番茄",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "番茄早疫病",
+        "confidence": 0.9994335770606995,
+        "candidates": [
+          {
+            "key": "Tomato___Early_blight",
+            "crop": "番茄",
+            "disease": "早疫病",
+            "label": "番茄早疫病",
+            "healthy": false,
+            "confidence": 0.9994335770606995
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 0.00033174475538544357
+          },
+          {
+            "key": "Tomato___Septoria_leaf_spot",
+            "crop": "番茄",
+            "disease": "斑枯病",
+            "label": "番茄斑枯病",
+            "healthy": false,
+            "confidence": 0.00019447588420007378
+          },
+          {
+            "key": "Pepper,_bell___Bacterial_spot",
+            "crop": "甜椒",
+            "disease": "细菌性斑点病",
+            "label": "甜椒细菌性斑点病",
+            "healthy": false,
+            "confidence": 3.483473483356647e-05
+          },
+          {
+            "key": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+            "crop": "番茄",
+            "disease": "黄化曲叶病毒病",
+            "label": "番茄黄化曲叶病毒病",
+            "healthy": false,
+            "confidence": 1.3901679949412937e-06
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/6faaac4e18734fbb8f5a9c1b16a4ed46.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 1.000s"
+      }
+    },
+    {
+      "timestamp_seconds": 1.5,
+      "detection": {
+        "id": "e1a5987f7ede4d2690de00a877cd8397",
+        "name": "leaf-validation.avi · 1.500s",
+        "crop": "番茄",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "番茄早疫病",
+        "confidence": 0.9994335770606995,
+        "candidates": [
+          {
+            "key": "Tomato___Early_blight",
+            "crop": "番茄",
+            "disease": "早疫病",
+            "label": "番茄早疫病",
+            "healthy": false,
+            "confidence": 0.9994335770606995
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 0.00033174475538544357
+          },
+          {
+            "key": "Tomato___Septoria_leaf_spot",
+            "crop": "番茄",
+            "disease": "斑枯病",
+            "label": "番茄斑枯病",
+            "healthy": false,
+            "confidence": 0.00019447588420007378
+          },
+          {
+            "key": "Pepper,_bell___Bacterial_spot",
+            "crop": "甜椒",
+            "disease": "细菌性斑点病",
+            "label": "甜椒细菌性斑点病",
+            "healthy": false,
+            "confidence": 3.483473483356647e-05
+          },
+          {
+            "key": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+            "crop": "番茄",
+            "disease": "黄化曲叶病毒病",
+            "label": "番茄黄化曲叶病毒病",
+            "healthy": false,
+            "confidence": 1.3901679949412937e-06
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/91f750b906d24fdc8dc61a87df6f01d3.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 1.500s"
+      }
+    },
+    {
+      "timestamp_seconds": 2.25,
+      "detection": {
+        "id": "cf2208bf858a4dc58c229496f243b7fa",
+        "name": "leaf-validation.avi · 2.250s",
+        "crop": "玉米",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "玉米普通锈病",
+        "confidence": 0.9999728202819824,
+        "candidates": [
+          {
+            "key": "Corn_(maize)___Common_rust_",
+            "crop": "玉米",
+            "disease": "普通锈病",
+            "label": "玉米普通锈病",
+            "healthy": false,
+            "confidence": 0.9999728202819824
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 2.70306300080847e-05
+          },
+          {
+            "key": "Apple___Apple_scab",
+            "crop": "苹果",
+            "disease": "黑星病",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "confidence": 8.437562826202338e-08
+          },
+          {
+            "key": "Pepper,_bell___healthy",
+            "crop": "甜椒",
+            "disease": "健康",
+            "label": "甜椒健康",
+            "healthy": true,
+            "confidence": 2.0193982042115977e-09
+          },
+          {
+            "key": "Soybean___healthy",
+            "crop": "大豆",
+            "disease": "健康",
+            "label": "大豆健康",
+            "healthy": true,
+            "confidence": 1.4300353123886111e-09
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/994be4079e2940c1bca9239c589a2637.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 2.250s"
+      }
+    },
+    {
+      "timestamp_seconds": 2.75,
+      "detection": {
+        "id": "1d022f3d32c74ec4a4dafca119aa19bf",
+        "name": "leaf-validation.avi · 2.750s",
+        "crop": "玉米",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "玉米普通锈病",
+        "confidence": 0.9999728202819824,
+        "candidates": [
+          {
+            "key": "Corn_(maize)___Common_rust_",
+            "crop": "玉米",
+            "disease": "普通锈病",
+            "label": "玉米普通锈病",
+            "healthy": false,
+            "confidence": 0.9999728202819824
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 2.70306300080847e-05
+          },
+          {
+            "key": "Apple___Apple_scab",
+            "crop": "苹果",
+            "disease": "黑星病",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "confidence": 8.437562826202338e-08
+          },
+          {
+            "key": "Pepper,_bell___healthy",
+            "crop": "甜椒",
+            "disease": "健康",
+            "label": "甜椒健康",
+            "healthy": true,
+            "confidence": 2.0193982042115977e-09
+          },
+          {
+            "key": "Soybean___healthy",
+            "crop": "大豆",
+            "disease": "健康",
+            "label": "大豆健康",
+            "healthy": true,
+            "confidence": 1.4300353123886111e-09
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/8b816c53d5af4828812087713ad36341.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 2.750s"
+      }
+    },
+    {
+      "timestamp_seconds": 3.25,
+      "detection": {
+        "id": "8989d552848746f682240907777648c8",
+        "name": "leaf-validation.avi · 3.250s",
+        "crop": "玉米",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "玉米普通锈病",
+        "confidence": 0.9999728202819824,
+        "candidates": [
+          {
+            "key": "Corn_(maize)___Common_rust_",
+            "crop": "玉米",
+            "disease": "普通锈病",
+            "label": "玉米普通锈病",
+            "healthy": false,
+            "confidence": 0.9999728202819824
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 2.70306300080847e-05
+          },
+          {
+            "key": "Apple___Apple_scab",
+            "crop": "苹果",
+            "disease": "黑星病",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "confidence": 8.437562826202338e-08
+          },
+          {
+            "key": "Pepper,_bell___healthy",
+            "crop": "甜椒",
+            "disease": "健康",
+            "label": "甜椒健康",
+            "healthy": true,
+            "confidence": 2.0193982042115977e-09
+          },
+          {
+            "key": "Soybean___healthy",
+            "crop": "大豆",
+            "disease": "健康",
+            "label": "大豆健康",
+            "healthy": true,
+            "confidence": 1.4300353123886111e-09
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/6d50548760e7490ba4f8f1da6100b7c6.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 3.250s"
+      }
+    },
+    {
+      "timestamp_seconds": 3.75,
+      "detection": {
+        "id": "3fafd989b4fc473d8b228b3f5b67f21a",
+        "name": "leaf-validation.avi · 3.750s",
+        "crop": "玉米",
+        "plot_id": null,
+        "plot_name": "未关联地块",
+        "status": "attention",
+        "result": "玉米普通锈病",
+        "confidence": 0.9999728202819824,
+        "candidates": [
+          {
+            "key": "Corn_(maize)___Common_rust_",
+            "crop": "玉米",
+            "disease": "普通锈病",
+            "label": "玉米普通锈病",
+            "healthy": false,
+            "confidence": 0.9999728202819824
+          },
+          {
+            "key": "Tomato___Late_blight",
+            "crop": "番茄",
+            "disease": "晚疫病",
+            "label": "番茄晚疫病",
+            "healthy": false,
+            "confidence": 2.70306300080847e-05
+          },
+          {
+            "key": "Apple___Apple_scab",
+            "crop": "苹果",
+            "disease": "黑星病",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "confidence": 8.437562826202338e-08
+          },
+          {
+            "key": "Pepper,_bell___healthy",
+            "crop": "甜椒",
+            "disease": "健康",
+            "label": "甜椒健康",
+            "healthy": true,
+            "confidence": 2.0193982042115977e-09
+          },
+          {
+            "key": "Soybean___healthy",
+            "crop": "大豆",
+            "disease": "健康",
+            "label": "大豆健康",
+            "healthy": true,
+            "confidence": 1.4300353123886111e-09
+          }
+        ],
+        "prediction_model": {
+          "name": "plantvillage-yolo26m",
+          "task": "classify",
+          "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+        },
+        "created_at": "2026-10-28T09:30:37.024959+00:00",
+        "image_url": "/api/uploads/1b1a6c5a759c4d24bac8c74132155d24.jpg",
+        "is_demo": false,
+        "note": "APP接口验收样本\n视频采样：leaf-validation.avi · 3.750s"
+      }
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "healthy": 0,
+    "attention": 8
+  },
+  "source": "sampled_video"
+}

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "tool": "official chrome-devtools MCP",
+  "account": "admin",
+  "recordId": "d37978e3aafa",
+  "note": "final-model-qa-20261020",
+  "result": "苹果健康",
+  "checks": [
+    "existing account login",
+    "public held-out image uploaded and classified",
+    "record details persisted",
+    "active plantvillage-yolo26m model with 38 classes and final evaluation metrics",
+    "only own test record and uploaded copy deleted",
+    "unrelated existing record retained after reload"
+  ],
+  "finishedAt": "2026-10-20T13:24:01.094Z"
+}

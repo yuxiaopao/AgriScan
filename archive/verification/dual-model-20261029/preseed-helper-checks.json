@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "checks": [
+    "5MiB same-index compare and read-only inspection create no target directory",
+    "copy only verified matching part into new full SHA directory",
+    "existing correct target is reused idempotently",
+    "conflicting/concurrent uploader part is preserved, never overwritten",
+    "full old APK fallback verifies old whole SHA and copies chunks without modifying published bootstrap APK",
+    "traversal/private source/invalid index/wrong chunk SHA all refuse before publication"
+  ],
+  "count": 6,
+  "production_written": false,
+  "network_called": false
+}

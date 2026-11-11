@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "checks": [
+    "enabled encrypted configuration survives browser test and independent login",
+    "browser connection test did not modify saved encrypted configuration",
+    "exact single owned browser detection found",
+    "fixture identity and real detector output match browser evidence",
+    "image interpretation and follow-up are persisted in the same conversation",
+    "persisted conversation belongs to this exact browser QA fixture",
+    "actual image analysis contains all six requested sections",
+    "saved follow-up contains a substantive real response",
+    "owned conversation was not a pre-existing conversation",
+    "only exact owned conversation and four messages removed",
+    "owned detection identity rechecked immediately before removal",
+    "owned test detection no longer exists",
+    "owned image file removed",
+    "all pre-existing business detections retained",
+    "all pre-existing conversations retained"
+  ],
+  "owned_detection_id": "210f9a8ef0724a16aace1b81c844c8a8",
+  "owned_conversation_id": "d9020d96d57f405b97cb6c5b78b95c0b",
+  "retained_detections": 2,
+  "analysis_characters": 489,
+  "followup_characters": 193,
+  "cleanup": {
+    "deleted_conversations": 1,
+    "deleted_messages": 4
+  },
+  "config_version": 6,
+  "control_session_revoked": true
+}

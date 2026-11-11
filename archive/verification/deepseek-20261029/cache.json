@@ -1,0 +1,5 @@
+{
+  "status": "passed",
+  "sha256": "c5b9642a387c621f74d48f3ef0d3ad882f3a4df32b4c926ae8b244b93a531d9d",
+  "backup": "/srv/agriscan/shared/backups/deepseek-20261029/nginx-locations-before-cache.inc"
+}

@@ -1,0 +1,757 @@
+{
+  "status": "copied",
+  "source_root": "E:\\AgriScan",
+  "snapshot_root": "E:\\AgriScan\\.runtime\\mobile-task-final-20261029",
+  "snapshot": "E:\\AgriScan\\.runtime\\mobile-task-final-20261029\\mobile",
+  "path_convention": "All files[].path and source_files keys are repository-relative, including mobile/ and shared/.",
+  "source_file_count": 147,
+  "source_bytes": 16985599,
+  "source_tree_sha256": "8c64279ed02d1a003d6f3c67d589bc4cb3d45ae1bfeaa1be98a2fdcf8f85c902",
+  "source_hash_algorithm": "SHA256 of sorted repository-relative path:sha256 lines joined with LF",
+  "files": [
+    {
+      "path": "mobile/.env.example",
+      "bytes": 149,
+      "sha256": "d339f43e148bbd20d08e325104eba84b1853df04c62fad5a31cc0c8721dce1c6"
+    },
+    {
+      "path": "mobile/android/.gitignore",
+      "bytes": 1831,
+      "sha256": "332ff8e5c0a6114f763cfc8cab0d2680cc33c95752882155323661865f16487a"
+    },
+    {
+      "path": "mobile/android/app/.gitignore",
+      "bytes": 26,
+      "sha256": "99c54e51ee601a60fbde8016b2cbf717483bc2e92773be86c9247d02a7fa6ea4"
+    },
+    {
+      "path": "mobile/android/app/build.gradle",
+      "bytes": 2508,
+      "sha256": "98a92d9e42c6ce9e4e804e536ff1c3065180ab3b472b8505e12dee024920c21a"
+    },
+    {
+      "path": "mobile/android/app/capacitor.build.gradle",
+      "bytes": 462,
+      "sha256": "55066ec19bb4fea7cc4935ab451e57db87b24563005fcd8c86ba0797195223b4"
+    },
+    {
+      "path": "mobile/android/app/proguard-rules.pro",
+      "bytes": 751,
+      "sha256": "1cf8c57e8f79c250b0af9c1a5a4edad71a5c348a79ab70243b6bae086c150ad2"
+    },
+    {
+      "path": "mobile/android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java",
+      "bytes": 774,
+      "sha256": "ff50b4c110a7434312f9af54171f9e8523b015836f707c9b387b76d4c38a97f8"
+    },
+    {
+      "path": "mobile/android/app/src/main/AndroidManifest.xml",
+      "bytes": 1848,
+      "sha256": "87857857035897b1ee351bd7e4dabf64b7761739e39dc19b8629eb40e324c574"
+    },
+    {
+      "path": "mobile/android/app/src/main/java/cn/agriscan/mobile/MainActivity.java",
+      "bytes": 122,
+      "sha256": "2461b9b3a8608f1185826619c7ad49a578c7741b5b09e8175b7709c4a05ec41d"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-land-hdpi/splash.png",
+      "bytes": 7705,
+      "sha256": "08cc34ad7713fe7ed58bceaa37b2387b670c53cd60264b4bd6442db3098e75dc"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-land-mdpi/splash.png",
+      "bytes": 4040,
+      "sha256": "5cf98b4451bd99b20df26f9e608a46946118be6b0ae90762f9ca1786a30c76ff"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-land-xhdpi/splash.png",
+      "bytes": 9251,
+      "sha256": "22f87e1e3bc89aa01a7dbc39c9a4db058cd0bf4ad3fe9f55712bf69eb997f4bf"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-land-xxhdpi/splash.png",
+      "bytes": 13984,
+      "sha256": "42aa26392546fcdee1b8d3ac6d4b41bfcceb41dc6a4f3a3c30c24a8a8f4db862"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-land-xxxhdpi/splash.png",
+      "bytes": 17683,
+      "sha256": "60393ce8636fd263e4e1fea3fd4ab2de948c6295e898fda9b50ac4e5283be809"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-port-hdpi/splash.png",
+      "bytes": 7934,
+      "sha256": "c5015f4ba3628392b538386c5e210f0b94f352a3160adab934fd0311972137ca"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-port-mdpi/splash.png",
+      "bytes": 4096,
+      "sha256": "07fa579e1c83e04ba7f9cbcbfcf41b68e15fe3638f2c44a04e58b809103e6b69"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-port-xhdpi/splash.png",
+      "bytes": 9875,
+      "sha256": "b73049cb37fe76d6c11b87a796766bf6af0c85483b31eb6a921657b0d764a4b9"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-port-xxhdpi/splash.png",
+      "bytes": 13346,
+      "sha256": "0c7f1212f25b7b90e9a6e1d320013e4ff3d3e03e634cbb07b7b7981cac51627f"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-port-xxxhdpi/splash.png",
+      "bytes": 17489,
+      "sha256": "3db071a03b2f8ffe0dfd4170fc59842d53cd15bba5e88af59401d58efabf7827"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml",
+      "bytes": 1880,
+      "sha256": "a8514094f754b099d3e55ce1d6e0b2de79db418b2eeacb0fc2a6bb0bfadef221"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable/ic_launcher_background.xml",
+      "bytes": 5606,
+      "sha256": "718ba51adf166bb55c3e9936bb8199a0148457f7f0191aaa2f37a94f3159d6ec"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/drawable/splash.png",
+      "bytes": 4040,
+      "sha256": "5cf98b4451bd99b20df26f9e608a46946118be6b0ae90762f9ca1786a30c76ff"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/layout/activity_main.xml",
+      "bytes": 535,
+      "sha256": "5d770feb791313b947020cbfc57e5c733c556dac5e9e49261a1190e527073253"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "bytes": 273,
+      "sha256": "17de17d5ab2bbc338e0d2f1c7e6a9d16a49f222ee6206d11ba4467cdaf19bbd4"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "bytes": 273,
+      "sha256": "17de17d5ab2bbc338e0d2f1c7e6a9d16a49f222ee6206d11ba4467cdaf19bbd4"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "bytes": 9282,
+      "sha256": "0f1d0dcbfc8eddd7c88af9fb497ce56e00760a73a3f35e4319af129edb6db36c"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png",
+      "bytes": 20862,
+      "sha256": "2f0e4089db3492ea58332b0a11a3546a1599be4d7046452da2a7bc3a268be498"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png",
+      "bytes": 9282,
+      "sha256": "0f1d0dcbfc8eddd7c88af9fb497ce56e00760a73a3f35e4319af129edb6db36c"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "bytes": 4784,
+      "sha256": "126346283a51c46dee66e28f9008623020fdcdef16467856a3425a2c59b26321"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png",
+      "bytes": 10650,
+      "sha256": "698b555ec41de4a35b2152a52ceb554d0f61b6588eac94722c5d8b11ca1c645f"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png",
+      "bytes": 4784,
+      "sha256": "126346283a51c46dee66e28f9008623020fdcdef16467856a3425a2c59b26321"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "bytes": 14983,
+      "sha256": "38e5ab52f419ca25c9675ccdc689a3eeef9fae27588ea4702fc4e638b757ea59"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png",
+      "bytes": 33793,
+      "sha256": "0a09a60be2107ea25c043e5a96373daa33cd2797f5b7f9661234aa778ba134ed"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png",
+      "bytes": 14983,
+      "sha256": "38e5ab52f419ca25c9675ccdc689a3eeef9fae27588ea4702fc4e638b757ea59"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "bytes": 29544,
+      "sha256": "88bdd37c02d2edee5aa8b625d7bbe74adf57388032a46ba0b9694a1433d684e1"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png",
+      "bytes": 68375,
+      "sha256": "105bb124f0e825a78951aa09200f3cda96cfa07baa60b7441ee5108b6eb8841f"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png",
+      "bytes": 29544,
+      "sha256": "88bdd37c02d2edee5aa8b625d7bbe74adf57388032a46ba0b9694a1433d684e1"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "bytes": 48384,
+      "sha256": "80c6debccd7f1b652061d1788c9affe7944f1db58fddb5d1fa8c6878eca3076e"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
+      "bytes": 115522,
+      "sha256": "9dee8067ddec1fd6f35fd420b3d56407a916921a2aaea6a6d2fca98d6a5e8616"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+      "bytes": 48384,
+      "sha256": "80c6debccd7f1b652061d1788c9affe7944f1db58fddb5d1fa8c6878eca3076e"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/values/colors.xml",
+      "bytes": 262,
+      "sha256": "dfb4ef07d2190b558845538da289b605c5f32d65cd9683de2b3687ed740ce021"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/values/ic_launcher_background.xml",
+      "bytes": 117,
+      "sha256": "5a9b0ab5418c680e4fb6d60f980988353ec802d0e431e0ce1252b7d8100858d3"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/values/strings.xml",
+      "bytes": 288,
+      "sha256": "e97e95dfca49c75934a953cffa60dc5ba0a476a96eab0179fc6c3b33739e4169"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/values/styles.xml",
+      "bytes": 1001,
+      "sha256": "9188f680e24ad4d03cfab4c13d06041048b39fb5f3e050ccd5824a9ce741075d"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/xml/config.xml",
+      "bytes": 185,
+      "sha256": "e9dcda493e663c5c4db9e3cb3bd968477a6e90aa8840bcbba40d72ed54b767ce"
+    },
+    {
+      "path": "mobile/android/app/src/main/res/xml/file_paths.xml",
+      "bytes": 213,
+      "sha256": "a46ed43ef65c90cb6778f4581decf3556e3f0055aad8f36d69dae16f9a0e99aa"
+    },
+    {
+      "path": "mobile/android/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java",
+      "bytes": 402,
+      "sha256": "d4045ae8fac1f0807e6b24eb34e68409a9a235df9d1a3f896fb8c9a49424363d"
+    },
+    {
+      "path": "mobile/android/build.gradle",
+      "bytes": 662,
+      "sha256": "1d4dd21de08af2cdae7f5c893116b4e8ab746cb6005679c24a2b6639db9b18e2"
+    },
+    {
+      "path": "mobile/android/capacitor.settings.gradle",
+      "bytes": 448,
+      "sha256": "aeddd0ebd130f1c033241da44911511da78ec041dbe9f95cec4a32b008c2cdc4"
+    },
+    {
+      "path": "mobile/android/gradle.properties",
+      "bytes": 987,
+      "sha256": "3bab15c5b8bc4c2f4b6cf525497d15ad4abca53a460e6dd2eb0f0135817d31e6"
+    },
+    {
+      "path": "mobile/android/gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 43764,
+      "sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172"
+    },
+    {
+      "path": "mobile/android/gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 340,
+      "sha256": "c766d8d8c0ca5eb96bfd44f09011421bcd67f675e6368cfe5dfc6940b5566293"
+    },
+    {
+      "path": "mobile/android/gradlew",
+      "bytes": 8733,
+      "sha256": "b187b4c52e749f5760afdd6fadc31b2a98ad35fb249bf0dff03b72650f320409"
+    },
+    {
+      "path": "mobile/android/gradlew.bat",
+      "bytes": 2937,
+      "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+    },
+    {
+      "path": "mobile/android/settings.gradle",
+      "bytes": 208,
+      "sha256": "6ce098d15ebd69b44c4ecd786bca1bdc366340d2459b2af4d7bb0ab317aa9669"
+    },
+    {
+      "path": "mobile/android/variables.gradle",
+      "bytes": 498,
+      "sha256": "83d502c9ed8fcf1dd4791482067abeedbebae49fafe9cd14a8a1f5891deb0d88"
+    },
+    {
+      "path": "mobile/capacitor.config.ts",
+      "bytes": 330,
+      "sha256": "6464309b31ecf357d1e580ed097c40892b620f594080a617729a0eaeacddb6a8"
+    },
+    {
+      "path": "mobile/index.html",
+      "bytes": 587,
+      "sha256": "538fd9a731eeb83baf782e597f23781518b880d7c3140814f2108d410185a1c0"
+    },
+    {
+      "path": "mobile/package-lock.json",
+      "bytes": 105101,
+      "sha256": "50344c623394797f94b731fc7fbfaaf205234b693d2e1b00c9c10d35e48c481b"
+    },
+    {
+      "path": "mobile/package.json",
+      "bytes": 844,
+      "sha256": "87c79241819f0973d1ff43c8703aa64f6b41d75d6efe0eaf6df380a2922307f0"
+    },
+    {
+      "path": "mobile/public/brand/icon.svg",
+      "bytes": 760560,
+      "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+    },
+    {
+      "path": "mobile/public/brand/logo.svg",
+      "bytes": 760562,
+      "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+    },
+    {
+      "path": "mobile/public/fonts/OFL.txt",
+      "bytes": 4388,
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "mobile/public/fonts/agriscan-sans-sc.woff2",
+      "bytes": 1093324,
+      "sha256": "def41b1e80cd998b72535815579b9a3e57e881aa88bef8a9ff02ca8c33620116"
+    },
+    {
+      "path": "mobile/public/fonts/font-source.json",
+      "bytes": 5101,
+      "sha256": "5d394ee7d30a7b4c6d95a2a88afca30f8ad5048b8cfa880e749a566e3a99963b"
+    },
+    {
+      "path": "mobile/public/images/app-hero.png",
+      "bytes": 2154751,
+      "sha256": "703b0bfdec32a822bb1f7ad926b58b95124fe4af6f7548fcc8e8e930af37969e"
+    },
+    {
+      "path": "mobile/public/images/app-hero.webp",
+      "bytes": 217848,
+      "sha256": "4f9a720e3b7f8ae29974c6a5b9770207d7570025d80dce5f71d68abdd70903b0"
+    },
+    {
+      "path": "mobile/public/images/crops/apple-still.webp",
+      "bytes": 26634,
+      "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+    },
+    {
+      "path": "mobile/public/images/crops/blueberry-still.webp",
+      "bytes": 25640,
+      "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+    },
+    {
+      "path": "mobile/public/images/crops/cherry-still.webp",
+      "bytes": 25168,
+      "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+    },
+    {
+      "path": "mobile/public/images/crops/citrus-still.webp",
+      "bytes": 26414,
+      "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+    },
+    {
+      "path": "mobile/public/images/crops/corn-still.webp",
+      "bytes": 26594,
+      "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+    },
+    {
+      "path": "mobile/public/images/crops/cucumber-still.webp",
+      "bytes": 25918,
+      "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+    },
+    {
+      "path": "mobile/public/images/crops/grape-still.webp",
+      "bytes": 26648,
+      "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+    },
+    {
+      "path": "mobile/public/images/crops/peach-still.webp",
+      "bytes": 26436,
+      "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+    },
+    {
+      "path": "mobile/public/images/crops/pepper-still.webp",
+      "bytes": 26432,
+      "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+    },
+    {
+      "path": "mobile/public/images/crops/potato-still.webp",
+      "bytes": 27058,
+      "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+    },
+    {
+      "path": "mobile/public/images/crops/pumpkin-still.webp",
+      "bytes": 25384,
+      "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+    },
+    {
+      "path": "mobile/public/images/crops/raspberry-still.webp",
+      "bytes": 26558,
+      "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+    },
+    {
+      "path": "mobile/public/images/crops/rice-still.webp",
+      "bytes": 27456,
+      "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+    },
+    {
+      "path": "mobile/public/images/crops/soybean-still.webp",
+      "bytes": 26358,
+      "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+    },
+    {
+      "path": "mobile/public/images/crops/strawberry-still.webp",
+      "bytes": 26784,
+      "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+    },
+    {
+      "path": "mobile/public/images/crops/tomato-still.webp",
+      "bytes": 26896,
+      "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+    },
+    {
+      "path": "mobile/public/images/crops/wheat-still.webp",
+      "bytes": 26538,
+      "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+    },
+    {
+      "path": "mobile/public/images/feature-camera.png",
+      "bytes": 1326418,
+      "sha256": "96f323a740995a7092329a2eb7759e316adc70b1cfb42358bec9b4a0f8cd82e8"
+    },
+    {
+      "path": "mobile/public/images/feature-camera.webp",
+      "bytes": 252592,
+      "sha256": "9d9516246436889e5c812d578574eeb976df45242508fe18d5823860c941f495"
+    },
+    {
+      "path": "mobile/public/images/feature-image.png",
+      "bytes": 1089191,
+      "sha256": "093e4854a7b423d4a768e72e812f2226a17affedff290a71a19ee6ce008fc203"
+    },
+    {
+      "path": "mobile/public/images/feature-image.webp",
+      "bytes": 179722,
+      "sha256": "6d72f105fb0602a49e8ecaf8a00e73a2a81a66a3adc61927202bca4c51bc6a3a"
+    },
+    {
+      "path": "mobile/public/images/feature-video.png",
+      "bytes": 1120507,
+      "sha256": "c6310156e304b597fdf41ac264ebf300d3d2f916885cb89db1caa979924c5d0c"
+    },
+    {
+      "path": "mobile/public/images/feature-video.webp",
+      "bytes": 186668,
+      "sha256": "9c7f7a3b4e8619f7d5dd9d417da03bdcb55f35905dbca5779eab2e816d2ec46b"
+    },
+    {
+      "path": "mobile/public/images/field-morning-hero.png",
+      "bytes": 1958628,
+      "sha256": "0fc43c3f3be9372aa7d36b36b952d84bdc126c0e31fb7bbd40c9417dacde6d48"
+    },
+    {
+      "path": "mobile/public/images/field-notes-macro.png",
+      "bytes": 2100769,
+      "sha256": "81ee1721bb85c0c93386b7f5e56b94dd8028049bbadb5776245785f00d4055d5"
+    },
+    {
+      "path": "mobile/public/images/icon.png",
+      "bytes": 1027467,
+      "sha256": "af3183eb038562a0a79822db368ee5fd206962b7c9e55d82051e9ea22af10233"
+    },
+    {
+      "path": "mobile/public/images/icon.webp",
+      "bytes": 69004,
+      "sha256": "fdf7c67150bbb2356da9c1ebf7978abfa2d0f195ae855397fcaa565f3f8ad9ae"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/camera.webp",
+      "bytes": 12856,
+      "sha256": "ba2795b91776883656df0cc9c79a8d793661d718b277db75c4bd0bca27f897bd"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/detect.webp",
+      "bytes": 31016,
+      "sha256": "2ed693c3961daeaf244dcb3f94acfa50e262b97d1937fe4d63dacae6a48054db"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/home.webp",
+      "bytes": 25664,
+      "sha256": "09620f1efd282838b2c2e69b55e7fd32381e1ebeb1edbe1218e8710f0a7376f6"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/knowledge.webp",
+      "bytes": 31898,
+      "sha256": "68d05adaaf428c90dfb3dc3b08ef44f29247f4f906e0ea7667d5f3b2786ac345"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/plots.webp",
+      "bytes": 32062,
+      "sha256": "cd2d29842fdfa1078ec82acd2ffbb15dcfb95d624ee1a80b4644610366b33e7b"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/profile.webp",
+      "bytes": 12874,
+      "sha256": "10519e22b3f97b543e36d9eeb257bffadeab210b5e8651b3200be5523da447c2"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/records.webp",
+      "bytes": 28516,
+      "sha256": "9a3d62b64b78276d7fd833242c0740012a09aaf473758568716131d23d0f2895"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/settings.webp",
+      "bytes": 28910,
+      "sha256": "c3f13cee4157abd56ff0f81834541a9ab67f999ffd802bf7e9f768f533365c3b"
+    },
+    {
+      "path": "mobile/public/images/ip-icons/video.webp",
+      "bytes": 12322,
+      "sha256": "669eccb4aadcb961af4aadb779d0f330630c9e4beb8cca00ac41ca7ac73a2c3d"
+    },
+    {
+      "path": "mobile/public/images/xiaohe.png",
+      "bytes": 934830,
+      "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+    },
+    {
+      "path": "mobile/scripts/generate-android-icons.py",
+      "bytes": 2299,
+      "sha256": "944841f16292fadb61524af52f28b6dde25d1f11807eab5e49e46e8a228dd244"
+    },
+    {
+      "path": "mobile/src/Access.tsx",
+      "bytes": 12118,
+      "sha256": "84322f3fc7422a6ca4d3908794465318e29606ac0702261dc93f20854a71483e"
+    },
+    {
+      "path": "mobile/src/App.tsx",
+      "bytes": 16999,
+      "sha256": "6d32b64fc411bcc62a0f4324cfbb7bfb612e9754305216c650372691c3d7e953"
+    },
+    {
+      "path": "mobile/src/AssistantPage.tsx",
+      "bytes": 10930,
+      "sha256": "07e3e3d11c04768e63ead7176063f5d641c182b542504d56c6364857e81fe654"
+    },
+    {
+      "path": "mobile/src/CameraCapture.tsx",
+      "bytes": 11907,
+      "sha256": "f548de3f417d69350f79b07ce29e57ea2ad61f4f92bd982e01ff1bc1a9eab327"
+    },
+    {
+      "path": "mobile/src/ClientConfig.tsx",
+      "bytes": 3493,
+      "sha256": "e9b5d0d3cb44a085aabbc326c24e1b2b4c64012c213e4e5c8e6c283d3ce61f1a"
+    },
+    {
+      "path": "mobile/src/DetectPage.tsx",
+      "bytes": 14890,
+      "sha256": "b019bdbe298acfbe628ab62a336d08a472ce3ef2d48ce11f72709abf112ce43c"
+    },
+    {
+      "path": "mobile/src/DetectionTasks.tsx",
+      "bytes": 6958,
+      "sha256": "29bbcea315cb1b1b16ab0472ce6d7c1ad07ccf3e6bd6e872e6ece067eb588baa"
+    },
+    {
+      "path": "mobile/src/EmailBinding.tsx",
+      "bytes": 5951,
+      "sha256": "a1e23804f1117456b0982c41a20db4fc76149babc8d2f827e0dc3ceaf9f15a42"
+    },
+    {
+      "path": "mobile/src/FloatingAssistant.tsx",
+      "bytes": 12562,
+      "sha256": "0a8694ce7e7641d5da44e7b11440480acdb3667114de233078433ded54585017"
+    },
+    {
+      "path": "mobile/src/IpIcon.tsx",
+      "bytes": 769,
+      "sha256": "52708204ec6c0db337bc5c9c9267fce4a76b1e87dd316e8870c4c2283e96b0dc"
+    },
+    {
+      "path": "mobile/src/ModelVerification.tsx",
+      "bytes": 2601,
+      "sha256": "674c9b16738711771d8fa74e1d0c4e45515b5a8b18899cfd974b92a9b09defd8"
+    },
+    {
+      "path": "mobile/src/ModelsPage.tsx",
+      "bytes": 2802,
+      "sha256": "42bad1a07d543bef09538fccbf1a2feda0d425b6228bcc7674df919bd0a86def"
+    },
+    {
+      "path": "mobile/src/Motion.tsx",
+      "bytes": 3004,
+      "sha256": "fd83e0509cfbf215dd033017f41dae22a91bad78865a934e735be38e5acdca5f"
+    },
+    {
+      "path": "mobile/src/PasswordReset.tsx",
+      "bytes": 7012,
+      "sha256": "7e8f053d9663ed0e8c745cc799a88167361ea9834cfe21ae4a32067c3ed84712"
+    },
+    {
+      "path": "mobile/src/PlotEditor.tsx",
+      "bytes": 8043,
+      "sha256": "ba16cb4cec7e83f7306019d7c8499ffb0ec5bba59ae94f286d31286ffa4c6512"
+    },
+    {
+      "path": "mobile/src/PlotsPage.tsx",
+      "bytes": 7346,
+      "sha256": "b029e942cb44f7df21d01f182a43c03bfa21cb06b5741aed5ac30021f3567513"
+    },
+    {
+      "path": "mobile/src/WorkspacePages.tsx",
+      "bytes": 22486,
+      "sha256": "e8e31838e3691ddae601747ad890d6a5d3b8e6ce55870041ded1746f0bf4b1bc"
+    },
+    {
+      "path": "mobile/src/account-security.css",
+      "bytes": 1409,
+      "sha256": "45196a1597a709ed68eb4f94cdd4755456b6e8e5a3d1d0b339ba265a974ce8f8"
+    },
+    {
+      "path": "mobile/src/accountSecurity.ts",
+      "bytes": 2563,
+      "sha256": "e57588034f723acee693dc9d39e64c6a3cffa564602d9586705636fe10d74ca3"
+    },
+    {
+      "path": "mobile/src/api.ts",
+      "bytes": 3695,
+      "sha256": "1347888a1bedaa14b8d27f4c0ca74763ba057eec2497cb8a916382d9ea9bdc91"
+    },
+    {
+      "path": "mobile/src/components.tsx",
+      "bytes": 9787,
+      "sha256": "a483ee0c6ec7ae29776f13eba25b612acc6953f2eeeeb3c3c5a2e73aefff7793"
+    },
+    {
+      "path": "mobile/src/cropThemes.ts",
+      "bytes": 2019,
+      "sha256": "fca021ac794f18d51cb0a6c226817b609a88c1668af2d74ba7e7333c6aaca5a8"
+    },
+    {
+      "path": "mobile/src/detection-tasks.css",
+      "bytes": 2399,
+      "sha256": "e0d913c8a2c9016fe944cbdd8be2d81215eb86ffa6efd467d1f6611b1b7749ff"
+    },
+    {
+      "path": "mobile/src/experience.css",
+      "bytes": 34342,
+      "sha256": "816eb0b243c41ba1090aac62711800bc9da367344f4a79d8f368d236c66d56e5"
+    },
+    {
+      "path": "mobile/src/floating-assistant.css",
+      "bytes": 10155,
+      "sha256": "d6575d63a2204d227676ff71c770d80b15179182656be59bc3d88d000bac39b1"
+    },
+    {
+      "path": "mobile/src/hooks.ts",
+      "bytes": 3978,
+      "sha256": "638944ebe53347891ba6c7c01e538194b9f80d70528a756428ae9c0c5d3e3cb3"
+    },
+    {
+      "path": "mobile/src/ip-icons.css",
+      "bytes": 4332,
+      "sha256": "23e1ab25365053b35607e90798aa0e3d4938619cefe1e3faaae8dd37c4f1aaee"
+    },
+    {
+      "path": "mobile/src/main.tsx",
+      "bytes": 266,
+      "sha256": "e2f09bbdaed44be34d394cc6e7650b6ddfac743df1e25e94c61628dda2419ff0"
+    },
+    {
+      "path": "mobile/src/model-verification.css",
+      "bytes": 3816,
+      "sha256": "b852bb52ca38dfb6ccc21249aca4163947a19a27181d883b99e1e838840fc03f"
+    },
+    {
+      "path": "mobile/src/motion.css",
+      "bytes": 18957,
+      "sha256": "ae5de2b1a4336c4faa39cc046800de4d0400755feb061302e09ed70ea4e0d107"
+    },
+    {
+      "path": "mobile/src/native.ts",
+      "bytes": 2353,
+      "sha256": "71afb76adc02f6d1a95f62cb2ecdbe96fb8a2ecec4ff1cd30eb6e558b558ff8e"
+    },
+    {
+      "path": "mobile/src/overlay.ts",
+      "bytes": 361,
+      "sha256": "e36e730644895de94fa450bd31ec7c96c9f420c23482268be2a05034b103e728"
+    },
+    {
+      "path": "mobile/src/plotDraft.ts",
+      "bytes": 1894,
+      "sha256": "2447ba5d669c48ed496a203693f317e4f1be8c3ab42c437bae8948f5628fafc8"
+    },
+    {
+      "path": "mobile/src/plots.css",
+      "bytes": 3030,
+      "sha256": "33612021c9a588cf7246c048d5efc206dd33a4f1154f5c38d8f5fd6067f1f4af"
+    },
+    {
+      "path": "mobile/src/styles.css",
+      "bytes": 39048,
+      "sha256": "f3aeb5f174622373e95c82752222ce6a46a9a1cdb6a15980b124229be634ee46"
+    },
+    {
+      "path": "mobile/src/types.ts",
+      "bytes": 2989,
+      "sha256": "dd56a6a1ddcbbc328a5acdbf359f0ca8b29f14756f87ac6e60fe0fd9ae9a634e"
+    },
+    {
+      "path": "mobile/src/useDetectionTasks.ts",
+      "bytes": 4118,
+      "sha256": "b57cc3d341ee2a2895ec7751e9ea3669342db4d90b3a18c199879573f5b3250b"
+    },
+    {
+      "path": "mobile/src/usePlotScope.ts",
+      "bytes": 1223,
+      "sha256": "4d20cf84fc72055349884483b479da7c202d295d46d824888bf0b9013097dde4"
+    },
+    {
+      "path": "mobile/src/vite-env.d.ts",
+      "bytes": 38,
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    {
+      "path": "mobile/tsconfig.json",
+      "bytes": 452,
+      "sha256": "4d84ff558fe8e62281a8bc2af9d1a5f8993fc7f90dec88adf84067e40b0820cb"
+    },
+    {
+      "path": "mobile/vite.config.ts",
+      "bytes": 530,
+      "sha256": "86fe6e72c3e71d5a5991426aed519ad8756f470fe368aa4ce140f2fd141a0734"
+    },
+    {
+      "path": "shared/detectionTasks.ts",
+      "bytes": 14767,
+      "sha256": "9242e1fd18d2e08bb409eeffe724d41b409162adeb2bb394ed01d739f5db9676"
+    }
+  ],
+  "shared": {
+    "path": "shared/detectionTasks.ts",
+    "bytes": 14767,
+    "sha256": "9242e1fd18d2e08bb409eeffe724d41b409162adeb2bb394ed01d739f5db9676",
+    "snapshot": "E:\\AgriScan\\.runtime\\mobile-task-final-20261029\\shared\\detectionTasks.ts"
+  },
+  "private_files_excluded": true,
+  "generated_outputs_excluded": true,
+  "head_only_snapshot": false
+}

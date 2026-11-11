@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "expected_red": false,
+  "source": "actual shared DetectionTaskManager with independent synthetic HTTP/XHR event harness",
+  "source_sha256": "9242e1fd18d2e08bb409eeffe724d41b409162adeb2bb394ed01d739f5db9676",
+  "cases": [
+    {
+      "name": "active XHR remains uploading with real local byte progress when buffered server still reports awaiting_upload",
+      "status": "passed"
+    },
+    {
+      "name": "active upload survives a transient poll error without a duplicate reservation",
+      "status": "passed"
+    },
+    {
+      "name": "server processing wins the local upload presentation while the XHR response is pending",
+      "status": "passed"
+    },
+    {
+      "name": "failed XHR uses the confirmed server bytes while checking instead of retaining optimistic bytes",
+      "status": "passed"
+    },
+    {
+      "name": "explicit 429 backoff resets progress to confirmed server bytes and keeps the original reservation",
+      "status": "passed"
+    },
+    {
+      "name": "confirmed cancellation is never masked by local upload state or stale local progress",
+      "status": "passed"
+    },
+    {
+      "name": "confirmed terminal completion and saved IDs survive a late XHR failure",
+      "status": "passed"
+    },
+    {
+      "name": "late local progress cannot replace server-confirmed processing bytes",
+      "status": "passed"
+    },
+    {
+      "name": "late local progress cannot downgrade completed bytes or saved result IDs",
+      "status": "passed"
+    }
+  ],
+  "production_network_called": false
+}

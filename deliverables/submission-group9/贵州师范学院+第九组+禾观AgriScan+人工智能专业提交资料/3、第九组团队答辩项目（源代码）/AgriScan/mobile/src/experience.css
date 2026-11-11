@@ -1,0 +1,354 @@
+/* A cool, translucent mobile system. Glass is reserved for navigation,
+   image overlaps and account identity; reading surfaces stay calm and solid. */
+@font-face {
+  font-family: "Agri Sans";
+  src: url("/fonts/agriscan-sans-sc.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root {
+  --ui-field: #f0f7f7;
+  --ui-paper: #fbfefd;
+  --ui-ink: #183d43;
+  --ui-muted: #627b83;
+  --ui-action: #087f78;
+  --ui-line: #d5e5e2;
+  --ui-shadow: 0 8px 32px #245d6610, inset 0 1px 0 #ffffffb3;
+  --green: #087f78;
+  --dark: #185759;
+  --cream: #f0f7f7;
+  --soft: #e2f3ed;
+  --line: #d5e5e2;
+  --surface-shadow: 0 8px 24px #245d660a;
+  font-size: 100%;
+  font-family: "Agri Sans", Manrope, "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
+  color: var(--ui-ink);
+  background: #e2efef;
+}
+body {font-size: 1rem; line-height: 1.6; color: var(--ui-ink); background: #e2efef}
+button, input, select, textarea {font-family: inherit; letter-spacing: 0}
+h1, h2, h3 {font-weight: 700; color: var(--ui-ink); text-wrap: balance; letter-spacing: -.025em; overflow-wrap: anywhere}
+strong {font-weight: 650; color: var(--ui-ink)}
+p, small {text-wrap: pretty; overflow-wrap: anywhere}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {outline: 3px solid #6cbdb0; outline-offset: 4px}
+input, select, textarea {font-size: 1rem; line-height: 1.5rem; color: var(--ui-ink); background: var(--ui-paper); border-color: #c8dedb; min-height: 48px; padding: 12px; border-radius: 16px}
+input::placeholder, textarea::placeholder {color: #7a9198; opacity: 1}
+label {font-size: .875rem; line-height: 1.5rem; color: #4b6c74; font-weight: 600}
+label > span, .field-hint, .form-hint {font-size: .875rem; line-height: 1.5rem; color: var(--ui-muted); font-weight: 400}
+.field-hint, .form-hint {display: block; margin-top: 8px}
+button:disabled {cursor: not-allowed}
+.button {min-height: 48px; padding: 12px 16px; font-size: 1rem; line-height: 1.5rem; font-weight: 650; border-radius: 16px; box-shadow: none; white-space: normal; text-align: center}
+.button.primary {background: var(--ui-action); border-color: var(--ui-action); color: #fff; box-shadow: 0 6px 16px #087f781b, inset 0 1px 0 #ffffff24}
+.button.outline {background: #ffffffb3; border-color: #bedbd5; color: var(--ui-action)}
+.button.ghost {color: #697d84}
+.button:not(:disabled):hover {box-shadow: none}
+.text-button, .section-heading > button, .filter-reset {min-height: 44px; padding: 8px 4px; font-size: .875rem; line-height: 1.25rem; font-weight: 600; color: var(--ui-action)}
+.icon-button {width: 44px; height: 44px; min-width: 44px; flex-shrink: 0; color: #5d7b83}
+.app-frame {color: var(--ui-ink); background: var(--ui-field); box-shadow: 0 24px 80px #28575f18}
+.app-topbar {min-height: 60px; height: auto; margin: 8px 12px 0; top: max(8px, env(safe-area-inset-top)); padding: 8px 12px; border: 1px solid #ffffffdc; border-radius: 24px; background: #f7ffffc4; box-shadow: 0 4px 24px #3677850c, inset 0 1px 0 #ffffff; -webkit-backdrop-filter: blur(24px) saturate(145%); backdrop-filter: blur(24px) saturate(145%)}
+.app-topbar .icon-button {width: 44px; height: 44px}
+.app-topbar > strong {font-size: 1rem; line-height: 1.5rem; font-weight: 700; letter-spacing: -.015em}
+.app-topbar small {display: none}
+.topbar-spacer {width: 44px; flex-shrink: 0}
+.app-main {padding: 24px 20px 32px}
+.app-main.with-tabs {padding-bottom: calc(128px + env(safe-area-inset-bottom))}
+.workspace-screen {min-width: 0}
+.workspace-screen[hidden], .mobile-assistant-layer[hidden] {display: none !important}
+.bottom-tabs {bottom: calc(12px + env(safe-area-inset-bottom)); width: min(calc(100% - 24px), 456px); height: auto; min-height: 72px; padding: 8px 12px; gap: 4px; border: 1px solid #ffffffdd; border-radius: 32px; box-shadow: 0 12px 32px #2a60621a, inset 0 1px 0 #ffffff; background: #f7ffffc9; -webkit-backdrop-filter: blur(24px) saturate(150%); backdrop-filter: blur(24px) saturate(150%)}
+.bottom-tabs button {min-width: 0; flex: 1; min-height: 48px; color: #6e8991; gap: 4px}
+.bottom-tabs button strong {color: inherit; font-size: .75rem; line-height: 1rem; font-weight: 500}
+.bottom-tabs button > span {height: 32px; width: 48px; border-radius: 16px}
+.bottom-tabs button.active {color: var(--ui-action)}
+.bottom-tabs button.active strong {font-weight: 700}
+.bottom-tabs button.active > span {background: #d7f1e9; color: #08766e; transform: none; box-shadow: inset 0 1px 0 #ffffffb3}
+.page-intro {margin: 0 0 24px}
+.page-intro h1 {font-size: 2rem; line-height: 2.5rem; margin: 0 0 8px; font-weight: 700; letter-spacing: -.035em}
+.page-intro p {font-size: .875rem; line-height: 1.5rem; color: var(--ui-muted); margin-top: 8px; max-width: 32em}
+.page-kicker, .eyebrow {font-size: .75rem; line-height: 1rem; letter-spacing: .04em; color: var(--ui-muted); font-weight: 600}
+.section-heading {margin: 32px 0 12px; gap: 12px; align-items: center}
+.section-heading h2 {font-size: 1.25rem; line-height: 1.75rem; font-weight: 700; letter-spacing: -.02em; min-width: 0}
+.section-heading > span {font-size: .75rem; line-height: 1rem; color: var(--ui-muted); text-align: right}
+.card {background: var(--ui-paper); border: 1px solid #deebe8; border-radius: 24px; padding: 20px; box-shadow: 0 4px 20px #2c5d6305}
+/* The image and real frosted overlap form the main observation card. */
+.home-greeting {gap: 16px; align-items: center; margin-bottom: 20px}
+.home-greeting > div {min-width: 0; flex: 1}
+.home-greeting p {font-size: .75rem; line-height: 1.25rem; color: #6a8790; font-weight: 500; letter-spacing: .02em}
+.home-greeting h1, .journal-greeting h1 {font-size: 1.375rem; line-height: 2rem; font-weight: 700; letter-spacing: -.03em; margin: 4px 0 0; overflow-wrap: anywhere; display: block}
+.home-greeting h1 > svg {display: none}
+.avatar, .profile-avatar {background: #e0f3ed; color: var(--ui-action); border-color: #fff; font-weight: 700}
+.home-greeting .avatar {min-width: 48px; min-height: 48px; border-radius: 16px; background: #e0edf5; box-shadow: inset 0 0 0 1px #ffffff, 0 4px 12px #2f757510}
+.home-hero.field-journal-hero {min-height: 0; display: flex; flex-direction: column; overflow: visible; border: 0; border-radius: 24px; background: transparent; box-shadow: none}
+.home-hero.field-journal-hero > .field-journal-hero-image {position: static; display: block; width: 100%; max-width: 100%; height: 256px; object-fit: cover; object-position: 68% 50%; margin: 0; border-radius: 24px}
+.home-hero.field-journal-hero > .home-hero-copy {position: relative; width: calc(100% - 24px); max-width: none; padding: 24px 20px; margin: -72px 12px 0; border: 1px solid #ffffffdc; border-radius: 24px; background: #f9ffffcf; box-shadow: 0 12px 32px #285b6310, inset 0 1px 0 #ffffff; -webkit-backdrop-filter: blur(24px) saturate(135%); backdrop-filter: blur(24px) saturate(135%)}
+.journal-context {display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 4px 8px; border: 1px solid #cce8de; border-radius: 8px; background: #e4f4ed; font-size: .75rem; line-height: 1rem; font-weight: 600; letter-spacing: .02em; color: #438077}
+.journal-context > i {width: 6px; height: 6px; flex-shrink: 0; background: #79b3a5; border-radius: 50%}
+.journal-context > i.ready {background: #0b9b7f}
+.home-hero.field-journal-hero h2 {font-size: 2rem; line-height: 2.5rem; font-weight: 700; margin: 12px 0; letter-spacing: -.035em; color: var(--ui-ink)}
+.home-hero.field-journal-hero h2 > span {display: block; white-space: normal}
+.home-hero.field-journal-hero p {font-size: .875rem; line-height: 1.5rem; color: #587881; max-width: 26em}
+.home-hero.field-journal-hero .journal-photo-action {display: flex; width: 100%; min-height: 48px; margin-top: 20px; padding: 12px 16px; background: var(--ui-action); color: #fff; border-radius: 16px; font-size: 1rem; line-height: 1.5rem; font-weight: 650; box-shadow: 0 6px 16px #087f781c, inset 0 1px 0 #ffffff33}
+.home-hero.field-journal-hero .journal-photo-action:hover:not(:disabled) {background: #076c67}
+.journal-secondary-modes {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px}
+.journal-secondary-modes > button {display: flex; align-items: center; gap: 8px; min-width: 0; min-height: 88px; padding: 12px; text-align: left; background: #e5f2f4; border: 1px solid #ffffffd9; border-radius: 20px; box-shadow: inset 0 1px 0 #ffffff, 0 4px 16px #366a7106}
+.journal-secondary-modes > button:first-child {background: #e3f3ed}
+.journal-mode-icon {display: grid; place-items: center; width: 40px; height: 44px; flex-shrink: 0; color: #397c78; border: 1px solid #ffffffc4; border-radius: 16px; background: #ffffff8a}
+.journal-secondary-modes > button > span:last-child {min-width: 0; flex: 1}
+.journal-secondary-modes strong {display: block; color: #315e65; font-size: .875rem; line-height: 1.25rem; font-weight: 650}
+.journal-secondary-modes small {display: block; font-size: .75rem; line-height: 1.125rem; color: #5e7d84; margin-top: 4px}
+.journal-secondary-modes > button:disabled {opacity: 1; cursor: not-allowed}
+.journal-secondary-modes > button:disabled .journal-mode-icon {opacity: .5}
+.journal-secondary-modes > button:disabled strong {color: #68858b}
+.journal-secondary-modes > button:disabled small {color: #688188}
+.journal-service-note, .home-model-note {margin-top: 12px; padding-inline: 4px; font-size: .75rem; line-height: 1.25rem; color: #68848c}
+.journal-data-strip {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 24px 8px 20px; margin: 0}
+.journal-data-strip > div {min-width: 0; text-align: center}
+.journal-data-strip strong {display: block; font-family: Manrope, "Agri Sans", sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; letter-spacing: -.035em; color: var(--ui-ink); font-variant-numeric: tabular-nums}
+.journal-data-strip span {display: block; margin-top: 4px; font-size: .75rem; line-height: 1.25rem; font-weight: 500; color: #6a858b}
+.journal-tools {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 4px}
+.journal-tools > button {display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; min-height: 120px; padding: 16px 8px; background: #fbfefd; color: var(--ui-ink); border: 1px solid #ffffff; border-radius: 20px; box-shadow: 0 4px 20px #2b656b07, inset 0 1px 0 #ffffff}
+.journal-tools > button:nth-child(2) {background: #e8f1f7}
+.journal-tools > button:nth-child(3) {background: #e4f3ec}
+.journal-tools > button > span:first-child {display: grid; place-items: center; width: 44px; height: 44px; color: #397a77; border: 1px solid #ffffffd9; border-radius: 16px; background: #ffffff9c}
+.journal-tools strong {font-size: .875rem; line-height: 1.25rem; font-weight: 650; color: #2a555e}
+.journal-tools small {font-size: .75rem; line-height: 1rem; color: #6a858e}
+.journal-tools > button:disabled {opacity: .6}
+.journal-recent-section {margin-top: 32px}
+.journal-section-heading {margin: 0 0 16px; align-items: center}
+.journal-section-heading > div {min-width: 0; flex: 1}
+.journal-section-heading > div > span {font-size: .75rem; line-height: 1rem; color: #738d94; font-weight: 500}
+.journal-section-heading h2 {font-size: 1.25rem; line-height: 1.75rem; color: var(--ui-ink); margin-top: 4px; font-weight: 700}
+.journal-section-heading > button {font-size: .875rem; line-height: 1.25rem; font-weight: 600; color: var(--ui-action)}
+.home-footer, .version-note, .auth-footer {font-size: .75rem; line-height: 1.25rem; color: #728c93; letter-spacing: .015em}
+.record-list, .article-list, .mobile-plots {gap: 12px}
+.record-card {padding: 12px; gap: 12px; background: var(--ui-paper); border-color: var(--ui-line); border-radius: 16px; box-shadow: none}
+.record-thumb {width: 56px; height: 64px; border-radius: 8px; background: #e7f2f1}
+.record-copy > strong {font-size: 1rem; line-height: 1.5rem; color: #244e54; font-weight: 600; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 4px}
+.record-copy > span {font-size: .875rem; line-height: 1.25rem; color: #58727a; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; white-space: normal; overflow: hidden}
+.record-copy > small {font-size: .75rem; line-height: 1rem; color: var(--ui-muted); margin-top: 8px}
+.record-score {font-size: .875rem; line-height: 1.25rem; color: #397278; font-variant-numeric: tabular-nums}
+.record-score svg {color: #8ba8ad}
+.badge {font-size: .75rem; line-height: 1rem; font-weight: 500; padding: 4px 8px; border-radius: 8px}
+.badge.healthy {color: #276c60; background: #e1f4ec}
+.badge.attention {color: #87572b; background: #f6ead9}
+.badge.awaiting_model, .badge.queued {color: #79602b; background: #f2edda}
+.badge.failed {color: #9a462d; background: #f8e6dd}
+.search-field {background: var(--ui-paper); border-color: #cbdedd; padding: 0 12px; min-height: 48px; border-radius: 12px; color: #7b939b}
+.search-field input {font-size: 1rem; line-height: 1.5rem; min-height: 48px; padding: 12px 0; color: var(--ui-ink)}
+.filter-chips {gap: 8px; flex-wrap: wrap; margin: 16px 0}
+.filter-chips button {font-size: .875rem; line-height: 1.25rem; min-height: 44px; padding: 8px 12px; color: #58757c; background: var(--ui-paper); border-color: var(--ui-line); border-radius: 12px}
+.filter-chips button.active {color: var(--ui-action); background: #dcf2ec; border-color: #a3d5ca; font-weight: 600}
+.scroll-chips {flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none}
+.scroll-chips::-webkit-scrollbar {display: none}
+.scroll-chips button {scroll-snap-align: start; flex-shrink: 0}
+.records-caption, .records-filter-summary {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); margin: 16px 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap}
+.checkbox-line {min-height: 44px; gap: 12px; font-size: .875rem; line-height: 1.25rem; color: #58757c; padding: 12px 0; display: flex; align-items: center}
+.checkbox-line input {flex-shrink: 0; width: 20px; height: 20px; min-height: 0}
+.empty-state {padding: 32px 16px; color: var(--ui-muted)}
+.empty-state h3 {font-size: 1.125rem; line-height: 1.75rem; font-weight: 600; color: #254f56; margin: 12px 0 8px}
+.empty-state p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); max-width: 24em; margin-inline: auto}
+.info-note, .error-note, .success-note, .capture-message, .auth-config-note, .camera-save-feedback {font-size: .875rem; line-height: 1.25rem; border-radius: 12px; padding: 12px 16px; overflow-wrap: anywhere}
+.info-note {color: #58757c; background: #e7f3f0}
+.error-note {color: #88552e; border-color: #e5c9ae; background: #fbefe2}
+.error-note button {font-size: .875rem; line-height: 1.25rem; min-height: 44px; padding: 8px 0; color: var(--ui-action); font-weight: 600}
+.success-note, .camera-save-feedback.is-saved {color: #276b5e; background: #e2f4ed}
+.capture-message {color: #52737a; padding-left: 0; padding-right: 0}
+.fine-print, .candidate-section > p {font-size: .75rem; line-height: 1rem; color: var(--ui-muted); margin-top: 16px}
+.mode-switch {padding: 4px; gap: 4px; margin-bottom: 16px; border-color: var(--ui-line); background: #e4efef; border-radius: 16px}
+.mode-switch button {min-height: 44px; font-size: .875rem; line-height: 1.25rem; padding: 8px 4px; gap: 4px; color: #617e85}
+.mode-switch button.active {color: var(--ui-action); background: var(--ui-paper); box-shadow: none; font-weight: 600}
+.capture-meta {gap: 16px; margin: 0 0 20px}
+.capture-meta label, .settings-service label {font-size: .875rem; line-height: 1.25rem; font-weight: 500; color: #4a6c73}
+.capture-meta select, .capture-meta input, .settings-service input {font-size: 1rem; line-height: 1.5rem; min-height: 48px; padding: 12px; border-radius: 12px}
+.capture-options {margin: 16px 0; border: 1px solid var(--ui-line); border-radius: 12px; background: var(--ui-paper)}
+.capture-options > summary {font-size: .875rem; line-height: 1.25rem; color: #4d7075; min-height: 48px; padding: 12px 16px; font-weight: 500; cursor: pointer}
+.capture-options > summary > span {font-size: .75rem; line-height: 1rem; color: var(--ui-muted); margin-left: 8px; font-weight: 400}
+.capture-options > :not(summary) {margin: 0 16px 16px}
+.capture-options .capture-meta {margin-top: 8px}
+.capture-guidance {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); margin-bottom: 16px}
+.capture-progress {margin-bottom: 20px}
+.capture-progress li {color: #647f86; font-size: .75rem; line-height: 1rem}
+.capture-progress li:not(:last-child)::after {background: #cfe2df}
+.capture-progress .progress-check {background: #dfefeb; color: #698984}
+.capture-progress .is-done .progress-check {background: var(--ui-action); color: #fff}
+.upload-card {min-height: 256px; border-radius: 16px; border-color: #b4d8d1; background: #e6f3ef; padding: 16px 16px 24px}
+.upload-card h2 {font-size: 1.125rem; line-height: 1.75rem; font-weight: 600; color: #244f55; margin: 8px 0}
+.upload-card p {font-size: .875rem; line-height: 1.25rem; color: #5f7c83; max-width: 22em}
+.upload-card .button {font-size: 1rem; line-height: 1.5rem; min-height: 48px; margin-top: 16px}
+.upload-card > small {font-size: .75rem; line-height: 1rem; color: #5f7c83; margin-top: 12px}
+.photo-tips h3 {font-size: 1rem; line-height: 1.5rem; color: #315e65; font-weight: 600}
+.photo-tips p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.camera-empty {background: #e7f3f0; color: #80aaa4}
+.camera-empty h3 {font-size: 1.125rem; line-height: 1.75rem; color: #315e65}
+.camera-empty p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.camera-actions {gap: 12px}
+.camera-actions > .button {font-size: .875rem; line-height: 1.25rem; min-height: 48px; padding: 12px}
+.result-card, .video-results, .camera-result {padding: 16px; margin-top: 24px}
+.result-top {gap: 8px; padding-bottom: 16px; flex-wrap: wrap}
+.result-top h2 {font-size: 1.5rem; line-height: 2rem; font-weight: 600}
+.result-top h2 small {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.diagnosis {padding: 16px; background: #e5f4ee; border-color: #c9e6dc; border-radius: 12px}
+.diagnosis > span, .diagnosis > div {font-size: .875rem; line-height: 1.25rem; color: #547a78}
+.diagnosis h3 {font-size: 1.125rem; line-height: 1.75rem; font-weight: 600; color: #245d59; margin: 8px 0 16px}
+.diagnosis strong {font-size: 1.5rem; line-height: 2rem; color: #245d59; font-variant-numeric: tabular-nums; letter-spacing: 0}
+.report-meta {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); gap: 12px; margin: 24px 0}
+.report-meta strong {font-weight: 500; color: #365e65; overflow-wrap: anywhere}
+.candidate-section > h3 {font-size: 1rem; line-height: 1.5rem; font-weight: 600; flex-wrap: wrap}
+.candidate-section > h3 span {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.candidate > div:first-child {font-size: .875rem; line-height: 1.25rem; color: #54767d}
+.candidate strong {font-size: .875rem; line-height: 1.25rem; color: #315e65; font-variant-numeric: tabular-nums}
+.candidate > div:first-child span {min-width: 0; overflow-wrap: anywhere}
+.advice-card h3 {font-size: 1rem; line-height: 1.5rem; color: #315e65; font-weight: 600}
+.advice-card p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.sheet {border-color: var(--ui-line); background: var(--ui-paper)}
+.sheet-heading {padding: 12px 16px; gap: 12px}
+.sheet-heading h2 {font-size: 1.125rem; line-height: 1.75rem; color: var(--ui-ink); font-weight: 600; min-width: 0}
+.sheet-heading .icon-button {width: 44px; height: 44px}
+.sheet-content {padding: 20px; overflow-wrap: anywhere}
+.plot-totals {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); gap: 16px; flex-wrap: wrap}
+.plot-totals strong {font-family: Manrope, "Agri Sans", sans-serif; font-size: 1.5rem; line-height: 2rem; color: #244e54; font-variant-numeric: tabular-nums}
+.plot-totals small {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.mobile-plot {padding: 0; box-shadow: none}
+.journal-plot-placeholder {display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #e3f1ee; color: #78a69e}
+.journal-plot-placeholder > span {font-size: .75rem; line-height: 1.25rem; font-weight: 500; color: #68878b}
+.plot-info {padding: 16px}
+.plot-info h2 {font-size: 1.125rem; line-height: 1.75rem; color: #244e54; font-weight: 600}
+.plot-info > p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.plot-info > div {gap: 12px; margin-top: 20px}
+.plot-info > div > span {font-size: .75rem; line-height: 1rem; color: var(--ui-muted); min-width: 0}
+.plot-info strong {font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: #315e65; overflow-wrap: anywhere}
+.plot-info > div strong {font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: #315e65}
+.plot-info > .text-button {font-size: .875rem; line-height: 1.25rem; min-height: 44px; margin-top: 12px}
+.knowledge-hero.field-notes-hero {display: flex; flex-direction: column; gap: 0; min-height: 0; overflow: visible; padding: 0; margin-bottom: 24px; border: 0; border-radius: 24px; background: transparent}
+.knowledge-hero.field-notes-hero > img {position: static; display: block; order: -1; width: 100%; max-width: 100%; height: 192px; object-fit: cover; object-position: center; margin: 0; border-radius: 24px}
+.knowledge-hero.field-notes-hero > div {position: relative; max-width: none; padding: 24px; margin: -48px 12px 0; border: 1px solid #ffffffdd; border-radius: 24px; background: #f8ffffcf; box-shadow: var(--ui-shadow); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); z-index: 1}
+.field-notes-hero-copy > span {display: inline-block; margin-bottom: 8px; font-size: .75rem; line-height: 1rem; font-weight: 600; letter-spacing: .04em; color: #527e87}
+.knowledge-hero.field-notes-hero h1 {font-size: 1.75rem; line-height: 2.25rem; font-weight: 700; margin: 0 0 12px; letter-spacing: -.03em; color: var(--ui-ink)}
+.knowledge-hero.field-notes-hero p {font-size: .875rem; line-height: 1.5rem; color: var(--ui-muted)}
+.article-card {padding: 16px 12px; background: var(--ui-paper); border-color: var(--ui-line); border-radius: 16px; box-shadow: none}
+.article-mark {width: 48px; height: 64px; border-radius: 8px; color: #69a99b; background: #e7f3f0}
+.article-mark span {font-size: .75rem; line-height: 1rem; letter-spacing: 0}
+.article-card > span > small {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.article-card > span > strong {font-size: 1rem; line-height: 1.5rem; color: #244e54; font-weight: 600; margin: 4px 0 8px}
+.article-card p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.article-detail h1 {font-size: 1.5rem; line-height: 2rem; margin: 16px 0}
+.article-detail p {font-size: 1rem; line-height: 1.5rem; color: #355c64; margin-bottom: 20px}
+.article-detail .article-summary {font-size: 1rem; line-height: 1.5rem; color: #557880}
+.article-detail .fine-print {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.article-detail a {font-size: .875rem; line-height: 1.25rem; min-height: 44px; padding: 8px 0; color: var(--ui-action); overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 4px}
+/* A translucent identity card, with no dark wall behind the account. */
+.profile-hero.journal-profile-hero {display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 4px 16px; align-items: center; min-height: 0; padding: 24px; margin-bottom: 16px; border: 1px solid #ffffff; border-radius: 24px; background: #dff3edb8; color: var(--ui-ink); box-shadow: var(--ui-shadow), inset 0 1px 0 #ffffff; -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px)}
+.journal-page-label {font-size: .75rem; line-height: 1rem; color: #588182; font-weight: 600; letter-spacing: .04em}
+.profile-hero.journal-profile-hero > .journal-page-label {grid-column: 1 / -1; margin-bottom: 12px}
+.profile-hero.journal-profile-hero .profile-avatar {grid-column: 1; grid-row: 2 / 4; display: grid; place-items: center; width: 64px; height: 64px; margin: 0; background: #ffffffc9; color: var(--ui-action); border: 1px solid #fff; border-radius: 20px; box-shadow: 0 4px 12px #1d777009; font-size: 1.5rem; line-height: 2rem; font-weight: 700}
+.profile-hero.journal-profile-hero h1 {grid-column: 2; grid-row: 2; font-size: 1.5rem; line-height: 2rem; margin: 0; color: var(--ui-ink); font-weight: 700; overflow-wrap: anywhere}
+.profile-hero.journal-profile-hero > p {grid-column: 2; grid-row: 3; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; font-size: .75rem; line-height: 1.25rem; color: #557780; margin: 4px 0 0; overflow-wrap: anywhere}
+.profile-hero.journal-profile-hero p > span {font-size: .75rem; line-height: 1rem; font-weight: 600; color: #3c7383; background: #deedf6; padding: 4px 8px; border: 1px solid #ffffffb3; border-radius: 8px}
+.profile-stats {padding: 16px 8px; margin: 8px 0 24px; box-shadow: none; background: var(--ui-paper); border-color: var(--ui-line); gap: 8px}
+.profile-stats > span {font-size: .75rem; line-height: 1rem; color: var(--ui-muted); text-align: center; min-width: 0}
+.profile-stats strong {font-family: Manrope, "Agri Sans", sans-serif; font-size: 1.5rem; line-height: 2rem; color: #244e54; font-variant-numeric: tabular-nums; font-weight: 600}
+.profile-links {padding: 0 16px}
+.link-row {padding: 16px 0; min-height: 80px; gap: 12px; border-bottom-color: #dce9e7}
+.link-row > span:first-child {background: #e4f2ef; color: #438b83}
+.link-row > svg:last-child {color: #72949b}
+.link-row > span:nth-child(2) {min-width: 0}
+.link-row strong {font-size: 1rem; line-height: 1.5rem; color: #244e54; font-weight: 600}
+.link-row small {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); margin-top: 4px}
+.privacy-note {padding: 16px 0; align-items: flex-start}
+.privacy-note p {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.settings-account {gap: 12px; padding-bottom: 24px}
+.settings-account > div {min-width: 0}
+.settings-account strong {font-size: 1.125rem; line-height: 1.75rem; color: #244e54; overflow-wrap: anywhere}
+.settings-account p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.settings-service, .settings-preferences {padding: 16px}
+.settings-service > p, .settings-service > small, .service-current, .settings-save-note {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); margin-top: 12px; overflow-wrap: anywhere}
+.service-current {padding: 12px; background: #edf6f5; border-radius: 8px; display: flex; flex-direction: column; gap: 4px}
+.service-current > span {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.service-current > strong {font-size: .875rem; line-height: 1.25rem; color: #365f66; font-weight: 500}
+.service-help {margin-top: 12px; color: var(--ui-muted)}
+.service-help > summary {font-size: .875rem; line-height: 1.25rem; padding: 12px 0; min-height: 44px; cursor: pointer; color: var(--ui-action)}
+.service-help p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); padding-bottom: 8px}
+.settings-buttons {gap: 12px; margin-top: 20px; flex-wrap: wrap}
+.settings-buttons .button {font-size: .875rem; line-height: 1.25rem; min-height: 48px; padding: 12px; flex: 1 1 128px}
+.settings-preferences h2 {font-size: 1.125rem; line-height: 1.75rem; color: #244e54; font-weight: 600}
+.settings-preferences strong {font-size: 1rem; line-height: 1.5rem; color: #426d74}
+.settings-preferences small {font-size: .75rem; line-height: 1rem; color: var(--ui-muted)}
+.toggle {position: relative; overflow: visible; background: #d4e3e1}
+.toggle.on {background: var(--ui-action)}
+.toggle::before {content: ""; position: absolute; inset: -8px 0; border-radius: 9999px}
+.onboarding, .auth-page {background: var(--ui-field); padding-left: 24px; padding-right: 24px}
+.onboarding-copy h1 {font-size: 2rem; line-height: 2.5rem; font-weight: 700; letter-spacing: 0; margin: 16px 0}
+.onboarding-copy p {font-size: 1rem; line-height: 1.5rem; color: var(--ui-muted); max-width: 22em}
+.onboarding footer .button {font-size: 1rem; line-height: 1.5rem; min-height: 48px; min-width: 136px}
+.onboarding header > button {font-size: .875rem; line-height: 1.25rem; color: var(--ui-action); min-height: 44px}
+.auth-page > header .icon-button {width: 44px; height: 44px}
+.auth-intro {padding-top: 32px; padding-bottom: 24px; min-height: 184px}
+.auth-intro > img {width: 104px; right: -8px; top: 24px; opacity: .9}
+.auth-intro h1 {font-size: 2rem; line-height: 2.5rem; font-weight: 700; max-width: calc(100% - 64px); letter-spacing: 0}
+.auth-intro p {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted); max-width: calc(100% - 64px)}
+.auth-form label {font-size: .875rem; line-height: 1.25rem; margin-top: 20px; color: #4a6c73}
+.auth-form fieldset {min-width: 0}
+.password-field > button {width: 44px; height: 44px; right: 4px; display: grid; place-items: center; color: #5e8287; border-radius: 8px}
+.code-field {gap: 8px; align-items: stretch}
+.code-field button {font-size: .875rem; line-height: 1.25rem; min-width: 104px; min-height: 48px; padding: 8px; color: #347076; background: #e5f2f0}
+.auth-switch, .auth-service {font-size: .875rem; line-height: 1.25rem; color: var(--ui-muted)}
+.auth-switch button, .auth-service button {font-size: .875rem; line-height: 1.25rem; color: var(--ui-action); min-height: 44px; padding: 8px 4px; font-weight: 600}
+.auth-config-note {background: #e6f3ef; color: #5c7d83; margin: 16px 0}
+.toast {background: #204f57; color: #fffef9; border-color: #4d8183; font-size: .875rem; line-height: 1.25rem}
+.connection-recovery {padding: max(40px, env(safe-area-inset-top)) 24px 32px; max-width: 480px; margin: 0 auto}
+.connection-recovery > img {margin-bottom: 32px}
+.connection-recovery h1 {font-size: 1.5rem; line-height: 2rem; font-weight: 600; margin-bottom: 16px}
+.connection-recovery > p {font-size: 1rem; line-height: 1.5rem; color: var(--ui-muted)}
+.connection-recovery > .button {width: 100%; margin-top: 12px}
+/* Retain a single page arrival; focus motion on the action that changed state. */
+.route-content > div > section, .route-content .record-list > *, .route-content .article-list > *, .route-content .mobile-plots > *, .route-content .profile-links > * {animation: none}
+.record-card, .article-card, .tool-grid > button, .entry-card {transition: background-color 300ms var(--motion-curve), border-color 300ms var(--motion-curve), transform 500ms var(--motion-curve)}
+@media (hover: hover) {
+  .record-card:hover, .article-card:hover, .tool-grid > button:hover, .entry-card:hover {transform: translateY(-2px); box-shadow: none; border-color: #aad7ce}
+  .button.primary:hover:not(:disabled) {background: #086e68}
+}
+@media (max-width: 359px) {
+  .app-main {padding-left: 16px; padding-right: 16px}
+  .app-topbar {margin-inline: 8px; padding-inline: 8px}
+  .bottom-tabs {padding-inline: 8px; gap: 0}
+  .home-hero.field-journal-hero > .field-journal-hero-image {height: 224px}
+  .home-hero.field-journal-hero > .home-hero-copy {width: calc(100% - 16px); margin: -64px 8px 0; padding: 20px 16px}
+  .home-hero.field-journal-hero h2 {font-size: 1.75rem; line-height: 2.25rem}
+  .journal-secondary-modes {gap: 8px}
+  .journal-secondary-modes > button {padding: 12px 8px; gap: 4px}
+  .journal-mode-icon {width: 32px; height: 40px; border-radius: 12px}
+  .journal-data-strip {gap: 8px; padding-inline: 4px}
+  .journal-tools {gap: 8px}
+  .journal-tools > button {padding-inline: 4px}
+  .profile-hero.journal-profile-hero {padding: 20px 16px; grid-template-columns: 56px minmax(0, 1fr); gap: 4px 12px}
+  .profile-hero.journal-profile-hero .profile-avatar {width: 56px; height: 56px; border-radius: 16px}
+  .record-card {gap: 8px; padding: 12px 8px}
+  .record-thumb {width: 48px; height: 56px}
+  .record-copy > strong {font-size: .875rem; line-height: 1.25rem}
+  .record-score {font-size: .75rem; line-height: 1rem}
+  .mode-switch button {font-size: .75rem; line-height: 1rem; gap: 4px; padding: 8px 4px}
+  .sheet-content {padding: 16px}
+  .onboarding, .auth-page {padding-left: 20px; padding-right: 20px}
+  .auth-intro h1 {font-size: 1.75rem; line-height: 2.25rem; max-width: calc(100% - 56px)}
+  .auth-intro > img {width: 88px; right: -8px; top: 32px}
+  .code-field button {min-width: 96px; font-size: .75rem; line-height: 1rem}
+  .knowledge-hero.field-notes-hero > div {padding: 20px 16px; margin-inline: 8px}
+  .knowledge-hero.field-notes-hero h1 {font-size: 1.5rem; line-height: 2rem}
+}
+@media (min-width: 481px) {
+  .bottom-tabs {bottom: 32px}
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-topbar, .bottom-tabs, .home-hero.field-journal-hero > .home-hero-copy, .knowledge-hero.field-notes-hero > div {background: #f9ffff}
+  .profile-hero.journal-profile-hero {background: #e1f3ee}
+}
+@media (prefers-reduced-transparency: reduce) {
+  .app-topbar, .bottom-tabs, .home-hero.field-journal-hero > .home-hero-copy, .knowledge-hero.field-notes-hero > div {background: #f9ffff; -webkit-backdrop-filter: none; backdrop-filter: none}
+  .profile-hero.journal-profile-hero {background: #e1f3ee; -webkit-backdrop-filter: none; backdrop-filter: none}
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {animation: none !important; transition: none !important; scroll-behavior: auto !important}
+}
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after {animation: none !important; transition: none !important; scroll-behavior: auto !important}
+.remove-media{width:44px;height:44px;min-width:44px;min-height:44px;display:grid;place-items:center}.mode-change-note{font-size:.875rem;line-height:1.25rem;color:#58757c;background:#e7f3f0;border:1px solid #d5e5e2;border-radius:12px;padding:12px 16px;margin:12px 0}.diagnosis>.form-hint{margin:0;color:#617f86}

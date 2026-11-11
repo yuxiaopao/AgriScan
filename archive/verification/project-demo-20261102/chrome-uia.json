@@ -1,0 +1,146 @@
+[
+  {
+    "Name": "AgriScan 禾观 · 农业检测工作台 - Google Chrome",
+    "Type": "ControlType.Pane",
+    "Rect": "0,0,2561,1529",
+    "Enabled": true
+  },
+  {
+    "Name": "最小化",
+    "Type": "ControlType.Button",
+    "Rect": "2355,0,68,60",
+    "Enabled": true
+  },
+  {
+    "Name": "恢复",
+    "Type": "ControlType.Button",
+    "Rect": "2423,0,70,60",
+    "Enabled": true
+  },
+  {
+    "Name": "关闭",
+    "Type": "ControlType.Button",
+    "Rect": "2492,0,70,60",
+    "Enabled": true
+  },
+  {
+    "Name": "返回",
+    "Type": "ControlType.Button",
+    "Rect": "0,69,60,51",
+    "Enabled": true
+  },
+  {
+    "Name": "前进",
+    "Type": "ControlType.Button",
+    "Rect": "63,69,51,51",
+    "Enabled": false
+  },
+  {
+    "Name": "重新加载",
+    "Type": "ControlType.Button",
+    "Rect": "117,69,51,51",
+    "Enabled": true
+  },
+  {
+    "Name": "首页",
+    "Type": "ControlType.Button",
+    "Rect": "171,69,51,51",
+    "Enabled": true
+  },
+  {
+    "Name": "查看网站信息",
+    "Type": "ControlType.Button",
+    "Rect": "243,77,36,37",
+    "Enabled": true
+  },
+  {
+    "Name": "地址和搜索栏",
+    "Type": "ControlType.Edit",
+    "Rect": "291,77,1941,37",
+    "Enabled": true
+  },
+  {
+    "Name": "为此标签页添加书签",
+    "Type": "ControlType.Button",
+    "Rect": "2244,77,36,37",
+    "Enabled": true
+  },
+  {
+    "Name": "游侠飞书剪存\n可以访问此网站",
+    "Type": "ControlType.Button",
+    "Rect": "2312,69,52,51",
+    "Enabled": true
+  },
+  {
+    "Name": "扩展程序",
+    "Type": "ControlType.Button",
+    "Rect": "2366,69,52,51",
+    "Enabled": true
+  },
+  {
+    "Name": "可儿",
+    "Type": "ControlType.Button",
+    "Rect": "2447,69,52,51",
+    "Enabled": true
+  },
+  {
+    "Name": "Chrome",
+    "Type": "ControlType.Button",
+    "Rect": "2501,69,61,51",
+    "Enabled": true
+  },
+  {
+    "Name": "书签",
+    "Type": "ControlType.ToolBar",
+    "Rect": "0,129,2561,51",
+    "Enabled": true
+  },
+  {
+    "Name": "已保存的标签页分组",
+    "Type": "ControlType.ToolBar",
+    "Rect": "9,129,54,42",
+    "Enabled": true
+  },
+  {
+    "Name": "标签页分组",
+    "Type": "ControlType.Button",
+    "Rect": "9,129,42,42",
+    "Enabled": true
+  },
+  {
+    "Name": "所有书签",
+    "Type": "ControlType.Button",
+    "Rect": "2420,129,130,42",
+    "Enabled": true
+  },
+  {
+    "Name": "分隔符",
+    "Type": "ControlType.Separator",
+    "Rect": "2393,138,28,24",
+    "Enabled": true
+  },
+  {
+    "Name": "标签页搜索",
+    "Type": "ControlType.Button",
+    "Rect": "9,9,42,42",
+    "Enabled": true
+  },
+  {
+    "Name": "AgriScan 禾观 · 农业检测工作台",
+    "Type": "ControlType.TabItem",
+    "Rect": "42,0,384,62",
+    "Enabled": true
+  },
+  {
+    "Name": "关闭",
+    "Type": "ControlType.Button",
+    "Rect": "366,11,39,40",
+    "Enabled": true
+  },
+  {
+    "Name": "新标签页",
+    "Type": "ControlType.Button",
+    "Rect": "417,0,42,62",
+    "Enabled": true
+  }
+]

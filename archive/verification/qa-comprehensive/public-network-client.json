@@ -1,0 +1,100 @@
+{
+  "vantage": "Windows task host; system DNS may be intercepted by Sing-tun; no browser claim",
+  "started_at": "2026-10-28T11:58:47.689960+00:00",
+  "external_web_tool": "HTTP and HTTPS URLs were not accessible to the external web retrieval tool; no HTTP status was returned",
+  "system_resolved_addresses": [
+    "198.18.0.133"
+  ],
+  "requests": [
+    {
+      "scheme": "http",
+      "exit_code": 0,
+      "connection_summary": [
+        "301",
+        "198.18.0.133",
+        "0"
+      ],
+      "error": "",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html",
+        "location": "https://flowly-ai.top/agriscan/?qa_network=qa20261028_1935"
+      },
+      "body_bytes": 169,
+      "body_sha256": "cf7421bf8021a6e56b4a9aa5e1a0f5bb5f5b341189e61c7776d15f44b82c1fa3",
+      "body_markers": []
+    },
+    {
+      "scheme": "https",
+      "exit_code": 35,
+      "connection_summary": [
+        "000",
+        "",
+        "0"
+      ],
+      "error": "curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed",
+      "headers": {},
+      "body_bytes": 0,
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_markers": []
+    }
+  ],
+  "public_doh": [
+    {
+      "resolver": "https://dns.google/resolve",
+      "type": "A",
+      "status": 0,
+      "answer": [
+        {
+          "name": "flowly-ai.top.",
+          "type": 1,
+          "TTL": 600,
+          "data": "162.14.71.77"
+        }
+      ]
+    },
+    {
+      "resolver": "https://dns.google/resolve",
+      "type": "AAAA",
+      "status": 0,
+      "answer": []
+    },
+    {
+      "resolver": "https://dns.google/resolve",
+      "type": "CNAME",
+      "status": 0,
+      "answer": []
+    }
+  ],
+  "finished_at": "2026-10-28T11:58:56.352724+00:00",
+  "explicit_public_ip_controls": [
+    {
+      "scheme": "http",
+      "route": "Windows explicit public IP control; Sing-tun may still route packets",
+      "exit_code": 0,
+      "connection_summary": [
+        "302",
+        "162.14.71.77",
+        "0"
+      ],
+      "error": "",
+      "headers": {
+        "location": "https://dnspod.qcloud.com/static/webblock.html?d=flowly-ai.top"
+      },
+      "body_markers": []
+    },
+    {
+      "scheme": "https",
+      "route": "Windows explicit public IP control; Sing-tun may still route packets",
+      "exit_code": 35,
+      "connection_summary": [
+        "000",
+        "",
+        "0"
+      ],
+      "error": "curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed",
+      "headers": {},
+      "body_markers": []
+    }
+  ]
+}

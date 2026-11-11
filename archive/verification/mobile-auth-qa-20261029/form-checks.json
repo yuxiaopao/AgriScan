@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source": "actual mobile TSX handlers and scope/cooldown hook",
+  "cases": [
+    "actual reset validator rejects malformed email/code and password bounds before any request",
+    "actual account scope synchronously locks code and verify requests and aborts on cleanup",
+    "actual route/token/service/unmount invalidation aborts requests and rejects late account writes",
+    "actual cooldown retains an absolute sixty-second deadline independent of email input",
+    "actual reset handler refuses mismatched confirmation without a POST",
+    "duplicate send clicks POST once and use fixed non-enumerating feedback",
+    "actual reset errors never echo provider password or OTP details",
+    "late reset and binding success after route change cannot mutate the next page",
+    "binding sends current-password proof and cannot write status after account replacement",
+    "verified binding updates only the current form and clears password/code proof inputs"
+  ],
+  "production_network_called": false,
+  "smtp_mail_sent": false,
+  "real_credential_changed": false
+}

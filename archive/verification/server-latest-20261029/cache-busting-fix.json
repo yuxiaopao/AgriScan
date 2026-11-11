@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "reason": "A browser opened before no-cache headers can retain old stable app.js/style.css URLs after HTML reload.",
+  "change": "Only style.css and app.js reference URLs now include the first 12 hex characters of their actual content SHA256.",
+  "assets": {
+    "style.css": {
+      "sha256": "bdbe0b63ec1c8798caf300f881701ed8aa195c3d851a022b760f6e94bed2b390",
+      "version": "bdbe0b63ec1c",
+      "url": "./style.css?v=bdbe0b63ec1c"
+    },
+    "app.js": {
+      "sha256": "f66a159a1f17d387a48d8031d78aadcdc60229b9e8c468a0eeab0bd8f25c9da2",
+      "version": "f66a159a1f17",
+      "url": "./app.js?v=f66a159a1f17"
+    }
+  },
+  "index_before_sha256": "d15fc46dc2af55e8a76f977b19353c2c5f5b0c38cae905ab377205828c903004",
+  "index_after": {
+    "bytes": 13907,
+    "sha256": "8d587b6891dbcdc64a3e9551f17d8a54c38c2c1118f34e58b6c0c05827e50485"
+  },
+  "only_two_reference_replacements": true,
+  "source_file_count": 113,
+  "compiled_artifacts_changed": false,
+  "apk_artifact_changed": false,
+  "original_full_archive_changed": false,
+  "browser_verified": false
+}

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "manifest_semantics": "Source inventory describes repository bytes copied before Capacitor generation. It is not a manifest of generated build outputs.",
+  "repository_source_entries_unchanged": 147,
+  "snapshot_source_entries_byte_identical": 146,
+  "generated_files": [
+    {
+      "path": "mobile/android/capacitor.settings.gradle",
+      "source_sha256": "aeddd0ebd130f1c033241da44911511da78ec041dbe9f95cec4a32b008c2cdc4",
+      "generated_sha256": "3e2d87804583ebeb26315603c82ebb20919c7de87362ffcb5f1cf7b0b09c54fa",
+      "reason": "Capacitor sync resolves the snapshot node_modules junction to the same existing project dependencies and rewrites relative Gradle paths.",
+      "only_relative_dependency_paths_changed": true,
+      "same_three_resolved_dependency_directories": [
+        "E:\\AgriScan\\mobile\\node_modules\\@capacitor\\android\\capacitor",
+        "E:\\AgriScan\\mobile\\node_modules\\@capacitor\\app\\android",
+        "E:\\AgriScan\\mobile\\node_modules\\@capacitor\\camera\\android"
+      ]
+    }
+  ],
+  "apk_modified": false,
+  "repository_modified": false
+}

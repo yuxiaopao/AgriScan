@@ -1,0 +1,26 @@
+{
+  "suffix": "ceca6f",
+  "fixtures": {
+    "apple": {
+      "local": "E:\\AgriScan\\.runtime\\isolation-20261029\\qa-fixture-ceca6f-apple.jpg",
+      "remote": "/srv/agriscan/bootstrap/qa_iso_20261029_ceca6f_apple.jpg",
+      "sha256": "5d7236ea8400b9b6093b51a860ebf4844d78b961e1505b6e64520a29fcef4427",
+      "bytes": 10070,
+      "source": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Apple___Apple_scab\\0261a6e4-21f8-481a-8827-b674e6955644___FREC_Scab 3055.JPG"
+    },
+    "corn_rust": {
+      "local": "E:\\AgriScan\\.runtime\\isolation-20261029\\qa-fixture-ceca6f-corn_rust.jpg",
+      "remote": "/srv/agriscan/bootstrap/qa_iso_20261029_ceca6f_corn_rust.jpg",
+      "sha256": "b7fc385bb509398b8c44edc92f46aae26b5cd24a943ed51a8230e0d50c7aa9cb",
+      "bytes": 10097,
+      "source": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Corn_(maize)___Common_rust_\\RS_Rust 2036.JPG"
+    },
+    "corn_healthy": {
+      "local": "E:\\AgriScan\\.runtime\\isolation-20261029\\qa-fixture-ceca6f-corn_healthy.jpg",
+      "remote": "/srv/agriscan/bootstrap/qa_iso_20261029_ceca6f_corn_healthy.jpg",
+      "sha256": "ef14748f6eb8ba08232d4c02fb600acad72c505ae704f63e3d45d1ae5053ae20",
+      "bytes": 4993,
+      "source": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Corn_(maize)___healthy\\205f8753-7598-4469-86c2-59307f90e85c___R.S_HL 8228 copy.jpg"
+    }
+  }
+}

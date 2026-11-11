@@ -1,0 +1,10 @@
+{
+  "run_id": "registration-hotfix-20261029-201833",
+  "release_id": "release-20261029-201833-registration-hotfix",
+  "patch_archive_path": "/srv/agriscan/bootstrap/registration-hotfix-20261029-201833.tar.gz",
+  "patch_sha256": "280e07c0e557a49d8cc80910748312ea947ee776fbb1f9c3c3c31820e293a862",
+  "payload_manifest_sha256": "6552758eb25bbc332bea89c50fc2983901fec88e7680cff9fb57b0e45a9d51be",
+  "expected_payload_files": 9,
+  "archive_local": "E:\\AgriScan\\.runtime\\registration-hotfix-20261029\\registration-hotfix.tar.gz",
+  "archive_bytes": 343127
+}

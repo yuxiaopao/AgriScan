@@ -1,0 +1,9 @@
+{
+  "stage": "downloading",
+  "file": "torch-2.9.1+cu128-cp312-cp312-win_amd64.whl",
+  "bytes": 2862033275,
+  "total": 2862033275,
+  "connections": 8,
+  "updated_at": 1792489031.7900429,
+  "bytes_per_second": 1724554.8416525074
+}

@@ -1,0 +1,135 @@
+{
+  "status": "passed",
+  "finished_at": "2026-10-29T06:51:07.018137+00:00",
+  "scope": "mobile-only UI and isolated Android test APK",
+  "source_tree_sha256": "6044e5cbf0e54d998be5965a5e584748c0b333d98b94733e55e9ab434eaafc1c",
+  "source_file_count": 134,
+  "source_files": {
+    "android/app/build.gradle": {
+      "bytes": 2508,
+      "sha256": "98a92d9e42c6ce9e4e804e536ff1c3065180ab3b472b8505e12dee024920c21a"
+    },
+    "src/App.tsx": {
+      "bytes": 13984,
+      "sha256": "965fb9affeaeff5556f40fcf2b232b0da62d0d4830a74c05438882d9ac704dd1"
+    },
+    "src/AssistantPage.tsx": {
+      "bytes": 10930,
+      "sha256": "07e3e3d11c04768e63ead7176063f5d641c182b542504d56c6364857e81fe654"
+    },
+    "src/components.tsx": {
+      "bytes": 9727,
+      "sha256": "df93f58587f7515a6ed9a38ad282b450cd6ebada9332a8518510e123e8805eee"
+    },
+    "src/DetectPage.tsx": {
+      "bytes": 21275,
+      "sha256": "c5d0410b165d8e0ddf9740bbab482fd19868ee1b022abc97e8ecd7fbf24845cb"
+    },
+    "src/hooks.ts": {
+      "bytes": 3952,
+      "sha256": "88e7cc075e50c1774e5a181eb7564ac5c7003ad0c772ec092d6903a430b28635"
+    },
+    "src/model-verification.css": {
+      "bytes": 3816,
+      "sha256": "b852bb52ca38dfb6ccc21249aca4163947a19a27181d883b99e1e838840fc03f"
+    },
+    "src/ModelsPage.tsx": {
+      "bytes": 2802,
+      "sha256": "42bad1a07d543bef09538fccbf1a2feda0d425b6228bcc7674df919bd0a86def"
+    },
+    "src/ModelVerification.tsx": {
+      "bytes": 2601,
+      "sha256": "674c9b16738711771d8fa74e1d0c4e45515b5a8b18899cfd974b92a9b09defd8"
+    },
+    "src/types.ts": {
+      "bytes": 2956,
+      "sha256": "c591bda7897eeccf5c251a8d57cf1777085bda68464c0ee44d341334d1f0530a"
+    },
+    "src/WorkspacePages.tsx": {
+      "bytes": 24781,
+      "sha256": "7143a7c519c18bf9bf70ecfbe1b962b938f9fa88c794ede1df201bf02011c740"
+    }
+  },
+  "artifact": {
+    "status": "passed",
+    "artifact": "E:\\AgriScan\\.runtime\\dual-model-20261029\\apk\\agriscan-test-1.0.4-code5.apk",
+    "package_id": "cn.agriscan.mobile",
+    "version": "1.0.4",
+    "version_code": 5,
+    "apk_bytes": 24149254,
+    "sha256": "c778ea4420b035f1cb2b1ad77888e847a9f7b6c9ba94d0ebc9aabe7a98fc1401",
+    "signer_sha256": "f6229ce48e05aaed0c8889f04f0909c7da7de085ff2b5f98792d6d3a27f710b7",
+    "same_signature_as_previous": true,
+    "debug_keystore_unchanged": true,
+    "v2_signature_verified": true,
+    "zip_crc_verified": true,
+    "min_sdk": 24,
+    "target_sdk": 36,
+    "cleartext_traffic": false,
+    "mixed_content": false,
+    "default_api": "https://agriscan.ming-ai.top/agriscan",
+    "compiled_no_store_count": 3,
+    "latest_workspace_snapshot": true,
+    "source_root_stable_after_build": true,
+    "source_tree_sha256": "6044e5cbf0e54d998be5965a5e584748c0b333d98b94733e55e9ab434eaafc1c",
+    "source_file_count": 134,
+    "public_asset_count": 44,
+    "ip_icons": [
+      "assets/public/images/ip-icons/home.webp",
+      "assets/public/images/ip-icons/detect.webp",
+      "assets/public/images/ip-icons/records.webp",
+      "assets/public/images/ip-icons/profile.webp",
+      "assets/public/images/ip-icons/camera.webp",
+      "assets/public/images/ip-icons/video.webp",
+      "assets/public/images/ip-icons/plots.webp",
+      "assets/public/images/ip-icons/knowledge.webp",
+      "assets/public/images/ip-icons/settings.webp"
+    ],
+    "woff2_font_included": true,
+    "field_journal_assets_included": true,
+    "floating_assistant_included": true,
+    "asset_paths_verified": 5,
+    "packaged_dist_byte_matches": true,
+    "bundles": [
+      "assets/public/assets/AssistantPage-Z-trkQGk.js",
+      "assets/public/assets/index-Bo3vqujL.js",
+      "assets/public/assets/index-DIfdJc1A.css",
+      "assets/public/assets/web-Du3qTfG3.js"
+    ],
+    "dual_model_verification_ui_included": true,
+    "separate_confidence_labels_included": true,
+    "whole_image_scope_included": true,
+    "native_runtime_tested": false,
+    "server_published": false,
+    "git_operations": false
+  },
+  "build_steps": [
+    "TypeScript tsc -b",
+    "Vite production build",
+    "Capacitor sync android",
+    "Gradle :app:assembleDebug",
+    "apksigner verify --verbose --print-certs",
+    "aapt manifest/badging inspection",
+    "ZIP CRC + dist/public byte equality + resource paths"
+  ],
+  "verification_contract": "record.prediction_model.verification; model.active.pipeline; model.active.components",
+  "views": [
+    "DetectionResult shared by photo/video/live/record detail",
+    "AssistantPage compact detection context",
+    "Profile → 识别服务 ModelsPage"
+  ],
+  "historical_records_without_verification": "card omitted; original result remains usable",
+  "confidence_semantics": "independent detection confidence and whole-image single-label classification probability displayed separately; no fused score",
+  "supported_verification_states": [
+    "agree",
+    "disagree",
+    "uncertain",
+    "unavailable"
+  ],
+  "account_boundary_changed": false,
+  "backend_frontend_admin_website_changed": false,
+  "production_deployed": false,
+  "native_runtime_tested": false,
+  "browser_interaction_tested": false,
+  "git_operations": false
+}

@@ -1,0 +1,10 @@
+from pathlib import Path
+p=Path('E:/AgriScan/mobile/src/CameraCapture.tsx');s=p.read_text(encoding='utf-8')
+s=s.replace('<span>尚未保存</span>', '<span>{savedFrame?\'已保存\':\'尚未保存\'}</span>')
+s=s.replace('{preview && <img', '{preview&&!savedFrame?.image_url && <img')
+s=s.replace('<DetectionResult record={result} transient/>', '<DetectionResult record={savedFrame||result} transient={!savedFrame}/>')
+s=s.replace('className="button outline full" onClick={saveFrame} disabled={!paused || inspecting || saving || !config.features.image_detection}', 'className={`button outline full camera-save-feedback ${savedFrame?\'is-saved\':\'\'}`} onClick={saveFrame} disabled={!!savedFrame || !paused || inspecting || saving || !config.features.image_detection}')
+s=s.replace("{saving ? '保存中…' : '保存这次观察'}", "{saving?'正在保存…':savedFrame?'这帧观察已保存':'保存这帧观察'}")
+s=s.replace("{!config.features.image_detection?<p", "{savedFrame?<p className=\"fine-print\" role=\"status\">已保存在检测记录中。继续识别新画面后，可保存下一次观察。</p>:!config.features.image_detection?<p")
+s=s.replace("相机使用真实识别模型，按间隔抽帧，不是连续目标追踪。停止、离开页面或切至后台会释放相机。", "相机会间隔识别画面，不会自动保存每一帧。暂停后可保存最近一次观察；离开检测页或切至后台会关闭相机。")
+p.write_text(s,encoding='utf-8')

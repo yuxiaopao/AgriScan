@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "business_data_mutations": false,
+  "foreign_metadata_or_body_returned": false,
+  "checks": {
+    "personal_record_detail": {
+      "status_code": 404,
+      "cache_headers": {
+        "cache-control": "private, no-store",
+        "vary": "Authorization"
+      },
+      "body_read": false
+    },
+    "personal_record_image": {
+      "status_code": 404,
+      "cache_headers": {
+        "cache-control": "private, no-store",
+        "vary": "Authorization"
+      },
+      "body_read": false
+    }
+  },
+  "expected_status": 404,
+  "public_dns_and_trusted_tls": true,
+  "redirects_followed": false,
+  "foreign_conversations_requested": false,
+  "fresh_cli_session_logout_status": 200,
+  "normal_auth_endpoints_only": [
+    "login",
+    "logout"
+  ],
+  "auth_logout_may_append_own_revocation_row": true,
+  "server_script_sha256": "f9e8d6abd7ce6d9063c8d097c7a16fdcb8d2ac1c7b58bd25e2bafd2c8a28fe43",
+  "ssh_exit_code": 0
+}

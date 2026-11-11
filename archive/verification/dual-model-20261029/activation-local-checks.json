@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checks": [
+    "systemd real duration formats",
+    "absolute traversal and Windows separators rejected",
+    "symlink duplicate private-env and bundled-APK archive entries rejected",
+    "classifier archive accepts only its two exact files",
+    "only classification env line changes and duplicate is rejected",
+    "public plan schema rejects credential/unknown fields",
+    "atomic env CAS preserves a concurrent edit using local fake file only"
+  ],
+  "count": 7,
+  "activation_executed": false,
+  "server_contacted": false,
+  "private_values_read": false
+}

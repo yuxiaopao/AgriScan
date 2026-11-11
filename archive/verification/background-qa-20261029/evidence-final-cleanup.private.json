@@ -1,0 +1,159 @@
+{
+  "status": "prepared_read_only",
+  "checked_at": "2026-10-29T11:22:57.627500+00:00",
+  "run_tag": "QA-BACKGROUND-20261029-1814",
+  "current_release": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+  "schema": "20261029_06",
+  "configuration": {
+    "version": 11,
+    "canonical_sql_row_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "cleanup_plan": {
+    "run_tag": "QA-BACKGROUND-20261029-1814",
+    "expected_current": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+    "expected_configuration_version": 11,
+    "expected_configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224",
+    "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "detections": [
+      {
+        "id": "337ee83cc2db48c4b3efe2c4b70bf4c3",
+        "name": "QA-BACKGROUND-20261029-1814-final-corn_healthy.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 最终并发玉米B",
+        "image_url": "/api/uploads/be124b7c1bdd485988b733217f464723.jpg",
+        "source_image_sha256": "51fafd78a103e792a32ada1d755a6755bcaab7047c341928c69efba674823c37",
+        "conversation_id": "a997c5a08b324a498bd1f42e08f40f68"
+      },
+      {
+        "id": "c153fd9e4d46483399efbc5940836080",
+        "name": "QA-BACKGROUND-20261029-1814-apple.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 切换模块继续上传",
+        "image_url": "/api/uploads/261faf83d0a24cf99dba87941dbc350e.jpg",
+        "source_image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+        "conversation_id": "f22b84c5dd794a8e99bd5e16353246a7"
+      },
+      {
+        "id": "d4a7f4d29717477293d0737554e72ea7",
+        "name": "QA-BACKGROUND-20261029-1814-offpage-corn_rust.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 离页完成D不自动跳转",
+        "image_url": "/api/uploads/793f9ed0766447d4986736066c8ee3e2.jpg",
+        "source_image_sha256": "67a16dd5a7ffa8b04f7016e6f3db40c64907f2cbe4402a1789bfc89a098ccefa",
+        "conversation_id": "f40d43548a4844b9812a9fe9d217456c"
+      },
+      {
+        "id": "f119301dbf6049f7b05a09a65a7318a9",
+        "name": "QA-BACKGROUND-20261029-1814-final-apple.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 最终并发苹果A",
+        "image_url": "/api/uploads/7a6c92c0a5e74fb7a1c46a5bb06dc4cb.jpg",
+        "source_image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+        "conversation_id": "f3874bdf4c7745dc985e17666e650d7a"
+      }
+    ],
+    "plots": [
+      {
+        "id": "17ebc8d160cd4b00a6c577a49d689c46",
+        "name": "QA-BACKGROUND-20261029-1814 苹果试验地",
+        "crop": "苹果",
+        "area": "1.2500000000",
+        "location": "QA-BACKGROUND-20261029-1814 公共坐标测试",
+        "manager": "生产验收",
+        "cover_filename": null,
+        "cover_sha256": null
+      }
+    ]
+  },
+  "evidence": {
+    "detections": [
+      {
+        "id": "337ee83cc2db48c4b3efe2c4b70bf4c3",
+        "name": "QA-BACKGROUND-20261029-1814-final-corn_healthy.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 最终并发玉米B",
+        "image_url": "/api/uploads/be124b7c1bdd485988b733217f464723.jpg",
+        "source_image_sha256": "51fafd78a103e792a32ada1d755a6755bcaab7047c341928c69efba674823c37",
+        "conversation_id": "a997c5a08b324a498bd1f42e08f40f68"
+      },
+      {
+        "id": "c153fd9e4d46483399efbc5940836080",
+        "name": "QA-BACKGROUND-20261029-1814-apple.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 切换模块继续上传",
+        "image_url": "/api/uploads/261faf83d0a24cf99dba87941dbc350e.jpg",
+        "source_image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+        "conversation_id": "f22b84c5dd794a8e99bd5e16353246a7"
+      },
+      {
+        "id": "d4a7f4d29717477293d0737554e72ea7",
+        "name": "QA-BACKGROUND-20261029-1814-offpage-corn_rust.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 离页完成D不自动跳转",
+        "image_url": "/api/uploads/793f9ed0766447d4986736066c8ee3e2.jpg",
+        "source_image_sha256": "67a16dd5a7ffa8b04f7016e6f3db40c64907f2cbe4402a1789bfc89a098ccefa",
+        "conversation_id": "f40d43548a4844b9812a9fe9d217456c"
+      },
+      {
+        "id": "f119301dbf6049f7b05a09a65a7318a9",
+        "name": "QA-BACKGROUND-20261029-1814-final-apple.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 最终并发苹果A",
+        "image_url": "/api/uploads/7a6c92c0a5e74fb7a1c46a5bb06dc4cb.jpg",
+        "source_image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+        "conversation_id": "f3874bdf4c7745dc985e17666e650d7a"
+      }
+    ],
+    "plots": [
+      {
+        "id": "17ebc8d160cd4b00a6c577a49d689c46",
+        "name": "QA-BACKGROUND-20261029-1814 苹果试验地",
+        "crop": "苹果",
+        "area": "1.2500000000",
+        "location": "QA-BACKGROUND-20261029-1814 公共坐标测试",
+        "manager": "生产验收",
+        "cover_filename": null,
+        "cover_sha256": null
+      }
+    ],
+    "conversation_associations": [
+      {
+        "detection_id": "337ee83cc2db48c4b3efe2c4b70bf4c3",
+        "conversation_id": "a997c5a08b324a498bd1f42e08f40f68",
+        "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+        "message_count": 2,
+        "source_markers_verified_in_sql": true
+      },
+      {
+        "detection_id": "c153fd9e4d46483399efbc5940836080",
+        "conversation_id": "f22b84c5dd794a8e99bd5e16353246a7",
+        "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+        "message_count": 2,
+        "source_markers_verified_in_sql": true
+      },
+      {
+        "detection_id": "d4a7f4d29717477293d0737554e72ea7",
+        "conversation_id": "f40d43548a4844b9812a9fe9d217456c",
+        "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+        "message_count": 2,
+        "source_markers_verified_in_sql": true
+      },
+      {
+        "detection_id": "f119301dbf6049f7b05a09a65a7318a9",
+        "conversation_id": "f3874bdf4c7745dc985e17666e650d7a",
+        "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+        "message_count": 2,
+        "source_markers_verified_in_sql": true
+      }
+    ],
+    "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "normalized_photo_sha256": {
+      "be124b7c1bdd485988b733217f464723.jpg": "51fafd78a103e792a32ada1d755a6755bcaab7047c341928c69efba674823c37",
+      "261faf83d0a24cf99dba87941dbc350e.jpg": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+      "793f9ed0766447d4986736066c8ee3e2.jpg": "67a16dd5a7ffa8b04f7016e6f3db40c64907f2cbe4402a1789bfc89a098ccefa",
+      "7a6c92c0a5e74fb7a1c46a5bb06dc4cb.jpg": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4"
+    },
+    "prediction_row_count": 4,
+    "cleanup_helper_compatible": true,
+    "cleanup_helper_review_notes": []
+  },
+  "selection": "Only literal exact run tag in detection name/note or plot name/location; explicit owner required",
+  "normalized_photo_hash_method": "SHA256 of stored normalized JPEG bytes; no image returned or rewritten",
+  "chat_content_returned": false,
+  "non_qa_rows_returned": false,
+  "production_mutations": false,
+  "server_script_sha256": "242d7dd4a97654720d15cb9b92707d739bee3aca1a6325455f2cc203741de55b",
+  "ssh_exit_code": 0
+}

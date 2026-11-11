@@ -1,0 +1,10 @@
+{
+  "stage": "completed",
+  "epochs": 40,
+  "classes": 38,
+  "username": "nlwftest",
+  "release": "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0",
+  "systemVerified": true,
+  "text": "训练与验收已完成",
+  "workflow": "#/workflows/aedd8b93-35fa-483a-923a-989788a2f884/edit"
+}

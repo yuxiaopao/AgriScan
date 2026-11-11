@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-10-29T10:44:25.940282+00:00",
+  "release": "/srv/agriscan/releases/release-20261029-dual-model-181406",
+  "api": {
+    "MainPID": "1584612",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Thu 2026-10-29 18:21:01 CST",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "schema": "20261029_06",
+  "configuration": {
+    "version": 11,
+    "row_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224",
+    "method": "MySQL SHA2 of canonical field concatenation; no data or secret value returned"
+  },
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  }
+}

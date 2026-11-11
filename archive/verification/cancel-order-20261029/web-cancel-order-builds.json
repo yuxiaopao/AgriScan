@@ -1,0 +1,1436 @@
+{
+  "status": "passed",
+  "release_version": "1.0.4",
+  "completed_result_view": true,
+  "background_detection_tasks": true,
+  "completed_at": "2026-10-29T11:05:25.096938+00:00",
+  "source": "latest complete working tree",
+  "source_manifest_phase": "only shared task cancellation ordering changed after frozen upload-state release; both web surfaces rebuilt",
+  "post_verification_change": {
+    "scope": "request server cancellation before aborting active upload; preserve honest server terminal state",
+    "prior_release_proof": "E:\\AgriScan\\.runtime\\cancel-order-20261029\\prior-web-ui-builds.json",
+    "product_sources_changed": [
+      "shared/detectionTasks.ts"
+    ],
+    "prior_core_sha256": "9242e1fd18d2e08bb409eeffe724d41b409162adeb2bb394ed01d739f5db9676",
+    "current_core_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1"
+  },
+  "source_file_count": 118,
+  "sources": {
+    "admin/index.html": {
+      "bytes": 596,
+      "sha256": "ef300bef375e30404458a1cff2c0255dfb4376c1a2945f40280a791c18c1d12d"
+    },
+    "admin/package-lock.json": {
+      "bytes": 79869,
+      "sha256": "8c86b9ff97dffe26525423e7140d5cdd1f9eb09e9b15ce371318cf388cbd89e7"
+    },
+    "admin/package.json": {
+      "bytes": 660,
+      "sha256": "b60a4e0777c998f815a9789ad66fbcf9487b8fcb294f0764e64b52aaf07d6c53"
+    },
+    "admin/src/admin.css": {
+      "bytes": 28616,
+      "sha256": "ec31b4c8a4ad0da69655646db5e25296b4a54da93b6e158659b3c2adc4a7bb78"
+    },
+    "admin/src/Admin.tsx": {
+      "bytes": 61926,
+      "sha256": "7e17c20585ad2dfc2028dc55ac6351c02b9688b87e3941c5d853dfcac5e15f8f"
+    },
+    "admin/src/api.ts": {
+      "bytes": 186,
+      "sha256": "a8d24d6c9c62e8208fed5128597e27cf659b54e136c669169c65950891e81dc1"
+    },
+    "admin/src/App.tsx": {
+      "bytes": 5440,
+      "sha256": "94e3b7c08cd39f6696a0f8641343cdb026f0398cb6bc82e6c9c1ccbcdcd8e5fb"
+    },
+    "admin/src/login.css": {
+      "bytes": 4111,
+      "sha256": "37d8a5d2063571b10f526c121b99e132c8dce8327c0706b363a63913a285c85e"
+    },
+    "admin/src/main.tsx": {
+      "bytes": 279,
+      "sha256": "496f0887aca34a05b059f2a0a6e7e636d4f3d40f0a9dd74474e70345a6a8b171"
+    },
+    "admin/src/OwnerPicker.tsx": {
+      "bytes": 3458,
+      "sha256": "97d81a7c11238b965b6139230f4c697ad4dc5dc8ec214e5f7ded5b2591d377db"
+    },
+    "admin/src/polish.css": {
+      "bytes": 27029,
+      "sha256": "c9f99436ab72b929631e5109936907bc3594329c3273fefe5c2d06faa4953e4d"
+    },
+    "admin/src/runtime-settings.css": {
+      "bytes": 6209,
+      "sha256": "53a9494afbae025987ba97d9af77ffb91818c8e1ba50cad91eb7cc21902aa31f"
+    },
+    "admin/src/RuntimeSettings.tsx": {
+      "bytes": 23409,
+      "sha256": "6943d303ad428ae558ef0fea68559b234e761604cd8faa4b1c5d1e6fb2b8915e"
+    },
+    "admin/src/vite-env.d.ts": {
+      "bytes": 38,
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    "admin/tsconfig.json": {
+      "bytes": 519,
+      "sha256": "396c580e1c0e5d2297728d8ddd49850f69482f2b7939c86333119821f069f89a"
+    },
+    "admin/vite.config.ts": {
+      "bytes": 1453,
+      "sha256": "12cdf03905b8a179a1f403ae89bd2007ffaf9673520cca8ee80cccc3dac56281"
+    },
+    "frontend/.env.example": {
+      "bytes": 113,
+      "sha256": "0f4e12699723944df64392693085610ba0f3adcf3eb75ed058d94b992ed88545"
+    },
+    "frontend/index.html": {
+      "bytes": 576,
+      "sha256": "556960a915593402a460b37f21f9f3eef2e82cf2af99c6ec3957feb77236bd0f"
+    },
+    "frontend/package-lock.json": {
+      "bytes": 81226,
+      "sha256": "7d4451f0006f84cb2b3b428e2c7e5281d10b8443fa9ff4844c306060c9d9c4f7"
+    },
+    "frontend/package.json": {
+      "bytes": 635,
+      "sha256": "325a1ad4115e2d0535a1f3782b83bf7e54573229de12549b2b5bf92abed69681"
+    },
+    "frontend/public/brand/icon.svg": {
+      "bytes": 760560,
+      "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+    },
+    "frontend/public/brand/logo.svg": {
+      "bytes": 760562,
+      "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+    },
+    "frontend/public/favicon.svg": {
+      "bytes": 297,
+      "sha256": "bf71f4fd6f8abd07bbf22b8794a7613f4c0ea95fe0bbb22ac3a506d822caa386"
+    },
+    "frontend/public/images/xiaohe-crops/apple-still.webp": {
+      "bytes": 26634,
+      "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+    },
+    "frontend/public/images/xiaohe-crops/apple.webp": {
+      "bytes": 199906,
+      "sha256": "fd69b563333b4a8560755bbe8c1a0c753935f1b19cc1a3d92038d43ea9e28961"
+    },
+    "frontend/public/images/xiaohe-crops/blueberry-still.webp": {
+      "bytes": 25640,
+      "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+    },
+    "frontend/public/images/xiaohe-crops/blueberry.webp": {
+      "bytes": 199396,
+      "sha256": "d1718c6cd5f395319da9f079e4ca2dbf545c9b42200870f17961636b47b1c969"
+    },
+    "frontend/public/images/xiaohe-crops/cherry-still.webp": {
+      "bytes": 25168,
+      "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+    },
+    "frontend/public/images/xiaohe-crops/cherry.webp": {
+      "bytes": 192570,
+      "sha256": "ced5b439eaf391deacc8970b38319c36a3bee7875a4acb8ad1a6bc249974d83f"
+    },
+    "frontend/public/images/xiaohe-crops/citrus-still.webp": {
+      "bytes": 26414,
+      "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+    },
+    "frontend/public/images/xiaohe-crops/citrus.webp": {
+      "bytes": 204180,
+      "sha256": "fd10e513221432bea90e58bfb6493eeec05d9a645b9ca781bf8c6246aea0db8d"
+    },
+    "frontend/public/images/xiaohe-crops/corn-still.webp": {
+      "bytes": 26594,
+      "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+    },
+    "frontend/public/images/xiaohe-crops/corn.webp": {
+      "bytes": 205120,
+      "sha256": "b7b7d2f5aee022ccc97fc65df7fe75c27b8269451959744699b0c324f5ffbdcc"
+    },
+    "frontend/public/images/xiaohe-crops/cucumber-still.webp": {
+      "bytes": 25918,
+      "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+    },
+    "frontend/public/images/xiaohe-crops/cucumber.webp": {
+      "bytes": 200298,
+      "sha256": "b8afb09dc9a49aff86ef3d485a5851fc9ef10f0f910b567d89856260d227e68b"
+    },
+    "frontend/public/images/xiaohe-crops/grape-still.webp": {
+      "bytes": 26648,
+      "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+    },
+    "frontend/public/images/xiaohe-crops/grape.webp": {
+      "bytes": 207896,
+      "sha256": "78f81de6f5e36d23b1ceead2a128ba1afc3ca1271187d2e1a7cb55863885f4f6"
+    },
+    "frontend/public/images/xiaohe-crops/peach-still.webp": {
+      "bytes": 26436,
+      "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+    },
+    "frontend/public/images/xiaohe-crops/peach.webp": {
+      "bytes": 198194,
+      "sha256": "6db8e1874380f523d556727c2e361c7e31ea002f56da12c8fe93f9999c1fda0f"
+    },
+    "frontend/public/images/xiaohe-crops/pepper-still.webp": {
+      "bytes": 26432,
+      "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+    },
+    "frontend/public/images/xiaohe-crops/pepper.webp": {
+      "bytes": 203770,
+      "sha256": "5f6368bd191a78501932d9e60a14cd4c050f4d0d5074412e92ec2877db4ab4f6"
+    },
+    "frontend/public/images/xiaohe-crops/potato-still.webp": {
+      "bytes": 27058,
+      "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+    },
+    "frontend/public/images/xiaohe-crops/potato.webp": {
+      "bytes": 204038,
+      "sha256": "34e104c073be114a7d7cc6ab9588a4d50ba14379aa7d7558fde055672c4eabb2"
+    },
+    "frontend/public/images/xiaohe-crops/pumpkin-still.webp": {
+      "bytes": 25384,
+      "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+    },
+    "frontend/public/images/xiaohe-crops/pumpkin.webp": {
+      "bytes": 199290,
+      "sha256": "a3e395d853a2220f9904a614a4f6ef7ca804a3492bfb381a64e260b3b7e3c2a8"
+    },
+    "frontend/public/images/xiaohe-crops/raspberry-still.webp": {
+      "bytes": 26558,
+      "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+    },
+    "frontend/public/images/xiaohe-crops/raspberry.webp": {
+      "bytes": 208614,
+      "sha256": "204e29a48a4dd356cba48c3ef28bdc03fa4e0288aa26215ebd95babc13a2727b"
+    },
+    "frontend/public/images/xiaohe-crops/rice-still.webp": {
+      "bytes": 27456,
+      "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+    },
+    "frontend/public/images/xiaohe-crops/rice.webp": {
+      "bytes": 213246,
+      "sha256": "407cf40b5078d59e7a9f10b1799a590098b49ebc994beb42807fafa7e02e5e25"
+    },
+    "frontend/public/images/xiaohe-crops/soybean-still.webp": {
+      "bytes": 26358,
+      "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+    },
+    "frontend/public/images/xiaohe-crops/soybean.webp": {
+      "bytes": 205714,
+      "sha256": "1b9bb7ce153d7c910319da259c8fa8d7ccf331695f81d184c5cd458514d8b952"
+    },
+    "frontend/public/images/xiaohe-crops/strawberry-still.webp": {
+      "bytes": 26784,
+      "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+    },
+    "frontend/public/images/xiaohe-crops/strawberry.webp": {
+      "bytes": 206036,
+      "sha256": "59b98fa9e152a7c5e0c19401c05ced4a6301354f1ba9094d23023259614ed617"
+    },
+    "frontend/public/images/xiaohe-crops/tomato-still.webp": {
+      "bytes": 26896,
+      "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+    },
+    "frontend/public/images/xiaohe-crops/tomato.webp": {
+      "bytes": 206892,
+      "sha256": "a6716aaf28836f25be300a694e21d0d3cf7b3ce76e6391edef7e682dad7f0ff1"
+    },
+    "frontend/public/images/xiaohe-crops/wheat-still.webp": {
+      "bytes": 26538,
+      "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+    },
+    "frontend/public/images/xiaohe-crops/wheat.webp": {
+      "bytes": 206330,
+      "sha256": "db57e7969b201101611b379d535773f26da3af9bda8416f9d488f2b43b55ed22"
+    },
+    "frontend/public/images/xiaohe-motion/concern.webp": {
+      "bytes": 217220,
+      "sha256": "78f252ed7d084827cd2b6240e5dba887300dd1d2292520a383aa7bcda1d69549"
+    },
+    "frontend/public/images/xiaohe-motion/idle.webp": {
+      "bytes": 222736,
+      "sha256": "162a58e700e5e02e602c58074edbbd82c832644e4ad04c43dfc70835c1ee206d"
+    },
+    "frontend/public/images/xiaohe-motion/scan.webp": {
+      "bytes": 216620,
+      "sha256": "e06a00c4549342d1c0450774437e97d9721254b822d9d06c4c677d9b0ac21e2b"
+    },
+    "frontend/public/images/xiaohe-motion/success.webp": {
+      "bytes": 224656,
+      "sha256": "ff085260bc96a14bedaa3e26fc2a7d7f64d9a620e06a27a1cbd64b9564c29ae8"
+    },
+    "frontend/public/images/xiaohe-motion/think.webp": {
+      "bytes": 200160,
+      "sha256": "3c19944bca7f565e07f3f2fe975e1ca6399962d58d5fa41e6243319124363e2f"
+    },
+    "frontend/public/images/xiaohe-motion/wave.webp": {
+      "bytes": 191180,
+      "sha256": "f6cf6594fe23f30ea572b1142869e06ba87ca177bb228da703c72b10c268f3c5"
+    },
+    "frontend/public/images/xiaohe.png": {
+      "bytes": 934830,
+      "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+    },
+    "frontend/src/Access.tsx": {
+      "bytes": 11432,
+      "sha256": "e561f662d18f3dcbe80c0e7c19ecb4f88a1e4364d691e240a2aebd516b1a5870"
+    },
+    "frontend/src/admin.css": {
+      "bytes": 26711,
+      "sha256": "da70c3ff437ae3f2b802c7ad412ab1eda6c2aeb74c94d79cbf88752fc4f0f069"
+    },
+    "frontend/src/Admin.tsx": {
+      "bytes": 57073,
+      "sha256": "08d664296bb13cbb32793a0c171cb4ec8e73aa4dacf9aceb4ceda1952323a990"
+    },
+    "frontend/src/api.ts": {
+      "bytes": 3191,
+      "sha256": "8c706b61152bf934c779c07b83d6f0acde2f5c2c2b5687f785e8d8422da0e8d6"
+    },
+    "frontend/src/App.tsx": {
+      "bytes": 27368,
+      "sha256": "63a976694acf158ff9a86977a6630b2086bb8cfb8874a809e7311118ed98cde9"
+    },
+    "frontend/src/assistant.css": {
+      "bytes": 22228,
+      "sha256": "c764820bc93d1ac1863a6068aee5ef32b837c71620a7b30424c32c06ccc12d85"
+    },
+    "frontend/src/AssistantMessageBody.tsx": {
+      "bytes": 2875,
+      "sha256": "4c915e1c10a8ff826328839e554c249a5a07ebcd0368d7abf4512bbffe60df39"
+    },
+    "frontend/src/ClientConfig.tsx": {
+      "bytes": 1970,
+      "sha256": "8c6ffca91126afc96cb30325cf902852015c20b1a8892972319b6f9fe80a6cac"
+    },
+    "frontend/src/components.tsx": {
+      "bytes": 8100,
+      "sha256": "01ab58ce386a5ea6b683ddfbaf3873c3919a32f313efd67465e3a456ddda8081"
+    },
+    "frontend/src/crop-theme.css": {
+      "bytes": 8089,
+      "sha256": "a95acffc1cc5b4dc0feb2bccc741176007c9f95139ceb71d6e34b5e27c0cf180"
+    },
+    "frontend/src/CropRoom.tsx": {
+      "bytes": 3531,
+      "sha256": "3553da49fd382b82c5a365ffb2f4184ae0824bf9d5177ebaa0581bd3d80e09e7"
+    },
+    "frontend/src/CropTheme.tsx": {
+      "bytes": 1476,
+      "sha256": "78f437576a9883d74b9c34f3153b793e6ff97192177df3d0978e94796e31e4c2"
+    },
+    "frontend/src/cropThemes.ts": {
+      "bytes": 4072,
+      "sha256": "0ea6c271981464b0144a1ff186328a05507ceccbcd4feb041b2d7b79b48765e9"
+    },
+    "frontend/src/Dashboard.tsx": {
+      "bytes": 8628,
+      "sha256": "820822da0a5efb7a0549508460c7fedbceb58b6ebc059ab2fe47208824d2ed15"
+    },
+    "frontend/src/detect-result.css": {
+      "bytes": 3235,
+      "sha256": "9d08cad086cc8e9c8b649efc43eaf8b5c6aeee77a349cd46ccf81190a4df5f63"
+    },
+    "frontend/src/detection-image-comparison.css": {
+      "bytes": 5136,
+      "sha256": "f003574583719e677b3ffae63c45391cb70fca3db03217a907ef9d45f06b7354"
+    },
+    "frontend/src/detection-tasks.css": {
+      "bytes": 1651,
+      "sha256": "44d576c96625f6373ee09b730e31ef0a086dc81cfe5bed8d71678f3b05b8cc98"
+    },
+    "frontend/src/DetectionImageComparison.tsx": {
+      "bytes": 8392,
+      "sha256": "69b9d4783222e87fcdb27588ca091b804d5f7327409f6bf09c1a7c67c6c221c2"
+    },
+    "frontend/src/DetectionJourney.tsx": {
+      "bytes": 2252,
+      "sha256": "fb28238663306bbf80409584dc88e88a6e9dcbb2f075050ecf94842353c9ba7b"
+    },
+    "frontend/src/DetectionTasks.tsx": {
+      "bytes": 6382,
+      "sha256": "2dafad8fdfd08a1b6990871edbf62ee81c3e199fdab488a424b4a17de1234275"
+    },
+    "frontend/src/DetectResultView.tsx": {
+      "bytes": 4590,
+      "sha256": "b60c6c913389a258188747e74d976078daac1eb4eaca33fc1841e654376face4"
+    },
+    "frontend/src/email-forms.css": {
+      "bytes": 866,
+      "sha256": "c646cb49ff10215959f3d40409a7b0a1a75e1fba898bc4d5fcb9b1e2af8aeaa1"
+    },
+    "frontend/src/EmailForms.tsx": {
+      "bytes": 11505,
+      "sha256": "7dfa93361d0c860cb18304e98225ff8b6340ffd6f393b223174228e577db8761"
+    },
+    "frontend/src/FloatingAssistant.tsx": {
+      "bytes": 23776,
+      "sha256": "1dc1d37595089ac1e36cd305932aad63af758105563601f98909e078262893cf"
+    },
+    "frontend/src/Integrations.tsx": {
+      "bytes": 5109,
+      "sha256": "ab2b6f2226fc612e0abc1448fa694d3f9eaf9ba655054eec9f03512a7b1adebd"
+    },
+    "frontend/src/main.tsx": {
+      "bytes": 492,
+      "sha256": "ca6302ead94875880d5816892d909454a2937b0f7b8bab3af3f4b749ed908dd6"
+    },
+    "frontend/src/MapTileFeedback.tsx": {
+      "bytes": 1153,
+      "sha256": "0d91a5dc8180ce7a23ef1833c5ae500a9233030f5a9d6d9eaa33be9e6745db38"
+    },
+    "frontend/src/mapTiles.ts": {
+      "bytes": 2471,
+      "sha256": "0e0281fda4603f4538a27ad3b59bd3f01ad3aa707296498c295742af6bdfca05"
+    },
+    "frontend/src/model-verification.css": {
+      "bytes": 4188,
+      "sha256": "4675f0ee01f9c59a05ac48864b41edfb0ad0ff13b2c1b3b48a40ee03d1d1a116"
+    },
+    "frontend/src/ModelVerification.tsx": {
+      "bytes": 2702,
+      "sha256": "b14247077821775ad929973c01e985d97337dcd7650af3b5ac2a2cbd46219ce5"
+    },
+    "frontend/src/motion.tsx": {
+      "bytes": 6003,
+      "sha256": "abafda8d8472ad7dbcd073f3b0c2d5568b3a787bdf18d436eab182057223b6c0"
+    },
+    "frontend/src/ObservationStack.tsx": {
+      "bytes": 2348,
+      "sha256": "474a5740daad47c556c00e64a821508a1ae61b63689607ad4af3a48bcd100abb"
+    },
+    "frontend/src/Pages.tsx": {
+      "bytes": 31594,
+      "sha256": "2d8d8171e9d566b3925e8812db01c4e2bb16830ad0815ea8fcfbc6764dad0752"
+    },
+    "frontend/src/plot-editor.css": {
+      "bytes": 7355,
+      "sha256": "e3e8968b4fca614720de09b9652048c455fc339d271a5edddfe89adcaf0ef391"
+    },
+    "frontend/src/plotCoordinates.ts": {
+      "bytes": 458,
+      "sha256": "d1605925eb412bb63213a0a4c2d3ddf7e1dfe1f807711ee5ff4410971d7ab146"
+    },
+    "frontend/src/PlotCoverCarousel.tsx": {
+      "bytes": 4775,
+      "sha256": "5f206bd5d15138dbbfe090bdc19e3b71473c280414b63ba35cd3855b534d1895"
+    },
+    "frontend/src/plotDrafts.ts": {
+      "bytes": 1560,
+      "sha256": "e4e628ae21cde99359309cd447a8dcc744331434b2dee7a23f8a9cdf2a17e005"
+    },
+    "frontend/src/PlotEditor.tsx": {
+      "bytes": 9628,
+      "sha256": "787c00990c3d7c2569e18dfe54f15973907d5477ea16b33171ef3559e7df7446"
+    },
+    "frontend/src/PlotLocationPicker.tsx": {
+      "bytes": 7356,
+      "sha256": "66d13f9a589edf34937835c2bd82665ce25a082a0daa4b21ba850f4e0d734dc8"
+    },
+    "frontend/src/predictionFormat.ts": {
+      "bytes": 282,
+      "sha256": "05d4ff97644b1697af8b6b5406ab832bcad8b4dd695decefabd7616a979a496e"
+    },
+    "frontend/src/PredictionScores.tsx": {
+      "bytes": 1552,
+      "sha256": "35e4291ab83b1126128df2afbaba7a5a970b369fda2f24bc861284f81bbbc9c2"
+    },
+    "frontend/src/refinement.css": {
+      "bytes": 25572,
+      "sha256": "4ad7c394724aa71e1bae2fe9628f3beb228ad5d09f7331106f6adfd09e9b1999"
+    },
+    "frontend/src/RunningModels.tsx": {
+      "bytes": 2347,
+      "sha256": "0920614c58ef8f395287da2e7c438a0d6268589c6ed006f427ea3a2d44d038a9"
+    },
+    "frontend/src/styles.css": {
+      "bytes": 67745,
+      "sha256": "270b1c55032c2a9d5081a0b348da7ebd77a6d732653b0f6c5e56469154f6db5d"
+    },
+    "frontend/src/types.ts": {
+      "bytes": 2767,
+      "sha256": "537e2995d6c484b408420bc871e0cf821eddab5c14d5028bd7ddc5c07359a2b1"
+    },
+    "frontend/src/useFloatingPosition.ts": {
+      "bytes": 8341,
+      "sha256": "ff1a30123d2b3bbdca40f2716ce7e0ee9302b2bedf5afae63b86b5e5cd515aa6"
+    },
+    "frontend/src/vite-env.d.ts": {
+      "bytes": 38,
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    "frontend/src/xiaohe.css": {
+      "bytes": 3004,
+      "sha256": "4646ebee71d20c6e12ca3ff616b2ce15891c763ecb104e3520d097bdb78e6d57"
+    },
+    "frontend/src/Xiaohe.tsx": {
+      "bytes": 2587,
+      "sha256": "cf5550dc25048178b8b4a2b8fcc3b446e1be030be438dc7dfb7cc68b8d005332"
+    },
+    "frontend/src/XiaoheMotionDemo.tsx": {
+      "bytes": 1551,
+      "sha256": "1c6357183b6b15e5a5888ae86bc0f3665208b8cec34ff0177b708442ebcf5f1d"
+    },
+    "frontend/tsconfig.json": {
+      "bytes": 486,
+      "sha256": "d8306abda3d4c46346d99fde4d6f6864d00bf2d768a77d39de4f5a9294360319"
+    },
+    "frontend/vite.config.ts": {
+      "bytes": 892,
+      "sha256": "0dfed16e2721fc2816749c4fd0c3f4cb45c9b7d1490d605f1ec2e5635a4c3ccd"
+    },
+    "scripts/build-web.ps1": {
+      "bytes": 443,
+      "sha256": "204c324af33c55ea035a92cb102cf27c139a76adf5e2256a7c62156ea734dbac"
+    },
+    "shared/detectionTasks.ts": {
+      "bytes": 15099,
+      "sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1"
+    }
+  },
+  "changed_files": [
+    "frontend/src/types.ts",
+    "frontend/src/PredictionScores.tsx",
+    "frontend/src/ModelVerification.tsx",
+    "frontend/src/RunningModels.tsx",
+    "frontend/src/predictionFormat.ts",
+    "frontend/src/model-verification.css",
+    "frontend/src/Pages.tsx",
+    "frontend/src/FloatingAssistant.tsx",
+    "frontend/src/Integrations.tsx",
+    "admin/src/Admin.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/DetectionJourney.tsx",
+    "frontend/src/DetectResultView.tsx",
+    "frontend/src/detect-result.css",
+    "frontend/src/mapTiles.ts",
+    "frontend/src/MapTileFeedback.tsx",
+    "frontend/src/PlotLocationPicker.tsx",
+    "frontend/src/PlotCoverCarousel.tsx",
+    "frontend/src/plot-editor.css",
+    "frontend/src/DetectionTasks.tsx",
+    "frontend/src/detection-tasks.css",
+    "shared/detectionTasks.ts",
+    "frontend/.env.example",
+    "scripts/build-web.ps1",
+    "frontend/src/Access.tsx",
+    "frontend/src/api.ts",
+    "frontend/src/EmailForms.tsx",
+    "frontend/src/email-forms.css"
+  ],
+  "surfaces": {
+    "frontend": {
+      "status": "passed",
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\cancel-order-20261029\\frontend\\dist",
+      "production_base": "/agriscan/workspace/",
+      "api_prefix": "/agriscan",
+      "entries": [
+        "/agriscan/workspace/assets/index-DjenaemU.js"
+      ],
+      "styles": [
+        "/agriscan/workspace/assets/index-9P5FHDPy.css"
+      ],
+      "file_count": 49,
+      "files": {
+        "assets/charts-lR1CQYWX.js": {
+          "bytes": 394636,
+          "sha256": "3337742f43fb0750e4f5541323c5b27840e6dcec46c2d02fdb0d71b8ebc6a570"
+        },
+        "assets/Dashboard-BIJOaThv.js": {
+          "bytes": 9885,
+          "sha256": "ad440c5022c6afc9b9a6674a9d169ea0437d30d3782489ab1d8b82e2136784f4"
+        },
+        "assets/index-9P5FHDPy.css": {
+          "bytes": 162010,
+          "sha256": "5119121aecc61b31b131e2ae21061ded9b4ea57b4a5607bac951660f96457124"
+        },
+        "assets/index-DjenaemU.js": {
+          "bytes": 533220,
+          "sha256": "3f1d2d0b642e7d5c9d312c72e31809a0f278360707ac64dc77565da5b64c7f78"
+        },
+        "brand/icon.svg": {
+          "bytes": 760560,
+          "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+        },
+        "brand/logo.svg": {
+          "bytes": 760562,
+          "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+        },
+        "favicon.svg": {
+          "bytes": 297,
+          "sha256": "bf71f4fd6f8abd07bbf22b8794a7613f4c0ea95fe0bbb22ac3a506d822caa386"
+        },
+        "images/xiaohe-crops/apple-still.webp": {
+          "bytes": 26634,
+          "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+        },
+        "images/xiaohe-crops/apple.webp": {
+          "bytes": 199906,
+          "sha256": "fd69b563333b4a8560755bbe8c1a0c753935f1b19cc1a3d92038d43ea9e28961"
+        },
+        "images/xiaohe-crops/blueberry-still.webp": {
+          "bytes": 25640,
+          "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+        },
+        "images/xiaohe-crops/blueberry.webp": {
+          "bytes": 199396,
+          "sha256": "d1718c6cd5f395319da9f079e4ca2dbf545c9b42200870f17961636b47b1c969"
+        },
+        "images/xiaohe-crops/cherry-still.webp": {
+          "bytes": 25168,
+          "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+        },
+        "images/xiaohe-crops/cherry.webp": {
+          "bytes": 192570,
+          "sha256": "ced5b439eaf391deacc8970b38319c36a3bee7875a4acb8ad1a6bc249974d83f"
+        },
+        "images/xiaohe-crops/citrus-still.webp": {
+          "bytes": 26414,
+          "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+        },
+        "images/xiaohe-crops/citrus.webp": {
+          "bytes": 204180,
+          "sha256": "fd10e513221432bea90e58bfb6493eeec05d9a645b9ca781bf8c6246aea0db8d"
+        },
+        "images/xiaohe-crops/corn-still.webp": {
+          "bytes": 26594,
+          "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+        },
+        "images/xiaohe-crops/corn.webp": {
+          "bytes": 205120,
+          "sha256": "b7b7d2f5aee022ccc97fc65df7fe75c27b8269451959744699b0c324f5ffbdcc"
+        },
+        "images/xiaohe-crops/cucumber-still.webp": {
+          "bytes": 25918,
+          "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+        },
+        "images/xiaohe-crops/cucumber.webp": {
+          "bytes": 200298,
+          "sha256": "b8afb09dc9a49aff86ef3d485a5851fc9ef10f0f910b567d89856260d227e68b"
+        },
+        "images/xiaohe-crops/grape-still.webp": {
+          "bytes": 26648,
+          "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+        },
+        "images/xiaohe-crops/grape.webp": {
+          "bytes": 207896,
+          "sha256": "78f81de6f5e36d23b1ceead2a128ba1afc3ca1271187d2e1a7cb55863885f4f6"
+        },
+        "images/xiaohe-crops/peach-still.webp": {
+          "bytes": 26436,
+          "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+        },
+        "images/xiaohe-crops/peach.webp": {
+          "bytes": 198194,
+          "sha256": "6db8e1874380f523d556727c2e361c7e31ea002f56da12c8fe93f9999c1fda0f"
+        },
+        "images/xiaohe-crops/pepper-still.webp": {
+          "bytes": 26432,
+          "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+        },
+        "images/xiaohe-crops/pepper.webp": {
+          "bytes": 203770,
+          "sha256": "5f6368bd191a78501932d9e60a14cd4c050f4d0d5074412e92ec2877db4ab4f6"
+        },
+        "images/xiaohe-crops/potato-still.webp": {
+          "bytes": 27058,
+          "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+        },
+        "images/xiaohe-crops/potato.webp": {
+          "bytes": 204038,
+          "sha256": "34e104c073be114a7d7cc6ab9588a4d50ba14379aa7d7558fde055672c4eabb2"
+        },
+        "images/xiaohe-crops/pumpkin-still.webp": {
+          "bytes": 25384,
+          "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+        },
+        "images/xiaohe-crops/pumpkin.webp": {
+          "bytes": 199290,
+          "sha256": "a3e395d853a2220f9904a614a4f6ef7ca804a3492bfb381a64e260b3b7e3c2a8"
+        },
+        "images/xiaohe-crops/raspberry-still.webp": {
+          "bytes": 26558,
+          "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+        },
+        "images/xiaohe-crops/raspberry.webp": {
+          "bytes": 208614,
+          "sha256": "204e29a48a4dd356cba48c3ef28bdc03fa4e0288aa26215ebd95babc13a2727b"
+        },
+        "images/xiaohe-crops/rice-still.webp": {
+          "bytes": 27456,
+          "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+        },
+        "images/xiaohe-crops/rice.webp": {
+          "bytes": 213246,
+          "sha256": "407cf40b5078d59e7a9f10b1799a590098b49ebc994beb42807fafa7e02e5e25"
+        },
+        "images/xiaohe-crops/soybean-still.webp": {
+          "bytes": 26358,
+          "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+        },
+        "images/xiaohe-crops/soybean.webp": {
+          "bytes": 205714,
+          "sha256": "1b9bb7ce153d7c910319da259c8fa8d7ccf331695f81d184c5cd458514d8b952"
+        },
+        "images/xiaohe-crops/strawberry-still.webp": {
+          "bytes": 26784,
+          "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+        },
+        "images/xiaohe-crops/strawberry.webp": {
+          "bytes": 206036,
+          "sha256": "59b98fa9e152a7c5e0c19401c05ced4a6301354f1ba9094d23023259614ed617"
+        },
+        "images/xiaohe-crops/tomato-still.webp": {
+          "bytes": 26896,
+          "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+        },
+        "images/xiaohe-crops/tomato.webp": {
+          "bytes": 206892,
+          "sha256": "a6716aaf28836f25be300a694e21d0d3cf7b3ce76e6391edef7e682dad7f0ff1"
+        },
+        "images/xiaohe-crops/wheat-still.webp": {
+          "bytes": 26538,
+          "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+        },
+        "images/xiaohe-crops/wheat.webp": {
+          "bytes": 206330,
+          "sha256": "db57e7969b201101611b379d535773f26da3af9bda8416f9d488f2b43b55ed22"
+        },
+        "images/xiaohe-motion/concern.webp": {
+          "bytes": 217220,
+          "sha256": "78f252ed7d084827cd2b6240e5dba887300dd1d2292520a383aa7bcda1d69549"
+        },
+        "images/xiaohe-motion/idle.webp": {
+          "bytes": 222736,
+          "sha256": "162a58e700e5e02e602c58074edbbd82c832644e4ad04c43dfc70835c1ee206d"
+        },
+        "images/xiaohe-motion/scan.webp": {
+          "bytes": 216620,
+          "sha256": "e06a00c4549342d1c0450774437e97d9721254b822d9d06c4c677d9b0ac21e2b"
+        },
+        "images/xiaohe-motion/success.webp": {
+          "bytes": 224656,
+          "sha256": "ff085260bc96a14bedaa3e26fc2a7d7f64d9a620e06a27a1cbd64b9564c29ae8"
+        },
+        "images/xiaohe-motion/think.webp": {
+          "bytes": 200160,
+          "sha256": "3c19944bca7f565e07f3f2fe975e1ca6399962d58d5fa41e6243319124363e2f"
+        },
+        "images/xiaohe-motion/wave.webp": {
+          "bytes": 191180,
+          "sha256": "f6cf6594fe23f30ea572b1142869e06ba87ca177bb228da703c72b10c268f3c5"
+        },
+        "images/xiaohe.png": {
+          "bytes": 934830,
+          "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+        },
+        "index.html": {
+          "bytes": 827,
+          "sha256": "4d4dc920eed2e0dbc94a4af8ca3ad19850c12f27912e0a5b86848c4b08abaaaf"
+        }
+      },
+      "build_reused_with_unchanged_dependencies": false
+    },
+    "admin": {
+      "status": "passed",
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\cancel-order-20261029\\admin\\dist",
+      "production_base": "/agriscan/admin/",
+      "api_prefix": "/agriscan",
+      "entries": [
+        "/agriscan/admin/assets/index-DlavB476.js"
+      ],
+      "styles": [
+        "/agriscan/admin/assets/index-B6wjU5kz.css"
+      ],
+      "file_count": 48,
+      "files": {
+        "assets/charts-CpJMSSO8.js": {
+          "bytes": 373806,
+          "sha256": "7b77a6f14d45f474e4a8cca2495dd4f4f96bd72496db220deac12fc26cfa2d14"
+        },
+        "assets/index-B6wjU5kz.css": {
+          "bytes": 158487,
+          "sha256": "d66f2556f862ab0e0663dba18090255cbde2648eade646f24e8c4fe6c1338459"
+        },
+        "assets/index-DlavB476.js": {
+          "bytes": 481014,
+          "sha256": "b6fc757fa85f989041d603242af01dc8905bda8fab447a1a8e5085866687c386"
+        },
+        "brand/icon.svg": {
+          "bytes": 760560,
+          "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+        },
+        "brand/logo.svg": {
+          "bytes": 760562,
+          "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+        },
+        "favicon.svg": {
+          "bytes": 297,
+          "sha256": "bf71f4fd6f8abd07bbf22b8794a7613f4c0ea95fe0bbb22ac3a506d822caa386"
+        },
+        "images/xiaohe-crops/apple-still.webp": {
+          "bytes": 26634,
+          "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+        },
+        "images/xiaohe-crops/apple.webp": {
+          "bytes": 199906,
+          "sha256": "fd69b563333b4a8560755bbe8c1a0c753935f1b19cc1a3d92038d43ea9e28961"
+        },
+        "images/xiaohe-crops/blueberry-still.webp": {
+          "bytes": 25640,
+          "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+        },
+        "images/xiaohe-crops/blueberry.webp": {
+          "bytes": 199396,
+          "sha256": "d1718c6cd5f395319da9f079e4ca2dbf545c9b42200870f17961636b47b1c969"
+        },
+        "images/xiaohe-crops/cherry-still.webp": {
+          "bytes": 25168,
+          "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+        },
+        "images/xiaohe-crops/cherry.webp": {
+          "bytes": 192570,
+          "sha256": "ced5b439eaf391deacc8970b38319c36a3bee7875a4acb8ad1a6bc249974d83f"
+        },
+        "images/xiaohe-crops/citrus-still.webp": {
+          "bytes": 26414,
+          "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+        },
+        "images/xiaohe-crops/citrus.webp": {
+          "bytes": 204180,
+          "sha256": "fd10e513221432bea90e58bfb6493eeec05d9a645b9ca781bf8c6246aea0db8d"
+        },
+        "images/xiaohe-crops/corn-still.webp": {
+          "bytes": 26594,
+          "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+        },
+        "images/xiaohe-crops/corn.webp": {
+          "bytes": 205120,
+          "sha256": "b7b7d2f5aee022ccc97fc65df7fe75c27b8269451959744699b0c324f5ffbdcc"
+        },
+        "images/xiaohe-crops/cucumber-still.webp": {
+          "bytes": 25918,
+          "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+        },
+        "images/xiaohe-crops/cucumber.webp": {
+          "bytes": 200298,
+          "sha256": "b8afb09dc9a49aff86ef3d485a5851fc9ef10f0f910b567d89856260d227e68b"
+        },
+        "images/xiaohe-crops/grape-still.webp": {
+          "bytes": 26648,
+          "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+        },
+        "images/xiaohe-crops/grape.webp": {
+          "bytes": 207896,
+          "sha256": "78f81de6f5e36d23b1ceead2a128ba1afc3ca1271187d2e1a7cb55863885f4f6"
+        },
+        "images/xiaohe-crops/peach-still.webp": {
+          "bytes": 26436,
+          "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+        },
+        "images/xiaohe-crops/peach.webp": {
+          "bytes": 198194,
+          "sha256": "6db8e1874380f523d556727c2e361c7e31ea002f56da12c8fe93f9999c1fda0f"
+        },
+        "images/xiaohe-crops/pepper-still.webp": {
+          "bytes": 26432,
+          "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+        },
+        "images/xiaohe-crops/pepper.webp": {
+          "bytes": 203770,
+          "sha256": "5f6368bd191a78501932d9e60a14cd4c050f4d0d5074412e92ec2877db4ab4f6"
+        },
+        "images/xiaohe-crops/potato-still.webp": {
+          "bytes": 27058,
+          "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+        },
+        "images/xiaohe-crops/potato.webp": {
+          "bytes": 204038,
+          "sha256": "34e104c073be114a7d7cc6ab9588a4d50ba14379aa7d7558fde055672c4eabb2"
+        },
+        "images/xiaohe-crops/pumpkin-still.webp": {
+          "bytes": 25384,
+          "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+        },
+        "images/xiaohe-crops/pumpkin.webp": {
+          "bytes": 199290,
+          "sha256": "a3e395d853a2220f9904a614a4f6ef7ca804a3492bfb381a64e260b3b7e3c2a8"
+        },
+        "images/xiaohe-crops/raspberry-still.webp": {
+          "bytes": 26558,
+          "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+        },
+        "images/xiaohe-crops/raspberry.webp": {
+          "bytes": 208614,
+          "sha256": "204e29a48a4dd356cba48c3ef28bdc03fa4e0288aa26215ebd95babc13a2727b"
+        },
+        "images/xiaohe-crops/rice-still.webp": {
+          "bytes": 27456,
+          "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+        },
+        "images/xiaohe-crops/rice.webp": {
+          "bytes": 213246,
+          "sha256": "407cf40b5078d59e7a9f10b1799a590098b49ebc994beb42807fafa7e02e5e25"
+        },
+        "images/xiaohe-crops/soybean-still.webp": {
+          "bytes": 26358,
+          "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+        },
+        "images/xiaohe-crops/soybean.webp": {
+          "bytes": 205714,
+          "sha256": "1b9bb7ce153d7c910319da259c8fa8d7ccf331695f81d184c5cd458514d8b952"
+        },
+        "images/xiaohe-crops/strawberry-still.webp": {
+          "bytes": 26784,
+          "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+        },
+        "images/xiaohe-crops/strawberry.webp": {
+          "bytes": 206036,
+          "sha256": "59b98fa9e152a7c5e0c19401c05ced4a6301354f1ba9094d23023259614ed617"
+        },
+        "images/xiaohe-crops/tomato-still.webp": {
+          "bytes": 26896,
+          "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+        },
+        "images/xiaohe-crops/tomato.webp": {
+          "bytes": 206892,
+          "sha256": "a6716aaf28836f25be300a694e21d0d3cf7b3ce76e6391edef7e682dad7f0ff1"
+        },
+        "images/xiaohe-crops/wheat-still.webp": {
+          "bytes": 26538,
+          "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+        },
+        "images/xiaohe-crops/wheat.webp": {
+          "bytes": 206330,
+          "sha256": "db57e7969b201101611b379d535773f26da3af9bda8416f9d488f2b43b55ed22"
+        },
+        "images/xiaohe-motion/concern.webp": {
+          "bytes": 217220,
+          "sha256": "78f252ed7d084827cd2b6240e5dba887300dd1d2292520a383aa7bcda1d69549"
+        },
+        "images/xiaohe-motion/idle.webp": {
+          "bytes": 222736,
+          "sha256": "162a58e700e5e02e602c58074edbbd82c832644e4ad04c43dfc70835c1ee206d"
+        },
+        "images/xiaohe-motion/scan.webp": {
+          "bytes": 216620,
+          "sha256": "e06a00c4549342d1c0450774437e97d9721254b822d9d06c4c677d9b0ac21e2b"
+        },
+        "images/xiaohe-motion/success.webp": {
+          "bytes": 224656,
+          "sha256": "ff085260bc96a14bedaa3e26fc2a7d7f64d9a620e06a27a1cbd64b9564c29ae8"
+        },
+        "images/xiaohe-motion/think.webp": {
+          "bytes": 200160,
+          "sha256": "3c19944bca7f565e07f3f2fe975e1ca6399962d58d5fa41e6243319124363e2f"
+        },
+        "images/xiaohe-motion/wave.webp": {
+          "bytes": 191180,
+          "sha256": "f6cf6594fe23f30ea572b1142869e06ba87ca177bb228da703c72b10c268f3c5"
+        },
+        "images/xiaohe.png": {
+          "bytes": 934830,
+          "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+        },
+        "index.html": {
+          "bytes": 831,
+          "sha256": "e3f1081df81d8987d9da63e21a47f96e5a8aed383533ef966ed3cdfc1a5d88db"
+        }
+      },
+      "build_reused_with_unchanged_dependencies": false
+    }
+  },
+  "contract": {
+    "snapshot_verification": "record.prediction_model.verification",
+    "running_components": "model.active.components",
+    "scope": "whole_image",
+    "primary_detection_result_unchanged": true,
+    "independent_scores": true,
+    "scores_averaged": false,
+    "historical_snapshot_without_verification_supported": true,
+    "empty_main_candidates_supported": true,
+    "empty_uploaded_registry_does_not_hide_running_components": true,
+    "states": [
+      "两模型一致",
+      "结果不一致，建议复核",
+      "需人工复核",
+      "分类复核暂不可用"
+    ]
+  },
+  "render_contract_checks": {
+    "status": "passed",
+    "source": "actual PredictionScores/ModelVerification/RunningModels bundled in memory and rendered with React server renderer",
+    "cases": [
+      "agree shows both original scores without averaging or mutating detection/boxes",
+      "disagree is explicit and retains the detector score",
+      "uncertain is explicit and retains the detector score",
+      "unavailable is explicit and retains the detector score",
+      "verification renders even when main candidates are absent",
+      "historical snapshots without verification keep their original display",
+      "both active components render with task-specific metrics when upload items is empty",
+      "legacy active model does not fabricate a second running component"
+    ],
+    "network_called": false,
+    "browser_ui_tested": false
+  },
+  "completed_result_checks": {
+    "status": "passed",
+    "source": "actual TSX handlers with deferred responses and real React static rendering",
+    "cases": [
+      "submit snapshots one task synchronously and duplicate clicks cannot enqueue twice",
+      "picker cancellation or invalid file keeps the previous task/result; a valid same-file selection starts a fresh editable input without cancelling other tasks",
+      "an enqueue failure unlocks the existing input for an explicit retry",
+      "an expired account cannot enqueue a task through the old detection screen",
+      "actual completion effect focuses only the currently viewed live session/task, preserves dialogs, and never claims crop inference for awaiting-model samples",
+      "automatic assistant analysis stays background; explicit view opens existing cached discussion without another request",
+      "exact session token change blocks explicit cached advice and late analysis callbacks without mutating messages or completion state",
+      "feature restored cache miss starts one analysis and repeated explicit views reuse its in-flight cache and final conversation",
+      "same-render queued analysis ref blocks old cached advice despite stale busy=false; accepting a new detection clears older pending advice first",
+      "actual completed result DOM has no input form/theme room; awaiting state is only a saved sample",
+      "actual progress DOM moves aria-current through choose, details, detecting and the correct completed/saved labels"
+    ],
+    "provider_network_called": false,
+    "browser_ui_tested": false
+  },
+  "result_view": {
+    "success_enters_dedicated_result_view": true,
+    "upload_form_collapsed": true,
+    "cancelled_picker_keeps_result": true,
+    "failed_upload_remains_retryable": true,
+    "awaiting_model_is_saved_sample_only": true,
+    "background_assistant_never_opens_or_focuses": true,
+    "explicit_advice_reuses_cache_or_starts_one_missing_analysis": true,
+    "analysis_ref_blocks_same_render_stale_busy_race": true,
+    "queue_clears_old_pending_advice": true,
+    "exact_token_scopes_widget_and_cache": true
+  },
+  "cross_review": {
+    "reviewer": "llm_review independent 9 upload + 5 cancellation public API cases",
+    "status": "passed",
+    "findings_remaining": 0
+  },
+  "map_checks": {
+    "cua": {
+      "status": "passed",
+      "browser": "Chrome via mcp__cua_repl",
+      "url": "http://127.0.0.1:6186/",
+      "production_database_written": false,
+      "real_location_read": false,
+      "feedback_loop": {
+        "before": "6 tile images pending, 0 loaded, no feedback; blank click wrote coordinates",
+        "after": "initial loading; 12-second slow hint and retry; blank click keeps coordinates empty"
+      },
+      "cases": [
+        "loading and 12-second slow status visible",
+        "all 503 errors show unavailable with retry",
+        "2 successful and 2 failed tiles remain partial",
+        "same map recovers to ready with six loaded tiles after explicit retry without page reload",
+        "unready blank map click cannot create coordinates",
+        "manual WGS84 fields remain editable during failure with marker drag disabled",
+        "zoom then immediate close has no Leaflet _leaflet_pos error",
+        "compact card map shows failure and explicit retry recovers to ready with two loaded tiles"
+      ],
+      "coordinate_system": "WGS84",
+      "provider": "OpenStreetMap",
+      "provider_key_required": false,
+      "network_limitation": "A retry cannot guarantee upstream reachability in every network; original OSM source retained by explicit user decision.",
+      "source_sha256": {
+        "frontend/src/mapTiles.ts": "0e0281fda4603f4538a27ad3b59bd3f01ad3aa707296498c295742af6bdfca05",
+        "frontend/src/MapTileFeedback.tsx": "0d91a5dc8180ce7a23ef1833c5ae500a9233030f5a9d6d9eaa33be9e6745db38",
+        "frontend/src/PlotLocationPicker.tsx": "66d13f9a589edf34937835c2bd82665ce25a082a0daa4b21ba850f4e0d734dc8",
+        "frontend/src/PlotCoverCarousel.tsx": "5f206bd5d15138dbbfe090bdc19e3b71473c280414b63ba35cd3855b534d1895",
+        "frontend/src/plot-editor.css": "e3e8968b4fca614720de09b9652048c455fc339d271a5edddfe89adcaf0ef391"
+      }
+    },
+    "events": {
+      "status": "passed",
+      "source": "actual mapTiles.ts via event/clock seam",
+      "cases": [
+        "initial zero tiles and pending image requests remain loading",
+        "one loaded tile cannot hide another pending or failed tile",
+        "slow deadline emits feedback and settles to an explicit all-failed status",
+        "retry ignores old image callbacks and accepts only its new tile elements",
+        "all visible tiles loaded enables ready state; unloaded tiles cannot leave stale readiness",
+        "map unload removes every listener and timer; later retry and callbacks cannot publish"
+      ],
+      "browser_driven": false
+    }
+  },
+  "background_task_checks": {
+    "cua": {
+      "status": "passed",
+      "browser": "Chrome controlled only through mcp__cua_repl",
+      "production_prefix_build": "/agriscan/workspace/assets/index-KF3F49TB.js",
+      "url": "http://127.0.0.1:6190/agriscan/workspace/#detect",
+      "api_fixture_only": true,
+      "production_database_written": false,
+      "real_model_or_llm_called": false,
+      "file_input": "public fixed PNG supplied through a visible fixture button dispatching the real file-input change event; extension file chooser permission was unchanged",
+      "cases": [
+        "upload reserve and raw PUT reach the local fixture through real browser fetch/XHR",
+        "navigation to knowledge while processing preserves one task; completion keeps #knowledge, tomato theme and existing focus",
+        "explicit ViewResult opens #detect, apple theme, completed heading focus and no upload form",
+        "same file can be chosen again and two independent active tasks coexist",
+        "explicit cancel shows cancelled only after the fixture server confirms it",
+        "completion while the task-center dialog is open leaves focus inside that dialog",
+        "explicit ViewResult on the same selected key closes the dialog then focuses the result heading after layout",
+        "logout removes all task entry controls and result cards from the account UI"
+      ],
+      "observed": {
+        "background_completion": {
+          "hash": "#knowledge",
+          "theme": "tomato",
+          "focused": "病害知识库",
+          "result_dom": false
+        },
+        "explicit_result": {
+          "hash": "#detect",
+          "theme": "apple",
+          "focused": "苹果检测完成",
+          "upload_forms": 0
+        },
+        "dialog_completion": {
+          "focused": "关闭弹窗",
+          "inside_dialog": true
+        },
+        "logout": {
+          "hash": "#login",
+          "task_entries": 0,
+          "task_cards": 0
+        }
+      },
+      "source_sha256": {
+        "shared/detectionTasks.ts": "ac3e42c703eedc4a94b82aa8141a0fab4415805bdcd1f2b0d3a28c7a6b298a5e",
+        "frontend/src/DetectionTasks.tsx": "2dafad8fdfd08a1b6990871edbf62ee81c3e199fdab488a424b4a17de1234275",
+        "frontend/src/Pages.tsx": "130b4d04d7ff496a1b57965db2cc50066c0b48b07b231106b43edba92ac61845",
+        "frontend/src/App.tsx": "01206779cbc40d63a3435f3ddd94173ebc9b85b4e356eada15c74c57275bfd17",
+        "frontend/src/DetectionJourney.tsx": "fb28238663306bbf80409584dc88e88a6e9dcbb2f075050ecf94842353c9ba7b"
+      }
+    },
+    "core": {
+      "status": "passed",
+      "command": "node --test shared/tests/detectionTasks.test.mjs",
+      "source": "actual shared TypeScript manager transpiled in memory using existing frontend TypeScript; public APIs and controlled HTTP/XHR/clock",
+      "source_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1",
+      "tests": 21,
+      "passed": 21,
+      "failed": 0,
+      "cases": [
+        {
+          "name": "active XHR retains uploading and local progress while a buffered server still awaits the body",
+          "status": "passed"
+        },
+        {
+          "name": "GET can recover a reservation before its original POST times out, then upload once to that ID",
+          "status": "passed"
+        },
+        {
+          "name": "GET-confirmed queued before a POST failure is tracked without another PUT",
+          "status": "passed"
+        },
+        {
+          "name": "GET-confirmed processing before a POST failure is tracked without another PUT",
+          "status": "passed"
+        },
+        {
+          "name": "cancel during reservation takes priority when GET finds the task before the POST fails",
+          "status": "passed"
+        },
+        {
+          "name": "failed XHR uses confirmed server bytes while checking instead of optimistic local bytes",
+          "status": "passed"
+        },
+        {
+          "name": "429 preserves the file and reservation, resets unconfirmed progress, then retries only PUT after backoff",
+          "status": "passed"
+        },
+        {
+          "name": "server-confirmed processing bytes cannot be downgraded by late progress or stale awaiting snapshots",
+          "status": "passed"
+        },
+        {
+          "name": "confirmed completion and saved IDs survive late XHR progress/error and later task disappearance",
+          "status": "passed"
+        },
+        {
+          "name": "duplicate cancellation stays pending until the server confirms it and drops unconfirmed bytes",
+          "status": "passed"
+        },
+        {
+          "name": "a rejected DELETE still aborts the upload and reports the resulting server failure without inventing cancellation",
+          "status": "passed"
+        },
+        {
+          "name": "DELETE timeout bounds the cancellation wait before aborting an unconfirmed upload",
+          "status": "passed"
+        },
+        {
+          "name": "a DELETE acknowledgement that already reports failed is preserved honestly after upload teardown",
+          "status": "passed"
+        },
+        {
+          "name": "a server commit that wins cancellation preserves the completed record rather than deleting it",
+          "status": "passed"
+        },
+        {
+          "name": "lost POST response is reconciled by UUID without repeating the reservation",
+          "status": "passed"
+        },
+        {
+          "name": "lost accepted PUT response checks the original task without another upload",
+          "status": "passed"
+        },
+        {
+          "name": "two upload slots snapshot metadata and continue when a page subscriber leaves",
+          "status": "passed"
+        },
+        {
+          "name": "dispose blocks old-account callbacks, aborts uploads and cancels only the captured old-service tasks",
+          "status": "passed"
+        },
+        {
+          "name": "dispose also cancels a server reservation whose POST response has not arrived",
+          "status": "passed"
+        },
+        {
+          "name": "a missing previously known server task fails explicitly without a new reservation",
+          "status": "passed"
+        },
+        {
+          "name": "empty File.type has the same nonempty MIME fallback for reservation and upload",
+          "status": "passed"
+        }
+      ],
+      "red_before_fix": {
+        "tests": 21,
+        "passed": 17,
+        "failed": 4,
+        "symptom": "DELETE is still pending but XHR has already been aborted"
+      },
+      "dispose_assertions": [
+        "no scheduled timers",
+        "no active XHR transports",
+        "no held controlled requests"
+      ],
+      "production_network_called": false
+    },
+    "lifetime": "current App account/session; continues across routes; no guarantee after refresh/close/logout",
+    "shared_core_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1",
+    "upload_concurrency": 2,
+    "transport": "XHR progress plus GET polling",
+    "repeated_reservation_on_lost_response": false,
+    "buffered_upload_regressions": {
+      "status": "passed",
+      "source": "actual shared TypeScript manager transpiled in memory using existing frontend TypeScript; public APIs and controlled HTTP/XHR/clock",
+      "source_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1",
+      "cases": [
+        {
+          "name": "active XHR retains uploading and local progress while a buffered server still awaits the body",
+          "status": "passed"
+        },
+        {
+          "name": "GET can recover a reservation before its original POST times out, then upload once to that ID",
+          "status": "passed"
+        },
+        {
+          "name": "GET-confirmed queued before a POST failure is tracked without another PUT",
+          "status": "passed"
+        },
+        {
+          "name": "GET-confirmed processing before a POST failure is tracked without another PUT",
+          "status": "passed"
+        },
+        {
+          "name": "cancel during reservation takes priority when GET finds the task before the POST fails",
+          "status": "passed"
+        }
+      ]
+    },
+    "independent_core_checks": {
+      "status": "passed",
+      "expected_red": false,
+      "source": "actual shared DetectionTaskManager with independent synthetic HTTP/XHR event harness",
+      "source_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1",
+      "cases": [
+        {
+          "name": "active XHR remains uploading with real local byte progress when buffered server still reports awaiting_upload",
+          "status": "passed"
+        },
+        {
+          "name": "active upload survives a transient poll error without a duplicate reservation",
+          "status": "passed"
+        },
+        {
+          "name": "server processing wins the local upload presentation while the XHR response is pending",
+          "status": "passed"
+        },
+        {
+          "name": "failed XHR uses the confirmed server bytes while checking instead of retaining optimistic bytes",
+          "status": "passed"
+        },
+        {
+          "name": "explicit 429 backoff resets progress to confirmed server bytes and keeps the original reservation",
+          "status": "passed"
+        },
+        {
+          "name": "confirmed cancellation is never masked by local upload state or stale local progress",
+          "status": "passed"
+        },
+        {
+          "name": "confirmed terminal completion and saved IDs survive a late XHR failure",
+          "status": "passed"
+        },
+        {
+          "name": "late local progress cannot replace server-confirmed processing bytes",
+          "status": "passed"
+        },
+        {
+          "name": "late local progress cannot downgrade completed bytes or saved result IDs",
+          "status": "passed"
+        }
+      ],
+      "production_network_called": false
+    },
+    "fixes": [
+      "active XHR remains uploading while an upstream proxy still reports awaiting_upload",
+      "only active unconfirmed local progress supplements server received_bytes",
+      "confirmed queue/processing/terminal states ignore late local progress and stale server regressions",
+      "GET-confirmed reservation survives a later POST timeout without another POST",
+      "only awaiting_upload jobs enter an upload slot; queued/recovered/cancelled jobs never spin or resend PUT",
+      "mark cancellation immediately and wait for server DELETE acknowledgement before aborting active XHR",
+      "DELETE rejection or bounded 15-second timeout still tears down local upload; unconfirmed cancellation remains pending",
+      "server failed/completed responses remain honest terminal states; no optimistic cancellation or record deletion"
+    ],
+    "cancellation_order_checks": {
+      "status": "passed",
+      "source": "actual shared core, independent public API/XHR/Deferred DELETE ordering harness",
+      "source_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1",
+      "cases": [
+        {
+          "name": "pending server cancellation keeps XHR alive and duplicate clicks share one DELETE; ACK cancelled precedes abort",
+          "status": "passed"
+        },
+        {
+          "name": "DELETE rejection aborts the upload but does not invent a confirmed cancelled or failed state",
+          "status": "passed"
+        },
+        {
+          "name": "existing fifteen-second cancellation request timeout eventually releases XHR without a fake terminal state",
+          "status": "passed"
+        },
+        {
+          "name": "server-reported failed terminal remains failed rather than being relabelled cancelled",
+          "status": "passed"
+        },
+        {
+          "name": "server commit winning cancellation retains completed status and saved IDs",
+          "status": "passed"
+        }
+      ],
+      "production_network_called": false
+    }
+  },
+  "inherited_privacy_guards": {
+    "account_switch_clearing": true,
+    "late_upload_mount_token_guard": true,
+    "private_no_store": true
+  },
+  "browser_ui_tested": true,
+  "browser_scope": "CUA local fake API forms for email recovery/binding; prior local map/task CUA evidence retained in prior release proof",
+  "production_ui_tested_by_this_agent": false,
+  "native_app_changed_by_this_agent": false,
+  "backend_server_database_git_changed": false,
+  "skill_read": "C:/Users/18984/.codex/skills/landing-page-design/SKILL.md",
+  "auth_email_features": true,
+  "email_auth_checks": {
+    "form_methods_and_scope": {
+      "status": "passed",
+      "source": "actual TSX form methods and actual lifetime/lock/cooldown hook",
+      "cases": [
+        "actual form scope synchronously locks send and submit until the active request finishes",
+        "cooldown uses an absolute 60-second deadline rather than input contents or decrement-only timers",
+        "route change, token replacement and unmount invalidate late responses; cleanup aborts the actual request signal",
+        "mismatched reset passwords never send a reset request",
+        "duplicate reset-code clicks send once and show a fixed non-enumerating response",
+        "reset errors use safe fixed feedback and never echo passwords or codes",
+        "late reset success after leaving the public page cannot clear credentials or navigate the new page",
+        "email binding supplies current-password proof and never updates another account after token replacement",
+        "successful verified binding updates the stored email state and clears proof inputs",
+        "disabled SMTP feature prevents both code and proof/reset POSTs independently of the registration switch",
+        "successful reset clears proof inputs and delegates return-to-login without making a login request"
+      ],
+      "production_network_called": false,
+      "smtp_mail_sent": false
+    },
+    "cua": {
+      "status": "passed",
+      "browser": "Chrome controlled only through mcp__cua_repl",
+      "url": "http://127.0.0.1:6192/",
+      "api_fixture_only": true,
+      "smtp_mail_sent": false,
+      "real_credentials_changed": false,
+      "cases": [
+        "public forgot-password loads while registration is disabled",
+        "code request locks both sending and reset controls; changing email preserves remaining cooldown",
+        "invalid reset code shows fixed safe feedback and unlocks retry",
+        "successful reset returns to login with success notice and does not log in",
+        "settings identifies a historical email as unverified before any proof",
+        "email binding requires current password plus email code; wrong proof leaves the original email and login intact",
+        "successful verification updates the displayed verified email and clears both proof inputs"
+      ],
+      "observed": {
+        "reset_success": {
+          "hash": "#login",
+          "notice": "密码已更新，请使用新密码登录。"
+        },
+        "binding_failure": {
+          "hash": "#settings",
+          "original_email_preserved": true
+        },
+        "binding_success": {
+          "verified": true,
+          "proof_inputs_cleared": true
+        }
+      },
+      "source_sha256": {
+        "frontend/src/EmailForms.tsx": "7dfa93361d0c860cb18304e98225ff8b6340ffd6f393b223174228e577db8761",
+        "frontend/src/email-forms.css": "c646cb49ff10215959f3d40409a7b0a1a75e1fba898bc4d5fcb9b1e2af8aeaa1",
+        "frontend/src/Access.tsx": "e561f662d18f3dcbe80c0e7c19ecb4f88a1e4364d691e240a2aebd516b1a5870",
+        "frontend/src/App.tsx": "63a976694acf158ff9a86977a6630b2086bb8cfb8874a809e7311118ed98cde9",
+        "frontend/src/Pages.tsx": "2d8d8171e9d566b3925e8812db01c4e2bb16830ad0815ea8fcfbc6764dad0752",
+        "frontend/src/api.ts": "8c706b61152bf934c779c07b83d6f0acde2f5c2c2b5687f785e8d8422da0e8d6"
+      }
+    },
+    "cross_review": {
+      "reviewer": "llm_review",
+      "status": "passed",
+      "findings_remaining": 0
+    },
+    "smtp_mail_sent": false,
+    "production_passwords_changed": false,
+    "registration_switch_independent": true,
+    "binding_requires_current_password_and_email_code": true,
+    "reset_never_auto_logs_in": true
+  },
+  "upload_state_fix": true,
+  "reservation_recovery_fix": true,
+  "validation_scope": "new cancellation ordering verified by repository actual-core tests and independent controlled HTTP/XHR; historical browser evidence retained for unchanged UI",
+  "production_server_modified_by_this_agent": false,
+  "cancellation_order_fix": true,
+  "verification_sources": {
+    "shared/tests/detectionTasks.test.mjs": {
+      "bytes": 17335,
+      "sha256": "93a2cb353b71347b3521d148af47d90475de6582be1eb27c7eb37523eb47cb02"
+    },
+    "shared/README.md": {
+      "bytes": 909,
+      "sha256": "aa475afbd1bdec551be0f4ad0c4a3fe084a3ebc451a06ccfd2e5d85bbb286da7"
+    }
+  }
+}

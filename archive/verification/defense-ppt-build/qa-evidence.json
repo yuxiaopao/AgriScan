@@ -1,0 +1,314 @@
+[
+  {
+    "id": 1,
+    "section": "项目介绍与数据",
+    "question": "请用一句话说明禾观的项目定位。",
+    "answer": "禾观是一套面向作物叶片健康观察的农业智能检测平台，把图片识别、小禾解读、地块关联和历史记录放进同一个流程。用户可以查看真实目标框与候选结果，保存后再查询和复查。项目已经形成桌面端、手机端与独立管理端，当前定位是辅助观察工具，处理建议仍需结合现场确认。",
+    "followup": {
+      "question": "为什么不用“自动确诊系统”来介绍？",
+      "answer": "模型只覆盖既定作物与类别，单张图像也缺少环境、病程等信息。现有证据能支持辅助观察，不能支持自动确诊或替代现场判断。"
+    },
+    "boundary": "辅助观察不等于自动确诊，也未证明增产收益。",
+    "sources": ["README.md", "models/candidates/user-detect-fafc2bb3ce9e/README.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 2,
+    "section": "项目介绍与数据",
+    "question": "项目解决什么问题，应用价值体现在哪里？",
+    "answer": "项目关注三个问题：相似症状难以凭经验区分，照片与地块信息分散，以及识别后缺少解释。我们把采集、识别、解读和存档衔接起来，降低操作门槛，并保留时间、图片、候选和模型信息，便于复查与追溯。现阶段价值主要由可运行流程和工程验证体现，还没有真实农场经济收益的量化结论。",
+    "followup": {
+      "question": "与只上传图片返回一个类别相比，多做了什么？",
+      "answer": "系统进一步保存观察记录、关联地块、展示目标框和候选，并提供小禾解读与查询导出。用户以后能回看一次结果的来源和上下文。"
+    },
+    "boundary": "已有业务流程，尚无真实减损或收益对照实验。",
+    "sources": ["README.md", "docs/client-and-admin.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 3,
+    "section": "项目介绍与数据",
+    "question": "系统面向哪些用户，作物覆盖范围有多大？",
+    "answer": "设计面向课程实验、日常作物观察与农场记录场景，普通成员负责采集和查看，管理员维护业务与配置。目前模型覆盖十四种作物、三十八个健康与病害类别；界面另有十七套作物主题。水稻、小麦和黄瓜只是界面主题，选择它们不会扩展模型的识别范围，也不能据此声称已经服务大量农户。",
+    "followup": {
+      "question": "为什么界面主题比模型支持的作物更多？",
+      "answer": "主题属于视觉与交互层，模型支持范围由类别清单决定。保留主题可以统一体验，但必须显式区分“可浏览主题”和“可识别作物”。"
+    },
+    "boundary": "17套主题不等于模型识别17种作物。",
+    "sources": ["README.md", "frontend/src/cropThemes.ts", "models/candidates/user-detect-fafc2bb3ce9e/manifest.json"],
+    "priority": "必背"
+  },
+  {
+    "id": 4,
+    "section": "项目介绍与数据",
+    "question": "分类实验使用什么数据集，数据从哪里来？",
+    "answer": "分类实验使用公开的 PlantVillage 彩色叶片图像，原始项目为 PlantVillage-Dataset，下载采用作者推荐的镜像并固定版本。实际整理后共有五万四千三百零五张图像、十四种作物、三十八个类别，全部通过解码检查。三十八类是作物与健康状态的组合，同时包含健康类别，不能说成三十八种独立病害。",
+    "followup": {
+      "question": "怎样保证别人能够复现这批数据？",
+      "answer": "配置记录了镜像版本、下载包摘要和随机种子，逐图清单保存来源、叶片分组、哈希与集合归属。复现时应核对这些记录，而非只比较总数。"
+    },
+    "boundary": "这是分类实验数据，不能冒充新检测模型的训练集证据。",
+    "sources": ["training/README.md", "training/config.json", "datasets/plantvillage/dataset-report.json"],
+    "priority": "必背"
+  },
+  {
+    "id": 5,
+    "section": "项目介绍与数据",
+    "question": "训练、验证和测试集分别有多少张，如何使用？",
+    "answer": "训练集有三万七千八百二十一张，验证集五千四百八十五张，封存测试集一万零九百九十九张，总计五万四千三百零五张。训练集用于拟合参数，验证集用于选择最佳检查点，测试集只在最终评估阶段报告性能，不参与调参、选模或提前停止。划分还同时考虑叶片分组与重复文件隔离。",
+    "followup": {
+      "question": "为什么不把测试集也拿来选择效果最好的轮次？",
+      "answer": "这样会把测试信息用于模型选择，使最终成绩偏乐观。保留独立测试的目的，是检查模型面对未用于训练和选模样本时的表现。"
+    },
+    "boundary": "测试集独立于选模，不代表独立田间采集。",
+    "sources": ["training/README.md", "datasets/plantvillage/dataset-report.json"],
+    "priority": "必背"
+  },
+  {
+    "id": 6,
+    "section": "项目介绍与数据",
+    "question": "为什么需要按叶片分组并检查 SHA256？",
+    "answer": "只按文件随机划分，可能把同一片叶子的不同照片或完全相同的文件放入不同集合，让评估成绩虚高。我们同时使用叶片分组与 SHA256 检查，发现跨集合重复组后整体归入测试集，共调整二百九十张。最终报告中的跨集合叶片重叠与文件哈希重叠均为零，并保存逐图清单便于审计。",
+    "followup": {
+      "question": "哈希重叠为零是否就能排除所有相似图泄漏？",
+      "answer": "不能。SHA256主要发现字节完全相同的文件，叶片分组补充处理同叶样本。更复杂的近似重复仍可用感知哈希和人工抽查进一步检查。"
+    },
+    "boundary": "双重检查减少泄漏风险，不等于排除全部近似重复。",
+    "sources": ["training/README.md", "training/prepare_data.py", "datasets/plantvillage/dataset-report.json"],
+    "priority": "常问"
+  },
+  {
+    "id": 7,
+    "section": "项目介绍与数据",
+    "question": "为什么选择 PlantVillage，它有哪些适用限制？",
+    "answer": "它提供明确的作物与健康状态标签，规模足以支持课程中的多类别分类实验，也便于保存数据版本、划分和完整评估报告。但它主要是受控条件下的单叶图像，与田间复杂背景、遮挡、反光和拍摄距离存在差异。因此它适合验证分类流程与实验方法，不能仅凭高分证明田间应用能力。",
+    "followup": {
+      "question": "怎样检验从实验室图片到田间图片的差距？",
+      "answer": "应另建不参与调参的田间测试集，覆盖不同光照、背景和设备，并按作物与场景分组统计结果，再分析失败样本和未知类别。"
+    },
+    "boundary": "PlantVillage高分不能直接等同田间准确率。",
+    "sources": ["training/README.md", "models/README.md", "models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json"],
+    "priority": "必背"
+  },
+  {
+    "id": 8,
+    "section": "项目介绍与数据",
+    "question": "数据是否存在类别不平衡，如何理解它的影响？",
+    "answer": "存在不平衡。例如原始分类数据中马铃薯健康只有一百五十二张，而柑橘黄龙病有五千五百零七张。总体准确率容易受到大类影响，所以除 Top-1 外还报告宏平均 F1、逐类指标与样本量，检查小类是否被忽略。现有记录不能证明做过系统性重采样或损失加权对照，后续可将这些作为独立实验。",
+    "followup": {
+      "question": "宏平均 F1 能解决类别不平衡吗？",
+      "answer": "它在评估时给各类别相同权重，让薄弱小类更容易暴露，但不会改变训练过程，也不能消除少样本带来的估计不稳定。"
+    },
+    "boundary": "报告宏平均指标不等于已完成不平衡训练优化。",
+    "sources": ["datasets/plantvillage/dataset-report.json", "models/releases/plantvillage-yolo26m-906cf72f6bf0/test-report.json", "training/config.json"],
+    "priority": "常问"
+  },
+  {
+    "id": 13,
+    "section": "模型训练与推理",
+    "question": "分类模型和当前目标检测模型是什么关系？",
+    "answer": "它们是两条独立链路。项目完成了 PlantVillage 单叶分类训练，输出整张图像的类别概率，不产生目标框。当前目标检测则采用另行提供的 YOLO26m Detect 权重，项目负责兼容修复、ONNX 导出和业务适配，返回真实矩形框与目标分数。分类的 Top-1 和 F1 不能作为这个检测模型的性能指标。",
+    "followup": {
+      "question": "目标检测模型是不是你们从头训练的？",
+      "answer": "现有可核验证据支持我们完成分类训练与检测权重适配，不能宣称从头训练了检测模型。检测效果还需要独立标注集评估。"
+    },
+    "boundary": "不能把已提供检测权重的训练工作归为本项目成果。",
+    "sources": ["training/final-report.md", "models/candidates/user-detect-fafc2bb3ce9e/README.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 14,
+    "section": "模型训练与推理",
+    "question": "分类实验中的迁移学习具体做了什么？",
+    "answer": "我们读取 YOLO26m 预训练检测权重，保留完整的十一个骨干模块，将原检测头替换为三十八类分类头，再进行分类训练。训练前逐项核对三百个骨干张量与原权重一致，确认迁移确实生效；分类模型总参数约一千一百零六万。这属于利用已有特征开展任务迁移，并不是提出新的网络骨干。",
+    "followup": {
+      "question": "只调用加载接口，为什么还要核验张量？",
+      "answer": "加载过程可能因层名或形状不匹配而只迁移部分参数。逐项核验能证明预期骨干实际继承了源权重，避免把随机初始化误当迁移学习。"
+    },
+    "boundary": "迁移已有骨干是实验方法，不构成新算法首创。",
+    "sources": ["training/transfer-report.json", "training/workflow.py", "training/final-report.md"],
+    "priority": "常问"
+  },
+  {
+    "id": 15,
+    "section": "模型训练与推理",
+    "question": "请说明分类训练的主要参数与运行配置。",
+    "answer": "实际分类训练输入为224×224，batch为32，使用AdamW，初始学习率0.0005，启用AMP混合精度，完成40轮训练。配置还记录了权重衰减0.0005、dropout为0.2与固定种子，环境包含RTX4060笔记本GPU。这是一组已完成实验的真实配置，现有材料没有充分的参数搜索对照，不能说它已经是最优组合。",
+    "followup": {
+      "question": "AMP 和固定随机种子分别起什么作用？",
+      "answer": "AMP通过混合精度降低部分计算与显存开销；固定种子和环境记录有助于复现。但不同硬件与运行环境下仍可能存在数值差异。"
+    },
+    "boundary": "参数属于分类训练，不能套用到提供的检测权重。",
+    "sources": ["training/config.json", "training/environment.json", "training/final-report.md"],
+    "priority": "常问"
+  },
+  {
+    "id": 16,
+    "section": "模型训练与推理",
+    "question": "为什么汇报第37轮，而不是直接使用第40轮？",
+    "answer": "训练共完成四十轮，但最终模型由验证集表现选择，不是默认取最后一轮。最高验证 Top-1 出现在第三十七轮，最佳检查点用于完整验证与封存测试评估。这个选择规则在测试前确定，测试集不参与轮次选择或调参，因此不会为了提高最终测试成绩反复挑选模型。",
+    "followup": {
+      "question": "第40轮训练损失更低，为什么不一定更好？",
+      "answer": "训练损失反映对训练样本的拟合，不保证未见样本表现同步改善。应按预定验证指标选择模型，再用独立测试检查泛化。"
+    },
+    "boundary": "第37轮是验证指标最好，不是使用测试集挑出的。",
+    "sources": ["training/README.md", "training/final-report.md", "runs/classify/plantvillage-yolo26m/results.csv"],
+    "priority": "必背"
+  },
+  {
+    "id": 17,
+    "section": "模型训练与推理",
+    "question": "为什么导出 ONNX，部署前验证哪些内容？",
+    "answer": "ONNX提供相对独立于训练框架的模型表示，后端通过ONNX Runtime在CPU执行推理，推理机无需安装完整PyTorch训练环境。发布时把模型文件与类别、输入尺寸、预处理、阈值和SHA256清单绑定，检查输入输出契约，并比较导出前后的结果。它方便部署，但不能仅凭文件格式断言更快或没有精度变化。",
+    "followup": {
+      "question": "为什么既检查模型摘要，又比较数值输出？",
+      "answer": "摘要确认加载的是经过验证的同一份文件，数值比较确认导出和预处理没有改变预期行为。两项分别保证文件身份与执行一致性。"
+    },
+    "boundary": "未做充分性能对照，不能承诺ONNX一定更快。",
+    "sources": ["training/workflow.py", "training/deploy_model.py", "backend/app/detection_inference.py"],
+    "priority": "常问"
+  },
+  {
+    "id": 18,
+    "section": "模型训练与推理",
+    "question": "letterbox 是什么，检测框怎样还原到原图？",
+    "answer": "检测输入需要640×640。letterbox先按比例缩放图像，再填充空白，避免直接拉伸改变叶片比例，同时记录缩放比和左右、上下偏移。模型框坐标先减去填充偏移，再除以缩放比，还原到服务端保存且已转正的原图，随后裁到图像边界并归一化至0到1，供前端按同一原图尺寸绘制。",
+    "followup": {
+      "question": "为什么非方形图片是坐标验证的重要样例？",
+      "answer": "非方形图像会产生明显填充，能暴露漏减偏移或缩放比例错误。只检查正方形图片，部分坐标还原问题可能不会出现。"
+    },
+    "boundary": "框表示目标范围，不是病斑精确轮廓或面积。",
+    "sources": ["backend/app/detection_inference.py", "models/candidates/user-detect-fafc2bb3ce9e/README.md"],
+    "priority": "常问"
+  },
+  {
+    "id": 19,
+    "section": "模型训练与推理",
+    "question": "旧检测权重出现大量异常细框，原因和修复方法是什么？",
+    "answer": "权重与导出环境的Ultralytics版本不同，旧存档缺少_end2end字段，默认加载会误入one-to-many分支并产生异常高分细框。修复时重新加载模型，在融合前恢复head.end2end=True，使用已训练的one-to-one分支，再核对PyTorch与ONNX输出，不能修改显示分数掩盖问题。",
+    "followup": {
+      "question": "为什么必须在融合前恢复分支？",
+      "answer": "错误分支一旦融合，后续再切换开关不能保证恢复正确结构。应从新加载对象开始修正，再导出并重新比较类别、分数和框坐标。"
+    },
+    "boundary": "兼容修复证明链路恢复，不等于模型精度已经达标。",
+    "sources": ["models/candidates/user-detect-fafc2bb3ce9e/README.md", "models/candidates/user-detect-fafc2bb3ce9e/manifest.json"],
+    "priority": "深入"
+  },
+  {
+    "id": 20,
+    "section": "模型训练与推理",
+    "question": "为什么检测候选分数不能加起来当作百分之百？",
+    "answer": "目标检测的每个框有独立的类别与置信度，一张图片可以保留多个目标，所以分数不构成总和为一的分类概率分布。系统保留真实目标框，并按类别记录最高目标分数与前五项候选，不为了界面展示重新归一化。旧单标签分类则保留全类别概率，两种分数必须依据当次模型任务解释。",
+    "followup": {
+      "question": "两个类别都获得高分，能否断言同一片叶子同时患两种病？",
+      "answer": "不能直接断言。需要结合各框位置、目标是否相同以及标注含义人工判断；模型分数本身也不是经过临床或田间校准的确诊概率。"
+    },
+    "boundary": "目标置信度不等于准确率，也不能直接当确诊概率。",
+    "sources": ["backend/app/detection_inference.py", "backend/app/inference.py", "models/candidates/user-detect-fafc2bb3ce9e/README.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 29,
+    "section": "结果与验证边界",
+    "question": "99.67%和99.56%分别代表什么？",
+    "answer": "99.67%是PlantVillage封存测试集上的单叶分类Top-1，表示首选类别正确的样本比例；99.56%是宏平均F1，先计算各类的精确率与召回率所形成的F1，再对类别等权平均。两者互相补充，但都来自旧分类模型，不是当前目标检测的mAP，也不能直接称为田间识别准确率。",
+    "followup": {
+      "question": "为什么总体准确率很高，还要展示宏平均 F1？",
+      "answer": "总体准确率容易受大类影响，宏平均F1让各类等权，有助于发现少样本或困难类别的问题；仍应结合逐类支持数与混淆情况分析。"
+    },
+    "boundary": "两项成绩仅适用于该数据集上的单叶分类。",
+    "sources": ["models/releases/plantvillage-yolo26m-906cf72f6bf0/test-report.json", "training/final-report.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 30,
+    "section": "结果与验证边界",
+    "question": "测试集共有多少样本、多少错误，怎样得到报告百分比？",
+    "answer": "完整封存测试集有10,999张图像，其中36张分类错误，即10,963张首选类别正确，正确数除以总数得到约99.6727%，汇报时保留两位小数写成99.67%。这是逐图完整评估的结果。曾经38张接口联调样本得到37张正确，只用于检查业务链路，不能替代完整测试集成绩。",
+    "followup": {
+      "question": "为什么演示几张图片成功，不足以证明准确率？",
+      "answer": "演示样本通常少且可能经过挑选，无法覆盖类别和真实分布。准确率需要固定评估集、明确分母及统一流程，并报告失败样本。"
+    },
+    "boundary": "界面演示和接口冒烟测试不能替代完整精度评估。",
+    "sources": ["models/releases/plantvillage-yolo26m-906cf72f6bf0/test-report.json", "training/final-report.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 31,
+    "section": "结果与验证边界",
+    "question": "模型最薄弱的类别是什么，准备怎样改进？",
+    "answer": "完整分类测试中，玉米灰斑病这一类F1约94.98%，对应129张测试样本，低于总体宏平均F1。这个结果说明平均成绩会掩盖局部弱点。改进应先核查它与其他玉米病害的混淆样本、图像质量和标签，再安排针对性补充数据与对照实验，不能在没有消融证据时断言某个结构修改一定有效。",
+    "followup": {
+      "question": "该类别的94.98%是否可以称为分类准确率？",
+      "answer": "不可以，这个数字是该类F1，综合精确率和召回率。答辩时应保留指标名称与129张支持样本，避免把不同指标混用。"
+    },
+    "boundary": "94.98%是玉米灰斑病类别F1，不是整体准确率。",
+    "sources": ["models/releases/plantvillage-yolo26m-906cf72f6bf0/test-report.json"],
+    "priority": "常问"
+  },
+  {
+    "id": 32,
+    "section": "结果与验证边界",
+    "question": "分类 ONNX 最大绝对误差2.98×10⁻⁷说明什么？",
+    "answer": "它是分类导出校验中，PyTorch与ONNX输出概率之间观察到的最大绝对差值。流程每类取一张验证图片，同时检查部署预处理与训练验证预处理一致，实际误差约为2.98×10⁻⁷，说明这些样例的导出结果非常接近。它衡量的是数值一致性，不是分类错误率，也不能证明所有输入都完全相同。",
+    "followup": {
+      "question": "为什么输入预处理一致与模型数值一致都要检查？",
+      "answer": "即使模型导出正确，不同的缩放、裁剪或颜色顺序仍会改变输入。分别核对预处理和输出，才能定位训练到部署链路中的差异。"
+    },
+    "boundary": "该误差属于分类导出校验，不是检测mAP或错误率。",
+    "sources": ["models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json", "training/workflow.py", "backend/app/image_preprocessing.py"],
+    "priority": "深入"
+  },
+  {
+    "id": 33,
+    "section": "结果与验证边界",
+    "question": "检测模型五张样例验证通过，为什么仍说没有mAP？",
+    "answer": "五张技术样例用于比较正确分支的PyTorch与ONNX输出，检查类别、分数和原图框坐标是否一致，其中包含一张非方形图。它们能发现导出和几何还原问题，但不是完整独立标注集，也没有按检测评估协议统计mAP。部分预测与来源目录标签不一致，更说明必须另外开展检测精度验证。",
+    "followup": {
+      "question": "补齐mAP评估最基本还缺什么？",
+      "answer": "需要独立、可核验的检测标注集，先明确每个框的标注对象与类别，再用固定评估协议匹配预测框，报告精确率、召回率和mAP。"
+    },
+    "boundary": "五图一致性通过不等于五图全对，更不等于检测精度。",
+    "sources": ["models/candidates/user-detect-fafc2bb3ce9e/README.md", "models/candidates/user-detect-fafc2bb3ce9e/parity-report.json"],
+    "priority": "必背"
+  },
+  {
+    "id": 34,
+    "section": "结果与验证边界",
+    "question": "演示中的苹果黑星病84.60%应怎样解释？",
+    "answer": "84.60%是这次苹果样例中模型为某个检测目标输出的置信度，表示该模型对该框与类别的评分。界面展示原图、真实目标框和已保存结论，用来说明识别到存档的流程。它不是整个模型在测试集上的准确率，也不是叶片有84.60%的面积患病，更不能直接当成患该病的真实概率。",
+    "followup": {
+      "question": "置信度较低时，是否可以调高显示分数让结果更直观？",
+      "answer": "不能修改真实分数。应保留输出，说明不确定性，并引导改善拍摄条件或人工复核；显示格式可以统一，但不能伪造模型结论。"
+    },
+    "boundary": "84.60%是单目标分数，不是准确率或病斑占比。",
+    "sources": ["design/qa-20261028/production-apple-yolo.png", "backend/app/detection_inference.py"],
+    "priority": "必背"
+  },
+  {
+    "id": 35,
+    "section": "结果与验证边界",
+    "question": "192项通过、1项跳过的验证记录说明什么？",
+    "answer": "这是2026年10月28日的后端独立回归记录：192项通过，1项因当前Windows账户不能创建符号链接而跳过，覆盖旧库导入中的相应场景。该轮还复现并修复了混作物检测事后关联地块的问题，保证失败时不保存同次修改。这些证据支持接口和数据一致性，不代表模型精度或高并发能力。",
+    "followup": {
+      "question": "这是不是现在所有代码的最新测试结果？",
+      "answer": "它是有明确日期和范围的历史验收记录。后续代码变更需要重新执行相关检查，不能仅凭旧记录断言当前全部功能已通过。"
+    },
+    "boundary": "192项是2026-10-28的后端记录，不是精度指标。",
+    "sources": ["docs/qa-20261028-backend.md"],
+    "priority": "必背"
+  },
+  {
+    "id": 36,
+    "section": "结果与验证边界",
+    "question": "目前最大的限制是什么，下一步怎样证明真实应用能力？",
+    "answer": "最大的限制是受控分类成绩与真实田间效果之间仍缺独立证据，当前检测模型也尚无可核验mAP。下一步应先采集并标注不同背景、设备和光照的田间图片，固定独立测试集并报告误判、漏检和未知类别，再开展手机真机与性能验证。病斑分割、严重度和病程跟踪应作为后续任务分别评估。",
+    "followup": {
+      "question": "为什么不继续把PlantVillage准确率提高一点再应用？",
+      "answer": "源数据集继续提分不一定改善田间分布上的表现。先量化跨域差距和实际失败原因，才能判断该补数据、改模型还是改善拍摄流程。"
+    },
+    "boundary": "尚无田间精度、病斑面积、连续跟踪或高并发结论。",
+    "sources": ["training/README.md", "models/candidates/user-detect-fafc2bb3ce9e/README.md", "mobile/README.md"],
+    "priority": "必背"
+  }
+]

@@ -1,0 +1,168 @@
+{
+  "run_id": "qa20261028_1935",
+  "started_at": "2026-10-28T12:34:48.228569+00:00",
+  "mode": "apply",
+  "core_sha256": "0fdccd3ae777fc174e0c195ed76838cf11959dce87ec28f90ba0ad36b5541797",
+  "committed": true,
+  "preview": {
+    "run_id": "qa20261028_1935",
+    "mode": "preview",
+    "qa_user_ids": [
+      "24aa4abfcbfd43eabc523737f2ca4e0f",
+      "708236d223694fedbb18c1917ed381ee",
+      "b120f98472994ee2971c8b2ec3a05c18"
+    ],
+    "article_id": "73f83d9c50e7488cb8e79c4d22a412ee",
+    "managed_admin_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "planned_delete_counts": {
+      "assistant_detection_discussions": 0,
+      "assistant_messages": 0,
+      "assistant_conversations": 1,
+      "user_emails": 0,
+      "knowledge_articles": 1,
+      "users": 3
+    },
+    "conversation_ids": [
+      "d4c06f3653f645b29a87cd196c0b2da3"
+    ],
+    "message_ids": [],
+    "discussion_ids": [],
+    "protected_counts": {
+      "plots": 0,
+      "plot_details": 0,
+      "detections": 2,
+      "detection_predictions": 2,
+      "workspace_configuration": 1,
+      "model_artifacts": 0,
+      "app_meta": 2,
+      "revoked_tokens": 15,
+      "email_challenges": 0
+    },
+    "other_users_preserved_count": 1,
+    "other_conversations_preserved_count": 0,
+    "qa_email_challenges_preserved_count": 0,
+    "audit_rows_preserved_count": 26,
+    "audit_actor_ids_expected_set_null_count": 0,
+    "audit_ids_expected_set_null": [],
+    "status": "preview_only_no_database_writes"
+  },
+  "before": {
+    "original_admin_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "original_admin_sha256": "8d75f63ecb0b1ff691c81e4788674958b3904a1bc73ee7550a567dbdd2e85e1e",
+    "original_knowledge_ids": [
+      "corn-leaf",
+      "cucumber-humidity",
+      "rice-scouting",
+      "tomato-early-blight"
+    ],
+    "original_knowledge_sha256": "5713d36fb6ac3583bd842c9ef7de9665a9e8de4cd2b5428d4e0680e2603cea48",
+    "configuration_database_sha256": "08bf7d031d4b30638ce39c5c04e3166f19d6da866ae0618e21e8ae0af92b02d5",
+    "audit_ids_sha256": "8a513ac762e49813ac1b6310168adf856cf2071d73d53aa2ff92ce4a03915207",
+    "audit_rows": 26,
+    "users": 4,
+    "qa_users": 3,
+    "detections": 2,
+    "plots": 0,
+    "model_onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+    "model_manifest_sha256": "110a340de0183afb5e3f4d75f634863c2fb071aef8fe8c4f4134ae9773adc23a",
+    "health": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    },
+    "configuration_public_version": 5,
+    "configuration_public_sha256": "789c49237a1907caac75711f40f6ef3710ccd4ecd3c94051668f1f9ec760e4bb"
+  },
+  "cleanup": {
+    "run_id": "qa20261028_1935",
+    "mode": "apply",
+    "qa_user_ids": [
+      "24aa4abfcbfd43eabc523737f2ca4e0f",
+      "708236d223694fedbb18c1917ed381ee",
+      "b120f98472994ee2971c8b2ec3a05c18"
+    ],
+    "article_id": "73f83d9c50e7488cb8e79c4d22a412ee",
+    "managed_admin_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "planned_delete_counts": {
+      "assistant_detection_discussions": 0,
+      "assistant_messages": 0,
+      "assistant_conversations": 1,
+      "user_emails": 0,
+      "knowledge_articles": 1,
+      "users": 3
+    },
+    "conversation_ids": [
+      "d4c06f3653f645b29a87cd196c0b2da3"
+    ],
+    "message_ids": [],
+    "discussion_ids": [],
+    "protected_counts": {
+      "plots": 0,
+      "plot_details": 0,
+      "detections": 2,
+      "detection_predictions": 2,
+      "workspace_configuration": 1,
+      "model_artifacts": 0,
+      "app_meta": 2,
+      "revoked_tokens": 15,
+      "email_challenges": 0
+    },
+    "other_users_preserved_count": 1,
+    "other_conversations_preserved_count": 0,
+    "qa_email_challenges_preserved_count": 0,
+    "audit_rows_preserved_count": 26,
+    "audit_actor_ids_expected_set_null_count": 0,
+    "audit_ids_expected_set_null": [],
+    "actual_delete_counts": {
+      "assistant_detection_discussions": 0,
+      "assistant_messages": 0,
+      "assistant_conversations": 1,
+      "user_emails": 0,
+      "knowledge_articles": 1,
+      "users": 3
+    },
+    "audit_actor_ids_set_null_count": 0,
+    "status": "applied_atomic_transaction"
+  },
+  "after": {
+    "original_admin_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "original_admin_sha256": "8d75f63ecb0b1ff691c81e4788674958b3904a1bc73ee7550a567dbdd2e85e1e",
+    "original_knowledge_ids": [
+      "corn-leaf",
+      "cucumber-humidity",
+      "rice-scouting",
+      "tomato-early-blight"
+    ],
+    "original_knowledge_sha256": "5713d36fb6ac3583bd842c9ef7de9665a9e8de4cd2b5428d4e0680e2603cea48",
+    "configuration_database_sha256": "08bf7d031d4b30638ce39c5c04e3166f19d6da866ae0618e21e8ae0af92b02d5",
+    "audit_ids_sha256": "8a513ac762e49813ac1b6310168adf856cf2071d73d53aa2ff92ce4a03915207",
+    "audit_rows": 26,
+    "users": 1,
+    "qa_users": 0,
+    "detections": 2,
+    "plots": 0,
+    "model_onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+    "model_manifest_sha256": "110a340de0183afb5e3f4d75f634863c2fb071aef8fe8c4f4134ae9773adc23a",
+    "health": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    },
+    "configuration_public_version": 5,
+    "configuration_public_sha256": "789c49237a1907caac75711f40f6ef3710ccd4ecd3c94051668f1f9ec760e4bb"
+  },
+  "business_preservation": {
+    "scope": "No Detection/Plot or non-QA User DELETE is allowed by the reviewed core.",
+    "concurrent_non_qa_additions_allowed": true,
+    "detections_before": 2,
+    "detections_after": 2,
+    "plots_before": 0,
+    "plots_after": 0
+  },
+  "status": "passed_applied_and_verified",
+  "finished_at": "2026-10-28T12:34:49.204564+00:00"
+}

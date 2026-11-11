@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "source": "Actual TSX DetectPage.submit AST transpiled in memory",
+  "network_called": false,
+  "dom_tested": false,
+  "cases": [
+    "current session keeps automatic crop, saved result, callbacks and success feedback",
+    "late A success after B login causes no crop/state/callback/toast changes",
+    "unmount aborts request and ignores even an abort-insensitive deferred success",
+    "late A failure does not toast or change busy state for B",
+    "current session failure remains visible and releases busy state",
+    "superseded response cannot overwrite the active upload"
+  ]
+}

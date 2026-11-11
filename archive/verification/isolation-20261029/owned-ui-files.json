@@ -1,0 +1,11 @@
+[
+  "admin/src/Admin.tsx",
+  "admin/src/OwnerPicker.tsx",
+  "admin/src/admin.css",
+  "frontend/src/App.tsx",
+  "frontend/src/Dashboard.tsx",
+  "frontend/src/Pages.tsx",
+  "frontend/src/PlotEditor.tsx",
+  "mobile/src/App.tsx",
+  "mobile/src/WorkspacePages.tsx"
+]

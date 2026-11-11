@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source": "actual TSX form methods and actual lifetime/lock/cooldown hook",
+  "cases": [
+    "actual form scope synchronously locks send and submit until the active request finishes",
+    "cooldown uses an absolute 60-second deadline rather than input contents or decrement-only timers",
+    "route change, token replacement and unmount invalidate late responses; cleanup aborts the actual request signal",
+    "mismatched reset passwords never send a reset request",
+    "duplicate reset-code clicks send once and show a fixed non-enumerating response",
+    "reset errors use safe fixed feedback and never echo passwords or codes",
+    "late reset success after leaving the public page cannot clear credentials or navigate the new page",
+    "email binding supplies current-password proof and never updates another account after token replacement",
+    "successful verified binding updates the stored email state and clears proof inputs",
+    "disabled SMTP feature prevents both code and proof/reset POSTs independently of the registration switch",
+    "successful reset clears proof inputs and delegates return-to-login without making a login request"
+  ],
+  "production_network_called": false,
+  "smtp_mail_sent": false
+}

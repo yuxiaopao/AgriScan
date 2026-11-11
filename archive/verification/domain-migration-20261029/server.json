@@ -1,0 +1,430 @@
+{
+  "domain": "agriscan.ming-ai.top",
+  "expected_ip": "162.14.71.77",
+  "started_at": "2026-10-29T01:02:23.813210+00:00",
+  "certificate_verification_disabled": false,
+  "backup": "/srv/agriscan/shared/backups/domain-migration-20261029-20261029T010223Z",
+  "changes": [
+    "/etc/nginx/conf.d/zz-agriscan.conf",
+    "/srv/agriscan/shared/production.env:CORS_ORIGINS"
+  ],
+  "stage": "complete",
+  "preserved_before": {
+    "flowly_config_sha256": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9",
+    "agriscan_include_sha256": "fdf598821742ca666b81c5e262ece2cf9bc500b8980a30acfd2d7771d50f9e19",
+    "non_cors_environment_sha256": "32534e8be91a41af521636703ad540ea6bc896f13e78910f021574837a928448"
+  },
+  "cors_before": [
+    "https://flowly-ai.top",
+    "https://www.flowly-ai.top",
+    "https://localhost",
+    "http://localhost",
+    "capacitor://localhost"
+  ],
+  "service_before": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "health_before": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "old_flowly_root_before": {
+    "url": "https://flowly-ai.top/",
+    "method": "GET",
+    "exit_code": 0,
+    "status": 200,
+    "remote_ip": "162.14.71.77",
+    "ssl_verify_result": "0",
+    "headers": {
+      "server": "nginx/1.29.8",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "body_bytes": 909,
+    "body_sha256": "e3ea8c20a73ba5411048afaf688f342a5ae4c6a3d2afe41baafc056388e7e18f",
+    "error": ""
+  },
+  "model_sha256_before": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "client_config_before": {
+    "status": 200,
+    "sha256": "2ead0b87b69ed302e1ab65519252a1ea2c4ecac132fa07aea0a63344f3da4b4e",
+    "version": 5
+  },
+  "dns_public_a": [
+    "162.14.71.77"
+  ],
+  "dns_authoritative": [
+    {
+      "server": "dns25.hichina.com.",
+      "result": {
+        "exit_code": 0,
+        "stdout": ";; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57520\n;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 1232\n;; ANSWER SECTION:\nagriscan.ming-ai.top.\t600\tIN\tA\t162.14.71.77",
+        "stderr": ""
+      }
+    },
+    {
+      "server": "dns26.hichina.com.",
+      "result": {
+        "exit_code": 0,
+        "stdout": ";; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 41879\n;; flags: qr aa; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 1232\n;; ANSWER SECTION:\nagriscan.ming-ai.top.\t600\tIN\tA\t162.14.71.77",
+        "stderr": ""
+      }
+    }
+  ],
+  "dns_aaaa": [],
+  "previous_vhost_exists": false,
+  "nginx_http_validation": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "nginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful"
+  },
+  "http01_public_probe": {
+    "url": "http://agriscan.ming-ai.top/.well-known/acme-challenge/agriscan-routing-394f4b61838740b2aa03b0a19445d703",
+    "method": "GET",
+    "exit_code": 0,
+    "status": 200,
+    "remote_ip": "162.14.71.77",
+    "ssl_verify_result": "0",
+    "headers": {
+      "server": "nginx/1.29.8",
+      "content-type": "text/plain"
+    },
+    "body_bytes": 56,
+    "body_sha256": "1671f48fbbba3b4eb47fbc9f3a81d2b9fde020777a361abbed411fa25f946a71",
+    "error": ""
+  },
+  "certificate_issue": {
+    "exit_code": 0,
+    "stdout": "Certificate not yet due for renewal\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nCertificate not yet due for renewal; no action taken.\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+    "stderr": "Saving debug log to /var/log/letsencrypt/letsencrypt.log"
+  },
+  "certificate_public_details": "subject=CN = agriscan.ming-ai.top\nissuer=C = US, O = Let's Encrypt, CN = YE1\nnotBefore=Oct 29 00:01:40 2026 GMT\nnotAfter=Jan 27 00:01:39 2027 GMT\nX509v3 Subject Alternative Name: \n    DNS:agriscan.ming-ai.top",
+  "nginx_https_validation": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "nginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful"
+  },
+  "https_activation_attempts": [
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html"
+      },
+      "body_bytes": 10019,
+      "body_sha256": "c017971a973df0495be2208707527f1fb368a8ea41ce6762f94b77facc48414b",
+      "error": ""
+    }
+  ],
+  "https_first_check": {
+    "url": "https://agriscan.ming-ai.top/agriscan/",
+    "method": "GET",
+    "exit_code": 0,
+    "status": 200,
+    "remote_ip": "162.14.71.77",
+    "ssl_verify_result": "0",
+    "headers": {
+      "server": "nginx/1.29.8",
+      "content-type": "text/html"
+    },
+    "body_bytes": 10019,
+    "body_sha256": "c017971a973df0495be2208707527f1fb368a8ea41ce6762f94b77facc48414b",
+    "error": ""
+  },
+  "health_after": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "cors_after": [
+    "https://flowly-ai.top",
+    "https://www.flowly-ai.top",
+    "https://localhost",
+    "http://localhost",
+    "capacitor://localhost",
+    "https://agriscan.ming-ai.top"
+  ],
+  "normal_dns_requests": [
+    {
+      "url": "http://agriscan.ming-ai.top/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 301,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html",
+        "location": "https://agriscan.ming-ai.top/"
+      },
+      "body_bytes": 169,
+      "body_sha256": "cf7421bf8021a6e56b4a9aa5e1a0f5bb5f5b341189e61c7776d15f44b82c1fa3",
+      "error": ""
+    },
+    {
+      "url": "http://agriscan.ming-ai.top/agriscan/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 301,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html",
+        "location": "https://agriscan.ming-ai.top/agriscan/"
+      },
+      "body_bytes": 169,
+      "body_sha256": "cf7421bf8021a6e56b4a9aa5e1a0f5bb5f5b341189e61c7776d15f44b82c1fa3",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 302,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html",
+        "location": "https://agriscan.ming-ai.top/agriscan/"
+      },
+      "body_bytes": 145,
+      "body_sha256": "07fc71c04082125922a8262e730dbfd8b308dd1e244650440b46fd01393c063a",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html"
+      },
+      "body_bytes": 10019,
+      "body_sha256": "c017971a973df0495be2208707527f1fb368a8ea41ce6762f94b77facc48414b",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/workspace/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html"
+      },
+      "body_bytes": 827,
+      "body_sha256": "010bc8404ec412d85f9f380c220cbc52ab5e190319bb1eeaa5cffb85a8853c2c",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/admin/",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "text/html"
+      },
+      "body_bytes": 831,
+      "body_sha256": "79d3cf8419fed69ec11b733ff8839dc855fddda9fba55a05e6cf92ffd5cda564",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/downloads/release.json",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "application/json"
+      },
+      "body_bytes": 441,
+      "body_sha256": "9e98f05c5fc099b65473d1c48b22f3e7f310df4ae205f59468f7a9b67a3a46be",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/api/health",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "application/json"
+      },
+      "body_bytes": 94,
+      "body_sha256": "b193f915276933858eb55f2990a6ca5ec1ef72f5fe2c98e189bc6b8a19d49b67",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/api/client/config",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 200,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "application/json"
+      },
+      "body_bytes": 410,
+      "body_sha256": "2ead0b87b69ed302e1ab65519252a1ea2c4ecac132fa07aea0a63344f3da4b4e",
+      "error": ""
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/api/auth/me",
+      "method": "GET",
+      "exit_code": 0,
+      "status": 401,
+      "remote_ip": "162.14.71.77",
+      "ssl_verify_result": "0",
+      "headers": {
+        "server": "nginx/1.29.8",
+        "content-type": "application/json"
+      },
+      "body_bytes": 61,
+      "body_sha256": "c5dc7b2497789925d23a8c6cd586ed2f9bb371f3a393408e02f6fdc995785df4",
+      "error": ""
+    }
+  ],
+  "cors_preflights": [
+    {
+      "origin": "https://agriscan.ming-ai.top",
+      "result": {
+        "url": "https://agriscan.ming-ai.top/agriscan/api/detections",
+        "method": "OPTIONS",
+        "exit_code": 0,
+        "status": 200,
+        "remote_ip": "162.14.71.77",
+        "ssl_verify_result": "0",
+        "headers": {
+          "server": "nginx/1.29.8",
+          "content-type": "text/plain; charset=utf-8",
+          "access-control-allow-origin": "https://agriscan.ming-ai.top"
+        },
+        "body_bytes": 2,
+        "body_sha256": "565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3",
+        "error": ""
+      }
+    },
+    {
+      "origin": "https://flowly-ai.top",
+      "result": {
+        "url": "https://agriscan.ming-ai.top/agriscan/api/detections",
+        "method": "OPTIONS",
+        "exit_code": 0,
+        "status": 200,
+        "remote_ip": "162.14.71.77",
+        "ssl_verify_result": "0",
+        "headers": {
+          "server": "nginx/1.29.8",
+          "content-type": "text/plain; charset=utf-8",
+          "access-control-allow-origin": "https://flowly-ai.top"
+        },
+        "body_bytes": 2,
+        "body_sha256": "565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3",
+        "error": ""
+      }
+    },
+    {
+      "origin": "capacitor://localhost",
+      "result": {
+        "url": "https://agriscan.ming-ai.top/agriscan/api/detections",
+        "method": "OPTIONS",
+        "exit_code": 0,
+        "status": 200,
+        "remote_ip": "162.14.71.77",
+        "ssl_verify_result": "0",
+        "headers": {
+          "server": "nginx/1.29.8",
+          "content-type": "text/plain; charset=utf-8",
+          "access-control-allow-origin": "capacitor://localhost"
+        },
+        "body_bytes": 2,
+        "body_sha256": "565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3",
+        "error": ""
+      }
+    }
+  ],
+  "service_after": {
+    "MainPID": "1374219",
+    "NRestarts": "0",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "model_sha256_after": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "preserved_after": {
+    "flowly_config_sha256": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9",
+    "agriscan_include_sha256": "fdf598821742ca666b81c5e262ece2cf9bc500b8980a30acfd2d7771d50f9e19",
+    "non_cors_environment_sha256": "32534e8be91a41af521636703ad540ea6bc896f13e78910f021574837a928448"
+  },
+  "old_flowly_root_after": {
+    "url": "https://flowly-ai.top/",
+    "method": "GET",
+    "exit_code": 0,
+    "status": 200,
+    "remote_ip": "162.14.71.77",
+    "ssl_verify_result": "0",
+    "headers": {
+      "server": "nginx/1.29.8",
+      "content-type": "text/html; charset=utf-8"
+    },
+    "body_bytes": 909,
+    "body_sha256": "e3ea8c20a73ba5411048afaf688f342a5ae4c6a3d2afe41baafc056388e7e18f",
+    "error": ""
+  },
+  "client_config_after": {
+    "status": 200,
+    "sha256": "2ead0b87b69ed302e1ab65519252a1ea2c4ecac132fa07aea0a63344f3da4b4e",
+    "version": 5
+  },
+  "renewal_timer_enabled": "enabled",
+  "status": "passed",
+  "finished_at": "2026-10-29T01:08:03.907097+00:00",
+  "initial_renewal_test": {
+    "failure_type": "TimeoutExpired",
+    "reason": "Certbot noninteractive random sleep was 380.285876 seconds; the verification command timed out before ACME ran."
+  },
+  "certificate_renewal_dry_run": {
+    "exit_code": 0,
+    "stdout": "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nProcessing /etc/letsencrypt/renewal/agriscan.ming-ai.top.conf\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nSimulating renewal of an existing certificate for agriscan.ming-ai.top\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nCongratulations, all simulated renewals succeeded: \n  /etc/letsencrypt/live/agriscan.ming-ai.top/fullchain.pem (success)\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+    "stderr": "Saving debug log to /var/log/letsencrypt/letsencrypt.log",
+    "manual_random_sleep_disabled": true
+  },
+  "renewal_unit": "# /etc/systemd/system/certbot-renew.service\n[Unit]\nDescription=Renew Let's Encrypt certificates (flowly-ai.top)\nAfter=network-online.target\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/certbot renew --quiet --deploy-hook \"systemctl reload nginx\"",
+  "renewal_dry_run_kept_production_certificate": true,
+  "final_normal_dns_health": {
+    "exit_code": 0,
+    "body": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    }
+  }
+}

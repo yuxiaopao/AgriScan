@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "main_readme_commit": "f919345bf626df42790e35b140eacc0a18867e9d",
+  "feature_code_commit": "5fcd53d3e7f019be52043e95abf4fd1861645cde",
+  "feature_merge_commit": "b002e9e26a1eb08d295e349e894b1a847a2b3caa",
+  "branch": "codex/workspace-ui-and-plot-management-20261028",
+  "main_diff_files": [
+    "README.md"
+  ],
+  "merge_preserves_feature_tree": true,
+  "main_is_feature_ancestor": true,
+  "remote_refs": [
+    "b002e9e26a1eb08d295e349e894b1a847a2b3caa\trefs/heads/codex/workspace-ui-and-plot-management-20261028",
+    "f919345bf626df42790e35b140eacc0a18867e9d\trefs/heads/main"
+  ]
+}

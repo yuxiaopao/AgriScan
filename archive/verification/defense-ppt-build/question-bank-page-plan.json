@@ -1,0 +1,189 @@
+{
+  "pages": [
+    {
+      "section": "一 项目介绍",
+      "questions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "section": "一 项目介绍",
+      "questions": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "section": "一 项目介绍",
+      "questions": [
+        7,
+        8
+      ]
+    },
+    {
+      "section": "二 团队介绍",
+      "questions": [
+        9,
+        10
+      ]
+    },
+    {
+      "section": "二 团队介绍",
+      "questions": [
+        11,
+        12
+      ]
+    },
+    {
+      "section": "三 实现过程",
+      "questions": [
+        13,
+        14,
+        15
+      ]
+    },
+    {
+      "section": "三 实现过程",
+      "questions": [
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "section": "三 实现过程",
+      "questions": [
+        19,
+        20
+      ]
+    },
+    {
+      "section": "三 实现过程",
+      "questions": [
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "section": "三 实现过程",
+      "questions": [
+        24,
+        25,
+        26
+      ]
+    },
+    {
+      "section": "三 实现过程",
+      "questions": [
+        27,
+        28
+      ]
+    },
+    {
+      "section": "四 结果与验证",
+      "questions": [
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "section": "四 结果与验证",
+      "questions": [
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "section": "四 结果与验证",
+      "questions": [
+        35,
+        36
+      ]
+    },
+    {
+      "section": "五 课程收获",
+      "questions": [
+        37,
+        38
+      ]
+    },
+    {
+      "section": "五 课程收获",
+      "questions": [
+        39,
+        40
+      ]
+    },
+    {
+      "section": "六 创新与改进方向",
+      "questions": [
+        41,
+        42,
+        43
+      ]
+    },
+    {
+      "section": "六 创新与改进方向",
+      "questions": [
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "section": "六 创新与改进方向",
+      "questions": [
+        47,
+        48
+      ]
+    }
+  ],
+  "sources": {
+    "README.md": "S01",
+    "models/candidates/user-detect-fafc2bb3ce9e/README.md": "S02",
+    "docs/client-and-admin.md": "S03",
+    "frontend/src/cropThemes.ts": "S04",
+    "models/candidates/user-detect-fafc2bb3ce9e/manifest.json": "S05",
+    "training/README.md": "S06",
+    "training/config.json": "S07",
+    "datasets/plantvillage/dataset-report.json": "S08",
+    "training/prepare_data.py": "S09",
+    "models/README.md": "S10",
+    "models/releases/plantvillage-yolo26m-906cf72f6bf0/manifest.json": "S11",
+    "models/releases/plantvillage-yolo26m-906cf72f6bf0/test-report.json": "S12",
+    "backend/app/inference.py": "S13",
+    "backend/app/detection_inference.py": "S14",
+    "mobile/README.md": "S15",
+    "frontend/src/Xiaohe.tsx": "S16",
+    "training/final-report.md": "S17",
+    "docs/qa-20261028-backend.md": "S18",
+    "training/transfer-report.json": "S19",
+    "training/workflow.py": "S20",
+    "training/environment.json": "S21",
+    "runs/classify/plantvillage-yolo26m/results.csv": "S22",
+    "training/deploy_model.py": "S23",
+    "admin/README.md": "S24",
+    "backend/app/security.py": "S25",
+    "backend/app/db.py": "S26",
+    "backend/app/detection_assistant.py": "S27",
+    "backend/app/admin.py": "S28",
+    "backend/app/extensions.py": "S29",
+    "backend/app/runtime_config.py": "S30",
+    "admin/src/RuntimeSettings.tsx": "S31",
+    "frontend/src/plotDrafts.ts": "S32",
+    "frontend/src/PlotEditor.tsx": "S33",
+    "backend/app/cache.py": "S34",
+    "backend/app/media.py": "S35",
+    "backend/app/image_preprocessing.py": "S36",
+    "models/candidates/user-detect-fafc2bb3ce9e/parity-report.json": "S37",
+    "design/qa-20261028/production-apple-yolo.png": "S38",
+    "design/xiaohe-crops/README.md": "S39",
+    "docs/创新方向与病程技术路线.md": "S40"
+  }
+}

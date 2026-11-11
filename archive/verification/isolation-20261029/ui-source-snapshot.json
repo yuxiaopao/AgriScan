@@ -1,0 +1,16 @@
+{
+  "root": "E:\\AgriScan\\.runtime\\isolation-20261029\\build",
+  "head": "135c887f521da67da98c5d25ff0a13f659663310",
+  "overlay_files": [
+    "admin/src/Admin.tsx",
+    "admin/src/OwnerPicker.tsx",
+    "admin/src/admin.css",
+    "frontend/src/App.tsx",
+    "frontend/src/Dashboard.tsx",
+    "frontend/src/Pages.tsx",
+    "frontend/src/PlotEditor.tsx",
+    "mobile/src/App.tsx",
+    "mobile/src/WorkspacePages.tsx"
+  ],
+  "unknown_design_imports_excluded": true
+}

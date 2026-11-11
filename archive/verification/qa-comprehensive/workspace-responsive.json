@@ -1,0 +1,54 @@
+[
+  {
+    "width": 768,
+    "breadcrumb": {
+      "h": 30,
+      "w": 74
+    },
+    "client": 753,
+    "plane": {
+      "h": 161.5,
+      "w": 323
+    },
+    "scroll": 753
+  },
+  {
+    "width": 900,
+    "breadcrumb": {
+      "h": 30,
+      "w": 74
+    },
+    "client": 885,
+    "plane": {
+      "h": 194.5,
+      "w": 389
+    },
+    "scroll": 885
+  },
+  {
+    "width": 901,
+    "breadcrumb": {
+      "h": 16,
+      "w": 153
+    },
+    "client": 886,
+    "plane": {
+      "h": 147,
+      "w": 294
+    },
+    "scroll": 886
+  },
+  {
+    "width": 1024,
+    "breadcrumb": {
+      "h": 16,
+      "w": 153
+    },
+    "client": 1009,
+    "plane": {
+      "h": 97.5,
+      "w": 195
+    },
+    "scroll": 1009
+  }
+]

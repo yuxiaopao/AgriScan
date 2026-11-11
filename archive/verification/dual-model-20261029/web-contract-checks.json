@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "source": "actual PredictionScores/ModelVerification/RunningModels bundled in memory and rendered with React server renderer",
+  "cases": [
+    "agree shows both original scores without averaging or mutating detection/boxes",
+    "disagree is explicit and retains the detector score",
+    "uncertain is explicit and retains the detector score",
+    "unavailable is explicit and retains the detector score",
+    "verification renders even when main candidates are absent",
+    "historical snapshots without verification keep their original display",
+    "both active components render with task-specific metrics when upload items is empty",
+    "legacy active model does not fabricate a second running component"
+  ],
+  "network_called": false,
+  "browser_ui_tested": false
+}

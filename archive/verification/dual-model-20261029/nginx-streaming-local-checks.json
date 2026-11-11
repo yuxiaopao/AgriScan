@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "checks": [
+    "confirmed deployed old API block is RED for streaming; exact two-line candidate is GREEN with all other bytes unchanged",
+    "wrong/duplicate/already altered API block refuses mutation",
+    "atomic fake-file CAS publishes exact patch and preserves concurrent edit"
+  ],
+  "production_modified": false,
+  "network_called": false
+}

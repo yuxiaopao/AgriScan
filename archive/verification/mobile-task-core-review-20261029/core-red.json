@@ -1,0 +1,41 @@
+{
+  "status": "failed",
+  "expected_red": true,
+  "source": "actual shared DetectionTaskManager with independent synthetic HTTP/XHR event harness",
+  "source_sha256": "ac3e42c703eedc4a94b82aa8141a0fab4415805bdcd1f2b0d3a28c7a6b298a5e",
+  "cases": [
+    {
+      "name": "active XHR remains uploading with real local byte progress when buffered server still reports awaiting_upload",
+      "status": "failed",
+      "assertion": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'awaiting_upload'\n- 'uploading'\n"
+    },
+    {
+      "name": "active upload survives a transient poll error without a duplicate reservation",
+      "status": "passed"
+    },
+    {
+      "name": "server processing wins the local upload presentation while the XHR response is pending",
+      "status": "passed"
+    },
+    {
+      "name": "failed XHR uses the confirmed server bytes while checking instead of retaining optimistic bytes",
+      "status": "failed",
+      "assertion": "Expected values to be strictly equal:\n\n55 !== 20\n"
+    },
+    {
+      "name": "explicit 429 backoff resets progress to confirmed server bytes and keeps the original reservation",
+      "status": "failed",
+      "assertion": "Expected values to be strictly equal:\n\n55 !== 0\n"
+    },
+    {
+      "name": "confirmed cancellation is never masked by local upload state or stale local progress",
+      "status": "failed",
+      "assertion": "Expected values to be strictly equal:\n\n55 !== 0\n"
+    },
+    {
+      "name": "confirmed terminal completion and saved IDs survive a late XHR failure",
+      "status": "passed"
+    }
+  ],
+  "production_network_called": false
+}

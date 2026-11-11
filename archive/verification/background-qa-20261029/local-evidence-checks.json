@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "cases": [
+    "exact tag creates only expected QA plan fields, JPEG SHA and exclusive conversation IDs/counts without chat content",
+    "foreign owner tagged detection refuses instead of silently filtering",
+    "QA plot associated with any non-QA detection refuses",
+    "QA detection referring to an external plot refuses",
+    "normalized JPEG shared with a non-QA record refuses",
+    "foreign-user conversation association refuses",
+    "foreign conversation owner refuses",
+    "conversation requires QA markers checked by SQL without exporting messages",
+    "unrecognized future schema reference refuses rather than planning a cascade",
+    "filename-only tag is collected but explicitly marked incompatible with the stricter existing cleanup helper"
+  ],
+  "production_network_called": false,
+  "production_environment_read": false,
+  "ssh_called": false,
+  "real_user_records_read": false
+}

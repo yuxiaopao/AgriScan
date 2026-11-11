@@ -1,0 +1,14 @@
+{
+  "signerSha256": "f6229ce48e05aaed0c8889f04f0909c7da7de085ff2b5f98792d6d3a27f710b7",
+  "signerMatchesPrevious": true,
+  "debugKeystoreUnchanged": true,
+  "packageId": "cn.agriscan.mobile",
+  "versionCode": 2,
+  "versionName": "1.0.1",
+  "minSdk": 24,
+  "targetSdk": 36,
+  "cleartextTraffic": false,
+  "v2Verified": true,
+  "apkBytes": 18744600,
+  "apkSha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85"
+}

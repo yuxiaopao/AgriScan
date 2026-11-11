@@ -1,0 +1,63 @@
+{
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "disabled",
+    "mode": "demo",
+    "model": "ready"
+  },
+  "models": {
+    "active": {
+      "name": "plantvillage-yolo26m",
+      "task": "classify",
+      "image_size": 224,
+      "threshold": 0.7,
+      "test_top1": 0.9967269751795618,
+      "test_macro_f1": 0.9956200211164937,
+      "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+      "class_count": 38,
+      "scope": "单叶图像分类；不输出病斑位置框，田间泛化尚需独立验证。"
+    },
+    "status": "ready",
+    "supported_crops": [
+      "南瓜",
+      "大豆",
+      "柑橘",
+      "树莓",
+      "桃",
+      "樱桃",
+      "玉米",
+      "甜椒",
+      "番茄",
+      "苹果",
+      "草莓",
+      "葡萄",
+      "蓝莓",
+      "马铃薯"
+    ],
+    "available_crops": [
+      "番茄",
+      "水稻",
+      "玉米",
+      "小麦",
+      "黄瓜",
+      "苹果",
+      "蓝莓",
+      "樱桃",
+      "葡萄",
+      "柑橘",
+      "桃",
+      "甜椒",
+      "马铃薯",
+      "树莓",
+      "大豆",
+      "南瓜",
+      "草莓"
+    ],
+    "message": "已启用单叶病害分类；不输出位置框，低置信度结果需人工复核。",
+    "items": [],
+    "max_upload_mb": 200
+  },
+  "test_record_deleted": true,
+  "checked_at": "2026-10-20T13:33:03.846747+00:00"
+}

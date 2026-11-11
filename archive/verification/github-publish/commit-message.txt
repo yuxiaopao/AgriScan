@@ -1,0 +1,14 @@
+feat(platform): add mobile app, admin controls and production detection
+
+Add independent mobile and administrator clients, versioned runtime settings,
+real YOLO target boxes, and the public website with deployment tooling.
+
+Include regression fixes for authentication, mixed-crop plot associations,
+member permissions and responsive navigation, plus production QA reports.
+
+Validation: backend 192 passed, 1 skipped; workspace and admin production
+builds passed; production browser and media API checks completed. Native
+APP hardware testing remains outside this verification scope.
+
+Keep secrets, runtime data, new detector binaries, APKs and unrelated
+presentation artifacts outside the source commit.

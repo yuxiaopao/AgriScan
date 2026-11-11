@@ -1,0 +1,264 @@
+{
+  "title": "禾观 AgriScan · 课程答辩 24 页图片完整版",
+  "created_at_utc": "2026-10-29T01:59:51.899Z",
+  "source_directory": "E:/AgriScan/deliverables/defense/整套24页图片_20261029",
+  "deliverable_type": "raster slide images; not an editable PowerPoint deck",
+  "page_count": 24,
+  "page_order": "01–24, left to right then top to bottom in overview",
+  "aspect_ratio_validation": {
+    "expected": "16:9",
+    "relative_tolerance": 0.015
+  },
+  "pages": [
+    {
+      "page": 1,
+      "file": "01_封面.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2371824,
+      "sha256": "ce25414467bce96bc2b9aac1fb7a7d938c48a7809a4fb1418c1828fb7d762a9b"
+    },
+    {
+      "page": 2,
+      "file": "02_答辩目录.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2566066,
+      "sha256": "fe2c705550d7b2cb9ab333848400c45eb1026c5b17c3e85ce02fa7f183a4c3ee"
+    },
+    {
+      "page": 3,
+      "file": "03_背景与问题.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2707598,
+      "sha256": "c9a8f8bfdf27ad28f8e98af88562a94cef4169b396bb04a4b40e7b6cbeb56b1b"
+    },
+    {
+      "page": 4,
+      "file": "04_项目定位与价值.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2668759,
+      "sha256": "a602f1d5847617a81523da62dae1c1d18500d268eed6f1c939cb8ed2bfd2c1b0"
+    },
+    {
+      "page": 5,
+      "file": "05_项目与数据集.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2497662,
+      "sha256": "c96eedade5d8f50e233b3f72d181e72c2b5bce8549c9bab06cf6e8e42297ba55"
+    },
+    {
+      "page": 6,
+      "file": "06_数据划分与防泄漏.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2549300,
+      "sha256": "84c0d7e1a67707a9326968a5fa4ef6b92607f68a0c44f41038c4e0544ba2e651"
+    },
+    {
+      "page": 7,
+      "file": "07_四人团队分工.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2705966,
+      "sha256": "92606faeae8ab62688bbc56fad682449f029e596cbcf36b568970450c461cd7c"
+    },
+    {
+      "page": 8,
+      "file": "08_技术实现路线.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2524530,
+      "sha256": "30364779f8a624f3c5b6ff098711801dca620c3fd7d6ff0b5fac75e66adef61f"
+    },
+    {
+      "page": 9,
+      "file": "09_系统架构.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2234309,
+      "sha256": "c0e58ced01f34bbdd8727c9ac50d8927396232c7b179157f60514440987115b5"
+    },
+    {
+      "page": 10,
+      "file": "10_分类模型训练.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2429388,
+      "sha256": "f476f2d0072f468af1c3263aceb110caa4bc74fcf6db8872365a5df939101b17"
+    },
+    {
+      "page": 11,
+      "file": "11_目标检测模型接入.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2406567,
+      "sha256": "f44ee92f08635d3af40cbb55c6193144d21f93e61b6486d5611c68a6226d7d4d"
+    },
+    {
+      "page": 12,
+      "file": "12_关键问题与解决.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2377142,
+      "sha256": "36559297e6301c099aeb5863283f95512c7cf4b01232922c9050adaf6b88ed65"
+    },
+    {
+      "page": 13,
+      "file": "13_小禾IP与交互设计.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2487309,
+      "sha256": "12bb44fe02c004aafaeb9169f64480c30285bc503a0baf7d99541ff6b35e315e"
+    },
+    {
+      "page": 14,
+      "file": "14_实验结果与系统成果.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2207577,
+      "sha256": "24eedac1e38c3152908f09e28ab38b7b546dcd29a9d54314b73c0aa28fcdc5e4"
+    },
+    {
+      "page": 15,
+      "file": "15_真实识别演示.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2442878,
+      "sha256": "c25dc9e8e67bfa61e5f4059a1e59128f6a5d72a1bbc6298965c5133c430ea41d"
+    },
+    {
+      "page": 16,
+      "file": "16_三端协同成果.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2200306,
+      "sha256": "3ef29ac2b58a64a726e8447abe510a7d8af1505dce81f3d9d3ae8685452c96b2"
+    },
+    {
+      "page": 17,
+      "file": "17_管理与记录闭环.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2405233,
+      "sha256": "09aa49a9e30c2bbb3984d13b29117ae7e313deea797d0fb8ae87fb99bb66205f"
+    },
+    {
+      "page": 18,
+      "file": "18_系统验证与边界.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2445888,
+      "sha256": "3c0e1b39f3ee79c66f20be3bb8fe024b5317ed838e7415097a3c4445589bafbd"
+    },
+    {
+      "page": 19,
+      "file": "19_课程收获.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2580072,
+      "sha256": "e822845483e95c93813ccd1aeb7227f2c3ccb29e86d159ea91d08ca8fd7c9663"
+    },
+    {
+      "page": 20,
+      "file": "20_创新与特色.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2595739,
+      "sha256": "5c911ada0f5c95a595180376437ac0d5da844d472700c95172766c4a1d252e32"
+    },
+    {
+      "page": 21,
+      "file": "21_后续改进方向.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2588960,
+      "sha256": "09e94dfa69ca93c5c5141d9b4a595dae8f7f447735ab62e10d4fd9b916a4ce89"
+    },
+    {
+      "page": 22,
+      "file": "22_结束致谢.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2330262,
+      "sha256": "2b5982932f22c2b73ea068454972b635a3b09adfb31a2bdeba23ebb40fb0b150"
+    },
+    {
+      "page": 23,
+      "file": "23_备用实验参数.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2408808,
+      "sha256": "fafbbba33a50c33baa686a9fcfa87f2d456cf4c7a2ec172d31e242d55ddb255a"
+    },
+    {
+      "page": 24,
+      "file": "24_备用答辩问答.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2332839,
+      "sha256": "043cbce59c2b2cea11fd081ec9bba965e81010c247f94a38f5afc865a358a81a"
+    }
+  ],
+  "overview": {
+    "file": "24页总览.jpg",
+    "width": 1920,
+    "height": 1620,
+    "columns": 4,
+    "rows": 6,
+    "sha256": "83e1a35d366ad9096cee87328725490619166a4fedb5efe922a39dcd0ed9188a"
+  },
+  "prompt_and_source_manifests": [
+    {
+      "file": "新增20页完整生成记录.json",
+      "bytes": 50246,
+      "sha256": "9131689e643518501b20f8c6ef709b5279c8a6936b10ad7ff70742c26a85ccf2"
+    },
+    {
+      "file": "生成提示词_全部24页.json",
+      "bytes": 61890,
+      "sha256": "a79a073b91cd4f7d2e354473c776a6dae5142192951a6c1a1ca34bba3fe69f1f"
+    },
+    {
+      "file": "生成提示词_新增20页.json",
+      "bytes": 15824,
+      "sha256": "592330261b21f7dc6d83086c1a34b75c7cd740f581ef1f63927bca8bcb6ade39"
+    }
+  ],
+  "archive_files": [
+    "01_封面.png",
+    "02_答辩目录.png",
+    "03_背景与问题.png",
+    "04_项目定位与价值.png",
+    "05_项目与数据集.png",
+    "06_数据划分与防泄漏.png",
+    "07_四人团队分工.png",
+    "08_技术实现路线.png",
+    "09_系统架构.png",
+    "10_分类模型训练.png",
+    "11_目标检测模型接入.png",
+    "12_关键问题与解决.png",
+    "13_小禾IP与交互设计.png",
+    "14_实验结果与系统成果.png",
+    "15_真实识别演示.png",
+    "16_三端协同成果.png",
+    "17_管理与记录闭环.png",
+    "18_系统验证与边界.png",
+    "19_课程收获.png",
+    "20_创新与特色.png",
+    "21_后续改进方向.png",
+    "22_结束致谢.png",
+    "23_备用实验参数.png",
+    "24_备用答辩问答.png",
+    "24页总览.jpg",
+    "新增20页完整生成记录.json",
+    "生成提示词_全部24页.json",
+    "生成提示词_新增20页.json",
+    "24页图片清单.json"
+  ],
+  "revised_at_utc": "2026-10-29T13:50:01.058Z",
+  "revision": "团队照片与实名职责确认，致谢页补姓名"
+}

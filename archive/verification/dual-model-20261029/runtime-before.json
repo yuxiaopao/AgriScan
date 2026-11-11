@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-10-29T06:49:46.111176+00:00",
+  "release": "/srv/agriscan/releases/release-20261029-full-ui-134431",
+  "api": {
+    "MainPID": "1411592",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Thu 2026-10-29 10:41:28 CST",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "schema": "20261029_06",
+  "configuration": {
+    "version": 6,
+    "row_sha256": "7253563d8bc027143dc95dfa5c3d2b97db564663084f35cf683670cb6dd36394",
+    "method": "MySQL SHA2 of canonical field concatenation; no data or secret value returned"
+  },
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  }
+}

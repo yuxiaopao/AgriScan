@@ -1,0 +1,227 @@
+{
+  "status": "passed",
+  "newApiBase": "https://agriscan.ming-ai.top/agriscan",
+  "oldApiBase": "https://flowly-ai.top/agriscan",
+  "appRuntimeTested": false,
+  "nativeCameraTested": false,
+  "build": {
+    "npmBuild": "passed",
+    "capacitorSync": "passed",
+    "gradleAssembleDebug": "BUILD SUCCESSFUL",
+    "jdk": "21.0.12.1",
+    "androidSdk": 36,
+    "gradle": "8.14.3"
+  },
+  "apkVerification": {
+    "signerSha256": "f6229ce48e05aaed0c8889f04f0909c7da7de085ff2b5f98792d6d3a27f710b7",
+    "signerMatchesPrevious": true,
+    "debugKeystoreUnchanged": true,
+    "packageId": "cn.agriscan.mobile",
+    "versionCode": 2,
+    "versionName": "1.0.1",
+    "minSdk": 24,
+    "targetSdk": 36,
+    "cleartextTraffic": false,
+    "v2Verified": true,
+    "apkBytes": 18744600,
+    "apkSha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+    "nativeAbis": "'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'"
+  },
+  "zipInspection": {
+    "zipCrcVerified": true,
+    "capacitorConfig": {
+      "appId": "cn.agriscan.mobile",
+      "appName": "禾观",
+      "webDir": "dist",
+      "server": {
+        "androidScheme": "https"
+      },
+      "android": {
+        "backgroundColor": "#f7f8f2",
+        "allowMixedContent": false
+      }
+    },
+    "javascriptBundle": "assets/public/assets/index-Bo2mbWFq.js",
+    "compiledDefault": "https://agriscan.ming-ai.top/agriscan",
+    "migrationPreviousOrigin": "https://flowly-ai.top/agriscan",
+    "officialMigrationTarget": "https://agriscan.ming-ai.top/agriscan",
+    "oldOriginOnlyForExplicitMigration": true,
+    "appRuntimeOpened": false,
+    "hardwareTested": false
+  },
+  "upgradeMigrationBehavior": {
+    "source": "Actual mobile/src/api.ts transpiled in memory; isolated localStorage",
+    "passed": 12,
+    "failed": 0,
+    "cases": [
+      {
+        "name": "Exact saved official address migrates once",
+        "status": "passed"
+      },
+      {
+        "name": "One trailing slash on previous official address migrates",
+        "status": "passed"
+      },
+      {
+        "name": "LAN service override is preserved",
+        "status": "passed"
+      },
+      {
+        "name": "Another domain override is preserved",
+        "status": "passed"
+      },
+      {
+        "name": "Other old-domain path is preserved",
+        "status": "passed"
+      },
+      {
+        "name": "Explicit proxy setting is preserved",
+        "status": "passed"
+      },
+      {
+        "name": "Explicit debug build default does not migrate official override",
+        "status": "passed"
+      },
+      {
+        "name": "Development proxy build does not migrate official override",
+        "status": "passed"
+      },
+      {
+        "name": "Fresh install uses new compiled default and correct API prefix",
+        "status": "passed"
+      },
+      {
+        "name": "Old token is not copied or returned for the new domain",
+        "status": "passed"
+      },
+      {
+        "name": "Migration requires fresh login even if a cached new-domain token existed",
+        "status": "passed"
+      },
+      {
+        "name": "Custom service token remains isolated and intact",
+        "status": "passed"
+      }
+    ]
+  },
+  "serverBackup": {
+    "backupDirectory": "/srv/agriscan/shared/backups/domain-migration-20261029-app-1.0.1-code2",
+    "sourceDirectory": "/srv/agriscan/releases/release-20261028-190106/public/downloads",
+    "verifiedFiles": [
+      {
+        "name": "agriscan-test.apk",
+        "bytes": 18744536,
+        "sha256": "7b195441f02683ef861aa8b35ed21ef4ebe6593e9de2b914b3c0f82cd24a2135"
+      },
+      {
+        "name": "agriscan-test.apk.sha256",
+        "bytes": 85,
+        "sha256": "f52487534f7e25cfacd703ae6c262ad7c46a2ecc202bfc5aab2b26ccd20b1547"
+      },
+      {
+        "name": "release.json",
+        "bytes": 441,
+        "sha256": "9e98f05c5fc099b65473d1c48b22f3e7f310df4ae205f59468f7a9b67a3a46be"
+      }
+    ],
+    "databaseChanged": false,
+    "nginxChanged": false
+  },
+  "artifactLocalPath": "website/downloads/agriscan-test.apk",
+  "releaseMetadata": "website/downloads/release.json",
+  "serverPublish": {
+    "status": "published",
+    "targetDirectory": "/srv/agriscan/releases/release-20261028-190106/public/downloads",
+    "backupDirectory": "/srv/agriscan/shared/backups/domain-migration-20261029-app-1.0.1-code2",
+    "atomicFileReplacement": true,
+    "releaseMetadataPublishedLast": true,
+    "files": [
+      {
+        "name": "agriscan-test.apk",
+        "bytes": 18744600,
+        "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85"
+      },
+      {
+        "name": "agriscan-test.apk.sha256",
+        "bytes": 85,
+        "sha256": "dfe75d54e7618da631c68cfb3db806d389adbe57d988452e248a70bb2e3f74ae"
+      },
+      {
+        "name": "release.json",
+        "bytes": 450,
+        "sha256": "b16f6b79b1f5c3d1ba13b2e0b42400e1734305ece6ad5f48be38745b17040a1b"
+      }
+    ],
+    "databaseChanged": false,
+    "nginxChanged": false
+  },
+  "databaseChanged": false,
+  "nginxChanged": false,
+  "gitOperationsPerformed": false,
+  "notes": [
+    "Only exact previous official base and one equivalent trailing slash migrate when the compiled default is the new official base.",
+    "Custom service bases and tokens remain isolated. Migration requires fresh login.",
+    "The previous domain string remains solely as an explicit migration source.",
+    "Debug certificate unchanged; actual installation and hardware behavior are not tested."
+  ],
+  "sourceReferenceAudit": {
+    "oldOriginOccurrences": "Intentional migration constant and upgrade documentation only",
+    "nativeHardcodedOldOrigin": false,
+    "environmentTemplateNewOrigin": true,
+    "buildScriptDefaultNewOrigin": true
+  },
+  "productionHttpsVerification": {
+    "source": "Production-server ordinary DNS HTTPS requests with certificate verification; no APP or browser interaction",
+    "origin": "https://agriscan.ming-ai.top/agriscan/",
+    "tlsVerification": true,
+    "dnsOverride": false,
+    "checkedAt": "2026-10-29T09:04:18.442297+08:00",
+    "release": {
+      "status": 200,
+      "metadata": {
+        "status": "ready",
+        "version": "1.0.1",
+        "version_code": 2,
+        "channel": "公开测试版 · 调试签名",
+        "url": "./downloads/agriscan-test.apk",
+        "size_bytes": 18744600,
+        "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+        "package_id": "cn.agriscan.mobile",
+        "min_android": "7.0",
+        "target_sdk": 36,
+        "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+        "published_at": "2026-10-29"
+      }
+    },
+    "download": {
+      "status": 200,
+      "bytes": 18744600,
+      "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+      "contentType": "application/vnd.android.package-archive"
+    },
+    "checksum": {
+      "status": 200,
+      "matches": true
+    },
+    "capacitorOriginPreflight": {
+      "status": 200,
+      "origin": "https://localhost",
+      "allowOrigin": "https://localhost"
+    },
+    "apiHealth": {
+      "status": 200,
+      "data": {
+        "status": "ok",
+        "database": "connected",
+        "redis": "connected",
+        "mode": "production",
+        "model": "ready"
+      },
+      "allowOrigin": "https://localhost"
+    },
+    "status": "passed"
+  },
+  "publicDownloadUrl": "https://agriscan.ming-ai.top/agriscan/downloads/agriscan-test.apk",
+  "publicReleaseUrl": "https://agriscan.ming-ai.top/agriscan/downloads/release.json",
+  "finishedAt": "2026-10-29T01:05:35.8933746Z"
+}

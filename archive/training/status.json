@@ -1,0 +1,27 @@
+{
+  "pid": 60528,
+  "started_at": 1792489825.8567488,
+  "stage": "completed",
+  "updated_at": 1792504393.9467049,
+  "epoch": 40,
+  "epochs": 40,
+  "metrics": {
+    "metrics/accuracy_top1": 0.9972652792930603,
+    "metrics/accuracy_top5": 1.0
+  },
+  "run_directory": "E:\\AgriScan\\runs\\classify\\plantvillage-yolo26m",
+  "evaluated": 10999,
+  "total": 10999,
+  "candidate_directory": "E:\\AgriScan\\models\\candidates\\plantvillage-yolo26m",
+  "validation_top1": 0.9972652689152234,
+  "validation_macro_f1": 0.9954171868171556,
+  "test_top1": 0.9967269751795618,
+  "test_macro_f1": 0.9956200211164937,
+  "completed_at": 1792504393.9467049,
+  "system_verified": true,
+  "active_release": "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0",
+  "final_report": "E:\\AgriScan\\training\\final-report.md",
+  "workflow_id": "aedd8b93-35fa-483a-923a-989788a2f884",
+  "node_id": "18a0df23-b782-4781-85fd-70b42152c206",
+  "training_job_id": "c6611871-8d1a-412c-9305-1083755fe501"
+}

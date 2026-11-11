@@ -1,0 +1,186 @@
+{
+  "status": "passed",
+  "mode": "apply",
+  "qa_prefix": "2461a4520ca7",
+  "started_at": "2026-10-29T05:40:39.464689+00:00",
+  "mutations": [
+    "private backup of only exact QA rows and image",
+    "normal owned detection DELETE API: exact QA detection, prediction, image/cache cleanup and appended audit",
+    "transaction removed only exact same-owner QA discussion, its messages and exclusive conversation"
+  ],
+  "detection_id": "2461a4520ca74063998395311d821882",
+  "conversation_id": "3e89bca5b5e64b7e84a4cfd06f90aa3d",
+  "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+  "qa_row_counts": {
+    "detections": 1,
+    "detection_predictions": 1,
+    "assistant_detection_discussions": 1,
+    "assistant_conversations": 1,
+    "assistant_messages": 2
+  },
+  "qa_rows_sha256": "e77b091bf2f9c645f71c3236884c3ab6b3ca10e9f3c2ef1e1850697bdaf4e840",
+  "schema_before": {
+    "revision": "20261029_06",
+    "schema_sha256": "5f4d939108c9d60659b6f34dda702f1666b13b706bf0f0bfaf312d78a64d4255",
+    "config_version": 6,
+    "config_sha256": "41d991dd2c6c61d5e0f195d6130e13d85e945fb8cad924d3b2b780c78320acce"
+  },
+  "non_qa_tables_before": {
+    "alembic_version": {
+      "rows": 1,
+      "sha256": "e3cb4b5d1867a7b06bd6406e38293a2dd67247359451ab3d6b80daba5e73c7de"
+    },
+    "app_meta": {
+      "rows": 2,
+      "sha256": "002ebf236bcacce74d5ed35f63c7db1eaa96256b08e23ff6b87f40dd5b68738c"
+    },
+    "assistant_conversations": {
+      "rows": 2,
+      "sha256": "80fdcbf176ce2ae7caf8f7c1b91f7ee79c0ce5960ed98d4a3a8a3940b1d3f065"
+    },
+    "users": {
+      "rows": 3,
+      "sha256": "1bf85ab462a0510574e135c44cab3a921407e179f7b7f5031abb56d4c8e7b5af"
+    },
+    "assistant_detection_discussions": {
+      "rows": 1,
+      "sha256": "bcb936bed9e5719dbd3ce8b8a29e7d01d6b483770952b6b699ea6403a99c2249"
+    },
+    "assistant_messages": {
+      "rows": 4,
+      "sha256": "8753cbdf168bf6ec520fe208d790cd96214f8410a564689a927533047d4679e5"
+    },
+    "audit_logs": {
+      "rows": 42,
+      "sha256": "883b9bffe04bae254b43921b210458e9956ae42ffe47bfaad8108e413b60c59f"
+    },
+    "detection_predictions": {
+      "rows": 4,
+      "sha256": "1bf81ff7aa53774058d6bc4b1c666705d519b8a5afa102bfe85e77c1d76c1e25"
+    },
+    "detections": {
+      "rows": 4,
+      "sha256": "d6aa481897bc7ad5bc978ed647195c52b90c19efec261a78bfabefad8325f28c"
+    },
+    "plots": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "email_challenges": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "knowledge_articles": {
+      "rows": 4,
+      "sha256": "afbfd6b6d266f96a1fa730d40dd087f810a28a86e3a7062b481df68d1081ac97"
+    },
+    "model_artifacts": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "plot_details": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "revoked_tokens": {
+      "rows": 28,
+      "sha256": "cec15aa37291c481213a2bcca44c3bd42a9a12b091ba0910bce8c64d96737284"
+    },
+    "user_emails": {
+      "rows": 2,
+      "sha256": "4f04f754e25ea0e23a62c6a5ad3c8b875e1720ad4dd1a60fcc9a3cfdb7a7aa40"
+    },
+    "workspace_configuration": {
+      "rows": 1,
+      "sha256": "861b962d2ee41ee6fe3dfd0dc9d586efeb9984d3a5238e549c3f1c423a904b93"
+    }
+  },
+  "non_qa_business_sha256_before": "70c1c4e414ac6e0ac9e190cfb65ee33fd3f718714ca0016fa1e7f01a6a6d624d",
+  "photo_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+  "photo_bytes": 14200,
+  "backup": "/srv/agriscan/shared/backups/qa-latest-full-ui-20261029T054039Z-3d31e434",
+  "control_session_revoked": true,
+  "schema_after": {
+    "revision": "20261029_06",
+    "schema_sha256": "5f4d939108c9d60659b6f34dda702f1666b13b706bf0f0bfaf312d78a64d4255",
+    "config_version": 6,
+    "config_sha256": "41d991dd2c6c61d5e0f195d6130e13d85e945fb8cad924d3b2b780c78320acce"
+  },
+  "non_qa_tables_after": {
+    "alembic_version": {
+      "rows": 1,
+      "sha256": "e3cb4b5d1867a7b06bd6406e38293a2dd67247359451ab3d6b80daba5e73c7de"
+    },
+    "app_meta": {
+      "rows": 2,
+      "sha256": "002ebf236bcacce74d5ed35f63c7db1eaa96256b08e23ff6b87f40dd5b68738c"
+    },
+    "assistant_conversations": {
+      "rows": 2,
+      "sha256": "80fdcbf176ce2ae7caf8f7c1b91f7ee79c0ce5960ed98d4a3a8a3940b1d3f065"
+    },
+    "users": {
+      "rows": 3,
+      "sha256": "1bf85ab462a0510574e135c44cab3a921407e179f7b7f5031abb56d4c8e7b5af"
+    },
+    "assistant_detection_discussions": {
+      "rows": 1,
+      "sha256": "bcb936bed9e5719dbd3ce8b8a29e7d01d6b483770952b6b699ea6403a99c2249"
+    },
+    "assistant_messages": {
+      "rows": 4,
+      "sha256": "8753cbdf168bf6ec520fe208d790cd96214f8410a564689a927533047d4679e5"
+    },
+    "audit_logs": {
+      "rows": 43,
+      "sha256": "51732961a9998fd41b0e71256c0012f5be0a9d8645208e8411169d3a272ea476"
+    },
+    "detection_predictions": {
+      "rows": 4,
+      "sha256": "1bf81ff7aa53774058d6bc4b1c666705d519b8a5afa102bfe85e77c1d76c1e25"
+    },
+    "detections": {
+      "rows": 4,
+      "sha256": "d6aa481897bc7ad5bc978ed647195c52b90c19efec261a78bfabefad8325f28c"
+    },
+    "plots": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "email_challenges": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "knowledge_articles": {
+      "rows": 4,
+      "sha256": "afbfd6b6d266f96a1fa730d40dd087f810a28a86e3a7062b481df68d1081ac97"
+    },
+    "model_artifacts": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "plot_details": {
+      "rows": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "revoked_tokens": {
+      "rows": 29,
+      "sha256": "df56575ce523291abc0eb1921688f7be7386a45be6caff742893a6a6e8872ce7"
+    },
+    "user_emails": {
+      "rows": 2,
+      "sha256": "4f04f754e25ea0e23a62c6a5ad3c8b875e1720ad4dd1a60fcc9a3cfdb7a7aa40"
+    },
+    "workspace_configuration": {
+      "rows": 1,
+      "sha256": "861b962d2ee41ee6fe3dfd0dc9d586efeb9984d3a5238e549c3f1c423a904b93"
+    }
+  },
+  "non_qa_business_sha256_after": "70c1c4e414ac6e0ac9e190cfb65ee33fd3f718714ca0016fa1e7f01a6a6d624d",
+  "preserved_detection_count": 4,
+  "non_qa_business_unchanged": true,
+  "existing_audit_and_session_rows_unchanged": true,
+  "appended_normal_delete_audits": 1,
+  "appended_own_session_revocations": 1,
+  "finished_at": "2026-10-29T05:40:40.013429+00:00"
+}

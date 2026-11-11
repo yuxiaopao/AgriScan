@@ -1,0 +1,33 @@
+{
+  "scope": "Desktop and independent admin; APP/Android/APK excluded",
+  "sourceFixes": [
+    {"id": "AUTH-01", "status": "fixed_local", "file": "frontend/src/api.ts", "finding": "Public authentication 401 incorrectly expired the global session and replaced the form error", "fix": "Public auth endpoint allowlist; private anonymous 401 still redirects"},
+    {"id": "AUTH-02", "status": "fixed_local", "file": "frontend/src/App.tsx", "finding": "Failed server logout retained the local desktop session", "fix": "Clear local state in finally, protecting a newer login"},
+    {"id": "AUTH-03", "status": "fixed_local", "files": ["frontend/src/api.ts", "admin/src/Admin.tsx"], "finding": "Delayed 401 could clear a newly issued token, including CSV export", "fix": "Compare current token with request token before expiring"}
+  ],
+  "directedSourceChecks": {"passed": 15, "serverFixturesCreated": false},
+  "productionBuilds": {"frontend": "passed /agriscan/workspace/", "admin": "passed /agriscan/admin/", "assetEvidence": "build-inspection.json"},
+  "realDomainClickEvidence": "admin-content.json",
+  "cleanupLedger": "content-ledger.json",
+  "deploymentAndAuthClickRetestOwner": "root",
+  "reviewNotes": [
+    "RuntimeSettings preserves dirty drafts across navigation and refuses silent refresh overwrites; root should verify conflict recovery and restore production settings",
+    "Detection preserves the selected image when a feature/limit changes, blocks submission, and relies on server validation for crop/plot mismatches",
+    "Record paging clamps after filtering; delete confirmations should be cancelled during click QA",
+    "PlotEditor savedId supports retry after a cover failure without creating duplicate plots; draft ownership and recovery remain key click assertions",
+    "Knowledge ordinary newlines are visually retained by CSS white-space:pre-line; no paragraph-collapse defect was asserted",
+    "FloatingAssistant is keyed by account, history opens left at desktop widths, and narrow layouts use an in-flow menu",
+    "Protected image URLs use the production API prefix and same-origin authorization",
+    "Model list has no filter controls and no registered items; audit has no separate detail modal, so these are N/A rather than passed"
+  ],
+  "clickPlan": [
+    {"id": "AUTH", "steps": "Anonymous detect, invalid login, member admin rejection, failing logout, new-login race", "assert": "Correct errors; local logout; no cross-session token clearing"},
+    {"id": "DETECT", "steps": "Two crop photos, no-leaf image, unsupported type, size-limit change, mismatched plot, portrait/landscape resize", "assert": "Real boxes and automatic crop; failures do not save or show stale results; boxes follow contained image"},
+    {"id": "RECORDS", "steps": "Combine search/crop/status/source, page, change filters, inspect detail, cancel deletion", "assert": "Page resets/clamps; image/result/model snapshot consistent; cancellation preserves record"},
+    {"id": "PLOTS", "steps": "Edit QA draft, close/reopen, validate coordinates, retry cover failure, cancel deletion", "assert": "Draft recovery is owner-scoped; partial save is explicit and does not duplicate plot"},
+    {"id": "KNOWLEDGE", "steps": "Draft create/edit/publish/search/archive-cancel/archive/detail", "assert": "Executed successfully on the real domain; see admin-content.json"},
+    {"id": "CONFIG", "steps": "Dirty draft across pages/refresh, explicit discard, version conflict, feature and limit propagation", "assert": "No silent loss; client refocus/refresh obtains config; root restores original configuration"},
+    {"id": "ASSISTANT", "steps": "History/new chat/minimize/resize/drag and 600px boundary, service failure and account switch", "assert": "History does not cover chat, busy prevents repeats, failed input remains, account history stays isolated"},
+    {"id": "MODEL_AUDIT", "steps": "Read active detector, empty upload validation/cancel, audit next/previous/filter/no-hit/reset", "assert": "Executed on real domain without model upload/activation; see admin-content.json"}
+  ]
+}

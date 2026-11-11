@@ -1,0 +1,262 @@
+[
+  {
+    "path": "backend/alembic.ini",
+    "sha256": "70e3246abd2804ec7c292aef7b3e3d31e1ae6c776bf4679a6eee2fd688bd1d02"
+  },
+  {
+    "path": "backend/alembic/env.py",
+    "sha256": "e4308f210324b1ad510ac5fc382814ab1eb1829138de0972688627bef413edce"
+  },
+  {
+    "path": "backend/alembic/script.py.mako",
+    "sha256": "849e6d4b05fe0dff5cada78d2fc27a8e3ba38dd4fc241af999af725b1c885f96"
+  },
+  {
+    "path": "backend/alembic/versions/20261028_01_legacy_baseline.py",
+    "sha256": "2502ed2cb1f8e07708b504740ad275aa59b400a5a233ef608c2bcd3577fd032d"
+  },
+  {
+    "path": "backend/alembic/versions/20261028_02_admin_workspace.py",
+    "sha256": "9c655fae9f86ff13a39935bd63b6732218b964c1f284ed4c450b3fd1d5957408"
+  },
+  {
+    "path": "backend/alembic/versions/20261028_03_timestamp_precision.py",
+    "sha256": "7bae0dcb454991f467dff2d1436c9b9beef3faf7aefad5b80ffdf97595f1fc43"
+  },
+  {
+    "path": "backend/app/admin.py",
+    "sha256": "cd86ccb7ba23c04a2111c6def2bc01549fe05b2d1ddfb8072d06b12365d27152"
+  },
+  {
+    "path": "backend/app/admin_models.py",
+    "sha256": "333c6f3128c346dd7d1db2712e41db34d67de0e2f83ee7c078c44787ae8df6c0"
+  },
+  {
+    "path": "backend/app/import_legacy.py",
+    "sha256": "e19e85e9c806838af2f5fed079ab6b9520e18dd8311e1f8be2f3c38f1db4f951"
+  },
+  {
+    "path": "backend/app/media.py",
+    "sha256": "342b1f1fee1404d399f75555281e42ec5da61bbb2082b8939fa3e6f1c2f64b29"
+  },
+  {
+    "path": "backend/app/migrations.py",
+    "sha256": "1f3458e952e423991ade4bfdb4f39848f6b4eb774428cc3049baf399233b1cc7"
+  },
+  {
+    "path": "backend/requirements-media.txt",
+    "sha256": "4caf9b8c1ae273194e4f04de6bdfdf3b1f9e3f7003eae134eb6c02d59e54cac6"
+  },
+  {
+    "path": "backend/tests/test_admin.py",
+    "sha256": "2e25edd0187776342414ace499cfe1fd641153a42a38ab5f5294a5c709595a29"
+  },
+  {
+    "path": "backend/tests/test_import_legacy.py",
+    "sha256": "0c3490872ec0b28c3cca0c0a9131c32e112f853579cea1230eae21e57e9825e3"
+  },
+  {
+    "path": "backend/tests/test_media.py",
+    "sha256": "40e36387dcd72bf26da7257cee0996a6a12e6a9d11c3ecd2121c206acf450d0f"
+  },
+  {
+    "path": "backend/tests/test_migrations.py",
+    "sha256": "6453a88e1dc70a72746497f7f446aa0f60114b3614b3c545f7fbc143096ed37d"
+  },
+  {
+    "path": "frontend/src/Admin.tsx",
+    "sha256": "e0775cb60e4fac5f88a652ee89c296446df461b7063ed71fded08a824284f401"
+  },
+  {
+    "path": "frontend/src/admin.css",
+    "sha256": "da70c3ff437ae3f2b802c7ad412ab1eda6c2aeb74c94d79cbf88752fc4f0f069"
+  },
+  {
+    "path": "mobile/index.html",
+    "sha256": "64535a8a1cf7394438c30c6b3f589b1c229f571d68f04d4d26dac49d86e034fa"
+  },
+  {
+    "path": "mobile/package.json",
+    "sha256": "9ceec8b27b3f2a0266cff0da5074d1d501bd9a03d36f2fa5e299f04dcb306f7f"
+  },
+  {
+    "path": "mobile/public/images/app-hero.png",
+    "sha256": "703b0bfdec32a822bb1f7ad926b58b95124fe4af6f7548fcc8e8e930af37969e"
+  },
+  {
+    "path": "mobile/public/images/crops/apple-still.webp",
+    "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+  },
+  {
+    "path": "mobile/public/images/crops/blueberry-still.webp",
+    "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+  },
+  {
+    "path": "mobile/public/images/crops/cherry-still.webp",
+    "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+  },
+  {
+    "path": "mobile/public/images/crops/citrus-still.webp",
+    "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+  },
+  {
+    "path": "mobile/public/images/crops/corn-still.webp",
+    "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+  },
+  {
+    "path": "mobile/public/images/crops/cucumber-still.webp",
+    "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+  },
+  {
+    "path": "mobile/public/images/crops/grape-still.webp",
+    "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+  },
+  {
+    "path": "mobile/public/images/crops/peach-still.webp",
+    "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+  },
+  {
+    "path": "mobile/public/images/crops/pepper-still.webp",
+    "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+  },
+  {
+    "path": "mobile/public/images/crops/potato-still.webp",
+    "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+  },
+  {
+    "path": "mobile/public/images/crops/pumpkin-still.webp",
+    "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+  },
+  {
+    "path": "mobile/public/images/crops/raspberry-still.webp",
+    "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+  },
+  {
+    "path": "mobile/public/images/crops/rice-still.webp",
+    "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+  },
+  {
+    "path": "mobile/public/images/crops/soybean-still.webp",
+    "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+  },
+  {
+    "path": "mobile/public/images/crops/strawberry-still.webp",
+    "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+  },
+  {
+    "path": "mobile/public/images/crops/tomato-still.webp",
+    "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+  },
+  {
+    "path": "mobile/public/images/crops/wheat-still.webp",
+    "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+  },
+  {
+    "path": "mobile/public/images/xiaohe.png",
+    "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+  },
+  {
+    "path": "mobile/src/Access.tsx",
+    "sha256": "8143596f9cdd0594321e4376e7525e90b5cfc0f5b040be992cc671f1615e8dd7"
+  },
+  {
+    "path": "mobile/src/api.ts",
+    "sha256": "046604968817470240622ffa312920a7b318ddff225aee41d6b384e9cb77215f"
+  },
+  {
+    "path": "mobile/src/components.tsx",
+    "sha256": "6a9941d5d7386191973c69e0360fe5a90dd3ea90b8eada77c22249a2c8adb0bd"
+  },
+  {
+    "path": "mobile/src/hooks.ts",
+    "sha256": "9460632adf60eb76dd8355402ccd4d7105159930320d02b240b78302662afc05"
+  },
+  {
+    "path": "mobile/src/main.tsx",
+    "sha256": "8f146cbd9120b1405577ad1015d6eccde0dd901c320e66abc0f8d3d5bc1c49d4"
+  },
+  {
+    "path": "mobile/src/types.ts",
+    "sha256": "b7d0c6293fb3f9bf329a057763854691387be037d6b63e411d84cc74f33d211b"
+  },
+  {
+    "path": "mobile/tsconfig.json",
+    "sha256": "4d84ff558fe8e62281a8bc2af9d1a5f8993fc7f90dec88adf84067e40b0820cb"
+  },
+  {
+    "path": "mobile/vite.config.ts",
+    "sha256": "03703eeffb9be1d9e3bd80ac5e5339a021d6779fcfd7d6b302c6250ec73aa59c"
+  },
+  {
+    "path": ".env.example",
+    "sha256": "a98295b428313df01e8cf722186f04f89d2c06fab8e81bede9439aaf3f38abf2"
+  },
+  {
+    "path": "README.md",
+    "sha256": "754581aa523c080b0407e1280f124854d274aa0f6b3a5043aba1ac649d2e841a"
+  },
+  {
+    "path": "backend/.env.example",
+    "sha256": "5e0aa8c2ec94206b344af7f2a55fac8d5682e721aa4919a46fec4bd13ce19473"
+  },
+  {
+    "path": "backend/Dockerfile",
+    "sha256": "cc687d96ad5fe6b53c1413f38af1b1324e8da24c7f46e008c6ac5d0b56f163dc"
+  },
+  {
+    "path": "backend/README.md",
+    "sha256": "7f4553a5a4799abd1ba7977896774f3e5773f44e209096055ab426d06fefbd55"
+  },
+  {
+    "path": "backend/app/assistant.py",
+    "sha256": "90e396d33f24cc750e51ccfb10ec665f7a4050bbf83fcba825e93b63805f7aeb"
+  },
+  {
+    "path": "backend/app/db.py",
+    "sha256": "3009df12e2bdc7511f77645e6cd6cd1ae393cb5da4b2abf9751bdbcbe46dfe18"
+  },
+  {
+    "path": "backend/app/extensions.py",
+    "sha256": "89cf86dea331c5d182b90b5e015b1d85e4a3d8a8b7bc4535c41ce1e8ce94673f"
+  },
+  {
+    "path": "backend/app/main.py",
+    "sha256": "4bdfa5614486a93f3154bdb3779f71642d5136912fa4663a1dbedf4d6c282d74"
+  },
+  {
+    "path": "backend/app/security.py",
+    "sha256": "7a403d0560c706a48f152a0fe113e7b878ac48b98e3d48108ddee9aed3e60bd7"
+  },
+  {
+    "path": "backend/requirements.txt",
+    "sha256": "069fce84065e46fcadfe00e0fb25b8fe354be7890ebe8bb28e77f125ffbda957"
+  },
+  {
+    "path": "docker-compose.yml",
+    "sha256": "205c73b8df82e14122416b22c7c93159a6d28b1266adaded8333dbf5e77ae2d1"
+  },
+  {
+    "path": "frontend/nginx.conf",
+    "sha256": "21eafcd5fecc4b9fe9f2f999223f67684d3b50da668903ea715369765baf81a9"
+  },
+  {
+    "path": "frontend/src/App.tsx",
+    "sha256": "e0c3ec5b34daafcdff52b524dcc5b0594fefd0905dca0f71bf9ce4bd199f28e6"
+  },
+  {
+    "path": "frontend/src/Pages.tsx",
+    "sha256": "e8397064b4cded6999b9865ccfebd7d0e047d7e7fd880c53eac5ab444c59f929"
+  },
+  {
+    "path": "frontend/src/api.ts",
+    "sha256": "4187ab28c9094c73c921b2cbd08c1844c44d58d6ee086a56a22c16c15ab5e2e4"
+  },
+  {
+    "path": "scripts/start-dev.ps1",
+    "sha256": "f0a08ca26be9891b8144e82f6606182e3191b33cb0e51f279404cf5aec14c634"
+  },
+  {
+    "path": "scripts/stop-dev.ps1",
+    "sha256": "310c0cb8ebd99e49b3e31e95d6e39fedff62880ed2657b0a2c465262c29d1bab"
+  }
+]

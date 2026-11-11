@@ -1,0 +1,36 @@
+{
+  "domain": "agriscan.ming-ai.top",
+  "started_at": "2026-10-29T01:09:55.643641+00:00",
+  "tls_verification": true,
+  "normal_dns": true,
+  "checks": [
+    "HTTPS root redirects to official website",
+    "public website serves current canonical domain",
+    "public production health has database Redis and real model ready",
+    "anonymous account data remains protected",
+    "public release metadata has new domain and version",
+    "full APK HTTPS download matches published size and SHA256",
+    "production login works at new public origin",
+    "authenticated session role retained",
+    "public authenticated API uses unchanged real detector",
+    "exact single browser-created migration record found",
+    "browser upload persisted as apple with one real target box",
+    "owned image uses authenticated API route",
+    "saved detection photo accessible with new origin session",
+    "detection photo rejects anonymous access",
+    "owned test identity rechecked immediately before cleanup",
+    "owned migration record deleted",
+    "owned record and its image removed after verification",
+    "no migration fixture left among business records"
+  ],
+  "apk": {
+    "version": "1.0.1",
+    "version_code": 2,
+    "size_bytes": 18744600,
+    "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85"
+  },
+  "owned_record_id": "6511b82fce2c435885e60c525b9120d2",
+  "retained_record_count": 2,
+  "status": "passed",
+  "control_session_revoked": true
+}

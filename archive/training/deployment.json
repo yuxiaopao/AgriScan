@@ -1,0 +1,21 @@
+{
+  "configured_at": 1792498284.0252628,
+  "release": "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0",
+  "manifest": "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0\\manifest.json",
+  "manifest_sha256": "b54caf9214f1d19e827350607ccad1cd82c2a2deac7a07704d3074c8e6171772",
+  "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+  "previous_model_manifest_lines": [],
+  "backend_restart_required": false,
+  "live_verified_at": 1792504393.9433303,
+  "active_model": {
+    "name": "plantvillage-yolo26m",
+    "task": "classify",
+    "image_size": 224,
+    "threshold": 0.7,
+    "test_top1": 0.9967269751795618,
+    "test_macro_f1": 0.9956200211164937,
+    "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+    "class_count": 38,
+    "scope": "单叶图像分类；不输出病斑位置框，田间泛化尚需独立验证。"
+  }
+}

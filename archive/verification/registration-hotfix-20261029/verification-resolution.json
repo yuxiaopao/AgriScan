@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "original_deployment_report_preserved": true,
+  "original_report_status": "failed",
+  "release": "/srv/agriscan/releases/release-20261029-201833-registration-hotfix",
+  "resolution": "Final immediate restore probe failed without recording its status; subsequent independent local/public probes and exact config hashes confirm restored healthy service. No second restart or deployment. Original failure cause unconfirmed.",
+  "api_pid": 1632874,
+  "api_restart_attempts": 1,
+  "nginx_configuration_restored": true,
+  "temporary_gate_absent": true,
+  "runtime_preserved": true,
+  "public_email_username_probe": "400 invalid OTP, username accepted",
+  "production_browser": "email username accepted, invalid username Chinese/focused; no email or account created",
+  "reports": {
+    "deployment.json": "b100bb35ac6f354e71db3c8a167068264b00418b0cc8531c070c0e4047fd8802",
+    "independent-gate-restored-proof.json": "7055f2ab8366da1860a834e18a75f19e884896835de0e875e3f7295c2f8f6a03",
+    "independent-post-restore-inspect.json": "09b356d735a3835967af5ec6f064e072d115da120db20e0437f517b6cb103280"
+  }
+}

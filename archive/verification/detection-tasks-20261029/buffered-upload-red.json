@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "source": "actual shared task manager with deferred reservation and XHR, no provider/network calls",
+  "cases": [
+    {
+      "name": "active browser upload survives awaiting_upload polls and temporary poll failure without a second POST",
+      "status": "failed",
+      "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'awaiting_upload'\n- 'uploading'\n"
+    },
+    {
+      "name": "GET recovery before a lost POST response still uploads exactly once to the original task",
+      "status": "failed",
+      "message": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    }
+  ]
+}

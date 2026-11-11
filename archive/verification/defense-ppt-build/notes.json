@@ -1,0 +1,238 @@
+[
+  {
+    "slide": 1,
+    "title": "禾观 AgriScan",
+    "notes": "各位老师好，我们汇报的项目是禾观 AgriScan，一套围绕作物健康观察构建的农业智能检测平台。接下来将结合真实数据、系统实现与界面演示，介绍我们的设计思路和实践成果。",
+    "sources": [
+      "E:\\AgriScan\\README.md"
+    ]
+  },
+  {
+    "slide": 2,
+    "title": "答辩内容",
+    "notes": "本次汇报分为六个部分：首先介绍项目背景、意义和数据集；然后说明团队分工；接着介绍开发过程和关键问题；再展示实验与系统成果；最后总结课程收获，以及项目特色和后续改进方向。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\training\\final-report.md"
+    ]
+  },
+  {
+    "slide": 3,
+    "title": "背景与问题",
+    "notes": "项目关注的是日常作物健康观察中三个相互关联的问题。第一，单看叶片外观，普通使用者较难判断作物异常属于哪一类；第二，照片和观察信息容易分散在不同位置，后续查找和复查不方便；第三，即使获得了模型类别，使用者仍希望理解结果并知道下一步如何观察。因此，我们希望把图像识别、结果解释和观察记录放在同一个操作流程中。",
+    "sources": [
+      "E:\\AgriScan\\README.md"
+    ]
+  },
+  {
+    "slide": 4,
+    "title": "项目定位与意义",
+    "notes": "禾观定位为辅助作物健康观察的数字化工具。用户拍摄或上传照片后，可以获得模型输出、候选结果和目标框，并将观察与地块关联。小禾进一步结合照片与已保存结果给出观察和复拍建议。这种设计的意义，是降低操作门槛并保留可追溯的信息，让一次识别能够成为后续复查的依据。当前成果主要证明课程项目的技术可行性，尚未形成真实田间增产或经济收益的量化结论。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\backend\\app\\detection_assistant.py"
+    ]
+  },
+  {
+    "slide": 5,
+    "title": "PlantVillage 数据集",
+    "notes": "分类实验采用 PlantVillage 数据集，原始数据共五万四千三百零五张，覆盖十四种作物、三十八个作物与健康状态组合类别。我们将其划分为训练集三万七千八百二十一张、验证集五千四百八十五张和封存测试集一万零九百九十九张。这里的三十八类同时包含病害类别与健康类别，并非三十八种独立病害。该数据主要用于验证受控图像条件下的分类能力。",
+    "sources": [
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\training\\config.json"
+    ]
+  },
+  {
+    "slide": 6,
+    "title": "数据处理与防泄漏",
+    "notes": "数据处理首先强调来源与划分可追溯：固定数据版本、保存文件校验信息，并使用固定随机种子。划分时按叶片分组，同时利用 SHA256 排查跨集合重复，避免同一叶片或完全相同图片同时进入训练与评估。模型选择依据验证集，测试集封存用于最终评估。这样做是为了让成绩尽量反映对未参与训练样本的识别能力，而不是相似图片重复带来的虚高表现。",
+    "sources": [
+      "E:\\AgriScan\\training\\README.md",
+      "E:\\AgriScan\\training\\config.json",
+      "E:\\AgriScan\\training\\final-report.md"
+    ]
+  },
+  {
+    "slide": 7,
+    "title": "四人团队分工",
+    "notes": "这一页按四类职责给出建议分工，成员姓名及具体贡献以团队实际情况为准。A 对应项目统筹与后端接口，负责串联需求、业务数据和权限；B 对应数据集与模型，负责数据处理、训练评估和模型产物；C 对应桌面前端与小禾 IP，负责页面交互和视觉一致性；D 对应移动端、测试与发布，负责手机操作流程和交付验证。四类工作最终通过共同接口和模型清单连接。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\docs\\client-and-admin.md"
+    ]
+  },
+  {
+    "slide": 8,
+    "title": "项目开发过程",
+    "notes": "项目开发按四个相互衔接的阶段展开。第一是需求与原型，明确叶片观察场景，确定工作台与小禾形象；第二是数据与实验，整理 PlantVillage 并完成分类模型训练评估；第三是服务与界面，接入真实推理 API，打通结果保存与查询；第四是集成与完善，接入检测模型和手机 APP，修复异常并开展交叉验收。各阶段通过可运行产物衔接，分类训练与检测适配分别保留自己的证据。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\README.md",
+      "E:\\AgriScan\\docs\\qa-20261028-backend.md"
+    ]
+  },
+  {
+    "slide": 9,
+    "title": "系统架构与职责",
+    "notes": "系统由三个客户端、统一后端和基础服务组成。桌面端与独立管理端使用 React、TypeScript 和 Vite，手机端通过 Capacitor 运行在 Android。FastAPI 负责认证、参数校验、业务处理与模型调用；MySQL 保存地块、检测和对话；Redis 缓存看板数据；ONNX Runtime 在 CPU 上执行识别。外部图片解读服务通过后端调用，前端不会获得密钥。目前尚未设置独立推理队列和工作进程。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\docs\\client-and-admin.md",
+      "E:\\AgriScan\\backend\\app\\cache.py"
+    ]
+  },
+  {
+    "slide": 10,
+    "title": "分类模型训练",
+    "notes": "分类模型采用迁移学习，将 YOLO26m 的检测骨干迁移到三十八类分类头，参数量约一千一百零六万。训练输入为二百二十四乘二百二十四，批量大小三十二，使用 AdamW、混合精度和固定随机种子，初始学习率为零点零零零五。训练完成四十轮，最佳检查点由验证集表现选择，最高验证指标出现在第三十七轮。导出后使用统一预处理契约接入 ONNX 推理，减少训练与部署差异。",
+    "sources": [
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\training\\config.json",
+      "E:\\AgriScan\\backend\\app\\image_preprocessing.py"
+    ]
+  },
+  {
+    "slide": 11,
+    "title": "目标检测模型接入",
+    "notes": "目标检测来自另行提供的 best.pt 权重，与前一页的分类训练是两条模型链路。该模型包含三十八个农业类别，导出为输入六百四十乘六百四十的 ONNX 模型，返回真实矩形框、类别和独立目标分数。接入时核对类别顺序、模型摘要和输出契约，并对五个技术样例比较 PyTorch 与 ONNX 的数值和几何一致性。这证明导出链路一致，尚不能代替独立检测集上的 mAP 评估。",
+    "sources": [
+      "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\README.md",
+      "E:\\AgriScan\\backend\\app\\detection_inference.py"
+    ]
+  },
+  {
+    "slide": 12,
+    "title": "关键问题与解决",
+    "notes": "开发中有三个代表性问题。第一，旧检测权重在新版环境中误入错误分支，导致输出异常，我们在模型融合前恢复正确的 end2end 分支，再比较 PyTorch 与 ONNX 输出。第二，缩放补边后的框需要还原到原图，我们统一 letterbox 预处理，按比例和偏移做逆变换。第三，照片可能包含不同作物，关联地块时必须核对全部目标；混样关联会拒绝并回滚整次修改，同时增加对应回归测试。",
+    "sources": [
+      "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\README.md",
+      "E:\\AgriScan\\backend\\app\\detection_inference.py",
+      "E:\\AgriScan\\docs\\qa-20261028-backend.md"
+    ]
+  },
+  {
+    "slide": 13,
+    "title": "小禾 IP 与交互设计",
+    "notes": "小禾采用象牙白机身、森林绿面罩和嫩叶元素，传达农业观察与友好科技的主题。项目已建立六种动作状态，以及十七套作物主题和对应的八帧动画。识别后页面可以切换到对应作物主题，小禾通过悬浮窗口补充解释，也支持拖动、调整尺寸和历史对话。动画还能根据减少动态效果设置暂停。这里十七套主题属于界面覆盖范围，模型实际支持十四种作物，两者需要分开理解。",
+    "sources": [
+      "E:\\AgriScan\\design\\mascot-prompt.txt",
+      "E:\\AgriScan\\design\\xiaohe-crops\\README.md",
+      "E:\\AgriScan\\frontend\\src\\Xiaohe.tsx",
+      "E:\\AgriScan\\frontend\\src\\cropThemes.ts"
+    ]
+  },
+  {
+    "slide": 14,
+    "title": "分类实验结果",
+    "notes": "封存测试集共一万零九百九十九张，分类 Top-1 为百分之九十九点六七，宏平均 F1 为百分之九十九点五六，共三十六张分类错误。Top-1 反映首选类别是否正确，宏平均 F1 让每个类别拥有相同权重。相对薄弱的是玉米灰斑病，F1 约百分之九十四点九八，值得进一步分析混淆样本。这些成绩来自 PlantVillage 单叶分类实验，不能直接称为田间准确率，也不代表目标检测模型的效果。",
+    "sources": [
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0\\test-report.json",
+      "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0\\val-report.json"
+    ]
+  },
+  {
+    "slide": 15,
+    "title": "真实识别演示",
+    "notes": "这里展示的是苹果叶片的实际检测界面，模型给出的主目标类别为苹果黑星病，目标置信度为百分之八十四点六零。界面保留原图并在对应画面展示真实框，检测结论保存后可以进入记录详情，小禾还能继续解读照片。矩形框表示检测目标的位置，不是病斑精确轮廓；目标分数也不等于确诊概率。这张样例用于说明系统操作与保存流程，不作为整体检测精度的证据。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\backend\\app\\detection_inference.py",
+      "E:\\AgriScan\\design\\qa-20261028\\production-apple-yolo.png"
+    ]
+  },
+  {
+    "slide": 16,
+    "title": "桌面与移动端成果",
+    "notes": "桌面端适合查看整体状态、管理地块和整理观察记录，移动端则围绕图片、视频和相机操作展开。两个用户端共用真实 API、模型和业务数据，手机拍摄形成的观察可以进入同一工作空间。Android 测试 APK 已实际构建并核验，提供了应用入口和原生相机权限支持。不过，视频和相机目前采用间隔抽帧识别，尚不具备连续追踪；不同厂商手机的硬件与权限行为仍需要真机验收。",
+    "sources": [
+      "E:\\AgriScan\\mobile\\README.md",
+      "E:\\AgriScan\\docs\\client-and-admin.md",
+      "E:\\AgriScan\\deploy\\README.md"
+    ]
+  },
+  {
+    "slide": 17,
+    "title": "管理与数据闭环",
+    "notes": "独立管理端用于维护用户、地块、检测、知识、模型登记、审计和运行配置。业务数据由后端统一校验，检测记录保存候选与当次模型信息，便于追溯结果来源。管理员修改配置使用版本控制，过期版本会返回冲突，避免多人编辑时互相覆盖。这里的数据闭环是采集、识别、解释、存档和管理的业务闭环，尚未自动形成从人工复核到增量训练的主动学习闭环。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\docs\\client-and-admin.md",
+      "E:\\AgriScan\\backend\\app\\admin.py",
+      "E:\\AgriScan\\backend\\app\\inference.py"
+    ]
+  },
+  {
+    "slide": 18,
+    "title": "系统验证与能力边界",
+    "notes": "最新后端独立回归记录为一百九十二项通过、一项跳过，跳过原因是当前 Windows 账户不能创建符号链接。验证覆盖接口权限、数据一致性和多种异常输入，生产只读检查也确认数据库、缓存及检测模型就绪。但测试数量不等于模型识别精度，也不代表高并发压力验证。当前仍需独立田间检测评估、手机真机验收和外部服务可用性验证；系统也尚未实现多租户和离线识别。",
+    "sources": [
+      "E:\\AgriScan\\docs\\qa-20261028-backend.md",
+      "E:\\AgriScan\\mobile\\README.md",
+      "E:\\AgriScan\\README.md"
+    ]
+  },
+  {
+    "slide": 19,
+    "title": "课程收获",
+    "notes": "课程收获可以归纳为四个方面。数据与实验方面，理解了数据泄漏、验证集选模和独立测试的区别；模型与部署方面，熟悉了训练、导出、预处理一致性和真实接口接入；系统与协作方面，体会到前后端、移动端和数据库联调需要共同的接口约定；质量与表达方面，学习先复现问题再补充回归，并按证据解释成果。我们也认识到，实验成绩与实际应用能力需要分别论证。",
+    "sources": [
+      "E:\\AgriScan\\training\\README.md",
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\docs\\qa-20261028-backend.md",
+      "E:\\AgriScan\\frontend\\src\\Xiaohe.tsx"
+    ]
+  },
+  {
+    "slide": 20,
+    "title": "项目创新与特色",
+    "notes": "本项目的特色主要体现在三个方面。第一是 IP 驱动的状态反馈，小禾与作物主题结合，用角色状态帮助用户理解观察、思考和结果反馈。第二是识别与解释衔接，模型保留真实输出，小禾基于照片补充解读并提供复拍复检建议。第三是结果可追溯，目标框、候选和模型快照随记录保存，支持跨端查看和导出。这些特色体现产品交互与工程整合，算法采用现有模型体系。",
+    "sources": [
+      "E:\\AgriScan\\README.md",
+      "E:\\AgriScan\\docs\\client-and-admin.md",
+      "E:\\AgriScan\\backend\\app\\inference.py",
+      "E:\\AgriScan\\design\\xiaohe-crops\\README.md"
+    ]
+  },
+  {
+    "slide": 21,
+    "title": "改进路线",
+    "notes": "后续改进按三类优先事项推进。优先一是数据与可信评估，采集真实田间图像，建立独立检测集和 mAP，并分析误判与未知类别。优先二是农技知识与复查，引入带来源的知识检索，建立同株或同叶复拍记录，并评估分割和严重度量化。优先三是实用性与性能，完成 Android 真机验收，探索弱网与端侧轻量化，完善并发、备份和监控。每一类改进都需要先验证收益，再扩展功能。",
+    "sources": [
+      "E:\\AgriScan\\docs\\创新方向与病程技术路线.md",
+      "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\README.md",
+      "E:\\AgriScan\\mobile\\README.md"
+    ]
+  },
+  {
+    "slide": 22,
+    "title": "结束致谢",
+    "notes": "以上是禾观 AgriScan 的课程项目汇报。我们希望通过可信的模型输出、清晰的交互和可追溯的记录，让作物健康观察更容易开展。感谢各位老师聆听，欢迎提出问题和建议。",
+    "sources": [
+      "E:\\AgriScan\\README.md"
+    ]
+  },
+  {
+    "slide": 23,
+    "title": "备用：实验指标与训练参数",
+    "notes": "本页为问答备用，不计入正式汇报时间。分类验证集共 5485 张，Top-1 为 99.7265%，宏平均 F1 为 99.5417%；独立测试集共 10999 张，对应为 99.6727% 和 99.5620%。训练使用 224×224 输入、batch 32、AdamW、初始学习率 0.0005 和 AMP，完成四十轮，最佳模型由验证集选择。分类 ONNX 最大绝对误差约为 2.98×10⁻⁷。新检测模型输入 640×640、阈值 0.25，五张技术样例仅验证导出一致性，尚无独立检测集 mAP。",
+    "sources": [
+      "E:\\AgriScan\\training\\config.json",
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\README.md",
+      "E:\\AgriScan\\models\\releases\\plantvillage-yolo26m-906cf72f6bf0\\manifest.json"
+    ]
+  },
+  {
+    "slide": 24,
+    "title": "备用：答辩问答",
+    "notes": "本页为问答备用，不计入正式汇报时间。第一个问题，百分之九十九点六七代表什么：它是 PlantVillage 独立测试集的单叶分类 Top-1，不能代表田间准确率或检测 mAP。第二个问题，目标框能否计算严重度：当前框表示检测目标，缺少病斑精确轮廓，需要专门标注与分割评估。第三个问题，系统如何避免假结果：模型输出与 AI 解读分开保存，没有可靠目标或服务失败时明确提示，并保留重试入口。",
+    "sources": [
+      "E:\\AgriScan\\training\\final-report.md",
+      "E:\\AgriScan\\models\\candidates\\user-detect-fafc2bb3ce9e\\README.md",
+      "E:\\AgriScan\\backend\\app\\detection_assistant.py",
+      "E:\\AgriScan\\docs\\创新方向与病程技术路线.md"
+    ]
+  }
+]

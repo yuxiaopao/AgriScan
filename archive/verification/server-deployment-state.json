@@ -1,0 +1,40 @@
+{
+  "server": "tencent-server",
+  "ip": "162.14.71.77",
+  "domain": "flowly-ai.top",
+  "site_prefix": "/agriscan",
+  "stage": "E:/AgriScan/.runtime/server-release-20261028",
+  "archive_sha256": "ad78b194f5dc30a91c1ff565246d18f6a2e61d94c64a8e59929fdc27c4e85216",
+  "model_manifest": "models/candidates/user-detect-fafc2bb3ce9e/manifest.json",
+  "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "services_prepared": [
+    "mysqld",
+    "agriscan-redis",
+    "agriscan-api unit (not activated yet)"
+  ],
+  "upload_session": 65306,
+  "pending": [
+    "external-domain network acceptance (current test path DNSPod-blocked)",
+    "Android physical-device acceptance"
+  ],
+  "local_preview_note": "5173 connects older API; automatic review rejected restart and alternate preview launch; no existing process changed.",
+  "status": "deployed-origin-verified",
+  "release": "/srv/agriscan/releases/release-20261028-190106",
+  "server_api_pid": 1124187,
+  "server_smoke_report": ".runtime/server-smoke-20261028T110322Z-69f2d2b7.json",
+  "server_smoke": "passed",
+  "website_final_source_synced": true,
+  "apk_published": true,
+  "apk_bytes": 18744536,
+  "apk_sha256": "7b195441f02683ef861aa8b35ed21ef4ebe6593e9de2b914b3c0f82cd24a2135",
+  "apk_path": "website/downloads/agriscan-test.apk",
+  "admin_handover": ".runtime/server-admin-access.txt",
+  "website_download_browser_test": "passed (actual file SHA/length matched)",
+  "llm_production": "disabled until administrator configures a working provider",
+  "final_workspace_entry": "index-DXCgtgq6.js",
+  "public_apk_https_origin_check": "HTTP 200, MIME and bytes correct, full SHA256 matched",
+  "private_credential_file": {
+    "path": ".runtime/server-admin-access.txt",
+    "restricted": true
+  }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "surface": "frontend",
+    "base": "/agriscan/workspace/",
+    "htmlAssets": [
+      "/agriscan/workspace/brand/icon.svg",
+      "/agriscan/workspace/assets/index-B-PM_AVo.js",
+      "/agriscan/workspace/assets/charts-DlwZKwhN.js",
+      "/agriscan/workspace/assets/index-CunLDmTX.css"
+    ],
+    "staticAssetLiteralsChecked": 3,
+    "unprefixedRootAssets": [],
+    "missingAssets": [],
+    "correctTokenOnly": true,
+    "apiPrefixLiteralPresent": true,
+    "crossSurfaceLinkPresent": true
+  },
+  {
+    "surface": "admin",
+    "base": "/agriscan/admin/",
+    "htmlAssets": [
+      "/agriscan/admin/brand/icon.svg",
+      "/agriscan/admin/assets/index-BkjuN1mh.js",
+      "/agriscan/admin/assets/charts-DncKeu_G.js",
+      "/agriscan/admin/assets/index-D4fj0CYL.css"
+    ],
+    "staticAssetLiteralsChecked": 3,
+    "unprefixedRootAssets": [],
+    "missingAssets": [],
+    "correctTokenOnly": true,
+    "apiPrefixLiteralPresent": true,
+    "crossSurfaceLinkPresent": true
+  }
+]

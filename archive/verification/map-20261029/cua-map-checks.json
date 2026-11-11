@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "browser": "Chrome via mcp__cua_repl",
+  "url": "http://127.0.0.1:6186/",
+  "production_database_written": false,
+  "real_location_read": false,
+  "feedback_loop": {
+    "before": "6 tile images pending, 0 loaded, no feedback; blank click wrote coordinates",
+    "after": "initial loading; 12-second slow hint and retry; blank click keeps coordinates empty"
+  },
+  "cases": [
+    "loading and 12-second slow status visible",
+    "all 503 errors show unavailable with retry",
+    "2 successful and 2 failed tiles remain partial",
+    "same map recovers to ready with six loaded tiles after explicit retry without page reload",
+    "unready blank map click cannot create coordinates",
+    "manual WGS84 fields remain editable during failure with marker drag disabled",
+    "zoom then immediate close has no Leaflet _leaflet_pos error",
+    "compact card map shows failure and explicit retry recovers to ready with two loaded tiles"
+  ],
+  "coordinate_system": "WGS84",
+  "provider": "OpenStreetMap",
+  "provider_key_required": false,
+  "network_limitation": "A retry cannot guarantee upstream reachability in every network; original OSM source retained by explicit user decision.",
+  "source_sha256": {
+    "frontend/src/mapTiles.ts": "0e0281fda4603f4538a27ad3b59bd3f01ad3aa707296498c295742af6bdfca05",
+    "frontend/src/MapTileFeedback.tsx": "0d91a5dc8180ce7a23ef1833c5ae500a9233030f5a9d6d9eaa33be9e6745db38",
+    "frontend/src/PlotLocationPicker.tsx": "66d13f9a589edf34937835c2bd82665ce25a082a0daa4b21ba850f4e0d734dc8",
+    "frontend/src/PlotCoverCarousel.tsx": "5f206bd5d15138dbbfe090bdc19e3b71473c280414b63ba35cd3855b534d1895",
+    "frontend/src/plot-editor.css": "e3e8968b4fca614720de09b9652048c455fc339d271a5edddfe89adcaf0ef391"
+  }
+}

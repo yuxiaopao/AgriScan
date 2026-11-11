@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "local_ports_closed": {
+    "18931": true,
+    "18932": true
+  },
+  "removed_only_own_local_qa": [
+    "qa.sqlite",
+    "uploads"
+  ],
+  "browser_logged_out_and_closed": true,
+  "production_contacted": false,
+  "screenshot": "mobile-plot-browser.png",
+  "browser_tasks_file_upload": "blocked by extension file URL capability; not counted as passed"
+}

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "source": "actual mapTiles.ts via event/clock seam",
+  "cases": [
+    "initial zero tiles and pending image requests remain loading",
+    "one loaded tile cannot hide another pending or failed tile",
+    "slow deadline emits feedback and settles to an explicit all-failed status",
+    "retry ignores old image callbacks and accepts only its new tile elements",
+    "all visible tiles loaded enables ready state; unloaded tiles cannot leave stale readiness",
+    "map unload removes every listener and timer; later retry and callbacks cannot publish"
+  ],
+  "browser_driven": false
+}

@@ -1,0 +1,76 @@
+{
+  "method": "Built-in image_gen",
+  "date": "2026-10-29",
+  "export": "Same generated artwork resampled to 192x192 and encoded as lossless WebP with generated alpha intact; no cropping or painting.",
+  "assets": [
+    {
+      "name": "plots",
+      "detail": "Functional prop: a small shallow rounded pale-mint GARDEN TRAY at lower front containing THREE crisp parallel dark-green crop rows with three simple fresh sprouts. Xiaohe gently holds tray corners. It represents a farming plot, no map pin, no house, no tools.",
+      "prompt": "Use case: stylized-concept. Asset type: FINAL production functional IP icon for Xiaohe AgriScan mobile app. Original supplied image is CHARACTER IDENTITY REFERENCE, not an edit target. Create ONE square 1024 x 1024 isolated 3D miniature mascot icon on a genuinely TRANSPARENT alpha background. Strictly preserve Xiaohe: broad warm ivory matte ceramic round rectangular head, dark forest-green glass face screen, two fresh green leaf sprouts at crown, luminous friendly rounded green eyes, tiny smile, round green ear discs, little ivory hands with green wrists. Icon is HEAD AND HANDS BUST ONLY, no legs, no full body, no scene. The head sits above ONE oversized functional prop at lower front, hands touch the prop. The prop is about35% of the icon and must read clearly at 40px. Entire icon centered filling88% of square with safe padding, front three-quarter view with near frontal face, clean simple strong silhouette, calm polished soft studio light, minimal sculptural detail, ivory and forestgreen with pale mint and soft skyblue prop accents. No background, no floor, no cast shadow, no badge or enclosing circle, no plaque, no decorative sparkle, no other objects, no text or letters or numbers, no logo, no watermark. Keep both leaf tips fully within frame. Same recognizable Xiaohe character, refined app icon rendition rather than a detailed scene. Functional prop: a small shallow rounded pale-mint GARDEN TRAY at lower front containing THREE crisp parallel dark-green crop rows with three simple fresh sprouts. Xiaohe gently holds tray corners. It represents a farming plot, no map pin, no house, no tools.",
+      "reference": "E:/AgriScan/mobile/public/images/xiaohe.png",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a1856d-edca-77e0-90e2-0f714cab2b55\\exec-a3a5eeea-a504-4b40-974f-1339e97f6027.png",
+      "source_copy": ".runtime/ui-refinement/ip-icons-source/plots-source-20261029-root.png",
+      "project_path": "mobile/public/images/ip-icons/plots.webp",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        192,
+        192
+      ],
+      "bytes": 32062,
+      "sha256": "cd2d29842fdfa1078ec82acd2ffbb15dcfb95d624ee1a80b4644610366b33e7b",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "knowledge",
+      "detail": "Functional prop: a wide OPEN BOOK at lower front, pale-mint thick sculptural cover and warm ivory pages, a single simple green LEAF impression on right page, absolutely no writing. Xiaohe holds book corners as if reading it.",
+      "prompt": "Use case: stylized-concept. Asset type: FINAL production functional IP icon for Xiaohe AgriScan mobile app. Original supplied image is CHARACTER IDENTITY REFERENCE, not an edit target. Create ONE square 1024 x 1024 isolated 3D miniature mascot icon on a genuinely TRANSPARENT alpha background. Strictly preserve Xiaohe: broad warm ivory matte ceramic round rectangular head, dark forest-green glass face screen, two fresh green leaf sprouts at crown, luminous friendly rounded green eyes, tiny smile, round green ear discs, little ivory hands with green wrists. Icon is HEAD AND HANDS BUST ONLY, no legs, no full body, no scene. The head sits above ONE oversized functional prop at lower front, hands touch the prop. The prop is about35% of the icon and must read clearly at 40px. Entire icon centered filling88% of square with safe padding, front three-quarter view with near frontal face, clean simple strong silhouette, calm polished soft studio light, minimal sculptural detail, ivory and forestgreen with pale mint and soft skyblue prop accents. No background, no floor, no cast shadow, no badge or enclosing circle, no plaque, no decorative sparkle, no other objects, no text or letters or numbers, no logo, no watermark. Keep both leaf tips fully within frame. Same recognizable Xiaohe character, refined app icon rendition rather than a detailed scene. Functional prop: a wide OPEN BOOK at lower front, pale-mint thick sculptural cover and warm ivory pages, a single simple green LEAF impression on right page, absolutely no writing. Xiaohe holds book corners as if reading it.",
+      "reference": "E:/AgriScan/mobile/public/images/xiaohe.png",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a1856d-edca-77e0-90e2-0f714cab2b55\\exec-476707a6-7d8f-43d9-9013-124d5a09cfea.png",
+      "source_copy": ".runtime/ui-refinement/ip-icons-source/knowledge-source-20261029-root.png",
+      "project_path": "mobile/public/images/ip-icons/knowledge.webp",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        192,
+        192
+      ],
+      "bytes": 31898,
+      "sha256": "68d05adaaf428c90dfb3dc3b08ef44f29247f4f906e0ea7667d5f3b2786ac345",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "name": "settings",
+      "detail": "Functional prop: one large simple sculptural pale-mint GEAR with six bold rounded teeth and a dark green circular center, held at lower front by Xiaohe's hands. It represents settings. No tools, no screwdriver, no complex mechanism.",
+      "prompt": "Use case: stylized-concept. Asset type: FINAL production functional IP icon for Xiaohe AgriScan mobile app. Original supplied image is CHARACTER IDENTITY REFERENCE, not an edit target. Create ONE square 1024 x 1024 isolated 3D miniature mascot icon on a genuinely TRANSPARENT alpha background. Strictly preserve Xiaohe: broad warm ivory matte ceramic round rectangular head, dark forest-green glass face screen, two fresh green leaf sprouts at crown, luminous friendly rounded green eyes, tiny smile, round green ear discs, little ivory hands with green wrists. Icon is HEAD AND HANDS BUST ONLY, no legs, no full body, no scene. The head sits above ONE oversized functional prop at lower front, hands touch the prop. The prop is about35% of the icon and must read clearly at 40px. Entire icon centered filling88% of square with safe padding, front three-quarter view with near frontal face, clean simple strong silhouette, calm polished soft studio light, minimal sculptural detail, ivory and forestgreen with pale mint and soft skyblue prop accents. No background, no floor, no cast shadow, no badge or enclosing circle, no plaque, no decorative sparkle, no other objects, no text or letters or numbers, no logo, no watermark. Keep both leaf tips fully within frame. Same recognizable Xiaohe character, refined app icon rendition rather than a detailed scene. Functional prop: one large simple sculptural pale-mint GEAR with six bold rounded teeth and a dark green circular center, held at lower front by Xiaohe's hands. It represents settings. No tools, no screwdriver, no complex mechanism.",
+      "reference": "E:/AgriScan/mobile/public/images/xiaohe.png",
+      "generated_source": "C:\\Users\\18984\\.codex\\generated_images\\01a1856d-edca-77e0-90e2-0f714cab2b55\\exec-848b50a0-3c5e-44aa-90f5-207039ed5ea9.png",
+      "source_copy": ".runtime/ui-refinement/ip-icons-source/settings-source-20261029-root.png",
+      "project_path": "mobile/public/images/ip-icons/settings.webp",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        192,
+        192
+      ],
+      "bytes": 28910,
+      "sha256": "c3f13cee4157abd56ff0f81834541a9ab67f999ffd802bf7e9f768f533365c3b",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ]
+}

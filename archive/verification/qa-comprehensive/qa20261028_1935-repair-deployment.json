@@ -1,0 +1,93 @@
+{
+  "run_id": "qa20261028_1935",
+  "release": "/srv/agriscan/releases/release-20261028-190106",
+  "backup": "/srv/agriscan/shared/backups/qa20261028_1935-repair-20261028T115505Z",
+  "started_at": "2026-10-28T11:55:05.266792+00:00",
+  "files": [
+    {
+      "path": "public/workspace/index.html",
+      "sha256": "faa810130317f7eacbe58203ecab0890f3a36fadb18360d124f59731bc13148b",
+      "size": 827,
+      "old_sha256": "4fca2ed51cfc58fe3e7b09c2c08d71398555bfc1193f364084754728d00b7262"
+    },
+    {
+      "path": "public/workspace/assets/Dashboard-DU2ZcPmE.js",
+      "sha256": "1bd55da5645008a58b0baf25eb66a488af30bbbff7f066723e8364fd3f1a68ae",
+      "size": 8359,
+      "old_sha256": null
+    },
+    {
+      "path": "public/workspace/assets/index-B-PM_AVo.js",
+      "sha256": "fe1f651f45c5099a21b833fb00fcb4f3c997ab98c751ea51b53100222c3b6177",
+      "size": 475285,
+      "old_sha256": null
+    },
+    {
+      "path": "public/admin/index.html",
+      "sha256": "4d83ebc252e53f1352bb3b34d38c602e578a29e407ebd61e0056a648fa32e14a",
+      "size": 831,
+      "old_sha256": "036ae231a81b6cc20fc911648638fff6b004589c10ff7addf864257074cf51a6"
+    },
+    {
+      "path": "public/admin/assets/index-BkjuN1mh.js",
+      "sha256": "5623efb4acdabfadb968913449276020c3aada791ddfa5e2d5e7a5fdfd666a7d",
+      "size": 460089,
+      "old_sha256": null
+    },
+    {
+      "path": "backend/app/admin.py",
+      "sha256": "587e8170b43bab1a0cc4feb931d930636fc954ba626fa773a0a34d7e9d1de539",
+      "size": 27614,
+      "old_sha256": "cd86ccb7ba23c04a2111c6def2bc01549fe05b2d1ddfb8072d06b12365d27152"
+    },
+    {
+      "path": "public/app.js",
+      "sha256": "6900909abc3853633497a50dc47466a29c4873a774f7df044456cc2f83f9f6e9",
+      "size": 2589,
+      "old_sha256": "72fc3b58512ed5d5ed354445ca4f60c989b457c4eee5864503c91815623f43f4"
+    }
+  ],
+  "unchanged_files": 92,
+  "service_before": {
+    "MainPID": "1124187",
+    "NRestarts": "0",
+    "MemoryCurrent": "648224768",
+    "MemoryPeak": "683945984",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "write_order": [
+    "backend/app/admin.py",
+    "public/admin/assets/index-BkjuN1mh.js",
+    "public/app.js",
+    "public/workspace/assets/Dashboard-DU2ZcPmE.js",
+    "public/workspace/assets/index-B-PM_AVo.js",
+    "public/admin/index.html",
+    "public/workspace/index.html"
+  ],
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "verified_https_files": [
+    "public/admin/assets/index-BkjuN1mh.js",
+    "public/app.js",
+    "public/workspace/assets/Dashboard-DU2ZcPmE.js",
+    "public/workspace/assets/index-B-PM_AVo.js",
+    "public/admin/index.html",
+    "public/workspace/index.html"
+  ],
+  "service_after": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "339451904",
+    "MemoryPeak": "339755008",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "status": "passed",
+  "finished_at": "2026-10-28T11:55:08.773795+00:00"
+}

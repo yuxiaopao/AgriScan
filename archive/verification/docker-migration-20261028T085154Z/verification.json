@@ -1,0 +1,24 @@
+{
+  "all_rows_verified": true,
+  "table_counts": {
+    "app_meta": 3,
+    "email_challenges": 0,
+    "model_artifacts": 0,
+    "plots": 3,
+    "revoked_tokens": 0,
+    "users": 1,
+    "assistant_conversations": 6,
+    "audit_logs": 0,
+    "detections": 20,
+    "knowledge_articles": 4,
+    "plot_details": 0,
+    "user_emails": 0,
+    "assistant_detection_discussions": 5,
+    "assistant_messages": 12,
+    "detection_predictions": 8
+  },
+  "schema_drift": false,
+  "microsecond_datetime_columns": 14,
+  "referenced_files_sha256_verified": 9,
+  "restored_full_precision_values": 11
+}

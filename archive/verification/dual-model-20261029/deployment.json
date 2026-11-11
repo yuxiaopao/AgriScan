@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "release_id": "release-20261029-dual-model-181406",
+  "previous_release": "/srv/agriscan/releases/release-20261029-full-ui-134431",
+  "release": "/srv/agriscan/releases/release-20261029-dual-model-181406",
+  "backup": "/srv/agriscan/shared/backups/release-20261029-dual-model-181406",
+  "started_at": "2026-10-29T10:20:59.506402+00:00",
+  "stages": [
+    "validated_artifacts_and_baseline",
+    "prepared_release_verified_without_model_preload",
+    "graceful_timeout_ready",
+    "current_pointer_switched",
+    "api_restarted_and_model_ready",
+    "both_loaded_components_and_runtime_verified",
+    "public_html_health_and_download_metadata_verified"
+  ],
+  "runtime_before": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "service_before": {
+    "TimeoutStartUSec": "2min",
+    "TimeoutStopUSec": "5s",
+    "MainPID": "1411592",
+    "NRestarts": "0",
+    "MemoryCurrent": "788975616",
+    "MemoryPeak": "853831680",
+    "MemorySwapCurrent": "0",
+    "CPUUsageNSec": "194960260000",
+    "MemoryMax": "1468006400",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "nginx_changed": false,
+  "database_migration_performed": false,
+  "business_configuration_mutated": false,
+  "api_restart_attempts": 1,
+  "payload_files_verified": 142,
+  "previous_hashed_assets_retained": 36,
+  "source_tree_sha256": "789f86d47de70a6b20ecd24bc5ed8fa467d5c6614ccdcce43edfb3523566d2ff",
+  "source_file_count": 327,
+  "graceful_override": {
+    "created": true,
+    "timeout_stop_seconds": 180,
+    "retained_on_failure": true,
+    "reason": "Keep sufficient SIGTERM grace instead of restoring the previous 5s forced kill."
+  },
+  "health_after": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "active_components": [
+    {
+      "name": "leaf-health-yolo26m-user-fafc2bb3",
+      "role": "detection",
+      "task": "detect",
+      "status": "ready",
+      "class_count": 38,
+      "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773"
+    },
+    {
+      "name": "plantvillage-yolo26m",
+      "role": "verification",
+      "task": "classify",
+      "status": "ready",
+      "class_count": 38,
+      "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+    }
+  ],
+  "owned_session_revoked": true,
+  "idle_resource_samples": [
+    {
+      "TimeoutStartUSec": "2min",
+      "TimeoutStopUSec": "3min",
+      "MainPID": "1584612",
+      "NRestarts": "0",
+      "MemoryCurrent": "398094336",
+      "MemoryPeak": "414507008",
+      "MemorySwapCurrent": "0",
+      "CPUUsageNSec": "3223467000",
+      "MemoryMax": "1468006400",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    {
+      "TimeoutStartUSec": "2min",
+      "TimeoutStopUSec": "3min",
+      "MainPID": "1584612",
+      "NRestarts": "0",
+      "MemoryCurrent": "398094336",
+      "MemoryPeak": "414507008",
+      "MemorySwapCurrent": "0",
+      "CPUUsageNSec": "3225598000",
+      "MemoryMax": "1468006400",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    {
+      "TimeoutStartUSec": "2min",
+      "TimeoutStopUSec": "3min",
+      "MainPID": "1584612",
+      "NRestarts": "0",
+      "MemoryCurrent": "397934592",
+      "MemoryPeak": "414507008",
+      "MemorySwapCurrent": "0",
+      "CPUUsageNSec": "3227749000",
+      "MemoryMax": "1468006400",
+      "ActiveState": "active",
+      "SubState": "running"
+    }
+  ],
+  "runtime_after": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "public_checks": {
+    "index.html": {
+      "status": 200,
+      "sha256": "8d587b6891dbcdc64a3e9551f17d8a54c38c2c1118f34e58b6c0c05827e50485"
+    },
+    "workspace/index.html": {
+      "status": 200,
+      "sha256": "41fbd5b68ffdf80ba1d2008173953ea9b1f3cd5432d260f652214bfc7402300c"
+    },
+    "admin/index.html": {
+      "status": 200,
+      "sha256": "e3f1081df81d8987d9da63e21a47f96e5a8aed383533ef966ed3cdfc1a5d88db"
+    },
+    "downloads/release.json": {
+      "status": 200,
+      "sha256": "34c56aafdff79def3235fa83de4da4f7427708c9ec547b5cc43e0a95ac44f6df"
+    }
+  },
+  "environment_classification_only": true,
+  "environment_mode": "0640 root:agriscan",
+  "environment_before_sha256": "4ac7590f523366fc3ea03280444250f34324156845d5de163da488faeffd3cb1",
+  "environment_after_sha256": "37044b655953170a3d673534fb34f4e8066c3c0077a6b624bd9a7df2bf1464d7",
+  "detector_onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "classification_onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+  "apk": {
+    "version": "1.0.4",
+    "version_code": 5,
+    "bytes": 24164090,
+    "sha256": "cb350887ce322ecc5d83f4b59f4fed81f23dadd0a629ab3d1364a21e48a56197"
+  },
+  "finished_at": "2026-10-29T10:21:11.545669+00:00",
+  "activation_script_sha256": "35ba1074ac898a092002184be8d37b9e9522e1dde8fe0a80c07db8545a988d29",
+  "ssh_exit_code": 0
+}

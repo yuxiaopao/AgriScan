@@ -1,0 +1,17 @@
+{
+  "previous_release": "/srv/agriscan/releases/release-20261028-190106",
+  "new_release": "/srv/agriscan/releases/release-20261029-llm-assistant-093639",
+  "archive_sha256": "aa3bf436d50c729c67ba861d09b58545061dbf6b24f53b8cb2bdd5d7f8d63fad",
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "status": "passed",
+  "configuration_preserved": true,
+  "nginx_and_environment_preserved": true,
+  "previous_model_preserved": true,
+  "client_config_version": 5
+}

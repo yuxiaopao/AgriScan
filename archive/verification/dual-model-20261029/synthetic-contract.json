@@ -1,0 +1,61 @@
+{
+  "status": "attention",
+  "result": "苹果健康",
+  "confidence": 0.87,
+  "prediction_model": {
+    "name": "detector",
+    "task": "detect",
+    "onnx_sha256": "detect-hash",
+    "pipeline": "detection_with_classification",
+    "verification": {
+      "status": "disagree",
+      "scope": "whole_image",
+      "message": "整图分类与主检测类别不一致，保留原检测结论，请复拍并人工复核。",
+      "model": {
+        "name": "SYNTHETIC_classify",
+        "task": "classify",
+        "onnx_sha256": "classify-hash"
+      },
+      "detection": {
+        "key": "Apple_healthy",
+        "crop": "苹果",
+        "label": "苹果健康",
+        "healthy": true,
+        "confidence": 0.87
+      },
+      "classification": {
+        "key": "Apple___Apple_scab",
+        "crop": "苹果",
+        "label": "苹果黑星病",
+        "healthy": false,
+        "confidence": 0.93,
+        "candidates": [
+          {
+            "key": "Apple___Apple_scab",
+            "crop": "苹果",
+            "disease": "黑星病",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "confidence": 0.93
+          }
+        ]
+      }
+    }
+  },
+  "boxes": [
+    {
+      "key": "Apple_healthy",
+      "crop": "苹果",
+      "label": "苹果健康",
+      "healthy": true,
+      "confidence": 0.87,
+      "class_id": 0,
+      "bbox": [
+        0.1,
+        0.1,
+        0.9,
+        0.9
+      ]
+    }
+  ]
+}

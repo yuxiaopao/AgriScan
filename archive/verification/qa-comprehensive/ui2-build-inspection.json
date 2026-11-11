@@ -1,0 +1,28 @@
+[
+  {
+    "surface": "frontend",
+    "base": "/agriscan/workspace/",
+    "htmlAssets": [
+      "/agriscan/workspace/brand/icon.svg",
+      "/agriscan/workspace/assets/index-DSL3GJSm.js",
+      "/agriscan/workspace/assets/charts-DlwZKwhN.js",
+      "/agriscan/workspace/assets/index-CunLDmTX.css"
+    ],
+    "bundle": "index-DSL3GJSm.js",
+    "missingAssets": [],
+    "apiPrefix": "/agriscan"
+  },
+  {
+    "surface": "admin",
+    "base": "/agriscan/admin/",
+    "htmlAssets": [
+      "/agriscan/admin/brand/icon.svg",
+      "/agriscan/admin/assets/index-CsHJvBm3.js",
+      "/agriscan/admin/assets/charts-DncKeu_G.js",
+      "/agriscan/admin/assets/index-D4fj0CYL.css"
+    ],
+    "bundle": "index-CsHJvBm3.js",
+    "missingAssets": [],
+    "apiPrefix": "/agriscan"
+  }
+]

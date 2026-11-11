@@ -95,7 +95,7 @@ CLASSIFICATION_MODEL_MANIFEST=../models/releases/plantvillage-yolo26m-906cf72f6b
 
 真实凭据、数据库和上传图片不随仓库提供。
 
-`git lfs pull` 获取仓库已有的分类模型；**新版检测 `model.onnx` 需单独取得**，按[模型恢复说明](models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，将 `MODEL_MANIFEST` 和 `CLASSIFICATION_MODEL_MANIFEST` 均留空，此时不会生成识别结论。
+`git lfs pull` 获取仓库已有的分类模型。检测模型、分类模型和 Android 测试包也可从[完整项目归档](https://github.com/yuxiaopao/AgriScan/releases/tag/project-archive-20261111)下载，按[模型恢复说明](models/candidates/user-detect-fafc2bb3ce9e/README.md#从源码仓库恢复模型)放置并核对 SHA256。只启动界面与样本采集时，将 `MODEL_MANIFEST` 和 `CLASSIFICATION_MODEL_MANIFEST` 均留空，此时不会生成识别结论。
 
 ```powershell
 .\scripts\start-dev.ps1 -Install      # API + 桌面端；首次安装依赖
@@ -117,6 +117,8 @@ docs/       配置、验收与项目文档       design/     小禾 IP 与界面
 ```
 
 ## 继续了解
+
+源码、现有测试、环境依赖、历史验收、设计和交付材料已公开归档。数据集、逐轮训练权重、模型及完整工作文件保存在 GitHub Releases，下载和校验方法见[完整项目归档说明](archive/README.md)。
 
 | 文档 | 内容 |
 | --- | --- |

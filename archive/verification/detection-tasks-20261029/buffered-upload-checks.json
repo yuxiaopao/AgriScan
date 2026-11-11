@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "source": "actual shared task manager with deferred reservation and XHR, no provider/network calls",
+  "cases": [
+    {
+      "name": "active browser upload survives awaiting_upload polls and temporary poll failure without a second POST",
+      "status": "passed"
+    },
+    {
+      "name": "GET recovery before a lost POST response still uploads exactly once to the original task",
+      "status": "passed"
+    },
+    {
+      "name": "GET-confirmed queued or processing reservation is tracked without a duplicate PUT after POST failure",
+      "status": "passed"
+    },
+    {
+      "name": "cancelling while reservation is pending takes priority over a recovered reservation and never starts PUT",
+      "status": "passed"
+    }
+  ]
+}

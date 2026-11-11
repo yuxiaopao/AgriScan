@@ -1,0 +1,11 @@
+{
+  "backend/app/admin.py": "8aa09456e424fd49898c0fdf0eb4bd7318ac9eeaf6276d29ef03a1079114aac2",
+  "backend/app/extensions.py": "880b11b35731032788e06033f5a31e2cdd07d4e587a226e4c3aeb60c1b635eb6",
+  "backend/app/schemas.py": "c3b506ab752c06b31d0fc97a5b3b88cffad071debb4858967db2e81a50525773",
+  "hotfix-info.json": "f59e28c6be9384ba95573b00bcd01f905bf8dadfc6b9d1d2b0dc93a7133e5d97",
+  "public/admin/assets/index-BnKNJ7NV.js": "ad97e41f42f20751ed37c696a9d2510cc45f0c75b3d1bb7321bb2c0da6720a81",
+  "public/admin/index.html": "ecac5e53d7f3f652ffa3cf7698f3afc7aeaa15417a178f4d3ec205ca96b4d008",
+  "public/workspace/assets/Dashboard-DXNFTDwB.js": "3d18cb9854e2c5265a66073471c5672fd0cd5237a718e2c3ccddadd6961fcc0a",
+  "public/workspace/assets/index-BowIhxbp.js": "ea6c4cfec1f1ff45584fc4230eb611906a3654647e060d753b2e05a04711eb85",
+  "public/workspace/index.html": "ca143727322bfb86ce660321c5ca1a59094705c14b8591346242c9c21a2eb99a"
+}

@@ -1,0 +1,188 @@
+{
+  "transport": "Actual production API over TLS-verified SSH transport; cleanup only",
+  "detections": [
+    {
+      "id": "70f913d686b0446ebd53b1c29b4fc18d",
+      "deleted": 200,
+      "image_after_delete": 404,
+      "image_sha256": "27949a4da2a1e3448f30b26b57dcb693381017ecd094a59bdb3464b6c4be9c04"
+    },
+    {
+      "id": "6c60d46abeca4227a66c3a4123d20022",
+      "deleted": 200,
+      "image_after_delete": 404,
+      "image_sha256": "27949a4da2a1e3448f30b26b57dcb693381017ecd094a59bdb3464b6c4be9c04"
+    },
+    {
+      "id": "dca3054bb47647039d7be39f4efae5cd",
+      "deleted": 200,
+      "image_after_delete": 404,
+      "image_sha256": "67a16dd5a7ffa8b04f7016e6f3db40c64907f2cbe4402a1789bfc89a098ccefa"
+    },
+    {
+      "id": "59c412046b7046ffb547e0b28f3bdb3d",
+      "deleted": 200,
+      "image_after_delete": 404,
+      "image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4"
+    }
+  ],
+  "plots": [
+    {
+      "id": "3b73ae372505478daf1cde831a16ed9a",
+      "deleted": 200
+    }
+  ],
+  "baseline_config_restored": true,
+  "config_version": 5,
+  "positive_results": [
+    {
+      "id": "70f913d686b0446ebd53b1c29b4fc18d",
+      "name": "nonsquare-leaf.jpg",
+      "crop": "番茄",
+      "result": "番茄健康",
+      "confidence": 0.9867818355560303,
+      "boxes": [
+        {
+          "key": "Tomato_healthy",
+          "bbox": [
+            0.2824218273162842,
+            0.06371326446533203,
+            0.7174348831176758,
+            0.9343905448913574
+          ],
+          "crop": "番茄",
+          "label": "番茄健康",
+          "healthy": true,
+          "class_id": 37,
+          "confidence": 0.9867818355560304
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      }
+    },
+    {
+      "id": "6c60d46abeca4227a66c3a4123d20022",
+      "name": "nonsquare-leaf.jpg",
+      "crop": "番茄",
+      "result": "番茄健康",
+      "confidence": 0.9867818355560303,
+      "boxes": [
+        {
+          "key": "Tomato_healthy",
+          "bbox": [
+            0.2824218273162842,
+            0.06371326446533203,
+            0.7174348831176758,
+            0.9343905448913574
+          ],
+          "crop": "番茄",
+          "label": "番茄健康",
+          "healthy": true,
+          "class_id": 37,
+          "confidence": 0.9867818355560304
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      }
+    },
+    {
+      "id": "dca3054bb47647039d7be39f4efae5cd",
+      "name": "corn-rust.jpg",
+      "crop": "玉米",
+      "result": "玉米普通锈病",
+      "confidence": 0.911957859992981,
+      "boxes": [
+        {
+          "key": "Corn_Common_rust",
+          "bbox": [
+            0.039352703094482425,
+            0.04712944030761719,
+            0.9771127700805664,
+            0.9880712509155274
+          ],
+          "crop": "玉米",
+          "label": "玉米普通锈病",
+          "healthy": false,
+          "class_id": 8,
+          "confidence": 0.911957859992981
+        },
+        {
+          "key": "Corn_Common_rust",
+          "bbox": [
+            0.028623056411743165,
+            0.051802873611450195,
+            0.9712244033813476,
+            0.9885597229003906
+          ],
+          "crop": "玉米",
+          "label": "玉米普通锈病",
+          "healthy": false,
+          "class_id": 8,
+          "confidence": 0.3707147240638733
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      }
+    },
+    {
+      "id": "59c412046b7046ffb547e0b28f3bdb3d",
+      "name": "qa20261028_1935 apple reviewed",
+      "crop": "苹果",
+      "result": "苹果黑星病",
+      "confidence": 0.8459509015083313,
+      "boxes": [
+        {
+          "key": "Apple_Apple_scab",
+          "bbox": [
+            0.03368158340454101,
+            0.06392145156860352,
+            0.9906038284301758,
+            0.9932659149169922
+          ],
+          "crop": "苹果",
+          "label": "苹果黑星病",
+          "healthy": false,
+          "class_id": 0,
+          "confidence": 0.8459509015083313
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      }
+    }
+  ],
+  "fixture_password_reset_and_disable": {
+    "reset_status": 200,
+    "old_session": 401,
+    "old_password": 401,
+    "new_login": 200,
+    "disable_status": 200,
+    "disabled_session": 401,
+    "disabled_login": 401
+  },
+  "passed": true,
+  "logout_status": 200
+}

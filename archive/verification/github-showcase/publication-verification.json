@@ -1,0 +1,19 @@
+{
+  "default_branch": "main",
+  "main_commit": "4cca8a956105561d72d52d1aab0b5654c2fac2f3",
+  "development_branch": "codex/workspace-ui-and-plot-management-20261028",
+  "development_commit": "dda85a89755fe001953ea00988560d5ec7aea813",
+  "main_is_ancestor": true,
+  "showcase_identical": true,
+  "main_changed_paths": [
+    "README.md",
+    "docs/readme/admin.png",
+    "docs/readme/brand.png",
+    "docs/readme/desktop-detection.png",
+    "docs/readme/mobile-home.png",
+    "docs/readme/mobile-welcome.png",
+    "docs/readme/website.png"
+  ],
+  "application_code_changed_on_main": false,
+  "unrelated_work_preserved": true
+}

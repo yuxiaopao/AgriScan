@@ -1,0 +1,6 @@
+[
+  "frontend/src/api.ts",
+  "frontend/src/components.tsx",
+  "mobile/src/api.ts",
+  "mobile/src/components.tsx"
+]

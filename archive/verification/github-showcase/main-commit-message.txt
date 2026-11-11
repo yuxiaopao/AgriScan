@@ -1,0 +1,4 @@
+docs: refresh project homepage, screenshots and website links
+
+Keep the complete implementation on the development branch and retain
+the initial main code. Update only README and six showcase images.

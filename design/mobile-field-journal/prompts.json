@@ -1,0 +1,22 @@
+{
+  "method": "Built-in image_gen",
+  "date": "2026-10-29",
+  "assets": [
+    {
+      "name": "field-morning-hero",
+      "project_path": "mobile/public/images/field-morning-hero.png",
+      "prompt": "Use case: stylized-concept. Asset type: final production hero artwork for a Chinese crop observation mobile app, landscape 1536 x 1024. The supplied image is a character identity reference, not a screenshot to edit. Preserve Xiaohe's recognizable white ceramic body, forest-green face screen, two bright green leaf sprouts, warm expressive eyes, small proportions. Create a sophisticated, beautifully lit early-morning greenhouse garden still, not a generic game advertisement. Composition is intentionally designed for a mobile card: the LEFT 48% is clean pale warm ivory #f4f6eb negative space, a real softly lit garden wall/soft out-of-focus light, with no objects or busy shadows; it must comfortably carry dark Chinese headline text added later in code. At the RIGHT 40%, Xiaohe, half-body or three-quarter framing, gently examines one fresh green tomato leaf through a little magnifying glass, looking at the leaf; one large crisp leaf and a terracotta planter edge anchor the lower right. Delicate real leaf venation, one dew drop, premium matte ceramic material, natural morning side light, soft sage and emerald palette, understated distant greenhouse hint, exceptionally composed and calm. Keep right subject fully inside the frame, not touching edges, no floating tablet, no exaggerated sparkles. Subtle photographic depth of field, beautiful high-end 3D editorial botanical rendering, warm white and refined green tones. No text, no letters, no numbers, no watermark, no logo, no UI elements, no badges, no borders. No collage. This image is artwork only for an actual app interface.",
+      "references": [
+        "E:\\AgriScan\\mobile\\public\\images\\xiaohe.png"
+      ],
+      "decorative": true
+    },
+    {
+      "name": "field-notes-macro",
+      "project_path": "mobile/public/images/field-notes-macro.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: final in-app botanical editorial photograph for a field-notes / crop knowledge screen, landscape 1536 x 1024. One exceptionally beautiful fresh tomato leaf with clear realistic fine veins and a few tiny dew drops, curving diagonally from lower right toward center; natural plant is alive, no disease, no labels, no diagnostic marks. Soft morning sunlight, tactile fine surface, a second leaf and distant greenhouse softly out of focus. Refined forest-green and sage tones, gentle warm ivory light. TOP LEFT 40% remains soft quiet pale sage with minimal details so a dark green short Chinese title can be placed later in app code. Sophisticated editorial botanical photography, 85 mm macro lens, shallow depth of field, natural slight imperfections, cinematic softness in background but leaf detail sharp, no plastic appearance. No robot or people, no text or letters, no grids, no app UI, no watermark, no arrows, no infographic. It is a decorative cover image, not scientific evidence.",
+      "references": [],
+      "decorative": true
+    }
+  ]
+}

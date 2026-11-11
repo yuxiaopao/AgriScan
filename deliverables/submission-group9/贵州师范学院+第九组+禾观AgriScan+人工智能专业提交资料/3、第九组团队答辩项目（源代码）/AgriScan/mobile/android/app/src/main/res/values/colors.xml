@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#285C45</color>
+    <color name="colorPrimaryDark">#173C2B</color>
+    <color name="colorAccent">#87AB61</color>
+    <color name="agriscan_background">#F7F8F2</color>
+</resources>

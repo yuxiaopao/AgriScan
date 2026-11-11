@@ -1,0 +1,72 @@
+{
+  "previous_release": "/srv/agriscan/releases/release-20261029-user-isolation-104127",
+  "new_release": "/srv/agriscan/releases/release-20261029-full-ui-131640",
+  "archive_sha256": "ac45119d8a7d911364913dfbfca31fe909ab374daf4a4cc1c6e96ea139112741",
+  "database_writes": false,
+  "api_restarted": false,
+  "backup": "/srv/agriscan/shared/backups/release-20261029-full-ui-131640",
+  "status": "passed",
+  "release_id": "release-20261029-full-ui-131640",
+  "source_tree_sha256": "c864b008f08190d96a577cdcec5b3bc186ecdeb354b4144ea484aa40e0e337c1",
+  "payload_files_verified": 112,
+  "backend_files_unchanged": 36,
+  "retained_previous_hashed_assets": 29,
+  "configuration_file_unchanged": true,
+  "old_domain_vhost_unchanged": true,
+  "service_unchanged": true,
+  "service": "MainPID=1411592\nNRestarts=0\nExecMainStartTimestamp=Thu 2026-10-29 10:41:28 CST\nActiveState=active",
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "public_checks": {
+    "index.html": {
+      "status": 200,
+      "sha256": "d15fc46dc2af55e8a76f977b19353c2c5f5b0c38cae905ab377205828c903004",
+      "cache_control": "no-cache, must-revalidate"
+    },
+    "app.js": {
+      "status": 200,
+      "sha256": "f66a159a1f17d387a48d8031d78aadcdc60229b9e8c468a0eeab0bd8f25c9da2",
+      "cache_control": "no-cache, must-revalidate"
+    },
+    "style.css": {
+      "status": 200,
+      "sha256": "bdbe0b63ec1c8798caf300f881701ed8aa195c3d851a022b760f6e94bed2b390",
+      "cache_control": "no-cache, must-revalidate"
+    },
+    "workspace/index.html": {
+      "status": 200,
+      "sha256": "b54df3b55e6420577c135bfce22fba09cb566bf8b0cff8c1a887f0fe2793f67f",
+      "cache_control": "no-cache, must-revalidate"
+    },
+    "admin/index.html": {
+      "status": 200,
+      "sha256": "ad0b27ec4c7ac259a8965f8545154d893ca8b77e9dc464e999430da3deaa1cf3",
+      "cache_control": "no-cache, must-revalidate"
+    },
+    "downloads/release.json": {
+      "status": 200,
+      "sha256": "45199dcb93b3152c34be57bf536ab997f8e6ae9bbb6485f401ee2279a034d88d",
+      "cache_control": "no-cache"
+    },
+    "/agriscan/workspace/assets/index-DQ5d-kno.js": {
+      "status": 200,
+      "sha256": "5d02bc765613ecc425b7ff330e85b9f3b6bbe72ed543fae827b54f1a6617892d"
+    },
+    "/agriscan/admin/assets/index-CoEvLsID.js": {
+      "status": 200,
+      "sha256": "c454def9673e107cc95b92a9e621ad3cac01d7a1af80f4de2365a30a1ffd855c"
+    }
+  },
+  "apk": {
+    "version": "1.0.3",
+    "version_code": 4,
+    "apk_bytes": 24146402,
+    "sha256": "c2846e8cba8b8c257db9aa8df1fca70ae32f3e4b91b5b732ab19685dc2d778fa",
+    "signer_sha256": "f6229ce48e05aaed0c8889f04f0909c7da7de085ff2b5f98792d6d3a27f710b7"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "release_id": "release-20261029-dual-model-190833",
+  "previous_release": "/srv/agriscan/releases/release-20261029-dual-model-184401",
+  "release": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+  "backup": "/srv/agriscan/shared/backups/release-20261029-dual-model-190833-static-only",
+  "started_at": "2026-10-29T11:17:18.025083+00:00",
+  "stages": [
+    "static_baseline_and_artifacts_verified",
+    "complete_manifest_backend_and_models_identical",
+    "static_pointer_switched_without_api_restart",
+    "public_static_and_unchanged_live_api_verified"
+  ],
+  "api_restart_attempts": 0,
+  "service_mutated": false,
+  "environment_mutated": false,
+  "nginx_mutated": false,
+  "database_mutated": false,
+  "configuration_mutated": false,
+  "runtime_before": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "api_pid_before": 1584612,
+  "api_nrestarts_before": 0,
+  "payload_files_verified": 142,
+  "source_tree_sha256": "97241772c904603be18e802cde7896dfb0f5ddcd3e431d3507f2f70a099bb1d6",
+  "source_file_count": 327,
+  "inherited_tree_sha256": {
+    "backend/app": "197a7c7ce15d0f524f4346ac9b6d6a60f770647f3c243160dc07c4514fd431e6",
+    "model": "77fc45704ffd215caccbcf3f75bd4f9c8d78dc5c036123015d2e6edf5df49915",
+    "model-classification": "a533a2e75643877ee4c86e8f38073a105d69cc8a3b751e52c61ed7a9f0cd6ece"
+  },
+  "backend_and_models_identical": true,
+  "runtime_after": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "api_pid_after": 1584612,
+  "api_nrestarts_after": 0,
+  "protected_configuration_sha256": {
+    "/srv/agriscan/shared/production.env": "37044b655953170a3d673534fb34f4e8066c3c0077a6b624bd9a7df2bf1464d7",
+    "/etc/nginx/nginx.conf": "d76718a5fd92b07931755ca958d6c713a8d7d24b49815e52060c4c51c41047d6",
+    "/etc/nginx/agriscan-locations.inc": "e44cb412066740698be91f550afc5dd4a47908615af4e0b8440eecaaddca7c76",
+    "/etc/nginx/conf.d/zz-agriscan.conf": "bd58e589abc0ae2cff18890744ae297ee46b889500e7a83a91e2a93d58dfa032",
+    "/etc/nginx/conf.d/flowly-share.conf": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9"
+  },
+  "public_checks": {
+    "index.html": {
+      "status": 200,
+      "sha256": "8d587b6891dbcdc64a3e9551f17d8a54c38c2c1118f34e58b6c0c05827e50485"
+    },
+    "workspace/index.html": {
+      "status": 200,
+      "sha256": "4d4dc920eed2e0dbc94a4af8ca3ad19850c12f27912e0a5b86848c4b08abaaaf"
+    },
+    "admin/index.html": {
+      "status": 200,
+      "sha256": "e3f1081df81d8987d9da63e21a47f96e5a8aed383533ef966ed3cdfc1a5d88db"
+    },
+    "downloads/release.json": {
+      "status": 200,
+      "sha256": "73821af3a50970d9e7f2507e51a8f5ef90978302d07581c8efb0d13be53f25e0"
+    },
+    "downloads/agriscan-test.apk.sha256": {
+      "status": 200,
+      "sha256": "2fd55f8edf70633fe6b27bbef23e21dd61d90877f1c2001caf43f811299281d6"
+    },
+    "workspace/assets/index-DjenaemU.js": {
+      "status": 200,
+      "sha256": "3f1d2d0b642e7d5c9d312c72e31809a0f278360707ac64dc77565da5b64c7f78"
+    },
+    "admin/assets/index-DlavB476.js": {
+      "status": 200,
+      "sha256": "b6fc757fa85f989041d603242af01dc8905bda8fab447a1a8e5085866687c386"
+    }
+  },
+  "apk": {
+    "sha256": "6cbf093162521271ed4fca39aa8e6a3694286653bf13440d056443c210b98026",
+    "bytes": 24164454,
+    "version": "1.0.4",
+    "version_code": 5
+  },
+  "finished_at": "2026-10-29T11:17:21.681780+00:00",
+  "static_script_sha256": "80f883a18e2bcf419ddd86014cdc41a417583043b7e0a0f95c2ecaf7bfab677b",
+  "reviewed_helpers_sha256": "35ba1074ac898a092002184be8d37b9e9522e1dde8fe0a80c07db8545a988d29",
+  "ssh_exit_code": 0
+}

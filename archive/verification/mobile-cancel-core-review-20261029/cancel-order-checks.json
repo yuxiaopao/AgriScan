@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "source": "actual shared core, independent public API/XHR/Deferred DELETE ordering harness",
+  "source_sha256": "fbb4f74be2999f95473f159c08d5ad58eb0d61f28adb21e236ab2135113a38a1",
+  "cases": [
+    {
+      "name": "pending server cancellation keeps XHR alive and duplicate clicks share one DELETE; ACK cancelled precedes abort",
+      "status": "passed"
+    },
+    {
+      "name": "DELETE rejection aborts the upload but does not invent a confirmed cancelled or failed state",
+      "status": "passed"
+    },
+    {
+      "name": "existing fifteen-second cancellation request timeout eventually releases XHR without a fake terminal state",
+      "status": "passed"
+    },
+    {
+      "name": "server-reported failed terminal remains failed rather than being relabelled cancelled",
+      "status": "passed"
+    },
+    {
+      "name": "server commit winning cancellation retains completed status and saved IDs",
+      "status": "passed"
+    }
+  ],
+  "production_network_called": false
+}

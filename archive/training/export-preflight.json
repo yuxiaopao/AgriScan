@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "intermediate_checkpoint_only": true,
+  "not_activated": true,
+  "epoch": 3,
+  "class_samples": 38,
+  "maximum_absolute_error": 1.1324882507324219e-06,
+  "input_shape": [
+    "batch",
+    3,
+    "height",
+    "width"
+  ],
+  "output_shape": [
+    "Softmaxoutput0_dim_0",
+    38
+  ]
+}

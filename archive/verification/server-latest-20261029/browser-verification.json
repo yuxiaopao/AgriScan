@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-29T05:48:59.490Z",
+  "domain": "https://agriscan.ming-ai.top",
+  "release": "release-20261029-full-ui-134431",
+  "website": {
+    "brokenImages": [],
+    "downloadVersionVisible": true,
+    "overflow": false,
+    "scripts": [
+      "https://agriscan.ming-ai.top/agriscan/app.js?v=f66a159a1f17"
+    ],
+    "styles": [
+      "https://agriscan.ming-ai.top/agriscan/style.css?v=bdbe0b63ec1c"
+    ],
+    "title": "禾观 AgriScan · 让每一份生长，被看见"
+  },
+  "workspace": {
+    "brokenImages": [],
+    "cleanedRecordCountVisible": true,
+    "overflow": false,
+    "scripts": [
+      "https://agriscan.ming-ai.top/agriscan/workspace/assets/index-DQ5d-kno.js"
+    ],
+    "styles": [
+      "https://agriscan.ming-ai.top/agriscan/workspace/assets/index-BLRqHSAf.css"
+    ],
+    "title": "检测记录 · 禾观 AgriScan"
+  },
+  "admin": {
+    "brokenImages": [],
+    "overflow": false,
+    "scripts": [
+      "https://agriscan.ming-ai.top/agriscan/admin/assets/index-CoEvLsID.js"
+    ],
+    "styles": [
+      "https://agriscan.ming-ai.top/agriscan/admin/assets/index-Kxrn1bHU.css"
+    ],
+    "title": "系统配置 · 禾观管理控制台"
+  },
+  "checks": [
+    "production existing-account login",
+    "new workspace entry loaded",
+    "automatic crop switch corn theme to apple",
+    "real target box and apple scab result",
+    "image-grounded assistant response",
+    "floating assistant history expanded left and closed",
+    "owned record saved",
+    "admin config v6 preserved",
+    "admin logout independent from workspace",
+    "QA data removed and personal record count returned to zero",
+    "workspace logout returned to login",
+    "website cache-busting URLs loaded in pre-existing tab",
+    "workflow step 2 and 3 changed content",
+    "photo hint expanded",
+    "FAQ expanded",
+    "website APK 1.0.3 visible"
+  ],
+  "app_native_interaction_tested": false
+}

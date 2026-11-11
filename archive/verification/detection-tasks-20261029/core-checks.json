@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source": "actual shared DetectionTaskManager with deferred HTTP/XHR events",
+  "cases": [
+    "two upload slots, real XHR progress and immutable input snapshot survive view unsubscribe/navigation and a third queued file",
+    "lost create response recovers the same client UUID through GET without another POST",
+    "lost accepted upload response checks the original server task without reuploading or recreating",
+    "duplicate cancel calls share one request and cancelling remains pending until the server confirms cancelled",
+    "a completed server commit wins cancellation and its stored result IDs are retained",
+    "server task disappearance becomes explicit failure without a duplicate reservation",
+    "changed account stops callbacks, aborts files and cancels only captured old-service tasks with the captured old token",
+    "empty browser File.type uses the same nonempty MIME fallback in reservation and raw upload",
+    "explicit upload 429 retains the original file and retries only PUT on the same reserved task after bounded backoff",
+    "late GET 404 cannot downgrade an already confirmed completed upload or discard its stored result IDs",
+    "GET-confirmed completion survives a late XHR error and unavailable status lookup without reentering checking",
+    "late reservation after disposal is cancelled with the old session token and cannot publish into a new account"
+  ],
+  "production_network_called": false
+}

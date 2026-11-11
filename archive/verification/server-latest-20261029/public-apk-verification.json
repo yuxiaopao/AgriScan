@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-29T05:35:03.676992+00:00",
+  "kind": "read_only_public_apk_verification",
+  "tls_verification": true,
+  "normal_dns": true,
+  "dns_override": false,
+  "authentication_sent": false,
+  "server_mutations": false,
+  "local_download_artifacts_changed": false,
+  "checks": [
+    "release.json GET200",
+    "release metadata matches ready 1.0.3/code4 and verified artifact",
+    "download URL remains on the expected production domain",
+    "checksum GET200",
+    "published checksum matches verified new artifact",
+    "full APK GET200",
+    "APK Content-Length matches 24,146,402 bytes",
+    "complete downloaded APK byte count matches",
+    "complete downloaded APK SHA256 matches",
+    "release metadata rechecked unchanged after full body download"
+  ],
+  "release_metadata": {
+    "status": "ready",
+    "version": "1.0.3",
+    "version_code": 4,
+    "channel": "公开测试版 · 调试签名",
+    "url": "./downloads/agriscan-test.apk",
+    "size_bytes": 24146402,
+    "sha256": "c2846e8cba8b8c257db9aa8df1fca70ae32f3e4b91b5b732ab19685dc2d778fa",
+    "package_id": "cn.agriscan.mobile",
+    "min_android": "7.0",
+    "target_sdk": 36,
+    "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+    "published_at": "2026-10-29"
+  },
+  "content_type": "application/vnd.android.package-archive",
+  "bytes_read": 24146402,
+  "elapsed_download_seconds": 72.95,
+  "apk_bytes": 24146402,
+  "sha256": "c2846e8cba8b8c257db9aa8df1fca70ae32f3e4b91b5b732ab19685dc2d778fa",
+  "finished_at": "2026-10-29T05:36:19.467872+00:00",
+  "post_download_metadata_rechecked": true,
+  "postcheck_transient_transport_errors": [
+    "ConnectError"
+  ],
+  "release_rechecked_at": "2026-10-29T05:37:27.962620+00:00",
+  "average_bytes_per_second": 330999.34,
+  "average_kib_per_second": 323.24,
+  "download_method": "single complete GET; streamed SHA256, no synthetic stitching or range assembly",
+  "verification_attempt_count": 2,
+  "initial_attempt": {
+    "completed": false,
+    "configured_deadline_seconds": 300,
+    "ended_by": "local download guard before complete SHA verification",
+    "partial_file_retained": false,
+    "record": "public-apk-verification-attempt1.json"
+  },
+  "successful_attempt_deadline_seconds": 900
+}

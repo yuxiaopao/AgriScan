@@ -1,0 +1,65 @@
+{
+  "provider": "DeepSeek",
+  "base_url": "https://api.deepseek.com",
+  "tls_verification": true,
+  "configuration_saved": false,
+  "checks": [],
+  "catalog_status": 200,
+  "models": [
+    {
+      "id": "deepseek-flash",
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "input_modalities": [
+        "text"
+      ]
+    }
+  ],
+  "selected_model": "deepseek-flash",
+  "text": {
+    "ok": true,
+    "http_status": 200,
+    "content": "连接成功",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 38,
+      "completion_tokens": 20,
+      "total_tokens": 58,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 17
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 38
+    }
+  },
+  "vision": {
+    "ok": true,
+    "http_status": 200,
+    "content": "red",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 228,
+      "completion_tokens": 56,
+      "total_tokens": 284,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 54
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 228
+    },
+    "color_recognized": true
+  },
+  "elapsed_ms": 3937,
+  "status": "passed"
+}

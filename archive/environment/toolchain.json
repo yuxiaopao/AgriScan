@@ -1,0 +1,19 @@
+{
+  "operating_system": "Windows-10-10.0.26100-SP0",
+  "archive_python": "3.8.6",
+  "snapshot_date": "2026-11-11",
+  "environments": {
+    "backend": {
+      "python": "Python 3.12.10",
+      "requirements_file": "backend-requirements-snapshot.txt"
+    },
+    "training": {
+      "python": "Python 3.12.10",
+      "requirements_file": "training-requirements-snapshot.txt"
+    }
+  },
+  "node": "v24.11.1",
+  "npm.cmd": "11.6.2",
+  "git": "git version 2.53.0.windows.2",
+  "git lfs": "git-lfs/3.7.1 (GitHub; windows amd64; go 1.25.1; git b84b3384)"
+}

@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source": "actual TSX handlers with deferred responses and real React static rendering",
+  "cases": [
+    "submit snapshots one task synchronously and duplicate clicks cannot enqueue twice",
+    "picker cancellation or invalid file keeps the previous task/result; a valid same-file selection starts a fresh editable input without cancelling other tasks",
+    "an enqueue failure unlocks the existing input for an explicit retry",
+    "an expired account cannot enqueue a task through the old detection screen",
+    "actual completion effect focuses only the currently viewed live session/task, preserves dialogs, and never claims crop inference for awaiting-model samples",
+    "automatic assistant analysis stays background; explicit view opens existing cached discussion without another request",
+    "exact session token change blocks explicit cached advice and late analysis callbacks without mutating messages or completion state",
+    "feature restored cache miss starts one analysis and repeated explicit views reuse its in-flight cache and final conversation",
+    "same-render queued analysis ref blocks old cached advice despite stale busy=false; accepting a new detection clears older pending advice first",
+    "actual completed result DOM has no input form/theme room; awaiting state is only a saved sample",
+    "actual progress DOM moves aria-current through choose, details, detecting and the correct completed/saved labels"
+  ],
+  "provider_network_called": false,
+  "browser_ui_tested": false
+}

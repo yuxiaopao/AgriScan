@@ -1,0 +1,1038 @@
+{
+  "date": "2026-10-28",
+  "scope": "官网真实浏览器点击验收；不含APP原生或5174，工作台和管理端功能由父任务负责",
+  "local_url": "http://127.0.0.1:5177/",
+  "production_qa_url": "http://127.0.0.1:5180/agriscan/",
+  "production_transport": "父任务创建的loopback QA代理，通过SSH到真实生产443并验证flowly-ai.top证书；不是可公开分享的HTTP入口",
+  "responsive": {
+    "local": [
+      {
+        "width": 320,
+        "clientWidth": 305,
+        "scrollWidth": 305,
+        "headerFits": true,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 390,
+        "clientWidth": 375,
+        "scrollWidth": 375,
+        "headerFits": true,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 768,
+        "clientWidth": 753,
+        "scrollWidth": 753,
+        "headerFits": true,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 1280,
+        "clientWidth": 1265,
+        "scrollWidth": 1265,
+        "headerFits": true,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 1920,
+        "clientWidth": 1905,
+        "scrollWidth": 1905,
+        "headerFits": true,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      }
+    ],
+    "production": [
+      {
+        "width": 320,
+        "clientWidth": 305,
+        "scrollWidth": 305,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 390,
+        "clientWidth": 375,
+        "scrollWidth": 375,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 768,
+        "clientWidth": 753,
+        "scrollWidth": 753,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 1280,
+        "clientWidth": 1265,
+        "scrollWidth": 1265,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      },
+      {
+        "width": 1920,
+        "clientWidth": 1905,
+        "scrollWidth": 1905,
+        "imagesLoaded": 7,
+        "cardImageTextOverlap": 0,
+        "pass": true
+      }
+    ],
+    "public_domain": [
+      {
+        "cardOverlaps": [
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          }
+        ],
+        "clientWidth": 305,
+        "imagesLoaded": 7,
+        "noHorizontalOverflow": true,
+        "scrollWidth": 305,
+        "url": "https://flowly-ai.top/agriscan/#help",
+        "width": 320,
+        "pass": true,
+        "screenshot": "E:/AgriScan/design/qa-20261028/website-public-320-hero.png"
+      },
+      {
+        "cardOverlaps": [
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          }
+        ],
+        "clientWidth": 375,
+        "imagesLoaded": 7,
+        "noHorizontalOverflow": true,
+        "scrollWidth": 375,
+        "url": "https://flowly-ai.top/agriscan/#help",
+        "width": 390,
+        "pass": true,
+        "screenshot": "E:/AgriScan/design/qa-20261028/website-public-390-hero.png"
+      },
+      {
+        "cardOverlaps": [
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          }
+        ],
+        "clientWidth": 753,
+        "imagesLoaded": 7,
+        "noHorizontalOverflow": true,
+        "scrollWidth": 753,
+        "url": "https://flowly-ai.top/agriscan/#help",
+        "width": 768,
+        "pass": true,
+        "screenshot": "E:/AgriScan/design/qa-20261028/website-public-768-hero.png"
+      },
+      {
+        "cardOverlaps": [
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          }
+        ],
+        "clientWidth": 1265,
+        "imagesLoaded": 7,
+        "noHorizontalOverflow": true,
+        "scrollWidth": 1265,
+        "url": "https://flowly-ai.top/agriscan/#help",
+        "width": 1280,
+        "pass": true,
+        "screenshot": "E:/AgriScan/design/qa-20261028/website-public-1280-hero.png"
+      },
+      {
+        "cardOverlaps": [
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          },
+          {
+            "body": 0,
+            "title": 0
+          }
+        ],
+        "clientWidth": 1905,
+        "imagesLoaded": 7,
+        "noHorizontalOverflow": true,
+        "scrollWidth": 1905,
+        "url": "https://flowly-ai.top/agriscan/#help",
+        "width": 1920,
+        "pass": true,
+        "screenshot": "E:/AgriScan/design/qa-20261028/website-public-1920-hero.png"
+      }
+    ]
+  },
+  "local_clicks": {
+    "navigation": [
+      "认识禾观 -> #observe",
+      "手机 APP -> #app",
+      "网页版 -> #workspace",
+      "使用帮助 -> #help"
+    ],
+    "other_internal": [
+      "首屏下载手机APP -> #app",
+      "往下认识我们 -> #observe",
+      "页脚使用帮助 -> #help",
+      "页头品牌 -> 首页",
+      "页脚品牌 -> 首页",
+      "跳到主要内容 -> #main"
+    ],
+    "workspace_entries": [
+      {
+        "name": "页头登录网页版",
+        "url": "http://127.0.0.1:5173/#login",
+        "pass": true
+      },
+      {
+        "name": "首屏打开网页版",
+        "url": "http://127.0.0.1:5173/#login",
+        "pass": true
+      },
+      {
+        "name": "去观察一片叶子",
+        "url": "http://127.0.0.1:5173/#detect",
+        "pass": true,
+        "note": "等待初始数据后显示检测室；只看入口落地，未上传或操作检测"
+      },
+      {
+        "name": "网页版区登录",
+        "url": "http://127.0.0.1:5173/#login",
+        "pass": true
+      },
+      {
+        "name": "和小禾一起开始",
+        "url": "http://127.0.0.1:5173/#login",
+        "pass": true
+      },
+      {
+        "name": "管理控制台",
+        "url": "http://127.0.0.1:5175/",
+        "pass": true
+      }
+    ],
+    "faq_total": 6,
+    "faq_click_open_and_enter_close_passed": 6,
+    "release_retry_http_status": 200,
+    "download_link_clicked": true,
+    "pass": true
+  },
+  "accessibility": {
+    "skip_link_keyboard_focus": true,
+    "skip_link_visible_top_px": 15,
+    "skip_link_enter_target": "#main",
+    "menu_enter_space_toggle": true,
+    "menu_nav_tab_focus_visible": true,
+    "menu_escape_focus_return_after_fix": true,
+    "visible_focus_outline": "solid",
+    "unlabelled_controls": 0,
+    "main_landmarks": 1,
+    "header_landmarks": 1,
+    "footer_landmarks": 1,
+    "note": "基础键盘和语义检查，不是完整WCAG或屏幕阅读器审计"
+  },
+  "local_resource_audit": {
+    "captured_events": 44,
+    "http_error_responses": 0,
+    "failed_loads": 0,
+    "console_errors": 0,
+    "console_warnings": 0
+  },
+  "local_download": {
+    "browser_event": "Cua playwright.waitForEvent(download), registered before clicking",
+    "path": "C:/Users/18984/Downloads/agriscan-test (1).apk",
+    "bytes": 18744536,
+    "sha256": "7b195441f02683ef861aa8b35ed21ef4ebe6593e9de2b914b3c0f82cd24a2135",
+    "pass": true,
+    "installed_or_executed": false
+  },
+  "production": {
+    "release_display": "v1.0 · 公开测试版 · 调试签名 · 17.9 MB",
+    "download_href": "http://127.0.0.1:5180/agriscan/downloads/agriscan-test.apk",
+    "workspace_href_prefix": "/agriscan/workspace/",
+    "admin_href_prefix": "/agriscan/admin/",
+    "workspace_admin_links_checked": 6,
+    "workspace_admin_operations": "未进入操作；由父任务独立验收",
+    "menu_retest": "由真实公网域名复验替代，已通过",
+    "faq_retest": "由真实公网域名六条FAQ实际点击复验替代，已通过",
+    "download": {
+      "status": "源站127.0.0.1代理GET日志200、body_bytes_sent=18744536；未取得代理浏览器完成事件",
+      "superseded_by_public_domain_http_check": true
+    }
+  },
+  "issues": [
+    {
+      "id": "website-menu-escape-focus",
+      "severity": "minor",
+      "reproduction": "390宽，Enter展开菜单，Tab到第一条导航，Esc关闭；原代码焦点落到BODY",
+      "fix": "website/app.js统一菜单状态，Esc回焦菜单按钮，打开/关闭时同步aria-label",
+      "local_retest": "pass: focused toggle=true, aria-expanded=false, outline=solid；Enter/Space开关通过",
+      "status": "fixed-local-and-public-domain",
+      "app_js_sha256": "6900909abc3853633497a50dc47466a29c4873a774f7df044456cc2f83f9f6e9",
+      "public_retest": {
+        "expanded": "false",
+        "focusIsToggle": true,
+        "label": "打开导航",
+        "outline": "solid",
+        "url": "https://flowly-ai.top/agriscan/"
+      }
+    }
+  ],
+  "public_domain": {
+    "url": "https://flowly-ai.top/agriscan/",
+    "browser_result": "直接浏览器已加载真实官网，无证书警告",
+    "initial_failure": "首次tab5 net::ERR_CONNECTION_CLOSED；第二次tab6等待导航超时后，同tab最终完整加载",
+    "external_web_tool": "独立web工具open仍返回not accessible，不能用该单一工具推翻实际浏览器成功",
+    "curl_result": "强制真实IP仍TLS握手失败；HTTP302 DNSPod，与浏览器路径结果不一致",
+    "network_settings_changed": false,
+    "certificate_warning_bypassed": false,
+    "browser_verified": true,
+    "initial_state": {
+      "images": [
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/logo.svg",
+          "width": 300
+        },
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/app-hero.webp",
+          "width": 1448
+        },
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/feature-image.webp",
+          "width": 1254
+        },
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/feature-camera.webp",
+          "width": 1254
+        },
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/feature-video.webp",
+          "width": 1254
+        },
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/app-screen.png",
+          "width": 390
+        },
+        {
+          "complete": true,
+          "src": "https://flowly-ai.top/agriscan/site-assets/logo.svg",
+          "width": 300
+        }
+      ],
+      "release": "v1.0 · 公开测试版 · 调试签名 · 17.9 MB",
+      "title": "禾观 AgriScan · 让每一份生长，被看见",
+      "url": "https://flowly-ai.top/agriscan/",
+      "workspaceLinks": [
+        "https://flowly-ai.top/agriscan/workspace/#login",
+        "https://flowly-ai.top/agriscan/workspace/#login",
+        "https://flowly-ai.top/agriscan/workspace/#detect",
+        "https://flowly-ai.top/agriscan/workspace/#login",
+        "https://flowly-ai.top/agriscan/workspace/#login",
+        "https://flowly-ai.top/agriscan/admin/"
+      ]
+    },
+    "intermittency_note": "曾出现连接关闭/导航超时，保留证据，不宣称所有网络无差别可达",
+    "menu_fix_retest": {
+      "expanded": "false",
+      "focusIsToggle": true,
+      "label": "打开导航",
+      "outline": "solid",
+      "url": "https://flowly-ai.top/agriscan/"
+    },
+    "links": [
+      {
+        "name": "认识禾观",
+        "hash": "#observe",
+        "pass": true
+      },
+      {
+        "name": "手机 APP",
+        "hash": "#app",
+        "pass": true
+      },
+      {
+        "name": "网页版",
+        "hash": "#workspace",
+        "pass": true
+      },
+      {
+        "name": "使用帮助",
+        "hash": "#help",
+        "pass": true
+      },
+      {
+        "name": "下载手机 APP",
+        "hash": "#app",
+        "url": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#app",
+        "pass": true
+      },
+      {
+        "name": "往下认识我们",
+        "hash": "#observe",
+        "url": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#observe",
+        "pass": true
+      },
+      {
+        "name": "页脚使用帮助",
+        "hash": "#help",
+        "pass": true
+      }
+    ],
+    "faq": [
+      {
+        "index": 0,
+        "opened": true,
+        "closedByEnter": true,
+        "pass": true
+      },
+      {
+        "index": 1,
+        "opened": true,
+        "closedByEnter": true,
+        "pass": true
+      },
+      {
+        "index": 2,
+        "opened": true,
+        "closedByEnter": true,
+        "pass": true
+      },
+      {
+        "index": 3,
+        "opened": true,
+        "closedByEnter": true,
+        "pass": true
+      },
+      {
+        "index": 4,
+        "opened": true,
+        "closedByEnter": true,
+        "pass": true
+      },
+      {
+        "index": 5,
+        "opened": true,
+        "closedByEnter": true,
+        "pass": true
+      }
+    ],
+    "resource_audit": {
+      "events": [
+        {
+          "url": "https://flowly-ai.top/agriscan/style.css",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/app-hero.webp",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/logo.svg",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/app.js",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/feature-image.webp",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/app-screen.png",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/feature-camera.webp",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/feature-video.webp",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/downloads/release.json",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        },
+        {
+          "url": "https://flowly-ai.top/agriscan/site-assets/icon.svg",
+          "status": 200,
+          "remoteIPAddress": "127.0.0.1"
+        }
+      ],
+      "truncated": true,
+      "hasMore": false
+    },
+    "console": [],
+    "browser_environment": {
+      "type": "CUA IAB",
+      "browserId": "2",
+      "dns_override_set": false,
+      "proxy_override_set": false,
+      "qa_proxy_5180_used_for_these_tests": false,
+      "tls_verification_disabled": false,
+      "origin_log_egress_ip": "74.2.4.80",
+      "geographic_region": "未验证；不能泛化为中国本机或全球网络均可达"
+    },
+    "skip_link": {
+      "focused": "跳到主要内容",
+      "outline": "solid",
+      "top": 15,
+      "hash": "#main",
+      "pass": true
+    },
+    "all_link_targets": [
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#main",
+        "text": "跳到主要内容"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/",
+        "text": "禾观官网首页"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#observe",
+        "text": "认识禾观"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#app",
+        "text": "手机 APP"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#workspace",
+        "text": "网页版"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#help",
+        "text": "使用帮助"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/workspace/#login",
+        "text": "登录网页版 ↗"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#app",
+        "text": "下载手机 APP ↓"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/workspace/#login",
+        "text": "打开网页版 ↗"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#observe",
+        "text": "往下认识我们 ↓"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/workspace/#detect",
+        "text": "去观察一片叶子 ↗"
+      },
+      {
+        "download": "agriscan-test.apk",
+        "href": "https://flowly-ai.top/agriscan/downloads/agriscan-test.apk",
+        "text": "下载 Android APK ↓"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/workspace/#login",
+        "text": "登录网页版 ↗"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/workspace/#login",
+        "text": "和小禾一起开始 ↗"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/",
+        "text": "禾观 AgriScan"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/?qa_probe=website_20261028_asset_check#help",
+        "text": "使用帮助"
+      },
+      {
+        "download": null,
+        "href": "https://flowly-ai.top/agriscan/admin/",
+        "text": "管理控制台 ↗"
+      }
+    ],
+    "egress_evidence": {
+      "source": "Nginx access log via read-only SSH",
+      "probe": "GET /agriscan/?qa_probe=website_20261028_asset_check HTTP/2.0",
+      "time": "2026-10-28 19:58:41 +0800",
+      "status": 200,
+      "bytes": 10019,
+      "source_ip": "74.2.4.80",
+      "source_region": "未验证"
+    },
+    "release_retry": {
+      "responses": [
+        {
+          "url": "https://flowly-ai.top/agriscan/downloads/release.json",
+          "status": 200
+        }
+      ],
+      "pass": true
+    },
+    "download": {
+      "url": "https://flowly-ai.top/agriscan/downloads/agriscan-test.apk",
+      "http_status": 200,
+      "content_length": 18744536,
+      "content_type": "application/vnd.android.package-archive",
+      "content_disposition": null,
+      "download_attribute_filename": "agriscan-test.apk",
+      "header_probe_scope": "源站通过完整真实URL、正常DNS及TLS校验读取HEAD；未使用-k/--resolve",
+      "response_headers": {
+        "content-type": "application/vnd.android.package-archive",
+        "content-length": "18744536",
+        "cache-control": "no-cache",
+        "x-content-type-options": "nosniff",
+        "accept-ranges": "bytes"
+      },
+      "public_get_access_log": {
+        "time": "2026-10-28 19:54:33 +0800",
+        "source_ip": "74.2.4.80",
+        "request": "GET /agriscan/downloads/agriscan-test.apk HTTP/2.0",
+        "status": 200,
+        "body_bytes_sent": 18744536,
+        "referer": "https://flowly-ai.top/agriscan/"
+      },
+      "http_complete": true,
+      "browser_download_event": "未取得完成事件；工具批次超时，不宣称浏览器保存文件通过",
+      "browser_saved_file_sha256_verified": false,
+      "local_download_sha256_verified": true,
+      "installed_or_executed": false,
+      "browser_event_check_closed": true,
+      "continued_download_retries": false
+    },
+    "availability_conclusion": "IAB出口74.2.4.80的真实域名功能通过；国内直连被腾讯备案页拦截；不能称整站公网全通过",
+    "user_confirmed_icp_completed": false,
+    "public_https_accessibility_claimed": "仅限已观测IAB路径；不泛化国内或全球",
+    "link_coverage_note": "17个官网链接的真实域名href逐一核对，站内交互实际操作；工作台/管理入口本地逐一落地，生产页面内部功能由父任务独立验收"
+  },
+  "screenshots_directory": "E:/AgriScan/design/qa-20261028",
+  "status": "blocked_deployment_icp; website_functionality_passed_on_local_and_observed_iab_path",
+  "test_cases": {
+    "local": [
+      {
+        "id": "local-responsive-320",
+        "status": "passed"
+      },
+      {
+        "id": "local-responsive-390",
+        "status": "passed"
+      },
+      {
+        "id": "local-responsive-768",
+        "status": "passed"
+      },
+      {
+        "id": "local-responsive-1280",
+        "status": "passed"
+      },
+      {
+        "id": "local-responsive-1920",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-1",
+        "name": "认识禾观 -> #observe",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-2",
+        "name": "手机 APP -> #app",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-3",
+        "name": "网页版 -> #workspace",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-4",
+        "name": "使用帮助 -> #help",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-5",
+        "name": "首屏下载手机APP -> #app",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-6",
+        "name": "往下认识我们 -> #observe",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-7",
+        "name": "页脚使用帮助 -> #help",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-8",
+        "name": "页头品牌 -> 首页",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-9",
+        "name": "页脚品牌 -> 首页",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-10",
+        "name": "跳到主要内容 -> #main",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-11",
+        "name": "页头登录网页版",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-12",
+        "name": "首屏打开网页版",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-13",
+        "name": "去观察一片叶子",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-14",
+        "name": "网页版区登录",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-15",
+        "name": "和小禾一起开始",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-16",
+        "name": "管理控制台",
+        "status": "passed"
+      },
+      {
+        "id": "local-link-17",
+        "name": "APK实际下载链接",
+        "status": "passed"
+      },
+      {
+        "id": "local-faq-1",
+        "status": "passed"
+      },
+      {
+        "id": "local-faq-2",
+        "status": "passed"
+      },
+      {
+        "id": "local-faq-3",
+        "status": "passed"
+      },
+      {
+        "id": "local-faq-4",
+        "status": "passed"
+      },
+      {
+        "id": "local-faq-5",
+        "status": "passed"
+      },
+      {
+        "id": "local-faq-6",
+        "status": "passed"
+      },
+      {
+        "id": "local-skip-keyboard",
+        "status": "passed"
+      },
+      {
+        "id": "local-menu-keyboard-after-fix",
+        "status": "passed"
+      },
+      {
+        "id": "local-resources",
+        "status": "passed"
+      },
+      {
+        "id": "local-console",
+        "status": "passed"
+      },
+      {
+        "id": "local-release-retry",
+        "status": "passed"
+      },
+      {
+        "id": "local-apk-file-sha256",
+        "status": "passed"
+      }
+    ],
+    "public_domain_iab": [
+      {
+        "id": "public-iab-load-real-domain",
+        "status": "passed",
+        "note": "真实https://flowly-ai.top/agriscan/；无证书警告；初次失败后重试成功"
+      },
+      {
+        "id": "public-responsive-320",
+        "status": "passed"
+      },
+      {
+        "id": "public-responsive-390",
+        "status": "passed"
+      },
+      {
+        "id": "public-responsive-768",
+        "status": "passed"
+      },
+      {
+        "id": "public-responsive-1280",
+        "status": "passed"
+      },
+      {
+        "id": "public-responsive-1920",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-1",
+        "name": "认识禾观",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-2",
+        "name": "手机 APP",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-3",
+        "name": "网页版",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-4",
+        "name": "使用帮助",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-5",
+        "name": "下载手机 APP",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-6",
+        "name": "往下认识我们",
+        "status": "passed"
+      },
+      {
+        "id": "public-internal-link-7",
+        "name": "页脚使用帮助",
+        "status": "passed"
+      },
+      {
+        "id": "public-faq-1",
+        "status": "passed"
+      },
+      {
+        "id": "public-faq-2",
+        "status": "passed"
+      },
+      {
+        "id": "public-faq-3",
+        "status": "passed"
+      },
+      {
+        "id": "public-faq-4",
+        "status": "passed"
+      },
+      {
+        "id": "public-faq-5",
+        "status": "passed"
+      },
+      {
+        "id": "public-faq-6",
+        "status": "passed"
+      },
+      {
+        "id": "public-skip-keyboard",
+        "status": "passed"
+      },
+      {
+        "id": "public-menu-escape-deployed-fix",
+        "status": "passed"
+      },
+      {
+        "id": "public-all-17-href-targets",
+        "status": "passed"
+      },
+      {
+        "id": "public-release-display",
+        "status": "passed"
+      },
+      {
+        "id": "public-release-retry",
+        "status": "passed"
+      },
+      {
+        "id": "public-resources",
+        "status": "passed"
+      },
+      {
+        "id": "public-console",
+        "status": "passed"
+      },
+      {
+        "id": "public-apk-http-complete",
+        "status": "passed"
+      },
+      {
+        "id": "public-apk-browser-save-event",
+        "status": "not_observed",
+        "note": "下载工具等待超时，未取得保存完成事件及公网下载文件SHA；不以本地文件替代"
+      }
+    ],
+    "deployment": [
+      {
+        "id": "china-direct-icp-access",
+        "status": "blocked",
+        "reason": "用户确认flowly-ai.top尚未完成ICP备案；国内HTTP直连跳腾讯DNSPod备案拦截页，需完成备案及腾讯接入后复验"
+      }
+    ]
+  },
+  "case_counts": {
+    "local": {
+      "total": 34,
+      "passed": 34,
+      "blocked": 0,
+      "not_observed": 0
+    },
+    "public_domain_iab": {
+      "total": 28,
+      "passed": 27,
+      "blocked": 0,
+      "not_observed": 1
+    },
+    "deployment": {
+      "total": 1,
+      "passed": 0,
+      "blocked": 1,
+      "not_observed": 0
+    }
+  },
+  "deployment_blockers": [
+    {
+      "id": "incomplete-icp-tencent-access",
+      "severity": "blocking",
+      "user_confirmation": "用户明确确认域名尚未完成ICP备案",
+      "http_evidence": {
+        "status": 302,
+        "location": "https://dnspod.qcloud.com/static/webblock.html?d=flowly-ai.top",
+        "forced_origin_ip": "162.14.71.77"
+      },
+      "https_evidence": "本机直连/强制真实IP TLS握手失败；IAB首次ConnectionClosed后经其出口重试可加载",
+      "required_next_step": "完成ICP备案与腾讯接入后，在国内真实浏览器和网络上重新验证官网、工作台、管理端及下载"
+    }
+  ],
+  "finished_at": "2026-10-28 Asia/Shanghai",
+  "screenshots": [
+    "design/qa-20261028/website-1280-hero.png",
+    "design/qa-20261028/website-1920-hero.png",
+    "design/qa-20261028/website-320-hero.png",
+    "design/qa-20261028/website-390-hero.png",
+    "design/qa-20261028/website-390-menu.png",
+    "design/qa-20261028/website-768-hero.png",
+    "design/qa-20261028/website-local-download-390.png",
+    "design/qa-20261028/website-production-1280-hero.png",
+    "design/qa-20261028/website-production-1920-hero.png",
+    "design/qa-20261028/website-production-320-hero.png",
+    "design/qa-20261028/website-production-390-hero.png",
+    "design/qa-20261028/website-production-768-hero.png",
+    "design/qa-20261028/website-public-1280-hero.png",
+    "design/qa-20261028/website-public-1920-hero.png",
+    "design/qa-20261028/website-public-320-hero.png",
+    "design/qa-20261028/website-public-390-hero.png",
+    "design/qa-20261028/website-public-768-hero.png",
+    "design/qa-20261028/website-public-download-ready.png"
+  ]
+}

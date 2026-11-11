@@ -1,0 +1,117 @@
+[
+  {
+    "path": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Apple___Apple_scab\\0261a6e4-21f8-481a-8827-b674e6955644___FREC_Scab 3055.JPG",
+    "image_shape": [
+      256,
+      256
+    ],
+    "boxes": [
+      {
+        "class_id": 0,
+        "confidence": 0.8221768736839294,
+        "bbox": [
+          0.04596667364239693,
+          0.06288003921508789,
+          0.9889585375785828,
+          0.9925910234451294
+        ]
+      }
+    ]
+  },
+  {
+    "path": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Corn_(maize)___Common_rust_\\RS_Rust 1563.JPG",
+    "image_shape": [
+      256,
+      256
+    ],
+    "boxes": [
+      {
+        "class_id": 8,
+        "confidence": 0.9285749793052673,
+        "bbox": [
+          0.05243878439068794,
+          0.05022139474749565,
+          0.9747604131698608,
+          0.9876531362533569
+        ]
+      },
+      {
+        "class_id": 8,
+        "confidence": 0.3190639913082123,
+        "bbox": [
+          0.047575972974300385,
+          0.05440979078412056,
+          0.9690710306167603,
+          0.987954318523407
+        ]
+      }
+    ]
+  },
+  {
+    "path": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Tomato___Early_blight\\0012b9d2-2130-4a06-a834-b1f3af34f57e___RS_Erly.B 8389.JPG",
+    "image_shape": [
+      256,
+      256
+    ],
+    "boxes": [
+      {
+        "class_id": 32,
+        "confidence": 0.4389595687389374,
+        "bbox": [
+          0.02821669541299343,
+          0.05857405811548233,
+          0.9960464239120483,
+          0.9942920804023743
+        ]
+      },
+      {
+        "class_id": 29,
+        "confidence": 0.3969697058200836,
+        "bbox": [
+          0.022227859124541283,
+          0.04641113430261612,
+          0.9915236234664917,
+          0.9931793212890625
+        ]
+      }
+    ]
+  },
+  {
+    "path": "E:\\AgriScan\\datasets\\plantvillage\\classification\\test\\Tomato___healthy\\00bce074-967b-4d50-967a-31fdaa35e688___RS_HL 0223.JPG",
+    "image_shape": [
+      256,
+      256
+    ],
+    "boxes": [
+      {
+        "class_id": 37,
+        "confidence": 0.9732788801193237,
+        "bbox": [
+          0.06364421546459198,
+          0.06490864604711533,
+          0.9483723640441895,
+          0.9304394721984863
+        ]
+      }
+    ]
+  },
+  {
+    "path": "E:\\AgriScan\\.runtime\\detect-export\\nonsquare-leaf.jpg",
+    "image_shape": [
+      256,
+      512
+    ],
+    "boxes": [
+      {
+        "class_id": 37,
+        "confidence": 0.9865455627441406,
+        "bbox": [
+          0.2823621928691864,
+          0.06349845230579376,
+          0.7175284624099731,
+          0.934282124042511
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "appName": "禾观",
+  "packageName": "cn.agriscan.mobile",
+  "versionName": "1.0",
+  "versionCode": 1,
+  "releaseChannel": "public-test",
+  "debugSigned": true,
+  "minSdk": 24,
+  "minAndroid": "7.0",
+  "targetSdk": 36,
+  "abis": [
+    "arm64-v8a",
+    "armeabi-v7a",
+    "x86",
+    "x86_64"
+  ],
+  "apiBaseUrl": "https://flowly-ai.top/agriscan",
+  "httpsScheme": true,
+  "cleartextTraffic": false,
+  "sha256": "7b195441f02683ef861aa8b35ed21ef4ebe6593e9de2b914b3c0f82cd24a2135",
+  "sizeBytes": 18744536,
+  "downloadPath": "/agriscan/downloads/agriscan-test.apk",
+  "signatureScheme": "APK Signature Scheme v2",
+  "certificateSha256": "f6229ce48e05aaed0c8889f04f0909c7da7de085ff2b5f98792d6d3a27f710b7",
+  "verified": [
+    "apksigner verify",
+    "aapt badging",
+    "merged manifest cleartext=false",
+    "embedded HTTPS API",
+    "APK ZIP CRC",
+    "copied artifact SHA256"
+  ],
+  "physicalDeviceTested": false,
+  "builtAt": "2026-10-28T11:07:56.041508+00:00",
+  "gradleBuild": ":app:assembleDebug BUILD SUCCESSFUL; 113 tasks; final incremental script run 22s"
+}

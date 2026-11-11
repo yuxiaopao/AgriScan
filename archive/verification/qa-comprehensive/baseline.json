@@ -1,0 +1,155 @@
+{
+  "config": {
+    "brand": {
+      "app_name": "禾观 AgriScan",
+      "tagline": "看见生长的力量",
+      "announcement": ""
+    },
+    "features": {
+      "image_detection": true,
+      "video_detection": true,
+      "live_detection": true,
+      "assistant": true,
+      "knowledge": true,
+      "plots": true
+    },
+    "limits": {
+      "image_max_mb": 10,
+      "video_max_mb": 50,
+      "video_max_seconds": 60,
+      "video_max_frames": 8,
+      "frame_interval_ms": 750
+    },
+    "integrations": {
+      "registration_enabled": true,
+      "email_verification_enabled": false,
+      "smtp_host": "",
+      "smtp_port": 587,
+      "smtp_username": "",
+      "smtp_from": "",
+      "smtp_security": "starttls",
+      "llm_enabled": false,
+      "llm_base_url": "https://api.openai.com/v1",
+      "llm_model": "",
+      "llm_timeout": 60,
+      "model_max_mb": 200,
+      "llm_key_configured": false,
+      "smtp_password_configured": false
+    },
+    "version": 2
+  },
+  "users": {
+    "items": [
+      {
+        "id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+        "username": "admin",
+        "name": "农场管理员",
+        "role": "admin",
+        "is_active": true,
+        "status": "active",
+        "email": "",
+        "managed": true,
+        "is_managed": true,
+        "is_self": true,
+        "created_at": "2026-10-28T11:01:11.584640+00:00",
+        "updated_at": "2026-10-28T11:01:11.584649+00:00"
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "page_size": 100
+  },
+  "plots": [],
+  "detections": [],
+  "articles": {
+    "items": [
+      {
+        "id": "tomato-early-blight",
+        "title": "番茄早疫病：从叶片变化开始观察",
+        "crop": "番茄",
+        "category": "病害识别",
+        "summary": "关注老叶上的同心轮纹病斑，及时记录田间湿度和病斑扩展情况。",
+        "content": "番茄早疫病常从下部老叶开始出现褐色病斑，病斑可能形成同心轮纹。巡检时拍摄叶片正反面、植株整体和相邻植株，并记录近期降雨、灌溉和通风情况。改善通风，避免叶面长期湿润，清理病残体。相似症状也可能由其他因素造成，应结合田间观察和专业植保人员的诊断确认；施药必须遵循当地登记标签。",
+        "sources": [
+          {
+            "url": "https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/early-blight-in-tomato-and-potato",
+            "title": "UMN Extension · Early blight"
+          }
+        ],
+        "image": null,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-10-28T11:01:11.592326+00:00",
+        "updated_at": "2026-10-28T11:01:11.592326+00:00",
+        "published_at": "2026-10-28T11:01:11.592326+00:00"
+      },
+      {
+        "id": "rice-scouting",
+        "title": "水稻巡田，把观察变成可追溯的记录",
+        "crop": "水稻",
+        "category": "田间管理",
+        "summary": "固定采样路线，记录叶色、病斑分布与水肥条件，便于对比长势。",
+        "content": "在田块不同位置选择代表性样点，保持相近的拍摄距离与光线条件。记录日期、生育期、水层、叶色及异常植株的分布。对出现病斑的叶片同时拍摄近景与整株，避免把虫害、机械损伤或营养问题误判为同一种病害。结合连续巡检记录咨询农技人员。",
+        "sources": [
+          {
+            "url": "https://education.irri.org/wp-content/uploads/2022/10/RD-v2.pdf",
+            "title": "IRRI · Rice Doctor"
+          }
+        ],
+        "image": null,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-10-28T11:01:11.592326+00:00",
+        "updated_at": "2026-10-28T11:01:11.592326+00:00",
+        "published_at": "2026-10-28T11:01:11.592326+00:00"
+      },
+      {
+        "id": "cucumber-humidity",
+        "title": "黄瓜棚室湿度与日常观察",
+        "crop": "黄瓜",
+        "category": "预防养护",
+        "summary": "合理通风与水分管理，持续观察叶片正反面变化。",
+        "content": "巡检时关注棚内通风、结露和叶面湿润持续时间，拍摄叶片正反面以保留完整信息。棚室管理应结合当地气候、品种和生育期，避免单凭一张图片确定防治方案。发现持续扩展的病斑时，应标记异常植株、单独记录，并请当地农技人员协助判断。",
+        "sources": [
+          {
+            "url": "https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/downy-mildew-of-cucurbits",
+            "title": "UMN Extension · Downy mildew"
+          }
+        ],
+        "image": null,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-10-28T11:01:11.592326+00:00",
+        "updated_at": "2026-10-28T11:01:11.592326+00:00",
+        "published_at": "2026-10-28T11:01:11.592326+00:00"
+      },
+      {
+        "id": "corn-leaf",
+        "title": "玉米叶斑观察与采样指南",
+        "crop": "玉米",
+        "category": "采样指南",
+        "summary": "保留病斑边缘与叶脉细节，完整的图片信息有助于后续辅助识别。",
+        "content": "采样时避开严重反光、模糊或被遮挡的叶片。拍摄一张完整叶片和一张病斑近景，记录叶位及田间异常比例。不同病害和非生物胁迫都可能出现类似叶斑，图片识别应作为辅助信息；重要管理决策需由植保人员结合现场确认。",
+        "sources": [
+          {
+            "url": "https://extension.umn.edu/agriculture/crop-production/digital-crop-doc",
+            "title": "UMN Extension · Digital Crop Doc"
+          }
+        ],
+        "image": null,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-10-28T11:01:11.592326+00:00",
+        "updated_at": "2026-10-28T11:01:11.592326+00:00",
+        "published_at": "2026-10-28T11:01:11.592326+00:00"
+      }
+    ],
+    "total": 4,
+    "page": 1,
+    "page_size": 100
+  }
+}

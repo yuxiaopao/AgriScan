@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:54629",
+  "cases": [
+    "editor map mounts with a nonzero visible size",
+    "real Leaflet click produces a visible marker and editable WGS84 coordinates",
+    "manual coordinate edits center the real map at the same WGS84 point",
+    "clear removes both coordinates and marker",
+    "manual coordinate selection clears stale location failure",
+    "late browser geolocation cannot overwrite a manual clear",
+    "successful location stores supplied WGS84 without a provider-coordinate conversion",
+    "modal resize retains a visible map with no horizontal page overflow",
+    "saved API payload matches the selected WGS84 latitude and longitude"
+  ],
+  "page_errors": [],
+  "production_database_written": false,
+  "browser": "headless installed Chrome",
+  "tile_provider_unchanged": true
+}

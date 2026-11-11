@@ -1,0 +1,13 @@
+{
+  "surface": "frontend",
+  "base": "/agriscan/workspace/",
+  "htmlAssets": [
+    "/agriscan/workspace/brand/icon.svg",
+    "/agriscan/workspace/assets/index-C_vDbeiV.js",
+    "/agriscan/workspace/assets/charts-DlwZKwhN.js",
+    "/agriscan/workspace/assets/index-CunLDmTX.css"
+  ],
+  "bundle": "index-C_vDbeiV.js",
+  "missingAssets": [],
+  "apiPrefix": "/agriscan"
+}

@@ -1,0 +1,18 @@
+{
+  "users": 1,
+  "plots": 3,
+  "app_meta": 3,
+  "revoked_tokens": 0,
+  "detections": 20,
+  "user_emails": 0,
+  "email_challenges": 0,
+  "model_artifacts": 0,
+  "assistant_conversations": 6,
+  "assistant_messages": 12,
+  "assistant_detection_discussions": 5,
+  "detection_predictions": 8,
+  "plot_details": 0,
+  "alembic_version": 1,
+  "knowledge_articles": 4,
+  "audit_logs": 0
+}

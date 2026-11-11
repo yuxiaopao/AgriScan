@@ -1,0 +1,193 @@
+{
+  "marker": "qa20261028_1935_media",
+  "origin": "https://flowly-ai.top/agriscan/api",
+  "source": "Real production-server HTTPS API functional supplement over SSH; not APP or public-browser video interaction",
+  "tlsVerification": true,
+  "appTested": false,
+  "cameraPermissionRequested": false,
+  "startedAt": "2026-10-28T20:33:36.396003+08:00",
+  "recordIds": [
+    "a9b115d05ae249f79f6c89b7a612baa4",
+    "4ee9fe1acd2c4e639daf21dc9c46ab01"
+  ],
+  "cleanup": [
+    {
+      "id": "a9b115d05ae249f79f6c89b7a612baa4",
+      "deleteStatus": 200,
+      "detailAfterDelete": 404,
+      "imageAfterDelete": 404
+    },
+    {
+      "id": "4ee9fe1acd2c4e639daf21dc9c46ab01",
+      "deleteStatus": 200,
+      "detailAfterDelete": 404,
+      "imageAfterDelete": 404
+    }
+  ],
+  "modelChanged": false,
+  "configurationChanged": false,
+  "usersCreated": false,
+  "loginStatus": 200,
+  "baseline": {
+    "count": 2,
+    "ids": [
+      "a4cf9b46596f4d56b9ef4da7a014fd1e",
+      "bb1ac81d243f44d8b40de93deb8898cc"
+    ]
+  },
+  "capabilities": {
+    "video_max_mb": 50,
+    "video_max_seconds": 60,
+    "video_max_frames": 8,
+    "frame_min_interval_ms": 750,
+    "video_enabled": true,
+    "live_enabled": true,
+    "mode": "leaf_classification",
+    "model_ready": true
+  },
+  "input": {
+    "sha256": "5d7236ea8400b9b6093b51a860ebf4844d78b961e1505b6e64520a29fcef4427",
+    "bytes": 10070
+  },
+  "frame": {
+    "status": 200,
+    "result": {
+      "id": "7a28965a5ed84974b35c6f40f0b974ae",
+      "crop": "苹果",
+      "result": "苹果黑星病",
+      "confidence": 0.8459509015083313,
+      "boxes": [
+        {
+          "key": "Apple_Apple_scab",
+          "crop": "苹果",
+          "label": "苹果黑星病",
+          "healthy": false,
+          "class_id": 0,
+          "confidence": 0.8459509015083313,
+          "bbox": [
+            0.03368158340454101,
+            0.06392145156860352,
+            0.9906038284301758,
+            0.9932659149169922
+          ]
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "coordinate_space": "normalized_xyxy",
+        "score_semantics": "independent_detection_confidence",
+        "multiple_crops": false
+      },
+      "image_url": null,
+      "note": "相机实时预览，不自动保存。"
+    },
+    "previewNotPersisted": true,
+    "countAfterPreview": 2
+  },
+  "videoInput": {
+    "frames": 2,
+    "fps": 2.0,
+    "durationSeconds": 1.0,
+    "width": 256,
+    "height": 256,
+    "bytes": 10067
+  },
+  "video": {
+    "status": 200,
+    "durationSeconds": 1.0,
+    "sampledFrames": 2,
+    "timestamps": [
+      0.0,
+      0.5
+    ],
+    "results": [
+      {
+        "id": "a9b115d05ae249f79f6c89b7a612baa4",
+        "crop": "苹果",
+        "result": "苹果黑星病",
+        "confidence": 0.9633905291557312,
+        "boxes": [
+          {
+            "key": "Apple_Apple_scab",
+            "bbox": [
+              0.05351457595825195,
+              0.06360235214233398,
+              0.9907724380493164,
+              0.9934370994567872
+            ],
+            "crop": "苹果",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "class_id": 0,
+            "confidence": 0.9633905291557312
+          }
+        ],
+        "prediction_model": {
+          "name": "leaf-health-yolo26m-user-fafc2bb3",
+          "task": "detect",
+          "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+          "multiple_crops": false,
+          "score_semantics": "independent_detection_confidence",
+          "coordinate_space": "normalized_xyxy"
+        },
+        "image_url": "/api/uploads/4005f97193ed4a668547d48c6643333b.jpg",
+        "note": "qa20261028_1935_media\n视频采样：qa20261028_1935_media_2frames.mp4 · 0.000s",
+        "originalImageStatus": 200,
+        "originalImageSha256": "fb88da4e053f18eeb59442a3aa8b23a647df737cf33f92faa0cf130403a77c52"
+      },
+      {
+        "id": "4ee9fe1acd2c4e639daf21dc9c46ab01",
+        "crop": "苹果",
+        "result": "苹果黑星病",
+        "confidence": 0.9633905291557312,
+        "boxes": [
+          {
+            "key": "Apple_Apple_scab",
+            "bbox": [
+              0.05351457595825195,
+              0.06360235214233398,
+              0.9907724380493164,
+              0.9934370994567872
+            ],
+            "crop": "苹果",
+            "label": "苹果黑星病",
+            "healthy": false,
+            "class_id": 0,
+            "confidence": 0.9633905291557312
+          }
+        ],
+        "prediction_model": {
+          "name": "leaf-health-yolo26m-user-fafc2bb3",
+          "task": "detect",
+          "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+          "multiple_crops": false,
+          "score_semantics": "independent_detection_confidence",
+          "coordinate_space": "normalized_xyxy"
+        },
+        "image_url": "/api/uploads/b7d5f646cf0b483f9d031a5b773e7f69.jpg",
+        "note": "qa20261028_1935_media\n视频采样：qa20261028_1935_media_2frames.mp4 · 0.500s",
+        "originalImageStatus": 200,
+        "originalImageSha256": "fb88da4e053f18eeb59442a3aa8b23a647df737cf33f92faa0cf130403a77c52"
+      }
+    ]
+  },
+  "checksPassed": true,
+  "final": {
+    "count": 2,
+    "ids": [
+      "a4cf9b46596f4d56b9ef4da7a014fd1e",
+      "bb1ac81d243f44d8b40de93deb8898cc"
+    ],
+    "baselinePreserved": true,
+    "ownRecordsRemaining": [],
+    "concurrentNonTestIds": []
+  },
+  "logoutStatus": 200,
+  "sessionAfterLogout": 401,
+  "failures": [],
+  "status": "passed",
+  "finishedAt": "2026-10-28T20:33:39.401166+08:00",
+  "dedicatedServerTemporaryFilesRemoved": true
+}

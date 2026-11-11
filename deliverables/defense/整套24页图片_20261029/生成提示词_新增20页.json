@@ -1,0 +1,135 @@
+{
+  "method": "built-in image_gen",
+  "scope": "24 slide images, 20 newly generated plus 4 previous images",
+  "common_prompt": "Use case: productivity-visual. Generate ONE complete, finished, edge-to-edge 16:9 Chinese course-defense presentation slide IMAGE, high resolution. Match reference images 1 and 2 as one coherent AgriScan presentation series: deep emerald green, warm textured gold headings, crisp ivory body text, thin jade/cyan technical light, believable botanical textures, refined dimensional details. These references are style direction, not text to copy. Image 3 is the exact 小禾 IP identity: ivory robot, deep-green face, mint eyes, two leaf sprouts and magnifier. Keep that identity whenever the character appears. National-level Chinese student technology-competition visual language. Every slide needs distinct intentional composition with useful illustrations, not repeated equal card grids or a generic dashboard. Keep text large and legible, with calm dark areas behind copy, fine alignment and generous safe margins. Botanical and technical elements must integrate with lighting rather than floating sticker assets. No source-template tunnel company, unrelated school, financing, patent, awards, fabricated users, watermark, or extra metric. No physical poster/book mockup, no multi-page contact sheet. Render only the specified text, correctly spelled. Treat diagrams as explanatory illustrations. Any future feature must read as future, not completed.",
+  "jobs": [
+    {
+      "n": 2,
+      "title": "答辩目录",
+      "text": "答辩内容\n01 项目介绍\n02 团队介绍\n03 实现过程\n04 项目结果\n05 课程收获\n06 创新与改进",
+      "art": "Six chapters along a graceful rising gold/jade path over dark agricultural field contours. Use large chapter numbers and a small leaf-observing Xiaohe near the path endpoint. An elegant navigational composition, no six-box grid. The Chinese labels form the main hierarchy."
+    },
+    {
+      "n": 3,
+      "title": "背景与问题",
+      "text": "作物健康观察的实际问题\n症状相似，判断依赖经验\n记录分散，复查难以追溯\n识别之后，仍然需要解释\n降低观察门槛\n为复查保留依据",
+      "art": "Large botanical macro on the left: three subtly different healthy/diseased leaves with visible textures, illustrative not claimed real dataset evidence. On the right, three carefully separated text rows connect to cyan scan details. A small Xiaohe below bridges leaf observation to a tidy observation archive. Strong conceptual story, no fabricated prevalence or losses."
+    },
+    {
+      "n": 4,
+      "title": "项目定位与价值",
+      "text": "禾观 AgriScan\n作物健康观察的数字化工具\n拍照采集\n模型识别\n小禾解读\n观察留档\n地块关联 · 历史查询 · 结果导出\n辅助观察与复查，处理建议需结合现场确认",
+      "art": "One integrated horizontal journey passes through a phone capturing a leaf, an illuminated inference field, Xiaohe explaining the observation and a luminous archive. Four concise stage labels follow one continuous gold/cyan trail. Below, a few refined cultivated-land contours anchor the product's value; not disconnected equal cards."
+    },
+    {
+      "n": 6,
+      "title": "数据划分与防泄漏",
+      "text": "数据划分与防泄漏\n37,821 张训练图像\n5,485 张验证图像\n10,999 张封存测试图像\n按叶片分组 · SHA256 核验\n跨集合叶片重叠 0\n文件哈希重叠 0\n验证集选模，测试集报告性能",
+      "art": "A meaningful data-infographic: 54,305 leaf image samples visually organize into three branching streams with labels, the training stream about 69.64%, validation 10.10%, heldout test20.25% of visual width, but DO NOT print these percentages. Three exact counts dominate. Lower area uses paired group/hash integrity seals marked0, subtly inspected by Xiaohe. No fake charts or overlapping labels."
+    },
+    {
+      "n": 7,
+      "title": "四人团队分工",
+      "text": "四人团队分工（建议）\nA［姓名］ 项目统筹与后端\nFastAPI · 数据库 · 系统集成\nB［姓名］ 数据与模型\n数据处理 · 训练评估 · 模型导出\nC［姓名］ 桌面前端与 IP\nReact · 小禾视觉与交互\nD［姓名］ 移动端与测试发布\nAndroid · 回归验收 · 部署\n姓名与职责按实际贡献填写",
+      "art": "A refined four-person collaboration map, not portraits and not four cloned robots. Four balanced responsibility zones with A–D initials and relevant tools converge on a central luminous leaf/AgriScan hub. One Xiaohe anchors the hub. Keep roles and names fully readable. No invented human photos or institutions."
+    },
+    {
+      "n": 9,
+      "title": "系统架构",
+      "text": "三端协同的系统架构\n桌面端 · Android APP · 管理端\nFastAPI 统一服务\nONNX 真实推理\n小禾图片解读\nMySQL 业务数据\nRedis 看板缓存\n三端共享 API\n私人对话按账号隔离",
+      "art": "A polished readable architecture illustration: three terminal silhouettes at top connect to a central FastAPI service hub, side branch goes to ONNX inference and another to image-capable AI interpretation, bottom goes to MySQL data and Redis dashboard cache. Distinct tidy orthogonal connection paths. Redis is cache, never a task queue. No offline mobile inference or RAG. Small Xiaohe subtly integrated near AI interpretation."
+    },
+    {
+      "n": 10,
+      "title": "分类模型训练",
+      "text": "分类模型的训练与选择\nYOLO26m 骨干 · 38 类分类头\n224 × 224 输入 · batch 32\nAdamW · 学习率 0.0005 · AMP\n40 轮完整训练\n第 37 轮达到最高验证 Top-1\n验证集选择最佳模型\n封存测试集不参与调参",
+      "art": "Left: beautifully structured luminous layers illustrating a classifier backbone and class head, connected to leaf image samples. Right: very clear40 and37 numeric hierarchy with training settings underneath. No invented accuracy/loss curve. A quiet annotation shows validation selection and sealed final test evaluation. Light botanical textures unite it with the series."
+    },
+    {
+      "n": 11,
+      "title": "目标检测模型接入",
+      "text": "目标检测模型接入\n另行提供的 YOLO26m Detect 权重\n640 × 640 · FP32 ONNX\n真实目标框 · 类别 · 独立目标分数\n5 张技术样例核对导出一致性\n模型清单与 SHA256 校验后启用\n尚无独立检测集 mAP",
+      "art": "Continuous input-to-inference-to-output scene. A leaf image enters letterbox padding geometry, a premium ONNX chip forms the center, and a single leaf target rectangle appears at right. The rectangle is an illustrative target box, not lesion segmentation. Do not put99.67% here, do not invent detection scores or mAP. Small Xiaohe compares output with manifest/hash evidence."
+    },
+    {
+      "n": 12,
+      "title": "关键问题与解决",
+      "text": "关键问题与解决\n旧权重出现异常细框\n融合前恢复 end2end 分支\n目标框位置偏移\nletterbox 逆变换\n混样地块关联冲突\n核对全部目标，整次回滚\n修复后补充回归验证",
+      "art": "Three concise horizontal problem-to-fix paths, arranged on one coherent emerald technical canvas. Gold fault symbols on the left become mint resolved nodes on the right. Illustrations: erroneous thin bounding boxes, padded image coordinates, mixed-crop leaf association. A small concerned-then-working Xiaohe can be one character near lower edge. Avoid three huge repetitive cards."
+    },
+    {
+      "n": 13,
+      "title": "小禾IP与交互设计",
+      "text": "小禾 IP 与交互设计\n叶芽象征生长\n放大镜代表观察\n陪伴 · 问好 · 观察\n思考 · 完成 · 提醒\n17 套作物主题与角色素材\n支持关闭动效\n模型覆盖 14 种作物\n水稻、小麦、黄瓜仅作界面主题",
+      "art": "Character-design presentation. One large beautifully rendered identity-accurate Xiaohe on left, on right three small coherent character variants holding apple/corn/grape arranged along an orbital botanical arc. Integrate simple icons for six states without changing the robot identity. Distinguish17visualthemes from14recognizedcrops visually and typographically, no implication17modelcrops."
+    },
+    {
+      "n": 15,
+      "title": "真实识别演示",
+      "text": "真实检测演示\n上传叶片 · 真实推理 · 保存记录\n苹果黑星病\n目标置信度 84.60%\n原图与检测框对照\n小禾补充照片解读\n单张样例不代表整体精度\n目标框不是病斑轮廓",
+      "art": "Use the additional real detection screenshot as a supporting compositing reference. Recompose a clear original leaf vs target-box leaf comparison on left and a clean readable84.60% result on right. Preserve apple-scab identity and the target rectangle being around the leaf, not claiming precise lesion boundary. Xiaohe magnifies the comparison at lower-right. Do not invent more detections, mAP, or field accuracy.",
+      "extra": [
+        "E:/AgriScan/.runtime/defense-ppt-build/assets/detect-result.png"
+      ]
+    },
+    {
+      "n": 16,
+      "title": "三端协同成果",
+      "text": "三端协同\n桌面工作台：总览、检测与地块\nAndroid APP：图片、视频与相机入口\n管理控制台：权限、配置与审计\n三端共享 API 与业务数据\n相机与权限仍需真机验收",
+      "art": "A rich coherent product illustration: elegant desktop monitor, Android phone and management terminal overlapping at different heights along one gold botanical data platform. Additional screenshots are actual project UI compositing references; keep them recognizable and do not invent analytics metrics. Text descriptions must be readable separate from device microtext. One small Xiaohe by the shared API light path. Do not show offline device inference.",
+      "extra": [
+        "E:/AgriScan/.runtime/defense-ppt-build/assets/desktop.png",
+        "E:/AgriScan/.runtime/defense-ppt-build/assets/mobile-home.png",
+        "E:/AgriScan/.runtime/defense-ppt-build/assets/admin.png"
+      ]
+    },
+    {
+      "n": 17,
+      "title": "管理与记录闭环",
+      "text": "管理与记录闭环\n采集 · 识别 · 解读 · 存档 · 复查\n保存图片、时间、地块、目标框与候选\n保留当次模型快照\n支持筛选与 CSV 导出\n小禾私人对话按账号隔离",
+      "art": "One elegant circular observation lifecycle around a central botanical record: capture, inference, interpretation, archive and revisit. Show a few meaningful translucent record layers with leaf images, model-version seal and plot-map contour, not a fake operational dashboard. The annotations follow the loop without intersecting. Xiaohe acts as guide next to private conversation node."
+    },
+    {
+      "n": 18,
+      "title": "系统验证与边界",
+      "text": "系统验证与边界\n192 项后端回归通过\n1 项因 Windows 符号链接权限跳过\n已核验\n真实推理 · 持久化 · 鉴权 · 异常输入\n待验证\n独立检测 mAP · 田间泛化 · 真机 · 高并发\n记录日期：2026 年 10 月 28 日",
+      "art": "Credible verification slide, not awards. Large192 beside a subtle technical checkmark and model/record traces on left. A balanced right-hand list separates already verified and still-to-validate items, with calm high contrast. No laurels, trophies or leaderboard claims. Tiny Xiaohe inspecting a shield or test trace, with botanical field depth."
+    },
+    {
+      "n": 19,
+      "title": "课程收获",
+      "text": "课程收获\n数据：理解分组划分与防泄漏\n模型：掌握训练、评估与 ONNX 导出\n工程：打通多端、接口与数据库\n质量：复现异常，修复后回归\n表达：用证据说明成果与能力边界",
+      "art": "Five learning milestones ascend along one luminous botanical growth path: leaf data, model lattice, connected systems, verification lens, clear evidence report. Make five Chinese statements the key information, no equal card grid. Xiaohe climbs or accompanies the learning trail. Refined gold headline and strong visual momentum; avoid unsupported claims of mastery beyond the text."
+    },
+    {
+      "n": 20,
+      "title": "创新与特色",
+      "text": "创新与特色\n小禾 IP 与作物主题\n17 套主题，模型覆盖 14 种作物\n识别与解释衔接\n保留真实结果，解读失败可重试\n结果可追溯\n保存框、候选与模型快照\n特色体现于交互与工程整合",
+      "art": "A premium three-part integrated product-innovation composition, not generic algorithm novelty. A main Xiaohe with a few crop cues transitions into an image interpretation light field and then a traceable observation archive. Three gold feature titles anchor the flow. Do not label algorithm first, patented, leading or RAG. Keep17themesand14modelcrops distinct."
+    },
+    {
+      "n": 21,
+      "title": "后续改进方向",
+      "text": "后续改进方向\n优先一：田间数据与独立检测 mAP\n优先二：有来源的农技检索与复拍时间线\n优先三：真机验收、弱网与端侧轻量化\n先验证实际效果，再扩展能力\n以上为后续计划",
+      "art": "A future roadmap with three gradually rising observation platforms or a smooth path through a stylized emerald field. Waypoint1field-dataset collection, waypoint2referenced agricultural knowledge plus revisit timeline, waypoint3mobile/weak-network performance. Small Xiaohe looks ahead. All stages must clearly be future plans, no fabricated completion dates or implementation claims."
+    },
+    {
+      "n": 22,
+      "title": "结束致谢",
+      "text": "感谢聆听\n禾观 AgriScan\n农业智能检测平台\n恳请各位老师批评指正\n四人项目组\n［成员 A］ ［成员 B］ ［成员 C］ ［成员 D］",
+      "art": "A graceful closing slide matching the generated cover. Large expressive gold brush thank-you text on left, exact-identity Xiaohe on right smiling and waving, still with leaf/magnifier cue. Emerald agricultural contours, gold particles and thin jade orbit balance a quiet central reading area. No actual institution or teacher names, no invented people."
+    },
+    {
+      "n": 23,
+      "title": "备用实验参数",
+      "text": "备用：训练与推理参数\n分类：224 × 224 · batch 32 · AdamW\n学习率 0.0005 · AMP · 40 轮\n验证集选模，封存测试集最终评估\n检测：640 × 640 · 阈值 0.25 · 38 类\n5 张样例仅验证导出一致性\n分类与检测参数分别报告",
+      "art": "A sober technical appendix, same green/gold/cyan family with less decorative glow. Two clearly titled parameter regions, classification on left and detection on right, separated by a thin light path. Classifier lattice and ONNX target-box motifs help identify the regions. Exact settings remain the dominant readable content, no invented graphs or scores."
+    },
+    {
+      "n": 24,
+      "title": "备用答辩问答",
+      "text": "备用：答辩问答\n99.67% 代表什么？\nPlantVillage 独立测试的单叶分类 Top-1\n目标框能算严重度吗？\n当前缺少病斑分割依据\n小禾是否具备 RAG？\n当前支持图片解读，带引用的检索增强属于后续计划",
+      "art": "Three readable question-and-answer rows on a restrained dark emerald background. Large gold question markers and ivory responses, subtle botanical/technical linework. One thoughtful Xiaohe at far right or lower-right, never covering text. No repetitive card-grid, no claims of existing RAG or segmentation. Use clear explanatory hierarchy suitable for a defense backup slide."
+    }
+  ]
+}

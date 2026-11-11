@@ -1,0 +1,1 @@
+{"transport": "Actual production API via TLS-verified SSH transport, supplementary to direct-domain browser checks", "register": 201, "duplicate": 409, "login": 200, "role": "member", "cleanup_account_recorded": true, "note": "Initial test harness expected login.user.id, but API intentionally omits it; fixture recovered by exact admin lookup."}

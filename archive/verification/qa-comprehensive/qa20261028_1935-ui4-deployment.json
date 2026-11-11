@@ -1,0 +1,70 @@
+{
+  "run_id": "qa20261028_1935",
+  "release": "/srv/agriscan/releases/release-20261028-190106",
+  "backup": "/srv/agriscan/shared/backups/qa20261028_1935-ui4-20261028T121811Z",
+  "started_at": "2026-10-28T12:18:11.295155+00:00",
+  "files": [
+    {
+      "path": "public/workspace/index.html",
+      "sha256": "010bc8404ec412d85f9f380c220cbc52ab5e190319bb1eeaa5cffb85a8853c2c",
+      "size": 827,
+      "old_sha256": "bb42b6044f417913b1b54cbc6174f9b868f19006087d9408a7c360b597c5c7f8"
+    },
+    {
+      "path": "public/workspace/assets/index-C8ROKbOw.js",
+      "sha256": "4e53c013d946c3466086dce2c7b10c74be3a8fb96153e06d405f3e29aaca7ca9",
+      "size": 475593,
+      "old_sha256": null
+    },
+    {
+      "path": "public/workspace/assets/Dashboard-D9OfT1QS.js",
+      "sha256": "2481ed3edd85363331a66f0e0d7921dd8902d8d8061db58e0a746216ff8c0eda",
+      "size": 8359,
+      "old_sha256": null
+    },
+    {
+      "path": "public/workspace/assets/index-8PSuoOsD.css",
+      "sha256": "f3216653e4e348a2f41b0af271a0ad7299814e5c6e16fb3e6b76cd67e7c7443a",
+      "size": 116174,
+      "old_sha256": null
+    }
+  ],
+  "unchanged_files": 0,
+  "service_before": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "694824960",
+    "MemoryPeak": "695717888",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "write_order": [
+    "public/workspace/assets/Dashboard-D9OfT1QS.js",
+    "public/workspace/assets/index-8PSuoOsD.css",
+    "public/workspace/assets/index-C8ROKbOw.js",
+    "public/workspace/index.html"
+  ],
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "verified_https_files": [
+    "public/workspace/assets/Dashboard-D9OfT1QS.js",
+    "public/workspace/assets/index-8PSuoOsD.css",
+    "public/workspace/assets/index-C8ROKbOw.js",
+    "public/workspace/index.html"
+  ],
+  "service_after": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "694833152",
+    "MemoryPeak": "695717888",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "status": "passed",
+  "finished_at": "2026-10-28T12:18:11.496538+00:00"
+}

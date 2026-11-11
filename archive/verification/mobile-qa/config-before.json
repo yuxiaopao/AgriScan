@@ -1,0 +1,39 @@
+{
+  "brand": {
+    "app_name": "禾观 AgriScan",
+    "tagline": "看见生长的力量",
+    "announcement": ""
+  },
+  "features": {
+    "image_detection": true,
+    "video_detection": true,
+    "live_detection": true,
+    "assistant": true,
+    "knowledge": true,
+    "plots": true
+  },
+  "limits": {
+    "image_max_mb": 10,
+    "video_max_mb": 50,
+    "video_max_seconds": 60,
+    "video_max_frames": 8,
+    "frame_interval_ms": 750
+  },
+  "integrations": {
+    "registration_enabled": true,
+    "email_verification_enabled": false,
+    "smtp_host": "",
+    "smtp_port": 587,
+    "smtp_username": "",
+    "smtp_from": "",
+    "smtp_security": "starttls",
+    "llm_enabled": true,
+    "llm_base_url": "http://localhost:55807/v1",
+    "llm_model": "gpt-6-luna",
+    "llm_timeout": 90,
+    "model_max_mb": 200,
+    "smtp_password_configured": false,
+    "llm_key_configured": true
+  },
+  "version": 0
+}

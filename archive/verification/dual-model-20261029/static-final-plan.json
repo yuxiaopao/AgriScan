@@ -1,0 +1,20 @@
+{
+  "patch_archive_path": "/srv/agriscan/bootstrap/dual-model-update-20261029.tar.gz",
+  "patch_sha256": "febfa1faecb1b0212b6ef66bafb6d198290ec767bc0c11d363fce8ca10b4a363",
+  "release_id": "release-20261029-dual-model-190833",
+  "payload_manifest_sha256": "718529aa338378635ad550c5d1f1424505a13b875af67c88307ad0402b7dff87",
+  "expected_current": "/srv/agriscan/releases/release-20261029-dual-model-184401",
+  "expected_schema": "20261029_06",
+  "expected_configuration_version": 11,
+  "expected_configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224",
+  "expected_api_pid": 1584612,
+  "expected_api_nrestarts": 0,
+  "expected_payload_files": 142,
+  "apk_path": "/srv/agriscan/bootstrap/dual-model-app-1.0.4.apk",
+  "apk_sha256": "6cbf093162521271ed4fca39aa8e6a3694286653bf13440d056443c210b98026",
+  "apk_bytes": 24164454,
+  "apk_version": "1.0.4",
+  "apk_version_code": 5,
+  "detection_onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+  "classification_onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7"
+}

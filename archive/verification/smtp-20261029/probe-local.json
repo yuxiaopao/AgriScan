@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-10-29T09:38:23.614372+00:00",
+  "smtp_host": "smtp.qq.com",
+  "smtp_port": 465,
+  "mail_sent": false,
+  "phase": "login",
+  "tls_verified": true,
+  "tls_version": "TLSv1.2",
+  "auth_mechanisms": " LOGIN PLAIN XOAUTH XOAUTH2 LOGIN",
+  "status": "failed",
+  "error_type": "SMTPServerDisconnected",
+  "smtp_code": null,
+  "origin": "local"
+}

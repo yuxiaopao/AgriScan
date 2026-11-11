@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "browser": "Chrome controlled only through mcp__cua_repl",
+  "url": "http://127.0.0.1:6192/",
+  "api_fixture_only": true,
+  "smtp_mail_sent": false,
+  "real_credentials_changed": false,
+  "cases": [
+    "public forgot-password loads while registration is disabled",
+    "code request locks both sending and reset controls; changing email preserves remaining cooldown",
+    "invalid reset code shows fixed safe feedback and unlocks retry",
+    "successful reset returns to login with success notice and does not log in",
+    "settings identifies a historical email as unverified before any proof",
+    "email binding requires current password plus email code; wrong proof leaves the original email and login intact",
+    "successful verification updates the displayed verified email and clears both proof inputs"
+  ],
+  "observed": {
+    "reset_success": {
+      "hash": "#login",
+      "notice": "密码已更新，请使用新密码登录。"
+    },
+    "binding_failure": {
+      "hash": "#settings",
+      "original_email_preserved": true
+    },
+    "binding_success": {
+      "verified": true,
+      "proof_inputs_cleared": true
+    }
+  },
+  "source_sha256": {
+    "frontend/src/EmailForms.tsx": "7dfa93361d0c860cb18304e98225ff8b6340ffd6f393b223174228e577db8761",
+    "frontend/src/email-forms.css": "c646cb49ff10215959f3d40409a7b0a1a75e1fba898bc4d5fcb9b1e2af8aeaa1",
+    "frontend/src/Access.tsx": "e561f662d18f3dcbe80c0e7c19ecb4f88a1e4364d691e240a2aebd516b1a5870",
+    "frontend/src/App.tsx": "63a976694acf158ff9a86977a6630b2086bb8cfb8874a809e7311118ed98cde9",
+    "frontend/src/Pages.tsx": "2d8d8171e9d566b3925e8812db01c4e2bb16830ad0815ea8fcfbc6764dad0752",
+    "frontend/src/api.ts": "8c706b61152bf934c779c07b83d6f0acde2f5c2c2b5687f785e8d8422da0e8d6"
+  }
+}

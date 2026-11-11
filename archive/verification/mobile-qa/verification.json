@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-28",
+  "branch": "codex/workspace-ui-and-plot-management-20261028",
+  "backend": {
+    "passed": 179,
+    "skipped": 1,
+    "note": "Full suite 177 passed, then two dataclass-test adaptations independently passed; no outstanding failures."
+  },
+  "builds": [
+    "frontend TypeScript + Vite",
+    "admin TypeScript + Vite",
+    "mobile TypeScript + Vite",
+    "Capacitor Android sync"
+  ],
+  "browser": [
+    "390px welcome + login + registration form",
+    "Real leaf image upload: automatic corn/common-rust + crop theme",
+    "4-second held-out tomato/corn video: 8 real sampled predictions",
+    "Plots + knowledge article sheet + assistant history + account navigation",
+    "Administrator login + member rejection + isolated sessions",
+    "Persistent announcement + live switch delivered to APP; original config restored",
+    "Admin navigation preserves settings drafts; refresh does not overwrite dirty edits"
+  ],
+  "api": [
+    "Real ONNX camera frame",
+    "Native-origin CORS preflight",
+    "Image feature disabled: server rejects new operation",
+    "MySQL/Redis connected; schema 20261028_05",
+    "Removed exactly 9 UI QA observations; original records retained"
+  ],
+  "limitations": {
+    "apk": "Not built: host JDK 17, no Android SDK 36. Native device acceptance still required.",
+    "assistant": "Live configured upstream returned 502; real error retained, no fabricated answer.",
+    "video": "Sampled single-leaf classification, not every-frame lesion tracking."
+  }
+}

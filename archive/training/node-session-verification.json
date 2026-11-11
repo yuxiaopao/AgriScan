@@ -1,0 +1,26 @@
+{
+  "tool": "official chrome-devtools MCP",
+  "checks": [
+    "logged-out native training APIs reject access",
+    "normal existing-account login and logout clear the native session",
+    "desktop remains logged in with the bound YOLO node details visible"
+  ],
+  "firstSession": {
+    "viewer": {
+      "id": 1036,
+      "username": "nlwftest"
+    },
+    "epochs": 40,
+    "classes": 38
+  },
+  "finalSession": {
+    "viewer": {
+      "id": 1036,
+      "username": "nlwftest"
+    },
+    "epochs": 40,
+    "classes": 38
+  },
+  "passed": true,
+  "finishedAt": "2026-10-20T13:47:21.687Z"
+}

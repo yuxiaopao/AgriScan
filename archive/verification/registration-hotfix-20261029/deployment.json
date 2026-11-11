@@ -1,0 +1,114 @@
+{
+  "status": "failed",
+  "run_id": "registration-hotfix-20261029-201833",
+  "release_id": "release-20261029-201833-registration-hotfix",
+  "previous_release": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+  "release": "/srv/agriscan/releases/release-20261029-201833-registration-hotfix",
+  "started_at": "2026-10-29T12:23:51.919393+00:00",
+  "stages": [
+    "new_release_and_inherited_models_apk_verified",
+    "new_detection_posts_temporarily_gated_existing_put_get_continue",
+    "existing_detection_work_drained_and_reservations_expired",
+    "new_release_pointer_switched",
+    "api_restarted_once_models_ready_runtime_unchanged",
+    "public_registration_username_and_static_hotfix_verified"
+  ],
+  "api_restart_attempts": 1,
+  "environment_mutated": false,
+  "database_mutated": false,
+  "business_configuration_mutated": false,
+  "models_mutated": false,
+  "apk_mutated": false,
+  "nginx_temporarily_gated": true,
+  "nginx_restored": true,
+  "runtime_before": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "api_pid_before": 1584612,
+  "drain": {
+    "status": "passed",
+    "old_workers_exited": true,
+    "elapsed_seconds": 191.35,
+    "gate_enforced_seconds": 190.34,
+    "empty_staging": true,
+    "api_established_connections": 0,
+    "continuous_idle_seconds": 5.03,
+    "reservation_expiry_seconds": 180,
+    "no_process_injection": true
+  },
+  "health_after": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "public_checks": {
+    "workspace/index.html": {
+      "status": 200,
+      "sha256": "ca143727322bfb86ce660321c5ca1a59094705c14b8591346242c9c21a2eb99a"
+    },
+    "admin/index.html": {
+      "status": 200,
+      "sha256": "ecac5e53d7f3f652ffa3cf7698f3afc7aeaa15417a178f4d3ec205ca96b4d008"
+    },
+    "workspace/assets/index-BowIhxbp.js": {
+      "status": 200,
+      "sha256": "ea6c4cfec1f1ff45584fc4230eb611906a3654647e060d753b2e05a04711eb85"
+    },
+    "workspace/assets/charts-lR1CQYWX.js": {
+      "status": 200,
+      "sha256": "3337742f43fb0750e4f5541323c5b27840e6dcec46c2d02fdb0d71b8ebc6a570"
+    },
+    "workspace/assets/index-9P5FHDPy.css": {
+      "status": 200,
+      "sha256": "5119121aecc61b31b131e2ae21061ded9b4ea57b4a5607bac951660f96457124"
+    },
+    "admin/assets/index-BnKNJ7NV.js": {
+      "status": 200,
+      "sha256": "ad97e41f42f20751ed37c696a9d2510cc45f0c75b3d1bb7321bb2c0da6720a81"
+    },
+    "admin/assets/charts-CpJMSSO8.js": {
+      "status": 200,
+      "sha256": "7b77a6f14d45f474e4a8cca2495dd4f4f96bd72496db220deac12fc26cfa2d14"
+    },
+    "admin/assets/index-B6wjU5kz.css": {
+      "status": 200,
+      "sha256": "d66f2556f862ab0e0663dba18090255cbde2648eade646f24e8c4fe6c1338459"
+    }
+  },
+  "registration_probe": {
+    "status": 400,
+    "username_accepted": true,
+    "otp_still_required": true,
+    "email_sent": false,
+    "account_created": false
+  },
+  "api_pid_after": 1632874,
+  "api_nrestarts_after": 0,
+  "inherited_models_apk_download_metadata_unchanged": true,
+  "runtime_after": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "protected_configuration_sha256": {
+    "/srv/agriscan/shared/production.env": "37044b655953170a3d673534fb34f4e8066c3c0077a6b624bd9a7df2bf1464d7",
+    "/etc/nginx/nginx.conf": "d76718a5fd92b07931755ca958d6c713a8d7d24b49815e52060c4c51c41047d6",
+    "/etc/nginx/conf.d/zz-agriscan.conf": "bd58e589abc0ae2cff18890744ae297ee46b889500e7a83a91e2a93d58dfa032",
+    "/etc/nginx/conf.d/flowly-share.conf": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9",
+    "/etc/systemd/system/agriscan-api.service": "75ba279bd87f68071655a6dd1f56fd5108d82fb00bca8212982263a96935d3a4",
+    "/etc/systemd/system/agriscan-api.service.d/agriscan-graceful.conf": "2caeaaf035b4d72453f985a690d6db1a6b50308be88a41cd7e1f285b55d41022"
+  },
+  "changed_payload_files": 9,
+  "nginx_master_before": 14613,
+  "nginx_master_after": 14613,
+  "nginx_restore_error": "public_detection_gate_restore_probe_failed",
+  "runtime_configuration_preserved": true,
+  "protected_configuration_preserved": true,
+  "finished_at": "2026-10-29T12:27:14.423107+00:00",
+  "server_script_sha256": "078df21fb7ee28a9c41b47ba7436487a2464742948b2e22c127d2fed96f90b0e",
+  "ssh_exit_code": 1
+}

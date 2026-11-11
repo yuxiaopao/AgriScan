@@ -1,0 +1,123 @@
+{
+  "status": "read_only_observed",
+  "runtime_before": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_canonical_sql_row_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "runtime_after": {
+    "schema": "20261029_06",
+    "configuration_version": 11,
+    "configuration_canonical_sql_row_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "runtime_configuration_unchanged": true,
+  "samples": [
+    {
+      "sampled_at": "2026-10-29T11:22:57.743804+00:00",
+      "release": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+      "service": {
+        "MainPID": "1584612",
+        "Result": "success",
+        "NRestarts": "0",
+        "OOMPolicy": "stop",
+        "ExecMainStartTimestamp": "Thu 2026-10-29 18:21:01 CST",
+        "ExecMainCode": "0",
+        "ExecMainStatus": "0",
+        "ControlGroup": "/system.slice/agriscan-api.service",
+        "MemoryCurrent": "745201664",
+        "MemoryPeak": "749469696",
+        "MemoryMax": "1468006400",
+        "ActiveState": "active",
+        "SubState": "running",
+        "InvocationID": "d827d390328543ffaa0d1fa326e3487e"
+      },
+      "cgroup": {
+        "memory.current": 745201664,
+        "memory.peak": 749469696,
+        "memory.max": 1468006400,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0,
+          "pagecache_max": 0,
+          "pagecache_oom": 0
+        }
+      },
+      "process_memory": {
+        "VmHWM": "719884 kB",
+        "VmRSS": "718760 kB",
+        "VmSwap": "0 kB"
+      },
+      "health": {
+        "status": "ok",
+        "database": "connected",
+        "redis": "connected",
+        "mode": "production",
+        "model": "ready"
+      },
+      "health_http_status": 200
+    },
+    {
+      "sampled_at": "2026-10-29T11:22:59.758230+00:00",
+      "release": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+      "service": {
+        "MainPID": "1584612",
+        "Result": "success",
+        "NRestarts": "0",
+        "OOMPolicy": "stop",
+        "ExecMainStartTimestamp": "Thu 2026-10-29 18:21:01 CST",
+        "ExecMainCode": "0",
+        "ExecMainStatus": "0",
+        "ControlGroup": "/system.slice/agriscan-api.service",
+        "MemoryCurrent": "745426944",
+        "MemoryPeak": "749469696",
+        "MemoryMax": "1468006400",
+        "ActiveState": "active",
+        "SubState": "running",
+        "InvocationID": "d827d390328543ffaa0d1fa326e3487e"
+      },
+      "cgroup": {
+        "memory.current": 745426944,
+        "memory.peak": 749469696,
+        "memory.max": 1468006400,
+        "memory.events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0,
+          "pagecache_max": 0,
+          "pagecache_oom": 0
+        }
+      },
+      "process_memory": {
+        "VmHWM": "719884 kB",
+        "VmRSS": "718752 kB",
+        "VmSwap": "0 kB"
+      },
+      "health": {
+        "status": "ok",
+        "database": "connected",
+        "redis": "connected",
+        "mode": "production",
+        "model": "ready"
+      },
+      "health_http_status": 200
+    }
+  ],
+  "service_pid_unchanged": true,
+  "service_nrestarts_unchanged": true,
+  "notes": [
+    "MemoryPeak/memory.peak is cumulative for the current service invocation/cgroup; compare a before and after sample.",
+    "memory.events counters include oom/oom_kill when supported. No counters, services or limits are reset."
+  ],
+  "production_mutations": false,
+  "user_rows_read": false,
+  "private_environment_read": false,
+  "server_script_sha256": "de130d401bc7eab359212d6ea4cfe57abb7310a2dedbffbe1167fbe59a46c87a",
+  "ssh_exit_code": 0
+}

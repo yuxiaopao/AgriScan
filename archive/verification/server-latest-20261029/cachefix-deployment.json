@@ -1,0 +1,24 @@
+{
+  "previous_release": "/srv/agriscan/releases/release-20261029-full-ui-131640",
+  "new_release": "/srv/agriscan/releases/release-20261029-full-ui-134431",
+  "database_writes": false,
+  "api_restarted": false,
+  "nginx_configuration_changed": false,
+  "nginx_reloaded": false,
+  "status": "passed",
+  "release_id": "release-20261029-full-ui-134431",
+  "source_tree_sha256": "4799660697517a490ccf0cf423527581eef2223f5ff438326fd89c4c67426a7c",
+  "source_file_count": 244,
+  "payload_files_verified": 112,
+  "versioned_script": "./app.js?v=f66a159a1f17",
+  "versioned_style": "./style.css?v=bdbe0b63ec1c",
+  "apk_unchanged": true,
+  "service_unchanged": true,
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  }
+}

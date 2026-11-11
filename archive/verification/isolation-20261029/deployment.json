@@ -1,0 +1,29 @@
+{
+  "previous_release": "/srv/agriscan/releases/release-20261029-llm-assistant-093639",
+  "new_release": "/srv/agriscan/releases/release-20261029-user-isolation-104127",
+  "archive_sha256": "1839d0b64e8c93156c6bcb38ad7e1d303df6be54eaf6245bcac1f63face38dfe",
+  "personal_api_containment": true,
+  "legacy_unknown_detections": 4,
+  "status": "passed",
+  "schema": "20261029_06",
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "preserved_snapshot": {
+    "tables": {
+      "detections": "1f2e2c7918d7d0d28917fd085a99b4ff77ec6df263c1ab5b63fe41f7752c5756",
+      "plots": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "assistant_conversations": "c324b0a1ff4a4ba086447b56a90052df2b3dc2e54727a01726a21595f5853414",
+      "assistant_messages": "a315a72235a18e09fee2d268b4c4b735c6f9e41a7218ae8183c44e56d65f1360",
+      "assistant_detection_discussions": "b47e445086feace7db3daf7ad543587bac5408f4c4e18bbfd853f6d6d24f948f"
+    },
+    "configuration_version": 6,
+    "configuration_sha256": "6bdd1d92d073959078e1345144126f4fe10145c6b956b173336510223bb79f32"
+  },
+  "database_backup": "/srv/agriscan/shared/backups/user-isolation-20261029/database-before-20261029T102210.sql.gz",
+  "requires_account_isolation_verification": true
+}

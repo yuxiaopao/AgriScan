@@ -1,0 +1,288 @@
+{
+  "name": "plantvillage-yolo26m",
+  "task": "classify",
+  "status": "candidate",
+  "source_weights_sha256": "401cea9ab23ad19246ff7744859816bc599f350e93c9dd30367b6f0a0745d0b7",
+  "dataset_manifest_sha256": "4cb0b95a5452e7c757bf80253417e5202e82da9c42d37c0ef1cdc828ddf7d957",
+  "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+  "weights_sha256": "741bc89980acea93a995815ab779a79d959b848881baf0ffa9b5b7695db7beea",
+  "image_size": 224,
+  "classes": [
+    {
+      "key": "Apple___Apple_scab",
+      "crop": "苹果",
+      "disease": "黑星病",
+      "label": "苹果黑星病",
+      "healthy": false
+    },
+    {
+      "key": "Apple___Black_rot",
+      "crop": "苹果",
+      "disease": "黑腐病",
+      "label": "苹果黑腐病",
+      "healthy": false
+    },
+    {
+      "key": "Apple___Cedar_apple_rust",
+      "crop": "苹果",
+      "disease": "锈病",
+      "label": "苹果锈病",
+      "healthy": false
+    },
+    {
+      "key": "Apple___healthy",
+      "crop": "苹果",
+      "disease": "健康",
+      "label": "苹果健康",
+      "healthy": true
+    },
+    {
+      "key": "Blueberry___healthy",
+      "crop": "蓝莓",
+      "disease": "健康",
+      "label": "蓝莓健康",
+      "healthy": true
+    },
+    {
+      "key": "Cherry_(including_sour)___Powdery_mildew",
+      "crop": "樱桃",
+      "disease": "白粉病",
+      "label": "樱桃白粉病",
+      "healthy": false
+    },
+    {
+      "key": "Cherry_(including_sour)___healthy",
+      "crop": "樱桃",
+      "disease": "健康",
+      "label": "樱桃健康",
+      "healthy": true
+    },
+    {
+      "key": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "crop": "玉米",
+      "disease": "灰斑病",
+      "label": "玉米灰斑病",
+      "healthy": false
+    },
+    {
+      "key": "Corn_(maize)___Common_rust_",
+      "crop": "玉米",
+      "disease": "普通锈病",
+      "label": "玉米普通锈病",
+      "healthy": false
+    },
+    {
+      "key": "Corn_(maize)___Northern_Leaf_Blight",
+      "crop": "玉米",
+      "disease": "大斑病",
+      "label": "玉米大斑病",
+      "healthy": false
+    },
+    {
+      "key": "Corn_(maize)___healthy",
+      "crop": "玉米",
+      "disease": "健康",
+      "label": "玉米健康",
+      "healthy": true
+    },
+    {
+      "key": "Grape___Black_rot",
+      "crop": "葡萄",
+      "disease": "黑腐病",
+      "label": "葡萄黑腐病",
+      "healthy": false
+    },
+    {
+      "key": "Grape___Esca_(Black_Measles)",
+      "crop": "葡萄",
+      "disease": "埃斯卡病（黑麻疹病）",
+      "label": "葡萄埃斯卡病（黑麻疹病）",
+      "healthy": false
+    },
+    {
+      "key": "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+      "crop": "葡萄",
+      "disease": "叶枯病",
+      "label": "葡萄叶枯病",
+      "healthy": false
+    },
+    {
+      "key": "Grape___healthy",
+      "crop": "葡萄",
+      "disease": "健康",
+      "label": "葡萄健康",
+      "healthy": true
+    },
+    {
+      "key": "Orange___Haunglongbing_(Citrus_greening)",
+      "crop": "柑橘",
+      "disease": "黄龙病",
+      "label": "柑橘黄龙病",
+      "healthy": false
+    },
+    {
+      "key": "Peach___Bacterial_spot",
+      "crop": "桃",
+      "disease": "细菌性斑点病",
+      "label": "桃细菌性斑点病",
+      "healthy": false
+    },
+    {
+      "key": "Peach___healthy",
+      "crop": "桃",
+      "disease": "健康",
+      "label": "桃健康",
+      "healthy": true
+    },
+    {
+      "key": "Pepper,_bell___Bacterial_spot",
+      "crop": "甜椒",
+      "disease": "细菌性斑点病",
+      "label": "甜椒细菌性斑点病",
+      "healthy": false
+    },
+    {
+      "key": "Pepper,_bell___healthy",
+      "crop": "甜椒",
+      "disease": "健康",
+      "label": "甜椒健康",
+      "healthy": true
+    },
+    {
+      "key": "Potato___Early_blight",
+      "crop": "马铃薯",
+      "disease": "早疫病",
+      "label": "马铃薯早疫病",
+      "healthy": false
+    },
+    {
+      "key": "Potato___Late_blight",
+      "crop": "马铃薯",
+      "disease": "晚疫病",
+      "label": "马铃薯晚疫病",
+      "healthy": false
+    },
+    {
+      "key": "Potato___healthy",
+      "crop": "马铃薯",
+      "disease": "健康",
+      "label": "马铃薯健康",
+      "healthy": true
+    },
+    {
+      "key": "Raspberry___healthy",
+      "crop": "树莓",
+      "disease": "健康",
+      "label": "树莓健康",
+      "healthy": true
+    },
+    {
+      "key": "Soybean___healthy",
+      "crop": "大豆",
+      "disease": "健康",
+      "label": "大豆健康",
+      "healthy": true
+    },
+    {
+      "key": "Squash___Powdery_mildew",
+      "crop": "南瓜",
+      "disease": "白粉病",
+      "label": "南瓜白粉病",
+      "healthy": false
+    },
+    {
+      "key": "Strawberry___Leaf_scorch",
+      "crop": "草莓",
+      "disease": "叶焦病",
+      "label": "草莓叶焦病",
+      "healthy": false
+    },
+    {
+      "key": "Strawberry___healthy",
+      "crop": "草莓",
+      "disease": "健康",
+      "label": "草莓健康",
+      "healthy": true
+    },
+    {
+      "key": "Tomato___Bacterial_spot",
+      "crop": "番茄",
+      "disease": "细菌性斑点病",
+      "label": "番茄细菌性斑点病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Early_blight",
+      "crop": "番茄",
+      "disease": "早疫病",
+      "label": "番茄早疫病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Late_blight",
+      "crop": "番茄",
+      "disease": "晚疫病",
+      "label": "番茄晚疫病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Leaf_Mold",
+      "crop": "番茄",
+      "disease": "叶霉病",
+      "label": "番茄叶霉病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Septoria_leaf_spot",
+      "crop": "番茄",
+      "disease": "斑枯病",
+      "label": "番茄斑枯病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Spider_mites Two-spotted_spider_mite",
+      "crop": "番茄",
+      "disease": "二斑叶螨危害",
+      "label": "番茄二斑叶螨危害",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Target_Spot",
+      "crop": "番茄",
+      "disease": "靶斑病",
+      "label": "番茄靶斑病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+      "crop": "番茄",
+      "disease": "黄化曲叶病毒病",
+      "label": "番茄黄化曲叶病毒病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___Tomato_mosaic_virus",
+      "crop": "番茄",
+      "disease": "花叶病毒病",
+      "label": "番茄花叶病毒病",
+      "healthy": false
+    },
+    {
+      "key": "Tomato___healthy",
+      "crop": "番茄",
+      "disease": "健康",
+      "label": "番茄健康",
+      "healthy": true
+    }
+  ],
+  "preprocessing": "resize-shortest-bilinear-center-crop-rgb-div255",
+  "threshold": 0.7,
+  "transforms_repr": "Compose(\n    Resize(size=224, interpolation=bilinear, max_size=None, antialias=True)\n    CenterCrop(size=(224, 224))\n    ToTensor()\n    Normalize(mean=tensor([0., 0., 0.]), std=tensor([1., 1., 1.]))\n)",
+  "validation_top1": 0.9972652689152234,
+  "validation_macro_f1": 0.9954171868171556,
+  "test_top1": 0.9967269751795618,
+  "test_macro_f1": 0.9956200211164937,
+  "onnx_max_abs_error": 2.980232238769531e-07,
+  "scope": "Single leaf classification on PlantVillage; field images require external validation.",
+  "validation_passed": true
+}

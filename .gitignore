@@ -71,10 +71,11 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Public installation packages are deployment artifacts, not application source.
+# Public installation packages are also archived in GitHub Releases.
 website/downloads/*.apk
 .transfer-parts/
+.archive-downloads/
 
-# User-supplied detector artifacts stay local; source and verification metadata are published.
+# Detector binaries are archived in GitHub Releases with hashes and restore instructions.
 models/candidates/user-detect-fafc2bb3ce9e/*.pt
 models/candidates/user-detect-fafc2bb3ce9e/*.onnx

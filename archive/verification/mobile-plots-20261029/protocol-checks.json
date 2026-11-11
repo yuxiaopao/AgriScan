@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checks": [
+    "personal create accepts actual mobile draft body",
+    "created fields and zero coordinate are preserved",
+    "new account sees only its newly created plot",
+    "unpaired coordinates are rejected by real API",
+    "edit and paired coordinate removal round-trip",
+    "cover can fail independently after successful plot creation",
+    "cover retry updates the existing plot ID",
+    "retrying only cover does not create another plot",
+    "owner can read uploaded cover through personal protected image endpoint",
+    "personal observation can be linked to the created plot",
+    "personal records retain the plot association for the mobile detail view",
+    "a plot with observations cannot silently change its crop",
+    "personal route refuses owner assignment",
+    "anonymous demo cannot see the owned plot"
+  ],
+  "count": 14,
+  "scope": "temporary local SQLite TestClient and generated image bytes",
+  "production_contacted": false,
+  "actual_ui_clicked": false,
+  "native_app_tested": false
+}

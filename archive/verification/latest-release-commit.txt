@@ -1,0 +1,7 @@
+feat(workspace): add dual-model tasks and verified email recovery
+
+Show completed detection results with independent classifier verification.
+Keep bounded uploads running across modules and confirm cancellation before stopping streams.
+Add personal mobile plots, email binding and password recovery, and production release documentation.
+
+Validation: backend 311 passed plus focused regressions; shared core 21 passed; web and APK builds; production click-through, isolation and full APK download checks.

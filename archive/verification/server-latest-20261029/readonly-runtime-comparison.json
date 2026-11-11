@@ -1,0 +1,231 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-29T05:33:15.070906+00:00",
+  "checks": [
+    "current points at the exact frozen full UI release",
+    "API MainPID is unchanged by static release",
+    "API NRestarts is unchanged by static release",
+    "API ExecMainStartTimestamp is unchanged by static release",
+    "API ActiveState is unchanged by static release",
+    "API SubState is unchanged by static release",
+    "schema remains ownership revision 06 without migration",
+    "configuration v6 entire row checksum remains unchanged",
+    "production DB Redis and detector health remain ready",
+    "normal DNS HTTPS index.html returns 200",
+    "public index.html bytes match the frozen payload",
+    "public index.html requires cache revalidation",
+    "public primary CSS /agriscan/style.css returns 200",
+    "public CSS public/style.css matches frozen payload SHA256",
+    "normal DNS HTTPS workspace/index.html returns 200",
+    "public workspace/index.html bytes match the frozen payload",
+    "public workspace/index.html requires cache revalidation",
+    "public primary CSS /agriscan/workspace/assets/index-BLRqHSAf.css returns 200",
+    "public CSS public/workspace/assets/index-BLRqHSAf.css matches frozen payload SHA256",
+    "normal DNS HTTPS admin/index.html returns 200",
+    "public admin/index.html bytes match the frozen payload",
+    "public admin/index.html requires cache revalidation",
+    "public primary CSS /agriscan/admin/assets/index-Kxrn1bHU.css returns 200",
+    "public CSS public/admin/assets/index-Kxrn1bHU.css matches frozen payload SHA256",
+    "new compiled entry /agriscan/admin/assets/index-CoEvLsID.js returns 200 by HEAD",
+    "new compiled entry /agriscan/workspace/assets/index-DQ5d-kno.js returns 200 by HEAD",
+    "web payload declares no custom font resource requiring a public URL",
+    "mobile-only new font is present in the frozen local APK with matching SHA256",
+    "public download metadata returns 200",
+    "public download metadata identifies latest APK 1.0.3 code4",
+    "public APK metadata matches the frozen signed artifact SHA256",
+    "APK HEAD size matches latest metadata without downloading its body",
+    "old Flowly read-only origin metadata check completed",
+    "old Flowly virtual host file remains unchanged",
+    "old Flowly HTTPS root still serves its original page",
+    "old Flowly app.apk remains available by HEAD"
+  ],
+  "before": {
+    "checked_at": "2026-10-29T05:09:57.112059+00:00",
+    "release": "/srv/agriscan/releases/release-20261029-user-isolation-104127",
+    "api": {
+      "MainPID": "1411592",
+      "NRestarts": "0",
+      "ExecMainStartTimestamp": "Thu 2026-10-29 10:41:28 CST",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "schema": "20261029_06",
+    "configuration": {
+      "version": 6,
+      "row_sha256": "7253563d8bc027143dc95dfa5c3d2b97db564663084f35cf683670cb6dd36394",
+      "method": "MySQL SHA2 of canonical field concatenation; no data or secret value returned"
+    },
+    "health": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    }
+  },
+  "after": {
+    "checked_at": "2026-10-29T05:29:46.469318+00:00",
+    "release": "/srv/agriscan/releases/release-20261029-full-ui-131640",
+    "api": {
+      "MainPID": "1411592",
+      "NRestarts": "0",
+      "ExecMainStartTimestamp": "Thu 2026-10-29 10:41:28 CST",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "schema": "20261029_06",
+    "configuration": {
+      "version": 6,
+      "row_sha256": "7253563d8bc027143dc95dfa5c3d2b97db564663084f35cf683670cb6dd36394",
+      "method": "MySQL SHA2 of canonical field concatenation; no data or secret value returned"
+    },
+    "health": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    }
+  },
+  "public_assets": [
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/index.html",
+      "method": "GET",
+      "status": 200,
+      "sha256": "d15fc46dc2af55e8a76f977b19353c2c5f5b0c38cae905ab377205828c903004",
+      "bytes": 13877
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/style.css",
+      "method": "GET",
+      "status": 200,
+      "sha256": "bdbe0b63ec1c8798caf300f881701ed8aa195c3d851a022b760f6e94bed2b390",
+      "bytes": 28496
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/workspace/index.html",
+      "method": "GET",
+      "status": 200,
+      "sha256": "b54df3b55e6420577c135bfce22fba09cb566bf8b0cff8c1a887f0fe2793f67f",
+      "bytes": 827
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/workspace/assets/index-BLRqHSAf.css",
+      "method": "GET",
+      "status": 200,
+      "sha256": "375b9be1dc170f7dfbf93caa1cb5b3ffddfec7d0d2d4b579428eaa6949afbffc",
+      "bytes": 151202
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/admin/index.html",
+      "method": "GET",
+      "status": 200,
+      "sha256": "ad0b27ec4c7ac259a8965f8545154d893ca8b77e9dc464e999430da3deaa1cf3",
+      "bytes": 831
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/admin/assets/index-Kxrn1bHU.css",
+      "method": "GET",
+      "status": 200,
+      "sha256": "37e6703db52ee61af8938f8d401cb04f780d4b42aa0aa75975e288c1bff82057",
+      "bytes": 153416
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/admin/assets/index-CoEvLsID.js",
+      "method": "HEAD",
+      "status": 200,
+      "content_type": "application/javascript",
+      "content_length": "474726"
+    },
+    {
+      "url": "https://agriscan.ming-ai.top/agriscan/workspace/assets/index-DQ5d-kno.js",
+      "method": "HEAD",
+      "status": 200,
+      "content_type": "application/javascript",
+      "content_length": "494370"
+    }
+  ],
+  "normal_dns": true,
+  "tls_verification": true,
+  "apk_body_downloaded": false,
+  "business_records_read": false,
+  "database_writes": false,
+  "services_changed": false,
+  "font_scope": {
+    "web_font_http": "not applicable; no custom font in public payload",
+    "mobile_apk_font": "assets/public/fonts/agriscan-sans-sc.woff2",
+    "bytes": 1093324,
+    "sha256": "def41b1e80cd998b72535815579b9a3e57e881aa88bef8a9ff02ca8c33620116",
+    "apk_body_downloaded": false
+  },
+  "download": {
+    "version": "1.0.3",
+    "version_code": 4,
+    "sha256": "c2846e8cba8b8c257db9aa8df1fca70ae32f3e4b91b5b732ab19685dc2d778fa",
+    "bytes": 24146402,
+    "apk_head_status": 200
+  },
+  "old_flowly": {
+    "source": "production server ordinary DNS and verified TLS",
+    "config_sha256": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9",
+    "root": {
+      "status": 200,
+      "bytes": 909,
+      "sha256": "e3ea8c20a73ba5411048afaf688f342a5ae4c6a3d2afe41baafc056388e7e18f"
+    },
+    "app_apk_head": {
+      "status": 200,
+      "bytes": "54332"
+    }
+  },
+  "final_release": "/srv/agriscan/releases/release-20261029-full-ui-134431",
+  "final": {
+    "checked_at": "2026-10-29T05:46:50.116915+00:00",
+    "release": "/srv/agriscan/releases/release-20261029-full-ui-134431",
+    "api": {
+      "MainPID": "1411592",
+      "NRestarts": "0",
+      "ExecMainStartTimestamp": "Thu 2026-10-29 10:41:28 CST",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "schema": "20261029_06",
+    "configuration": {
+      "version": 6,
+      "row_sha256": "7253563d8bc027143dc95dfa5c3d2b97db564663084f35cf683670cb6dd36394",
+      "method": "MySQL SHA2 of canonical field concatenation; no data or secret value returned"
+    },
+    "health": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    }
+  },
+  "final_checked_at": "2026-10-29T05:46:50.116915+00:00",
+  "final_checks": [
+    "final current points at cache-fixed release full-ui-134431",
+    "API MainPID unchanged across baseline, full UI and cache fix",
+    "API NRestarts unchanged across baseline, full UI and cache fix",
+    "API ExecMainStartTimestamp unchanged across baseline, full UI and cache fix",
+    "API ActiveState unchanged across baseline, full UI and cache fix",
+    "API SubState unchanged across baseline, full UI and cache fix",
+    "schema remains revision06 without migration",
+    "entire configuration v6 row digest and version unchanged",
+    "production health stays OK with DB Redis and model ready",
+    "all 244 frozen source files still match the deployed source manifest",
+    "final source fingerprint exactly matches frozen cachefix release",
+    "final source inventory count remains244",
+    "activation report passed all112 payload entries",
+    "activation report confirms unchanged API service and APK"
+  ],
+  "source_freeze": {
+    "status": "passed",
+    "source_tree_sha256": "4799660697517a490ccf0cf423527581eef2223f5ff438326fd89c4c67426a7c",
+    "source_file_count": 244,
+    "all_current_source_hashes_match": true,
+    "source_mismatches": []
+  },
+  "final_activation_report": "cachefix-deployment.json"
+}

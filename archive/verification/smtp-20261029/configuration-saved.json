@@ -1,0 +1,14 @@
+{
+  "mail_sent": false,
+  "smtp_tls_login_preverified": true,
+  "only_smtp_configuration_written": true,
+  "status": "passed",
+  "configuration_before": 10,
+  "configuration_after": 11,
+  "other_settings_preserved": true,
+  "registration_switch_preserved": true,
+  "smtp_password_encrypted": true,
+  "llm_secret_preserved": true,
+  "backup": "/srv/agriscan/shared/backups/smtp-config-20261029T095759Z.json",
+  "owned_control_session_revoked": true
+}

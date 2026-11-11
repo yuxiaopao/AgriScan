@@ -1,0 +1,20 @@
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {createRequire}=require('node:module'),req=createRequire(path.resolve('frontend/package.json')),ts=req('typescript');
+const states=[],timers=new Map();let serial=0,redraws=0;
+function emitter(){const listeners=new Map();return {on(name,fn){(listeners.get(name)||listeners.set(name,new Set()).get(name)).add(fn);return this},off(name,fn){listeners.get(name)?.delete(fn);return this},emit(name,event){for(const fn of [...(listeners.get(name)||[])])fn(event)},listeners}}
+const map=emitter(),layer={...emitter(),addTo(){return this},redraw(){redraws++;return this}};
+const source=fs.readFileSync('frontend/src/mapTiles.ts','utf8').replace('import.meta.env.VITE_MAP_TILE_URL',JSON.stringify('/qa-tiles/{z}/{x}/{y}.png'));
+const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText,exportsObject={};
+new Function('require','exports','setTimeout','clearTimeout',js)(()=>({__esModule:true,default:{tileLayer:()=>layer}}),exportsObject,callback=>{const id=++serial;timers.set(id,callback);return id},id=>timers.delete(id));
+const control=exportsObject.attachMapTiles(map,status=>states.push(status),12000),tileA={},tileB={},tileC={};
+assert.equal(states.at(-1).state,'loading');assert.equal(timers.size,1);
+layer.emit('tileloadstart',{tile:tileA});layer.emit('tileloadstart',{tile:tileB});layer.emit('tileload',{tile:tileA});assert.deepEqual(states.at(-1),{state:'loading',loaded:1,failed:0,pending:1});
+layer.emit('tileerror',{tile:tileB});layer.emit('tileload',{tile:tileA});assert.deepEqual(states.at(-1),{state:'partial',loaded:1,failed:1,pending:0});assert.equal(timers.size,0);
+control.retry();assert.equal(redraws,1);layer.emit('tileload',{tile:tileB});assert.equal(states.at(-1).state,'loading');layer.emit('tileloadstart',{tile:tileC});
+for(const [id,callback] of [...timers]){timers.delete(id);callback()}assert.equal(states.at(-1).state,'slow');
+layer.emit('tileerror',{tile:tileC});assert.deepEqual(states.at(-1),{state:'unavailable',loaded:0,failed:1,pending:0});assert.equal(timers.size,0);
+control.retry();const tileD={};layer.emit('tileloadstart',{tile:tileD});layer.emit('tileload',{tile:tileA});assert.equal(states.at(-1).pending,1);layer.emit('tileload',{tile:tileD});assert.deepEqual(states.at(-1),{state:'ready',loaded:1,failed:0,pending:0});
+layer.emit('tileunload',{tile:tileD});assert.equal(states.at(-1).state,'loading');assert.equal(timers.size,1);const count=states.length;
+map.emit('unload');assert.equal(timers.size,0);layer.emit('tileload',{tile:tileD});control.retry();assert.equal(states.length,count);assert.equal(redraws,2);assert([...layer.listeners.values()].every(set=>set.size===0));
+const cases=['initial zero tiles and pending image requests remain loading','one loaded tile cannot hide another pending or failed tile','slow deadline emits feedback and settles to an explicit all-failed status','retry ignores old image callbacks and accepts only its new tile elements','all visible tiles loaded enables ready state; unloaded tiles cannot leave stale readiness','map unload removes every listener and timer; later retry and callbacks cannot publish'];
+fs.writeFileSync('.runtime/map-20261029/tile-event-checks.json',JSON.stringify({status:'passed',source:'actual mapTiles.ts via event/clock seam',cases,browser_driven:false},null,2));console.log(JSON.stringify({status:'passed',cases:cases.length}));

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checks": [
+    "all 142 new payload entries loaded; every backend source hash and classifier artifact matches first activated release",
+    "identical copied backend and both model trees pass without loading a model",
+    "backend __pycache__/pyc/pyo are explicitly ignored while every product file remains strict",
+    "any backend/detector/classifier byte change rejects static-only activation",
+    "extra API file also rejects static-only activation",
+    "model trees do not inherit the backend cache exclusion and remain fully byte strict",
+    "PID restart counter and active state CAS reject a changed API"
+  ],
+  "count": 7,
+  "network_called": false,
+  "activation_executed": false,
+  "api_restart_attempts": 0
+}

@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "browser": "Chrome controlled only through mcp__cua_repl",
+  "production_prefix_build": "/agriscan/workspace/assets/index-KF3F49TB.js",
+  "url": "http://127.0.0.1:6190/agriscan/workspace/#detect",
+  "api_fixture_only": true,
+  "production_database_written": false,
+  "real_model_or_llm_called": false,
+  "file_input": "public fixed PNG supplied through a visible fixture button dispatching the real file-input change event; extension file chooser permission was unchanged",
+  "cases": [
+    "upload reserve and raw PUT reach the local fixture through real browser fetch/XHR",
+    "navigation to knowledge while processing preserves one task; completion keeps #knowledge, tomato theme and existing focus",
+    "explicit ViewResult opens #detect, apple theme, completed heading focus and no upload form",
+    "same file can be chosen again and two independent active tasks coexist",
+    "explicit cancel shows cancelled only after the fixture server confirms it",
+    "completion while the task-center dialog is open leaves focus inside that dialog",
+    "explicit ViewResult on the same selected key closes the dialog then focuses the result heading after layout",
+    "logout removes all task entry controls and result cards from the account UI"
+  ],
+  "observed": {
+    "background_completion": {
+      "hash": "#knowledge",
+      "theme": "tomato",
+      "focused": "病害知识库",
+      "result_dom": false
+    },
+    "explicit_result": {
+      "hash": "#detect",
+      "theme": "apple",
+      "focused": "苹果检测完成",
+      "upload_forms": 0
+    },
+    "dialog_completion": {
+      "focused": "关闭弹窗",
+      "inside_dialog": true
+    },
+    "logout": {
+      "hash": "#login",
+      "task_entries": 0,
+      "task_cards": 0
+    }
+  },
+  "source_sha256": {
+    "shared/detectionTasks.ts": "ac3e42c703eedc4a94b82aa8141a0fab4415805bdcd1f2b0d3a28c7a6b298a5e",
+    "frontend/src/DetectionTasks.tsx": "2dafad8fdfd08a1b6990871edbf62ee81c3e199fdab488a424b4a17de1234275",
+    "frontend/src/Pages.tsx": "130b4d04d7ff496a1b57965db2cc50066c0b48b07b231106b43edba92ac61845",
+    "frontend/src/App.tsx": "01206779cbc40d63a3435f3ddd94173ebc9b85b4e356eada15c74c57275bfd17",
+    "frontend/src/DetectionJourney.tsx": "fb28238663306bbf80409584dc88e88a6e9dcbb2f075050ecf94842353c9ba7b"
+  }
+}

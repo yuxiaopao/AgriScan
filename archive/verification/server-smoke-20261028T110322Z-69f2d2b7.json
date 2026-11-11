@@ -1,0 +1,80 @@
+{
+  "run_id": "server-smoke-20261028T110322Z-69f2d2b7",
+  "started_at": "2026-10-28T11:03:22.688842+00:00",
+  "checks": [
+    "persistent API/MySQL/Redis services, production health, anonymous API protection",
+    "administrator login/me, expected real detector, public/private configuration disclosure contracts",
+    "real Apple target boxes, normalized original coordinates, identical persistence, protected saved original",
+    "blank background returns 422 without a corresponding database record",
+    "source Nginx via HTTPS Host/SNI and --resolve, valid certificate, identical protected image",
+    "announcement and image/live switches; public refresh, 403 gates, readable history, stale-version 409",
+    "original announcement and feature switches restored with version check",
+    "API remained running with unchanged PID/restart count; service and process memory peak captured",
+    "temporary session revoked; only owned detection ids and their images deleted"
+  ],
+  "created_ids": [
+    "4b2bfc4ba39b4c609473226bdb8026bf"
+  ],
+  "deleted_ids": [
+    "4b2bfc4ba39b4c609473226bdb8026bf"
+  ],
+  "warnings": [],
+  "fixture_sha256": "5d7236ea8400b9b6093b51a860ebf4844d78b961e1505b6e64520a29fcef4427",
+  "service_before": {
+    "MainPID": 1124187,
+    "NRestarts": 0,
+    "MemoryCurrent": 317210624,
+    "MemoryPeak": 317739008,
+    "ActiveState": "active",
+    "SubState": "running",
+    "VmHWM_bytes": 357036032,
+    "VmRSS_bytes": 357036032,
+    "mysql": "active",
+    "redis": "active"
+  },
+  "detection": {
+    "id": "4b2bfc4ba39b4c609473226bdb8026bf",
+    "crop": "苹果",
+    "result": "苹果黑星病",
+    "confidence": 0.8459509015083313,
+    "boxes": [
+      {
+        "key": "Apple_Apple_scab",
+        "crop": "苹果",
+        "label": "苹果黑星病",
+        "healthy": false,
+        "class_id": 0,
+        "confidence": 0.8459509015083313,
+        "bbox": [
+          0.03368158340454101,
+          0.06392145156860352,
+          0.9906038284301758,
+          0.9932659149169922
+        ]
+      }
+    ]
+  },
+  "https": {
+    "domain": "flowly-ai.top",
+    "resolved_ip": "127.0.0.1",
+    "certificate_verification": true,
+    "api_prefix": "/agriscan/api"
+  },
+  "config_changed_version": 1,
+  "config_restore": "restored",
+  "config_restored_version": 2,
+  "service_after": {
+    "MainPID": 1124187,
+    "NRestarts": 0,
+    "MemoryCurrent": 638418944,
+    "MemoryPeak": 638431232,
+    "ActiveState": "active",
+    "SubState": "running",
+    "VmHWM_bytes": 685203456,
+    "VmRSS_bytes": 685203456,
+    "mysql": "active",
+    "redis": "active"
+  },
+  "finished_at": "2026-10-28T11:03:25.319346+00:00",
+  "status": "passed"
+}

@@ -1,0 +1,74 @@
+{
+  "origin": "https://agriscan.ming-ai.top",
+  "configuration_saved": true,
+  "checks": [
+    "response omits private credential",
+    "response omits private credential",
+    "existing administrator authenticated at production origin",
+    "response omits private credential",
+    "response omits private credential",
+    "response omits private credential",
+    "response omits private credential",
+    "production draft passes text and real image test before any save",
+    "response omits private credential",
+    "connection test preserves configuration and revision",
+    "connection test leaves encrypted database row unchanged",
+    "response omits private credential",
+    "DeepSeek enabled and secret configured through administrator API",
+    "unrelated brand feature limit SMTP and registration settings preserved",
+    "database credential decrypts correctly without plaintext storage or audit exposure",
+    "response omits private credential",
+    "public client configuration contains no integrations or key",
+    "response omits private credential",
+    "actual Xiaohe assistant completes a Chinese agriculture answer with saved configuration"
+  ],
+  "draft_probe": {
+    "ok": true,
+    "model": "deepseek-flash",
+    "text": {
+      "ok": true,
+      "message": "文本测试通过。"
+    },
+    "vision": {
+      "ok": true,
+      "message": "图片测试通过，模型正确识别了测试图颜色。"
+    },
+    "elapsed_ms": 1895,
+    "configuration_saved": false
+  },
+  "status": "passed",
+  "config_version": 6,
+  "probe": {
+    "ok": true,
+    "model": "deepseek-flash",
+    "text": {
+      "ok": true,
+      "message": "文本测试通过。"
+    },
+    "vision": {
+      "ok": true,
+      "message": "图片测试通过，模型正确识别了测试图颜色。"
+    },
+    "elapsed_ms": 1895,
+    "configuration_saved": false
+  },
+  "database_proof": {
+    "version": 6,
+    "row_sha256": "6bdd1d92d073959078e1345144126f4fe10145c6b956b173336510223bb79f32",
+    "encrypted_secrets_present": true,
+    "credential_matches": true,
+    "plaintext_absent_from_json": true,
+    "plaintext_absent_from_ciphertext": true,
+    "cipher_length": 164,
+    "audit_contains_no_key": true,
+    "llm": {
+      "llm_enabled": true,
+      "llm_base_url": "https://api.deepseek.com",
+      "llm_model": "deepseek-flash",
+      "llm_timeout": 60
+    }
+  },
+  "actual_assistant_answer_length": 332,
+  "model": "deepseek-flash",
+  "control_session_revoked": true
+}

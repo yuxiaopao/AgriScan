@@ -1,0 +1,310 @@
+import {useEffect, useRef, useState, type FormEvent, type ReactNode} from 'react'
+import {Activity, ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronLeft, ChevronRight, CircleAlert, ClipboardList, Database, Download, FileSearch, FlaskConical, KeyRound, LayoutDashboard, Leaf, LoaderCircle, LogOut, MapPin, Menu, Pencil, Plus, RefreshCw, Search, Settings2, ShieldCheck, Sprout, Trash2, Users, X} from 'lucide-react'
+import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts'
+import {api, apiUrl, getToken, setToken} from './api'
+import {Badge, Modal, SecureImage, statusLabels} from '../../frontend/src/components'
+import {WeightManager} from '../../frontend/src/Integrations'
+import PlotEditor from '../../frontend/src/PlotEditor'
+import {confidenceText, PredictionScores} from '../../frontend/src/PredictionScores'
+import RunningModels from '../../frontend/src/RunningModels'
+import {cropThemes} from '../../frontend/src/cropThemes'
+import type {Article, Detection, Health, ModelInfo, Plot, User} from '../../frontend/src/types'
+import './admin.css'
+import {registrationUsernameError, USERNAME_HELP, USERNAME_MAX_LENGTH} from '../../shared/accountValidation'
+import RuntimeSettings from './RuntimeSettings'
+import OwnerPicker from './OwnerPicker'
+
+type AdminView = 'overview' | 'users' | 'plots' | 'detections' | 'knowledge' | 'models' | 'audit' | 'settings'
+interface Props {user: User; onExit: () => void; onLogout: () => void; onDataChanged: () => void}
+interface PageData<T> {items: T[]; total: number; page: number; page_size: number}
+interface AdminUser extends User {id: string; email: string | null; is_active: boolean; created_at: string | null; updated_at: string | null; managed?: boolean; is_managed?: boolean; is_self?: boolean}
+interface AdminArticle extends Article {status: 'draft' | 'published' | 'archived'; created_at: string; updated_at: string; published_at: string | null}
+interface Audit {id: string; actor_name: string; action: string; resource_type: string; resource_id: string; summary: string; created_at: string}
+interface Overview {counts: {users: number; active_users: number; plots: number; detections: number; published_articles: number; model_artifacts: number}; services: {database: string; redis: string; model: string}; recent_activity: Audit[]; trend: {date: string; total: number; attention: number}[]}
+interface CommonProps {revision: number; changed: () => void; toast: (message: string) => void}
+interface Ownership {owner_id:string|null;owner_name:string|null;owner_username:string|null}
+type AdminDetection = Detection & Ownership
+type AdminPlot = Plot & Ownership
+function ownerText(row:Ownership){return row.owner_id?`${row.owner_name||'用户'}${row.owner_username?' · @'+row.owner_username:''}`:'历史待分配'}
+const links = [
+  {id: 'overview', name: '管理概览', icon: LayoutDashboard, description: '查看工作空间的业务情况与近期操作。'},
+  {id: 'users', name: '用户管理', icon: Users, description: '管理成员账户、角色与访问状态。'},
+  {id: 'plots', name: '地块管理', icon: MapPin, description: '维护种植地块、位置与负责人。'},
+  {id: 'detections', name: '检测管理', icon: FileSearch, description: '查找检测记录，维护样本信息与地块关联。'},
+  {id: 'knowledge', name: '知识内容', icon: BookOpen, description: '整理农业知识，审核来源并发布到知识库。'},
+  {id: 'models', name: '模型管理', icon: FlaskConical, description: '查看正在使用的识别模型与已登记权重。'},
+  {id: 'audit', name: '操作日志', icon: ClipboardList, description: '按时间追溯管理操作与变更记录。'},
+  {id: 'settings', name: '系统配置', icon: Settings2, description: '管理 APP 与桌面功能、检测限额、注册邮件和小禾接入。'},
+] as const
+const resourceNames: Record<string, string> = {user: '用户', users: '用户', plot: '地块', plots: '地块', detection: '检测', detections: '检测', knowledge: '知识', article: '知识', model: '模型', model_artifact: '模型', auth: '账户', runtime_config: '系统配置'}
+const actionNames: Record<string, string> = {create: '新增', update: '编辑', delete: '删除', archive: '归档', publish: '发布', reset_password: '重置密码', password_reset: '重置密码', enable: '启用', disable: '停用', login: '登录', upload: '上传'}
+const auditActions: [string, string][] = [['user.create', '新增用户'], ['user.update', '编辑用户'], ['user.password_reset', '重置密码'], ['knowledge.create', '新增知识'], ['knowledge.update', '编辑知识'], ['knowledge.archive', '归档知识'], ['detection.update', '编辑检测'], ['create', '新增资源'], ['update', '编辑资源'], ['update_cover', '更新地块封面'], ['delete_cover', '移除地块封面'], ['delete', '删除记录'], ['upload', '上传权重']]
+function actionText(value: string, resource?: string) {if (resource === 'runtime_config' && value === 'update') return '修改系统配置'; return auditActions.find(([key]) => key === value)?.[1] ?? actionNames[value] ?? value}
+const articleStatuses = {draft: '草稿', published: '已发布', archived: '已归档'}
+const fallbackCrops = cropThemes.map(item => item.crop)
+function viewFromHash(): AdminView {const id = window.location.hash.split('/')[1]; return links.some(item => item.id === id) ? id as AdminView : 'overview'}
+function message(error: unknown) {return error instanceof Error ? error.message : '操作未完成，请稍后重试。'}
+function dateText(value?: string | null) {return value ? new Date(value).toLocaleString('zh-CN', {month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}) : '—'}
+function query(path: string, values: Record<string, string | number>) {const params = new URLSearchParams(); Object.entries(values).forEach(([key, value]) => {if (value !== '') params.set(key, String(value))}); return path + '?' + params.toString()}
+function useLoad<T>(path: string | null, revision = 0) {
+  const [data, setData] = useState<T | null>(null), [error, setError] = useState(''), [loading, setLoading] = useState(Boolean(path)), [retry, setRetry] = useState(0)
+  useEffect(() => {
+    const controller = new AbortController()
+    setData(null); setError(''); setLoading(Boolean(path))
+    if (path) api<T>(path, {signal: AbortSignal.any([controller.signal, AbortSignal.timeout(20000)])})
+      .then(value => {if (!controller.signal.aborted) setData(value)})
+      .catch(reason => {if (!controller.signal.aborted) setError(message(reason))})
+      .finally(() => {if (!controller.signal.aborted) setLoading(false)})
+    return () => controller.abort()
+  }, [path, revision, retry])
+  return {data, error, loading, reload: () => setRetry(value => value + 1)}
+}
+function useFilters<T extends Record<string, string>>(initial: T) {
+  const [filters, setFilters] = useState(initial), [page, setPage] = useState(1), [delayed, setDelayed] = useState(initial)
+  useEffect(() => {const timer = window.setTimeout(() => setDelayed(filters), 250); return () => window.clearTimeout(timer)}, [filters])
+  return {filters, delayed, page, setPage, set: (key: keyof T, value: string) => {setPage(1); setFilters(old => ({...old, [key]: value}))}, clear: () => {setPage(1); setFilters(initial)}}
+}
+function Button({children, onClick, tone = 'default', disabled = false, type = 'button', title}: {children: ReactNode; onClick?: () => void; tone?: 'default' | 'primary' | 'danger' | 'quiet'; disabled?: boolean; type?: 'button' | 'submit'; title?: string}) {
+  return <button className={'adm-button ' + tone} type={type} onClick={onClick} disabled={disabled} title={title}>{children}</button>
+}
+function ErrorBox({text, retry}: {text: string; retry?: () => void}) {return <div className="adm-error" role="alert"><CircleAlert size={17}/><span>{text}</span>{retry && <button type="button" onClick={retry}>重试</button>}</div>}
+function EmptyState({title = '暂无数据', detail = '调整筛选条件，或添加第一条记录。'}: {title?: string; detail?: string}) {return <div className="adm-empty"><Sprout size={32}/><h3>{title}</h3><p>{detail}</p></div>}
+function Busy() {return <div className="adm-loading adm-loading-layout" role="status" aria-label="正在读取管理数据"><span className="adm-sr-only">正在读取管理数据…</span><div className="adm-skeleton-heading" aria-hidden="true"/><div className="adm-skeleton-rows" aria-hidden="true">{[0, 1, 2, 3].map(index => <div key={index}><i/><span/><span/><span/></div>)}</div></div>}
+function Panel({children, className = ''}: {children: ReactNode; className?: string}) {return <section className={'adm-panel ' + className}>{children}</section>}
+function SearchField({value, onChange, placeholder = '搜索…'}: {value: string; onChange: (value: string) => void; placeholder?: string}) {return <label className="adm-search"><Search size={17}/><input aria-label={placeholder} placeholder={placeholder} value={value} onChange={event => onChange(event.target.value)}/>{value && <button type="button" aria-label="清空搜索" onClick={() => onChange('')}><X size={15}/></button>}</label>}
+function Pager({data, page, setPage}: {data: {total: number; page_size: number} | null; page: number; setPage: (page: number) => void}) {
+  const pages = Math.max(1, Math.ceil((data?.total ?? 0) / (data?.page_size ?? 20)))
+  useEffect(() => {if (data && page > pages) setPage(pages)}, [data, page, pages, setPage])
+  if (!data) return null
+  return <div className="adm-pagination"><span>共 <strong>{data.total}</strong> 条记录 · 每页 {data.page_size} 条</span><div><button type="button" aria-label="上一页" disabled={page <= 1} onClick={() => setPage(page - 1)}><ChevronLeft size={16}/></button><span>{page} / {pages}</span><button type="button" aria-label="下一页" disabled={page >= pages} onClick={() => setPage(page + 1)}><ChevronRight size={16}/></button></div></div>
+}
+function Pill({children, tone = 'neutral'}: {children: ReactNode; tone?: string}) {return <span className={'adm-pill ' + tone}>{children}</span>}
+function FormFooter({busy, onClose, label = '保存'}: {busy: boolean; onClose: () => void; label?: string}) {return <div className="adm-form-footer"><Button disabled={busy} onClick={onClose}>取消</Button><Button type="submit" tone="primary" disabled={busy}>{busy ? <><LoaderCircle size={15} className="spin"/>保存中…</> : <><Check size={15}/>{label}</>}</Button></div>}
+function ConfirmDialog({title, text, onClose, onConfirm, label = '确认删除'}: {title: string; text: string; onClose: () => void; onConfirm: () => Promise<void>; label?: string}) {
+  const [busy, setBusy] = useState(false), [error, setError] = useState('')
+  const close = () => {if (!busy) onClose()}
+  async function confirm() {setBusy(true); setError(''); try {await onConfirm(); onClose()} catch (reason) {setError(message(reason))} finally {setBusy(false)}}
+  return <Modal title={title} onClose={close}><div className="adm-form"><div className="adm-confirm-icon"><CircleAlert size={25}/></div><p className="adm-confirm-text">{text}</p>{error && <ErrorBox text={error}/>}<div className="adm-form-footer"><Button disabled={busy} onClick={close}>取消</Button><Button tone="danger" disabled={busy} onClick={() => void confirm()}>{busy ? '处理中…' : label}</Button></div></div></Modal>
+}
+function ServicePill({value}: {value: string | undefined}) {
+  const name: Record<string, string> = {connected: '已连接', ready: '已就绪', ok: '正常', unavailable: '连接异常', disabled: '未启用', degraded: '降级运行', awaiting_model: '等待模型', awaiting_weights: '等待模型', not_configured: '未配置', error: '异常'}
+  const good = ['connected', 'ready', 'ok'].includes(value ?? '')
+  return <Pill tone={good ? 'green' : ['disabled', 'awaiting_model', 'awaiting_weights', 'not_configured'].includes(value ?? '') ? 'neutral' : 'amber'}><span className="adm-status-dot"/>{name[value ?? ''] ?? value ?? '未读取'}</Pill>
+}
+
+export default function Admin({user, onExit, onLogout, onDataChanged}: Props) {
+  const [view, setView] = useState<AdminView>(viewFromHash), [menu, setMenu] = useState(false), [revision, setRevision] = useState(0), [notice, setNotice] = useState('')
+  const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 900px)').matches)
+  const sidebar = useRef<HTMLElement>(null), menuButton = useRef<HTMLButtonElement>(null)
+  useEffect(() => {const media = window.matchMedia('(max-width: 900px)'); const change = () => {setCompact(media.matches); if (!media.matches) setMenu(false)}; media.addEventListener('change', change); return () => media.removeEventListener('change', change)}, [])
+  useEffect(() => {const change = () => {setView(viewFromHash()); setMenu(false); window.scrollTo({top: 0, behavior: 'instant'})}; window.addEventListener('hashchange', change); return () => window.removeEventListener('hashchange', change)}, [])
+  useEffect(() => {document.title = (links.find(item => item.id === view)?.name ?? '管理端') + ' · 禾观管理控制台'}, [view])
+  useEffect(() => {if (!notice) return; const timer = window.setTimeout(() => setNotice(''), 5000); return () => window.clearTimeout(timer)}, [notice])
+  useEffect(() => {
+    if (!menu || !compact) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const focusFrame = window.requestAnimationFrame(() => sidebar.current?.querySelector<HTMLElement>('a[aria-current="page"]')?.focus())
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {event.preventDefault(); setMenu(false)}
+      if (event.key !== 'Tab') return
+      const controls = Array.from(sidebar.current?.querySelectorAll<HTMLElement>('a[href],button:not(:disabled)') ?? [])
+      const first = controls[0], last = controls[controls.length - 1]
+      if (event.shiftKey && document.activeElement === first) {event.preventDefault(); last?.focus()}
+      else if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first?.focus()}
+    }
+    window.addEventListener('keydown', close)
+    return () => {document.body.style.overflow = previousOverflow; window.cancelAnimationFrame(focusFrame); window.removeEventListener('keydown', close); menuButton.current?.focus()}
+  }, [menu, compact])
+  const changed = () => {setRevision(value => value + 1); onDataChanged()}
+  const props = {revision, changed, toast: setNotice}
+  const item = links.find(entry => entry.id === view) ?? links[0]
+  return <div className="admin-shell">
+    <a className="adm-skip-link" href="#admin-main" onClick={event => {event.preventDefault(); document.getElementById('admin-main')?.focus()}}>跳转到管理内容</a>
+    {menu && <button className="adm-scrim" aria-label="关闭管理导航" onClick={() => setMenu(false)}/>}
+    <aside ref={sidebar} id="admin-navigation" inert={compact && !menu} className={'adm-sidebar ' + (menu ? 'is-open' : '')}><button className="adm-nav-close" aria-label="关闭管理导航" onClick={() => setMenu(false)}><X size={20}/></button><a className="adm-brand" href="#admin/overview"><div><img className="brand-logo" src="/brand/logo.svg" alt="禾观 AgriScan" width="166" height="60"/><p>管理控制台</p></div></a><div className="adm-space-label"><ShieldCheck size={15}/><span>工作空间管理</span><Pill tone="green">ADMIN</Pill></div><span className="adm-nav-caption">管理工作空间</span><nav aria-label="管理端导航" onClick={() => {if (compact) setMenu(false)}}>{links.map(link => <a key={link.id} href={'#admin/' + link.id} aria-current={view === link.id ? 'page' : undefined} className={view === link.id ? 'active' : ''}><link.icon size={18}/><span>{link.name}</span>{view === link.id && <span className="adm-nav-dot"/>}</a>)}</nav><div className="adm-sidebar-bottom"><button onClick={onExit}><ArrowLeft size={17}/>返回工作台<ArrowUpRight size={14}/></button><div className="adm-admin-user"><span>{user.name.charAt(0) || '管'}</span><div><strong>{user.name}</strong><small>管理员 · {user.username}</small></div></div><button onClick={onLogout}><LogOut size={16}/>退出登录</button></div></aside>
+    <div className="adm-main" inert={compact && menu}><header className="adm-topbar"><div><button ref={menuButton} className="adm-mobile-toggle" onClick={() => setMenu(value => !value)} aria-label="打开管理导航" aria-expanded={menu} aria-controls="admin-navigation"><Menu size={22}/></button><ShieldCheck size={16}/><span>管理控制台</span><ChevronRight size={13}/><strong>{item.name}</strong></div><Button tone="quiet" onClick={() => setRevision(value => value + 1)}><RefreshCw size={15}/>刷新数据</Button></header><main className="adm-content" id="admin-main" tabIndex={-1}><div className="adm-page-heading"><div><span>WORKSPACE MANAGEMENT</span><h1>{item.name}</h1><p>{item.description}</p></div><div className="adm-heading-date">{new Date().toLocaleDateString('zh-CN', {year: 'numeric', month: 'long', day: 'numeric'})}<small>禾观 · 让管理井井有条</small></div></div>
+      <div hidden={view !== 'settings'} className="adm-settings-stage"><RuntimeSettings revision={revision} active={view === 'settings'} onSaved={changed}/></div>
+      <div key={view} className="adm-page">
+        {view === 'overview' && <OverviewPage {...props}/>}
+        {view === 'users' && <UsersPage {...props} user={user}/>}
+        {view === 'plots' && <PlotsAdmin {...props} user={user}/>}
+        {view === 'detections' && <DetectionsAdmin {...props}/>}
+        {view === 'knowledge' && <KnowledgeAdmin {...props}/>}
+        {view === 'models' && <ModelsAdmin {...props}/>}
+        {view === 'audit' && <AuditPage revision={revision}/>}
+        {view === 'settings' && <SettingsAdmin revision={revision}/>}
+      </div><footer className="adm-footer"><img src="/brand/icon.svg" alt="" width="20" height="20"/>AgriScan 禾观<span>每一项操作，都为更可靠的田间记录。</span></footer></main></div>
+    {notice && <div className="adm-toast" key={notice} role="status" aria-live="polite"><span className="adm-toast-icon"><Check size={17}/></span><span>{notice}</span><button aria-label="关闭提示" onClick={() => setNotice('')}><X size={16}/></button></div>}
+  </div>
+}
+
+function OverviewPage({revision}: CommonProps) {
+  const [days, setDays] = useState(7)
+  const state = useLoad<Overview>('/admin/overview?days=' + days, revision)
+  if (state.loading) return <Busy/>
+  if (state.error) return <ErrorBox text={state.error} retry={state.reload}/>
+  if (!state.data) return <EmptyState/>
+  const data = state.data
+  const cards = [
+    {name: '工作空间成员', value: data.counts.users, foot: data.counts.active_users + ' 位账户处于启用状态', icon: Users, tone: 'green', href: '#admin/users'},
+    {name: '种植地块', value: data.counts.plots, foot: '已登记的种植地块', icon: MapPin, tone: 'sage', href: '#admin/plots'},
+    {name: '检测记录', value: data.counts.detections, foot: '工作空间累计检测样本', icon: FileSearch, tone: 'gold', href: '#admin/detections'},
+    {name: '已发布知识', value: data.counts.published_articles, foot: data.counts.model_artifacts + ' 份模型权重已登记', icon: BookOpen, tone: 'blue', href: '#admin/knowledge'},
+  ]
+  return <><div className="adm-stats">{cards.map(card => <Panel key={card.name} className={'adm-stat ' + card.tone}><div><span>{card.name}</span><card.icon size={20}/></div><strong>{card.value.toLocaleString()}</strong><p>{card.foot}</p><a className="adm-stat-link" href={card.href} aria-label={'查看' + card.name}><ArrowUpRight size={16}/></a></Panel>)}</div><div className="adm-overview-grid"><Panel><div className="adm-panel-heading"><div><h2>检测活动</h2><p>检测记录（含示例样本）· 按入库日期统计</p></div><div className="adm-segment">{[7, 30].map(value => <button className={days === value ? 'active' : ''} key={value} onClick={() => setDays(value)}>近 {value} 天</button>)}</div></div><div className="adm-chart-legend"><span><i/>全部样本</span><span><i/>需关注样本</span></div>{data.trend.length ? <div className="adm-chart"><ResponsiveContainer width="100%" height="100%"><AreaChart data={data.trend} margin={{top: 10, right: 15, bottom: 0, left: -25}}><CartesianGrid stroke="#edf0e9" strokeDasharray="3 4" vertical={false}/><XAxis dataKey="date" tickFormatter={value => String(value).slice(5)} tick={{fontSize: 11, fill: '#829083'}} axisLine={false} tickLine={false}/><YAxis allowDecimals={false} tick={{fontSize: 11, fill: '#829083'}} axisLine={false} tickLine={false}/><Tooltip contentStyle={{fontSize: 12, borderRadius: 10, borderColor: '#dfe8dc'}}/><Area type="linear" dataKey="total" name="全部样本" stroke="#397b53" fill="#edf5eb" strokeWidth={2}/><Area type="linear" dataKey="attention" name="需关注样本" stroke="#c29b4c" fill="transparent" strokeWidth={2}/></AreaChart></ResponsiveContainer></div> : <EmptyState title="还没有检测活动" detail="上传样本后，这里会展示检测趋势。"/>}</Panel><Panel><div className="adm-panel-heading"><div><h2>服务连接</h2><p>当前工作空间的基础服务</p></div><Activity size={18}/></div><div className="adm-service-list">{[['业务数据库', data.services.database], ['缓存服务', data.services.redis], ['图像识别', data.services.model]].map(([label, value]) => <div key={label}><span>{label}</span><ServicePill value={value}/></div>)}</div><div className="adm-service-note"><Leaf size={20}/><p>检测结果与模型快照会保存在工作空间。服务异常时，可前往系统状态查看。</p></div><a href="#admin/settings" className="adm-inline-link">查看系统状态<ArrowUpRight size={15}/></a></Panel></div><Panel><div className="adm-panel-heading"><div><h2>最近管理操作</h2><p>成员与内容变更记录</p></div><a href="#admin/audit" className="adm-inline-link">全部日志<ArrowUpRight size={15}/></a></div><AuditTable items={data.recent_activity}/></Panel></>
+}
+
+function UsersPage({revision, changed, toast, user}: CommonProps & {user: User}) {
+  const filter = useFilters({search: '', role: '', status: ''})
+  const state = useLoad<PageData<AdminUser>>(query('/admin/users', {...filter.delayed, page: filter.page, page_size: 12}), revision)
+  const [editing, setEditing] = useState<AdminUser | 'new' | null>(null), [password, setPassword] = useState<AdminUser | null>(null), [toggle, setToggle] = useState<AdminUser | null>(null)
+  const self = (row: AdminUser) => row.is_self || row.username === user.username
+  const protectedUser = (row: AdminUser) => Boolean(row.managed ?? row.is_managed) || self(row)
+  return <><div className="adm-section-actions"><p><ShieldCheck size={15}/>管理员维护账户，成员使用工作台。</p><Button tone="primary" onClick={() => setEditing('new')}><Plus size={16}/>新增用户</Button></div><Panel><div className="adm-filters"><SearchField value={filter.filters.search} onChange={value => filter.set('search', value)} placeholder="搜索姓名、用户名或邮箱"/><select aria-label="用户角色" value={filter.filters.role} onChange={event => filter.set('role', event.target.value)}><option value="">全部角色</option><option value="admin">管理员</option><option value="member">普通成员</option></select><select aria-label="账户状态" value={filter.filters.status} onChange={event => filter.set('status', event.target.value)}><option value="">全部状态</option><option value="active">已启用</option><option value="disabled">已停用</option></select></div>{state.error && <ErrorBox text={state.error} retry={state.reload}/>}
+    {state.loading ? <Busy/> : state.data?.items.length ? <div className="adm-table-scroll"><table className="adm-table"><thead><tr><th>成员</th><th>角色</th><th>状态</th><th>创建时间</th><th>账户操作</th></tr></thead><tbody>{state.data.items.map(row => <tr key={row.id}><td><div className="adm-person"><span>{row.name.charAt(0)}</span><div><strong>{row.name}{self(row) && <small>当前账户</small>}</strong><p>{row.username}{row.email ? ' · ' + row.email : ''}</p>{(row.managed ?? row.is_managed) && <p className="adm-managed"><ShieldCheck size={11}/>配置管理账户</p>}</div></div></td><td><Pill tone={row.role === 'admin' ? 'green' : 'neutral'}>{row.role === 'admin' ? '管理员' : '普通成员'}</Pill></td><td><Pill tone={row.is_active ? 'green' : 'neutral'}>{row.is_active ? '已启用' : '已停用'}</Pill></td><td className="adm-date">{dateText(row.created_at)}</td><td><div className="adm-row-actions"><button onClick={() => setEditing(row)}><Pencil size={14}/>编辑</button><button disabled={Boolean(row.managed ?? row.is_managed)} title={(row.managed ?? row.is_managed) ? '此账户密码由服务配置管理' : '设置新密码'} onClick={() => setPassword(row)}><KeyRound size={14}/>重置密码</button><button className={row.is_active ? 'danger' : ''} disabled={protectedUser(row)} title={protectedUser(row) ? '当前账户和配置管理账户不可在此停用' : undefined} onClick={() => setToggle(row)}>{row.is_active ? '停用' : '启用'}</button></div></td></tr>)}</tbody></table></div> : !state.error && <EmptyState title="没有匹配的用户" detail="调整筛选条件，或新增一个成员账户。"/>}<Pager data={state.data} page={filter.page} setPage={filter.setPage}/></Panel>
+    {editing && <UserEditor row={editing === 'new' ? null : editing} isSelf={editing !== 'new' && self(editing)} onClose={() => setEditing(null)} onSaved={() => {setEditing(null); changed(); toast(editing === 'new' ? '用户已创建。' : '用户信息已更新。')}}/>}
+    {password && <PasswordEditor row={password} onClose={() => setPassword(null)} onSaved={() => {setPassword(null); changed(); toast('密码已重置，请将新密码安全地告知该成员。')}}/>}
+    {toggle && <ConfirmDialog title={toggle.is_active ? '停用用户' : '启用用户'} text={toggle.is_active ? '停用「' + toggle.name + '」后，该成员将无法登录，现有登录会话也会失效。' : '重新启用「' + toggle.name + '」的工作空间访问权限？'} label={toggle.is_active ? '确认停用' : '确认启用'} onClose={() => setToggle(null)} onConfirm={async () => {await api('/admin/users/' + toggle.id, {method: 'PATCH', body: JSON.stringify({is_active: !toggle.is_active})}); changed(); toast('账户状态已更新。')}}/>}
+  </>
+}
+function UserEditor({row, isSelf, onClose, onSaved}: {row: AdminUser | null; isSelf: boolean; onClose: () => void; onSaved: () => void}) {
+  const [name, setName] = useState(row?.name ?? ''), [username, setUsername] = useState(row?.username ?? ''), [email, setEmail] = useState(row?.email ?? ''), [role, setRole] = useState(row?.role ?? 'member'), [active, setActive] = useState(row?.is_active ?? true), [password, setPassword] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false)
+  const managed = Boolean(row?.managed ?? row?.is_managed), locked = managed || isSelf
+  async function submit(event: FormEvent) {event.preventDefault(); setError(''); if(!row){const invalidUsername=registrationUsernameError(username.trim());if(invalidUsername){setError(invalidUsername);return}} setBusy(true); try {const body = row ? {name: name.trim(), email: email.trim(), ...(!locked ? {role, is_active: active} : {})} : {username: username.trim(), name: name.trim(), password, role, email: email.trim()}; await api('/admin/users' + (row ? '/' + row.id : ''), {method: row ? 'PATCH' : 'POST', body: JSON.stringify(body)}); onSaved()} catch (reason) {setError(message(reason))} finally {setBusy(false)}}
+  return <Modal title={row ? '编辑用户' : '新增用户'} onClose={() => {if (!busy) onClose()}}><form className="adm-form" onSubmit={submit}><div className="adm-form-grid"><label>姓名<input required maxLength={80} value={name} onChange={event => setName(event.target.value)} disabled={busy}/></label><label>用户名<input required maxLength={USERNAME_MAX_LENGTH} minLength={3} title={USERNAME_HELP} placeholder="用户名或邮箱地址" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false} value={username} onChange={event => setUsername(event.target.value)} disabled={busy || Boolean(row)}/></label><label>邮箱 <small>选填</small><input type="email" maxLength={254} value={email} onChange={event => setEmail(event.target.value)} disabled={busy}/></label><label>角色<select value={role} onChange={event => setRole(event.target.value)} disabled={busy || locked}><option value="member">普通成员</option><option value="admin">管理员</option></select></label></div>{!row && <label>初始密码<input type="password" required minLength={10} maxLength={128} autoComplete="new-password" value={password} onChange={event => setPassword(event.target.value)} disabled={busy}/><small>至少 10 个字符，创建后请成员妥善保管。</small></label>}{row && <label className="adm-checkbox"><input type="checkbox" checked={active} onChange={event => setActive(event.target.checked)} disabled={busy || locked}/>允许此用户登录工作空间</label>}{locked && <div className="adm-info"><ShieldCheck size={16}/><span>{managed ? '此账户由服务配置管理。角色、状态及密码需通过服务配置维护。' : '为保留管理入口，不能在此修改自己的角色或停用自己的账户。'}</span></div>}{error && <ErrorBox text={error}/>}<FormFooter busy={busy} onClose={onClose} label={row ? '保存用户' : '创建用户'}/></form></Modal>
+}
+function PasswordEditor({row, onClose, onSaved}: {row: AdminUser; onClose: () => void; onSaved: () => void}) {
+  const [password, setPassword] = useState(''), [confirm, setConfirm] = useState(''), [busy, setBusy] = useState(false), [error, setError] = useState('')
+  async function submit(event: FormEvent) {event.preventDefault(); if (password !== confirm) {setError('两次密码不一致，请重新输入。'); return} setBusy(true); setError(''); try {await api('/admin/users/' + row.id + '/password', {method: 'POST', body: JSON.stringify({password})}); onSaved()} catch (reason) {setError(message(reason))} finally {setBusy(false)}}
+  return <Modal title="重置用户密码" onClose={() => {if (!busy) onClose()}}><form className="adm-form" onSubmit={submit}><p className="adm-form-intro">为「{row.name}」设置新密码。保存后该用户原有登录会话将失效。</p><label>新密码<input type="password" autoComplete="new-password" minLength={10} maxLength={128} required value={password} onChange={event => setPassword(event.target.value)} disabled={busy}/></label><label>再次输入新密码<input type="password" autoComplete="new-password" required value={confirm} onChange={event => setConfirm(event.target.value)} disabled={busy}/></label>{error && <ErrorBox text={error}/>}<FormFooter busy={busy} onClose={onClose} label="重置密码"/></form></Modal>
+}
+
+function PlotsAdmin({revision, changed, toast, user}: CommonProps & {user: User}) {
+  const filter = useFilters({search: '', crop: '', owner_id: ''}), state = useLoad<PageData<AdminPlot>>(query('/admin/plots', {...filter.delayed, page: filter.page, page_size: 12}), revision)
+  const model = useLoad<ModelInfo>('/models', revision), [editing, setEditing] = useState<AdminPlot | 'new' | null>(null), [removing, setRemoving] = useState<AdminPlot | null>(null)
+  const crops = model.data?.available_crops ?? fallbackCrops
+  return <><div className="adm-section-actions"><p><MapPin size={15}/>按归属用户维护地块。用户端仅显示本人地块，历史待分配数据仅管理端可见。</p><Button tone="primary" onClick={() => setEditing('new')}><Plus size={16}/>添加地块</Button></div><Panel><div className="adm-filters"><SearchField value={filter.filters.search} onChange={value => filter.set('search', value)} placeholder="搜索地块、位置或负责人"/><OwnerPicker value={filter.filters.owner_id} onChange={value=>filter.set('owner_id',value)} emptyLabel="全部用户"/><select aria-label="地块作物" value={filter.filters.crop} onChange={event => filter.set('crop', event.target.value)}><option value="">全部作物</option>{crops.map(crop => <option key={crop}>{crop}</option>)}</select></div>{state.error && <ErrorBox text={state.error} retry={state.reload}/>}
+    {state.loading ? <Busy/> : state.data?.items.length ? <div className="adm-table-scroll"><table className="adm-table"><thead><tr><th>种植地块</th><th>归属用户</th><th>作物 / 面积</th><th>负责人</th><th>检测记录</th><th>历史健康率</th><th>操作</th></tr></thead><tbody>{state.data.items.map(plot => <tr key={plot.id}><td><div className="adm-sample">{plot.cover_url ? <SecureImage className="adm-thumb" url={plot.cover_url} alt={plot.name}/> : <span className="adm-thumb adm-thumb-placeholder"><Leaf size={20}/></span>}<div><strong>{plot.name}</strong><p>{plot.location || '未填写位置'}</p>{plot.latitude != null && plot.longitude != null && <small>已记录地理位置</small>}</div></div></td><td>{ownerText(plot)}</td><td>{plot.crop}<small className="adm-cell-sub">{plot.area} 亩</small></td><td>{plot.manager || '—'}</td><td>{plot.detections} 份</td><td>{plot.health_score == null ? '暂无结果' : Math.round(plot.health_score) + '%'}</td><td><div className="adm-row-actions"><button onClick={() => setEditing(plot)}><Pencil size={14}/>编辑</button><button className="danger" onClick={() => setRemoving(plot)}><Trash2 size={14}/>删除</button></div></td></tr>)}</tbody></table></div> : !state.error && <EmptyState title="暂无匹配地块"/>}<Pager data={state.data} page={filter.page} setPage={filter.setPage}/></Panel>
+    {editing && <AdminPlotEditor key={editing === 'new' ? 'new' : editing.id} plot={editing === 'new' ? null : editing} user={user} crops={crops} onClose={() => setEditing(null)} onChange={changed} toast={toast}/>}
+    {removing && <ConfirmDialog title="删除地块" text={'确认删除「' + removing.name + '」？历史检测会保留，并解除与该地块的关联。'} onClose={() => setRemoving(null)} onConfirm={async () => {await api('/admin/plots/' + removing.id, {method: 'DELETE'}); if (state.data?.items.length === 1 && filter.page > 1) filter.setPage(filter.page - 1); changed(); toast('地块已删除，历史检测记录已保留。')}}/>}
+  </>
+}
+
+function AdminPlotEditor({plot,user,...props}:{plot:AdminPlot|null;user:User;crops:string[];onClose:()=>void;onChange:()=>void;toast:(message:string)=>void}){
+  const [owner,setOwner]=useState(plot?(plot.owner_id??'unassigned'):'')
+  return <PlotEditor {...props} plot={plot} owner={user.username} apiPrefix="/admin/plots" ownerId={owner===''?undefined:owner==='unassigned'?null:owner}
+    ownerField={<div className="adm-owner-field"><strong>归属用户</strong><OwnerPicker value={owner} onChange={setOwner} selectedLabel={plot?ownerText(plot):undefined} emptyLabel={!plot?'当前管理员（默认）':undefined}/><small>选择历史待分配后，该地块不会出现在任何用户的个人工作台。</small></div>}/>
+}
+
+function DetectionsAdmin({revision, changed, toast}: CommonProps) {
+  const filter = useFilters({search: '', crop: '', status: '', plot_id: '', source: '', date_from: '', date_to: '', owner_id: ''})
+  const [plotSearch, setPlotSearch] = useState(''), [selected, setSelected] = useState<AdminDetection | null>(null), [editing, setEditing] = useState<AdminDetection | null>(null), [removing, setRemoving] = useState<AdminDetection | null>(null)
+  const [exporting, setExporting] = useState(false), [exportError, setExportError] = useState('')
+  const plots = useLoad<PageData<AdminPlot>>(query('/admin/plots', {search: plotSearch, owner_id:filter.filters.owner_id, page: 1, page_size: 100}), revision), model = useLoad<ModelInfo>('/models', revision)
+  const invalidDates = Boolean(filter.delayed.date_from && filter.delayed.date_to && filter.delayed.date_from > filter.delayed.date_to)
+  const state = useLoad<PageData<AdminDetection>>(invalidDates ? null : query('/admin/detections', {...filter.delayed, page: filter.page, page_size: 12}), revision)
+  async function exportFiltered() {
+    if (filter.filters.date_from && filter.filters.date_to && filter.filters.date_from > filter.filters.date_to) {setExportError('开始日期不能晚于结束日期。'); return}
+    setExporting(true); setExportError('')
+    try {
+      const token = getToken()
+      const response = await fetch(apiUrl(query('/admin/detections/export.csv', filter.filters)), {headers: token ? {Authorization: 'Bearer ' + token} : {}, signal: AbortSignal.timeout(60000)})
+      if (!response.ok) {
+        if (response.status === 401 && getToken() === token) {setToken(null); window.dispatchEvent(new Event('agriscan-auth-expired'))}
+        const body = await response.json().catch(() => ({}))
+        throw new Error(typeof body.detail === 'string' ? body.detail : '导出未完成，请缩小筛选范围后重试。')
+      }
+      const blob = await response.blob(), url = URL.createObjectURL(blob), anchor = document.createElement('a')
+      anchor.href = url; anchor.download = '禾观-管理检测记录-' + new Date().toISOString().slice(0, 10) + '.csv'
+      document.body.appendChild(anchor); anchor.click(); anchor.remove()
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000); toast('已导出全部匹配记录。')
+    } catch (reason) {setExportError(reason instanceof DOMException && reason.name === 'TimeoutError' ? '导出超时，请缩小筛选范围后重试。' : reason instanceof TypeError ? '暂时无法导出，请检查连接后重试。' : message(reason))}
+    finally {setExporting(false)}
+  }
+  return <><div className="adm-section-actions"><p><FileSearch size={15}/>维护样本信息，导出全部匹配记录供归档。</p><Button disabled={exporting || state.loading || invalidDates || !state.data?.total} onClick={() => void exportFiltered()}>{exporting ? <LoaderCircle size={16} className="spin"/> : <Download size={16}/>} {exporting ? '正在导出…' : '导出筛选结果'}</Button></div>{exportError && <ErrorBox text={exportError} retry={() => void exportFiltered()}/>}<Panel><div className="adm-filters adm-detection-filters"><SearchField value={filter.filters.search} onChange={value => filter.set('search', value)} placeholder="搜索样本、编号或结果"/><OwnerPicker value={filter.filters.owner_id} onChange={value=>{filter.set('owner_id',value);filter.set('plot_id','')}} emptyLabel="全部用户"/><select aria-label="检测作物" value={filter.filters.crop} onChange={event => filter.set('crop', event.target.value)}><option value="">全部作物</option>{(model.data?.available_crops ?? fallbackCrops).map(crop => <option key={crop}>{crop}</option>)}</select><select aria-label="检测状态" value={filter.filters.status} onChange={event => filter.set('status', event.target.value)}><option value="">全部状态</option>{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><select aria-label="样本来源" value={filter.filters.source} onChange={event => filter.set('source', event.target.value)}><option value="">全部来源</option><option value="upload">真实上传</option><option value="demo">演示样本</option></select><div className="adm-plot-filter"><input aria-label="查找筛选地块" placeholder="查找地块…" value={plotSearch} onChange={event => setPlotSearch(event.target.value)}/><select aria-label="筛选所属地块" value={filter.filters.plot_id} onChange={event => filter.set('plot_id', event.target.value)}><option value="">全部地块</option>{filter.filters.plot_id && !plots.data?.items.some(plot => plot.id === filter.filters.plot_id) && <option value={filter.filters.plot_id}>已选择的地块</option>}{plots.data?.items.map(plot => <option key={plot.id} value={plot.id}>{plot.name}</option>)}</select></div><label className="adm-date-filter">开始日期<input type="date" value={filter.filters.date_from} onChange={event => filter.set('date_from', event.target.value)} max={filter.filters.date_to || undefined}/></label><label className="adm-date-filter">结束日期<input type="date" value={filter.filters.date_to} onChange={event => filter.set('date_to', event.target.value)} min={filter.filters.date_from || undefined}/></label>{Object.values(filter.filters).some(Boolean) && <Button tone="quiet" onClick={filter.clear}>清除筛选</Button>}</div>{plots.error && <ErrorBox text={'地块筛选选项加载失败：' + plots.error} retry={plots.reload}/>}<div className="adm-table-note"><ShieldCheck size={14}/>识别结论、候选和置信度为原始推理记录，仅允许编辑样本信息。</div>{invalidDates && <ErrorBox text="开始日期不能晚于结束日期。"/>}{state.error && <ErrorBox text={state.error} retry={state.reload}/>}
+    {state.loading ? <Busy/> : state.data?.items.length ? <div className="adm-table-scroll"><table className="adm-table"><thead><tr><th>检测样本</th><th>归属用户</th><th>作物 / 地块</th><th>识别结果</th><th>入库时间</th><th>操作</th></tr></thead><tbody>{state.data.items.map(row => <tr key={row.id}><td><div className="adm-sample">{row.image_url ? <SecureImage className="adm-thumb" url={row.image_url} alt={row.name}/> : <span className="adm-thumb adm-thumb-placeholder"><Leaf size={20}/></span>}<div><button className="adm-title-button" onClick={() => setSelected(row)}>{row.name}</button><p>{row.id.slice(0, 12)} · {row.is_demo ? '演示样本' : '真实上传'}</p></div></div></td><td>{ownerText(row)}</td><td>{row.crop}<small className="adm-cell-sub">{row.plot_name}</small></td><td><Badge status={row.status}/><small className="adm-cell-sub">{row.result || '暂无分类结论'} · {confidenceText(row.confidence)}</small></td><td className="adm-date">{dateText(row.created_at)}</td><td><div className="adm-row-actions"><button onClick={() => setSelected(row)}>详情</button><button onClick={() => setEditing(row)}><Pencil size={14}/>编辑</button><button className="danger" onClick={() => setRemoving(row)}><Trash2 size={14}/>删除</button></div></td></tr>)}</tbody></table></div> : !state.error && !invalidDates && <EmptyState title="没有匹配的检测记录" detail="调整作物、日期或其他筛选条件。"/>}<Pager data={state.data} page={filter.page} setPage={filter.setPage}/></Panel>
+    {selected && <DetectionDetail record={selected} onClose={() => setSelected(null)} onEdit={record => {setEditing(record); setSelected(null)}}/>}
+    {editing && <DetectionEditor record={editing} onClose={() => setEditing(null)} onSaved={() => {setEditing(null); changed(); toast('样本信息已更新，原始识别结果保持不变。')}}/>}
+    {removing && <ConfirmDialog title="删除检测样本" text={'确认删除「' + removing.name + '」及原始照片？分类快照也会一并删除，此操作无法撤销。'} onClose={() => setRemoving(null)} onConfirm={async () => {await api('/admin/detections/' + removing.id, {method: 'DELETE'}); if (state.data?.items.length === 1 && filter.page > 1) filter.setPage(filter.page - 1); changed(); toast('检测样本已删除。')}}/>}
+  </>
+}
+function DetectionDetail({record,onClose,onEdit}:{record:AdminDetection;onClose:()=>void;onEdit:(record:AdminDetection)=>void}){
+  const detail=useLoad<AdminDetection>('/admin/detections/'+record.id)
+  const row=detail.data
+  return <Modal title="检测样本详情" wide onClose={onClose}><div className="adm-form">
+    {detail.loading?<Busy/>:detail.error?<ErrorBox text={detail.error} retry={detail.reload}/>:row&&<>
+      <div className="adm-detection-detail"><div className="adm-detail-photo">{row.image_url?<SecureImage url={row.image_url} alt={row.name}/>:<div><Leaf size={45}/><p>此样本无原始照片</p></div>}</div><div><h3>{row.name}</h3><div className="adm-detail-badges"><Badge status={row.status}/>{row.is_demo&&<Pill>演示数据</Pill>}</div><dl className="adm-description">
+        <div><dt>归属用户</dt><dd>{ownerText(row)}</dd></div><div><dt>作物</dt><dd>{row.crop}</dd></div><div><dt>所属地块</dt><dd>{row.plot_name}</dd></div><div><dt>识别结果</dt><dd>{row.result||'暂无结论'}</dd></div><div><dt>原始置信度</dt><dd>{confidenceText(row.confidence)}</dd></div><div><dt>入库时间</dt><dd>{dateText(row.created_at)}</dd></div><div><dt>备注</dt><dd>{row.note||'未填写'}</dd></div>
+      </dl></div></div><PredictionScores record={row}/>{row.prediction_model&&<div className="adm-model-snapshot"><strong>当次模型快照</strong><p>{row.prediction_model.name} · {row.prediction_model.task}</p><code>{row.prediction_model.onnx_sha256}</code></div>}
+    </>}
+    <div className="adm-form-footer"><Button onClick={onClose}>关闭</Button>{row&&<Button tone="primary" onClick={()=>onEdit(row)}><Pencil size={15}/>编辑样本信息</Button>}</div>
+  </div></Modal>
+}
+function DetectionEditor({record,onClose,onSaved}:{record:AdminDetection;onClose:()=>void;onSaved:()=>void}){
+  const [name,setName]=useState(record.name),[note,setNote]=useState(record.note),[owner,setOwner]=useState(record.owner_id??'unassigned')
+  const [plotId,setPlotId]=useState(record.plot_id??''),[search,setSearch]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState('')
+  const plots=useLoad<PageData<AdminPlot>>(owner==='unassigned'?null:query('/admin/plots',{crop:record.crop,search,owner_id:owner,page:1,page_size:100}))
+  const ownerChanged=owner!==(record.owner_id??'unassigned')
+  async function submit(event:FormEvent){
+    event.preventDefault();if(busy)return;setBusy(true);setError('')
+    try{await api('/admin/detections/'+record.id,{method:'PATCH',body:JSON.stringify({name:name.trim(),note:note.trim(),owner_id:owner==='unassigned'?null:owner,plot_id:plotId||null})});onSaved()}
+    catch(reason){setError(message(reason))}finally{setBusy(false)}
+  }
+  return <Modal title="编辑样本信息" onClose={()=>{if(!busy)onClose()}}><form className="adm-form" onSubmit={submit}>
+    <div className="adm-info"><ShieldCheck size={16}/><span>识别结果、置信度、候选与模型快照不能修改。调整归属会改变个人工作台的可见范围。</span></div>
+    <div className="adm-owner-field"><strong>归属用户</strong><OwnerPicker value={owner} selectedLabel={ownerText(record)} disabled={busy} onChange={value=>{setOwner(value);setPlotId('');setSearch('')}}/></div>
+    {ownerChanged&&<p className="adm-help">归属已变更，原地块关联已取消。可重新选择同一用户的同作物地块。</p>}
+    <label>样本名称<input required maxLength={180} value={name} onChange={event=>setName(event.target.value)} disabled={busy}/></label>
+    <label>查找归属用户的同作物地块<input value={search} onChange={event=>setSearch(event.target.value)} placeholder="输入地块名称…" disabled={busy||owner==='unassigned'}/></label>
+    <label>所属地块<select value={plotId} onChange={event=>setPlotId(event.target.value)} disabled={busy||plots.loading}><option value="">不关联地块</option>{!ownerChanged&&record.plot_id&&!plots.data?.items.some(plot=>plot.id===record.plot_id)&&<option value={record.plot_id}>{record.plot_name}（当前关联）</option>}{plots.data?.items.map(plot=><option key={plot.id} value={plot.id}>{plot.name}</option>)}</select><small>{owner==='unassigned'?'请先分配归属用户再关联新地块；已有历史关联可保留或解除。':`只可关联此用户的${record.crop}地块；也可以不关联。`}</small></label>
+    {plots.error&&<ErrorBox text={plots.error} retry={plots.reload}/>}<label>样本备注<textarea value={note} onChange={event=>setNote(event.target.value)} rows={4} maxLength={2000} disabled={busy}/></label>
+    {error&&<ErrorBox text={error}/>}<FormFooter busy={busy} onClose={onClose}/>
+  </form></Modal>
+}
+
+function KnowledgeAdmin({revision, changed, toast}: CommonProps) {
+  const filter = useFilters({search: '', crop: '', status: ''}), state = useLoad<PageData<AdminArticle>>(query('/admin/knowledge', {...filter.delayed, page: filter.page, page_size: 12}), revision)
+  const [editing, setEditing] = useState<AdminArticle | 'new' | null>(null), [archiving, setArchiving] = useState<AdminArticle | null>(null)
+  const model = useLoad<ModelInfo>('/models', revision), crops = model.data?.available_crops ?? fallbackCrops
+  return <><div className="adm-section-actions"><p><BookOpen size={15}/>仅已发布内容会展示在工作台知识库。</p><Button tone="primary" onClick={() => setEditing('new')}><Plus size={16}/>新增知识</Button></div><Panel><div className="adm-filters"><SearchField value={filter.filters.search} onChange={value => filter.set('search', value)} placeholder="搜索标题、摘要或分类"/><select aria-label="知识作物" value={filter.filters.crop} onChange={event => filter.set('crop', event.target.value)}><option value="">全部作物</option>{crops.map(crop => <option key={crop}>{crop}</option>)}</select><select aria-label="发布状态" value={filter.filters.status} onChange={event => filter.set('status', event.target.value)}><option value="">全部状态</option>{Object.entries(articleStatuses).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></div>{state.error && <ErrorBox text={state.error} retry={state.reload}/>}
+    {state.loading ? <Busy/> : state.data?.items.length ? <div className="adm-table-scroll"><table className="adm-table"><thead><tr><th>知识条目</th><th>作物 / 分类</th><th>发布状态</th><th>最近更新</th><th>操作</th></tr></thead><tbody>{state.data.items.map(article => <tr key={article.id}><td><div className="adm-article-title"><button className="adm-title-button" onClick={() => setEditing(article)}>{article.title}</button><p>{article.summary}</p><small>{article.sources?.length ?? 0} 条来源</small></div></td><td>{article.crop}<small className="adm-cell-sub">{article.category}</small></td><td><Pill tone={article.status === 'published' ? 'green' : article.status === 'draft' ? 'amber' : 'neutral'}>{articleStatuses[article.status]}</Pill></td><td className="adm-date">{dateText(article.updated_at)}</td><td><div className="adm-row-actions"><button onClick={() => setEditing(article)}><Pencil size={14}/>编辑</button><button className="danger" disabled={article.status === 'archived'} onClick={() => setArchiving(article)}><Trash2 size={14}/>归档</button></div></td></tr>)}</tbody></table></div> : !state.error && <EmptyState title="没有匹配的知识条目" detail="可以先创建草稿，检查内容与来源后再发布。"/>}<Pager data={state.data} page={filter.page} setPage={filter.setPage}/></Panel>
+    {editing && <KnowledgeEditor article={editing === 'new' ? null : editing} crops={crops} onClose={() => setEditing(null)} onSaved={() => {setEditing(null); changed(); toast('知识内容已保存。')}}/>}
+    {archiving && <ConfirmDialog title="归档知识条目" text={'归档「' + archiving.title + '」后，工作台知识库将不再展示此条目。内容会保留，之后可以重新发布。'} label="确认归档" onClose={() => setArchiving(null)} onConfirm={async () => {await api('/admin/knowledge/' + archiving.id, {method: 'DELETE'}); changed(); toast('知识条目已归档。')}}/>}
+  </>
+}
+function KnowledgeEditor({article, crops, onClose, onSaved}: {article: AdminArticle | null; crops: string[]; onClose: () => void; onSaved: () => void}) {
+  const [title, setTitle] = useState(article?.title ?? ''), [crop, setCrop] = useState(article?.crop ?? crops[0] ?? ''), [category, setCategory] = useState(article?.category ?? ''), [summary, setSummary] = useState(article?.summary ?? ''), [content, setContent] = useState(article?.content ?? ''), [sources, setSources] = useState(article?.sources ?? []), [status, setStatus] = useState<AdminArticle['status']>(article?.status ?? 'draft'), [busy, setBusy] = useState(false), [error, setError] = useState('')
+  function updateSource(index: number, key: 'title' | 'url', value: string) {setSources(old => old.map((source, i) => i === index ? {...source, [key]: value} : source))}
+  async function submit(event: FormEvent) {
+    event.preventDefault(); setError('')
+    for (const source of sources) {try {const url = new URL(source.url); if (!['http:', 'https:'].includes(url.protocol) || !source.title.trim()) throw new Error()} catch {setError('每条来源都需要填写名称和有效的 HTTP / HTTPS 链接。'); return}}
+    setBusy(true)
+    try {await api('/admin/knowledge' + (article ? '/' + article.id : ''), {method: article ? 'PATCH' : 'POST', body: JSON.stringify({title: title.trim(), crop, category: category.trim(), summary: summary.trim(), content: content.trim(), sources: sources.map(source => ({title: source.title.trim(), url: source.url.trim()})), status})}); onSaved()} catch (reason) {setError(message(reason))} finally {setBusy(false)}
+  }
+  return <Modal title={article ? '编辑知识条目' : '新增知识条目'} wide onClose={() => {if (!busy) onClose()}}><form className="adm-form" onSubmit={submit}><label>标题<input required maxLength={200} value={title} onChange={event => setTitle(event.target.value)} disabled={busy}/></label><div className="adm-form-grid"><label>适用作物<select value={crop} onChange={event => setCrop(event.target.value)} disabled={busy}><option value="">通用作物</option>{[...new Set([...crops, crop])].filter(Boolean).map(value => <option key={value}>{value}</option>)}</select></label><label>内容分类<input required maxLength={80} placeholder="例如：病害观察、栽培管理" value={category} onChange={event => setCategory(event.target.value)} disabled={busy}/></label></div><label>摘要<textarea required maxLength={1000} rows={2} value={summary} onChange={event => setSummary(event.target.value)} disabled={busy}/></label><label>正文<textarea required maxLength={50000} rows={10} value={content} onChange={event => setContent(event.target.value)} disabled={busy}/><small>按自然段编写。发布前请核对作物、适用条件和资料来源。</small></label><div className="adm-source-heading"><strong>参考来源 <small>选填</small></strong><Button disabled={busy || sources.length >= 20} onClick={() => setSources(old => [...old, {title: '', url: ''}])}><Plus size={14}/>添加来源</Button></div>{sources.length ? <div className="adm-sources">{sources.map((source, index) => <div key={index}><label>来源名称<input required aria-label={'来源 ' + (index + 1) + ' 名称'} maxLength={200} value={source.title} onChange={event => updateSource(index, 'title', event.target.value)} disabled={busy}/></label><label>资料链接<input required aria-label={'来源 ' + (index + 1) + ' 链接'} type="url" placeholder="https://" maxLength={2000} value={source.url} onChange={event => updateSource(index, 'url', event.target.value)} disabled={busy}/></label><button type="button" aria-label={'移除来源 ' + (index + 1)} disabled={busy} onClick={() => setSources(old => old.filter((_, i) => i !== index))}><X size={17}/></button></div>)}</div> : <p className="adm-help">暂无参考来源。可添加官方农技资料或专业手册链接。</p>}<label>保存为<select value={status} onChange={event => setStatus(event.target.value as AdminArticle['status'])} disabled={busy}>{Object.entries(articleStatuses).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><small>{status === 'published' ? '保存后立即对工作空间成员可见。' : status === 'draft' ? '草稿仅在管理端可见。' : '归档后不在工作台展示，可随时重新发布。'}</small></label>{error && <ErrorBox text={error}/>}<FormFooter busy={busy} onClose={onClose} label={status === 'published' ? '保存并发布' : '保存条目'}/></form></Modal>
+}
+
+function ModelsAdmin({revision,changed}:CommonProps){
+  const state=useLoad<ModelInfo>('/models',revision)
+  return <>
+    {state.error&&<ErrorBox text={state.error} retry={state.reload}/>}
+    <Panel><div className="adm-panel-heading"><div><h2>当前运行模型</h2><p>目标检测与分类复核分别显示实际加载状态</p></div><FlaskConical size={20}/></div>
+      {state.loading?<Busy/>:state.data?.active?<div className="adm-running-models"><RunningModels model={state.data}/></div>:!state.error&&<EmptyState title="尚未启用识别模型" detail="已上传权重需要验证并完成推理适配后才能启用。"/>}
+    </Panel>
+    <WeightManager onChange={changed} canManage/>
+    <div className="adm-info"><ShieldCheck size={17}/><span>上传登记列表与实际运行模型分别维护。登记为空不表示推理模型未加载；上传不会自动切换模型。历史检测保留当次两模型快照。</span></div>
+  </>
+}
+
+function AuditTable({items}: {items: Audit[]}) {
+  return items.length ? <div className="adm-table-scroll"><table className="adm-table adm-audit-table"><thead><tr><th>操作记录</th><th>操作人</th><th>资源</th><th>时间</th></tr></thead><tbody>{items.map(row => <tr key={row.id}><td><strong>{row.summary || actionText(row.action, row.resource_type)}</strong><small className="adm-cell-sub">{actionText(row.action, row.resource_type)}</small></td><td>{row.actor_name || '系统'}</td><td><Pill>{resourceNames[row.resource_type] || row.resource_type}</Pill>{row.resource_id && <small className="adm-cell-sub adm-id" title={row.resource_id}>{row.resource_id.slice(0, 12)}</small>}</td><td className="adm-date">{dateText(row.created_at)}</td></tr>)}</tbody></table></div> : <EmptyState title="暂无操作日志" detail="管理操作完成后，会自动记录在这里。"/>
+}
+function AuditPage({revision}: {revision: number}) {
+  const filter = useFilters({search: '', action: '', resource_type: ''}), state = useLoad<PageData<Audit>>(query('/admin/audit', {...filter.delayed, page: filter.page, page_size: 15}), revision)
+  return <Panel><div className="adm-filters"><SearchField value={filter.filters.search} onChange={value => filter.set('search', value)} placeholder="搜索操作人或操作内容"/><select aria-label="操作类型" value={filter.filters.action} onChange={event => filter.set('action', event.target.value)}><option value="">全部操作</option>{auditActions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><select aria-label="日志资源" value={filter.filters.resource_type} onChange={event => filter.set('resource_type', event.target.value)}><option value="">全部资源</option>{[['user', '用户'], ['plot', '地块'], ['detection', '检测'], ['knowledge', '知识'], ['model', '模型'], ['runtime_config', '系统配置']].map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></div><div className="adm-table-note"><ClipboardList size={14}/>操作日志仅供查询，无法在页面中编辑或删除。</div>{state.error && <ErrorBox text={state.error} retry={state.reload}/>} {state.loading ? <Busy/> : state.data && <AuditTable items={state.data.items}/>}<Pager data={state.data} page={filter.page} setPage={filter.setPage}/></Panel>
+}
+function SettingsAdmin({revision}: {revision: number}) {
+  const health = useLoad<Health>('/health', revision), settings = useLoad<Record<string, unknown>>('/settings/integrations', revision)
+  return <><div className="adm-settings-grid"><Panel><div className="adm-panel-heading"><div><h2>服务状态</h2><p>当前运行环境的实际连接状态</p></div><Database size={19}/></div>{health.loading ? <Busy/> : health.error ? <ErrorBox text={health.error} retry={health.reload}/> : health.data && <dl className="adm-description adm-settings-description"><div><dt>工作空间</dt><dd><ServicePill value={health.data.status}/></dd></div><div><dt>数据库</dt><dd><ServicePill value={health.data.database}/></dd></div><div><dt>缓存服务</dt><dd><ServicePill value={health.data.redis}/></dd></div><div><dt>图像识别</dt><dd><ServicePill value={health.data.model}/></dd></div><div><dt>运行模式</dt><dd>{health.data.mode === 'demo' ? '本地演示' : '标准模式'}</dd></div></dl>}</Panel><Panel><div className="adm-panel-heading"><div><h2>注册与集成</h2><p>已生效配置 · 只读</p></div><Settings2 size={19}/></div>{settings.loading ? <Busy/> : settings.error ? <ErrorBox text={settings.error} retry={settings.reload}/> : settings.data && <dl className="adm-description adm-settings-description">{[['开放注册', 'registration_enabled'], ['邮箱验证码', 'email_verification_enabled'], ['小禾问答', 'llm_enabled'], ['邮件凭证', 'smtp_password_configured'], ['AI 服务凭证', 'llm_key_configured']].map(([label, key]) => <div key={key}><dt>{label}</dt><dd><Pill tone={settings.data?.[key] ? 'green' : 'neutral'}>{key.endsWith('_enabled') ? settings.data?.[key] ? '已开启' : '未开启' : settings.data?.[key] ? '已配置' : '未配置'}</Pill></dd></div>)}</dl>}</Panel></div>{settings.data && <Panel><div className="adm-panel-heading"><div><h2>连接信息</h2><p>仅管理员可见，凭证内容不会展示。</p></div><ShieldCheck size={18}/></div><dl className="adm-description adm-connection-details">{[['邮件服务器', 'smtp_host'], ['发信邮箱', 'smtp_from'], ['邮件传输', 'smtp_security'], ['AI 服务地址', 'llm_base_url'], ['AI 模型', 'llm_model'], ['权重上传上限 / MB', 'model_max_upload_mb']].map(([label, key]) => <div key={key}><dt>{label}</dt><dd>{String(settings.data?.[key] || '未配置')}</dd></div>)}</dl></Panel>}<div className="adm-info"><ShieldCheck size={17}/><span>上方运行配置保存后立即生效；数据库、Redis、JWT 及模型发布路径由部署环境维护，变更这些部署参数后需重启服务。</span></div></>
+}

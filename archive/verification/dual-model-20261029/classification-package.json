@@ -1,0 +1,7 @@
+{
+  "archive": ".runtime\\dual-model-20261029\\classification-model.tar.gz",
+  "bytes": 37056188,
+  "sha256": "6124793828fd3f9b94ce13ef39b0a4930ffeb685f55add1c05abd093e8442280",
+  "model_onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+  "class_count": 38
+}

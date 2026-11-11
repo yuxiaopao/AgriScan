@@ -1,0 +1,22 @@
+{
+  "zipCrcVerified": true,
+  "capacitorConfig": {
+    "appId": "cn.agriscan.mobile",
+    "appName": "禾观",
+    "webDir": "dist",
+    "server": {
+      "androidScheme": "https"
+    },
+    "android": {
+      "backgroundColor": "#f7f8f2",
+      "allowMixedContent": false
+    }
+  },
+  "javascriptBundle": "assets/public/assets/index-Bo2mbWFq.js",
+  "compiledDefault": "https://agriscan.ming-ai.top/agriscan",
+  "migrationPreviousOrigin": "https://flowly-ai.top/agriscan",
+  "officialMigrationTarget": "https://agriscan.ming-ai.top/agriscan",
+  "oldOriginOnlyForExplicitMigration": true,
+  "appRuntimeOpened": false,
+  "hardwareTested": false
+}

@@ -1,0 +1,16 @@
+.account-security-help{font-size:.875rem;line-height:1.5rem;color:var(--ui-muted,#728c93);margin-top:20px;overflow-wrap:anywhere}
+.account-email{padding:0;margin:0 0 16px;overflow:hidden}
+.account-email>summary{display:flex;align-items:center;gap:12px;padding:20px;min-height:72px;cursor:pointer;color:var(--ui-action,#347076);list-style:none}
+.account-email>summary::-webkit-details-marker{display:none}
+.account-email>summary>span{flex:1;min-width:0}
+.account-email>summary strong{display:block;font-size:1rem;line-height:1.5rem}
+.account-email>summary small{display:block;font-size:.75rem;line-height:1.25rem;font-weight:400;color:var(--ui-muted,#728c93);margin-top:4px}
+.account-email-body{padding:0 20px 20px;border-top:1px solid var(--ui-line,#e1edeb)}
+.account-email-body .account-security-help{margin-top:12px}
+.account-email-status{font-size:.875rem;line-height:1.5rem;color:var(--ui-muted,#728c93);margin-top:16px;overflow-wrap:anywhere}
+.account-email-status strong{font-weight:500;color:var(--ui-ink,#244e54)}
+.account-email-status span{display:block;font-size:.75rem;color:var(--ui-action,#347076)}
+.account-email-body .auth-form{animation:none}
+.account-email-body .success-note,.account-email-body .error-note{margin-top:16px}
+.auth-forgot{display:flex;justify-content:flex-end;margin-top:8px}
+.auth-forgot button{min-height:44px;font-size:.875rem;color:var(--ui-action,#347076);padding:8px 0}

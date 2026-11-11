@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": [
+    "Six supplied plain-text analysis sections remain in order",
+    "Paragraphs bold inline code and unordered/ordered lists render as readable blocks",
+    "Model-supplied HTML remains escaped React text, never executable markup",
+    "Inline bold section heading with explanation is recognized",
+    "Chinese section numbers retain their original labels while numeric labels use two digits"
+  ],
+  "source": "Actual AssistantMessageBody.tsx transpiled and rendered with installed React; no network"
+}

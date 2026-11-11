@@ -1,0 +1,102 @@
+{
+  "tool": "official chrome-devtools MCP",
+  "startedAt": "2026-10-20T13:47:21.804Z",
+  "checks": [
+    "monitor opens from the bound YOLO workflow node with no separate menu page",
+    "real training state, 38 classes and two metric charts visible",
+    "automatic snapshot refresh observed across multiple polling intervals",
+    "actual 12-block network and parameter inventory visible",
+    "crop filtering shows four correct Apple classes with sample counts",
+    "class search and empty state work",
+    "final model, ONNX and complete evaluation artifacts are available",
+    "real live training log visible",
+    "node monitor inherits the application theme and has no independent theme switch",
+    "no console errors or warnings and no horizontal overflow"
+  ],
+  "navigation": {
+    "path": "#/workflows/aedd8b93-35fa-483a-923a-989788a2f884/edit",
+    "editor": true,
+    "standaloneLink": false,
+    "nodeDialog": null
+  },
+  "first": {
+    "title": "编辑工作流 - Flowly",
+    "epoch": 40,
+    "stage": "ready_for_system_test",
+    "observedAt": 1792504046720,
+    "classes": 38,
+    "viewer": {
+      "id": 1036,
+      "username": "nlwftest"
+    },
+    "history": 40,
+    "parameters": 11058790,
+    "chartCount": 2,
+    "visible": true,
+    "error": null,
+    "connection": "实时同步 · 2 秒"
+  },
+  "second": {
+    "epoch": 40,
+    "observedAt": 1792504054827,
+    "connection": "实时同步 · 2 秒"
+  },
+  "network": {
+    "rows": 12,
+    "text": "1\n分类模型\n11,058,790\n参数总量\n196\n模块总数（含容器）\n112\n底层计算模块\n300\n逐项核验的迁移张量",
+    "active": true
+  },
+  "exports": {
+    "files": 9,
+    "disabled": 0,
+    "content": "完整验证集\n99.73%\nTop-1 准确率\n0.9954\n宏平均 F1\n\n5,485 张图片 · 置信度门槛覆盖率 99.54%\n\n独立测试集\n99.67%\nTop-1 准确率\n0.9956\n宏平均 F1\n\n10,999 张图片 · 置信度门槛覆盖率 99.67%"
+  },
+  "theme": {
+    "panel": "dark",
+    "system": "dark",
+    "background": "oklch(0.17 0.032 265)",
+    "globalBackground": "oklch(17% .032 265)",
+    "independentSwitch": false
+  },
+  "themes": [
+    {
+      "panel": "dark",
+      "system": "dark",
+      "background": "oklch(0.17 0.032 265)",
+      "text": "oklch(0.96 0.005 255)",
+      "globalBackground": "oklch(17% .032 265)"
+    },
+    {
+      "panel": "light",
+      "system": "light",
+      "background": "oklch(0.97 0.006 255)",
+      "text": "oklch(0.27 0.024 255)",
+      "globalBackground": "oklch(97% .006 255)"
+    },
+    {
+      "panel": "pure-bw",
+      "system": "pure-bw",
+      "background": "rgb(0, 0, 0)",
+      "text": "rgb(255, 255, 255)",
+      "globalBackground": "#000000"
+    },
+    {
+      "panel": "high-contrast",
+      "system": "high-contrast",
+      "background": "rgb(0, 0, 0)",
+      "text": "rgb(255, 255, 255)",
+      "globalBackground": "#000000"
+    },
+    {
+      "panel": "dark",
+      "system": "dark",
+      "background": "oklch(0.17 0.032 265)",
+      "text": "oklch(0.96 0.005 255)",
+      "globalBackground": "oklch(17% .032 265)"
+    }
+  ],
+  "consoleMessages": "## Console messages\n<no console messages found>",
+  "screenshot": "overview.png",
+  "passed": true,
+  "finishedAt": "2026-10-20T13:48:50.764Z"
+}

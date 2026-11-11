@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-11",
+  "status": "passed",
+  "checks": [
+    "multipart gzip stream across file boundaries",
+    "SHA256 validation rejects a mismatched download",
+    "hard-linked duplicate content restores correctly",
+    "verified download cache is reused",
+    "non-empty output directories are rejected",
+    "parent-directory archive traversal is blocked"
+  ],
+  "scope": "Synthetic local fixtures for scripts/restore-archive.py. Historical project test results are archived separately."
+}

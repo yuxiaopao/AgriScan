@@ -1,0 +1,87 @@
+{
+  "status": "prepared_read_only",
+  "checked_at": "2026-10-29T10:37:01.295830+00:00",
+  "run_tag": "QA-BACKGROUND-20261029-1814",
+  "current_release": "/srv/agriscan/releases/release-20261029-dual-model-181406",
+  "schema": "20261029_06",
+  "configuration": {
+    "version": 11,
+    "canonical_sql_row_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224"
+  },
+  "cleanup_plan": {
+    "run_tag": "QA-BACKGROUND-20261029-1814",
+    "expected_current": "/srv/agriscan/releases/release-20261029-dual-model-181406",
+    "expected_configuration_version": 11,
+    "expected_configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224",
+    "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "detections": [
+      {
+        "id": "c153fd9e4d46483399efbc5940836080",
+        "name": "QA-BACKGROUND-20261029-1814-apple.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 切换模块继续上传",
+        "image_url": "/api/uploads/261faf83d0a24cf99dba87941dbc350e.jpg",
+        "source_image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+        "conversation_id": "f22b84c5dd794a8e99bd5e16353246a7"
+      }
+    ],
+    "plots": [
+      {
+        "id": "17ebc8d160cd4b00a6c577a49d689c46",
+        "name": "QA-BACKGROUND-20261029-1814 苹果试验地",
+        "crop": "苹果",
+        "area": "1.2500000000",
+        "location": "QA-BACKGROUND-20261029-1814 公共坐标测试",
+        "manager": "生产验收",
+        "cover_filename": null,
+        "cover_sha256": null
+      }
+    ]
+  },
+  "evidence": {
+    "detections": [
+      {
+        "id": "c153fd9e4d46483399efbc5940836080",
+        "name": "QA-BACKGROUND-20261029-1814-apple.jpg",
+        "note": "QA-BACKGROUND-20261029-1814 切换模块继续上传",
+        "image_url": "/api/uploads/261faf83d0a24cf99dba87941dbc350e.jpg",
+        "source_image_sha256": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4",
+        "conversation_id": "f22b84c5dd794a8e99bd5e16353246a7"
+      }
+    ],
+    "plots": [
+      {
+        "id": "17ebc8d160cd4b00a6c577a49d689c46",
+        "name": "QA-BACKGROUND-20261029-1814 苹果试验地",
+        "crop": "苹果",
+        "area": "1.2500000000",
+        "location": "QA-BACKGROUND-20261029-1814 公共坐标测试",
+        "manager": "生产验收",
+        "cover_filename": null,
+        "cover_sha256": null
+      }
+    ],
+    "conversation_associations": [
+      {
+        "detection_id": "c153fd9e4d46483399efbc5940836080",
+        "conversation_id": "f22b84c5dd794a8e99bd5e16353246a7",
+        "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+        "message_count": 2,
+        "source_markers_verified_in_sql": true
+      }
+    ],
+    "owner_id": "3773afe5174d4a1ca40fc6eb4ccd5014",
+    "normalized_photo_sha256": {
+      "261faf83d0a24cf99dba87941dbc350e.jpg": "12c0e874e9680dd3fdec5a1198a809048a958f8587fcd52343e62769355e6cd4"
+    },
+    "prediction_row_count": 1,
+    "cleanup_helper_compatible": true,
+    "cleanup_helper_review_notes": []
+  },
+  "selection": "Only literal exact run tag in detection name/note or plot name/location; explicit owner required",
+  "normalized_photo_hash_method": "SHA256 of stored normalized JPEG bytes; no image returned or rewritten",
+  "chat_content_returned": false,
+  "non_qa_rows_returned": false,
+  "production_mutations": false,
+  "server_script_sha256": "242d7dd4a97654720d15cb9b92707d739bee3aca1a6325455f2cc203741de55b",
+  "ssh_exit_code": 0
+}

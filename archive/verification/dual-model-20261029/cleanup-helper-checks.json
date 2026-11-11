@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "production_network_called": false,
+  "private_environment_read": false,
+  "cases": [
+    "strict exact IDs/run tag/source image SHA plan validation",
+    "exact QA deletion preserves dynamic non-QA rows, own real record, hello chat, accounts, user-edited v7 and existing audits",
+    "foreign ownership rejects cleanup before deletion",
+    "new real detection linked to QA plot blocks cleanup rather than detach/delete it",
+    "active QA conversation blocks cleanup",
+    "source image hash must match before backup/delete",
+    "untagged/wide scope rejected",
+    "stale version or checksum refuses cleanup without restoring or modifying newer user configuration"
+  ]
+}

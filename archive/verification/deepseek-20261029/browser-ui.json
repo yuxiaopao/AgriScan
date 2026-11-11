@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "url": "https://agriscan.ming-ai.top/agriscan/workspace/#detect",
+  "modelAnalysisVisible": true,
+  "realFollowupVisible": true,
+  "historyReadingTopBefore": 688.6666870117188,
+  "historyReadingTopAfter": 688.6666870117188,
+  "latestButtonTested": true,
+  "maximizeRestoreTested": true,
+  "proof": {
+    "assistantHeadings": [
+      "01检测结果解读",
+      "02叶片可见异常",
+      "03虫害线索",
+      "04现在可以做什么",
+      "05复拍与复检建议",
+      "06何时联系农技人员"
+    ],
+    "bodyOverflows": false,
+    "history": {
+      "height": 440,
+      "left": 589.3333740234375,
+      "right": 825.3333740234375,
+      "top": 115.66667175292967,
+      "width": 236
+    },
+    "listCount": 3,
+    "main": {
+      "height": 508.3333435058594,
+      "left": 837.3333740234375,
+      "right": 1236.0000610351562,
+      "top": 187,
+      "width": 398.6666870117187
+    },
+    "scripts": [
+      "https://agriscan.ming-ai.top/agriscan/workspace/assets/index-93MEdTGZ.js"
+    ],
+    "window": {
+      "height": 580,
+      "left": 836.6666870117188,
+      "right": 1236.6666870117188,
+      "top": 116,
+      "width": 400
+    }
+  }
+}

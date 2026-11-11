@@ -1,0 +1,55 @@
+{
+  "source": "Actual mobile/src/api.ts transpiled in memory; isolated localStorage",
+  "passed": 12,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Exact saved official address migrates once",
+      "status": "passed"
+    },
+    {
+      "name": "One trailing slash on previous official address migrates",
+      "status": "passed"
+    },
+    {
+      "name": "LAN service override is preserved",
+      "status": "passed"
+    },
+    {
+      "name": "Another domain override is preserved",
+      "status": "passed"
+    },
+    {
+      "name": "Other old-domain path is preserved",
+      "status": "passed"
+    },
+    {
+      "name": "Explicit proxy setting is preserved",
+      "status": "passed"
+    },
+    {
+      "name": "Explicit debug build default does not migrate official override",
+      "status": "passed"
+    },
+    {
+      "name": "Development proxy build does not migrate official override",
+      "status": "passed"
+    },
+    {
+      "name": "Fresh install uses new compiled default and correct API prefix",
+      "status": "passed"
+    },
+    {
+      "name": "Old token is not copied or returned for the new domain",
+      "status": "passed"
+    },
+    {
+      "name": "Migration requires fresh login even if a cached new-domain token existed",
+      "status": "passed"
+    },
+    {
+      "name": "Custom service token remains isolated and intact",
+      "status": "passed"
+    }
+  ]
+}

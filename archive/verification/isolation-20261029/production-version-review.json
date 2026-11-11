@@ -1,0 +1,522 @@
+{
+  "status": "passed",
+  "compared_commit": "7ad3794cc7b5010e16d6589efc8a2786ad15c01e",
+  "backend_comparison": [
+    {
+      "path": "backend/alembic.ini",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/env.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/versions/20261028_01_legacy_baseline.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/versions/20261028_02_admin_workspace.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/versions/20261028_03_timestamp_precision.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/versions/20261028_04_float_precision.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/versions/20261028_05_runtime_configuration.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/alembic/versions/20261029_06_user_ownership.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/__init__.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/admin.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/admin_models.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/assistant.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/cache.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/config.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/db.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/detection_assistant.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/detection_inference.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/extensions.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/image_preprocessing.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/import_legacy.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/inference.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/llm_probe.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/main.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/media.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/migrations.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/ownership.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/plot_operations.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/runtime_config.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/schemas.py",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/security.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/app/seed.py",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/requirements-inference.txt",
+      "exists": true,
+      "exact": false,
+      "content_equal": true
+    },
+    {
+      "path": "backend/requirements-media.txt",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    },
+    {
+      "path": "backend/requirements.txt",
+      "exists": true,
+      "exact": true,
+      "content_equal": true
+    }
+  ],
+  "server": {
+    "checked_at": "2026-10-29T05:05:12.400649+00:00",
+    "release": "/srv/agriscan/releases/release-20261029-user-isolation-104127",
+    "services": {
+      "agriscan-api": {
+        "MainPID": "1411592",
+        "NRestarts": "0",
+        "ExecMainStartTimestamp": "Thu 2026-10-29 10:41:28 CST",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "agriscan-redis": {
+        "MainPID": "1112507",
+        "NRestarts": "0",
+        "ExecMainStartTimestamp": "Wed 2026-10-28 18:32:03 CST",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "mysqld": {
+        "MainPID": "1112379",
+        "NRestarts": "0",
+        "ExecMainStartTimestamp": "Wed 2026-10-28 18:32:02 CST",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "nginx": {
+        "MainPID": "14613",
+        "NRestarts": "0",
+        "ExecMainStartTimestamp": "Mon 2026-10-26 11:08:31 CST",
+        "ActiveState": "active",
+        "SubState": "running"
+      }
+    },
+    "backend_files": {
+      "backend/alembic.ini": {
+        "bytes": 93,
+        "sha256": "70e3246abd2804ec7c292aef7b3e3d31e1ae6c776bf4679a6eee2fd688bd1d02",
+        "normalized_sha256": "70e3246abd2804ec7c292aef7b3e3d31e1ae6c776bf4679a6eee2fd688bd1d02"
+      },
+      "backend/alembic/env.py": {
+        "bytes": 926,
+        "sha256": "1e9256657d81f59c096aed85b2f779f83c78d9dfad37664d69a37f92c93f62bc",
+        "normalized_sha256": "1e9256657d81f59c096aed85b2f779f83c78d9dfad37664d69a37f92c93f62bc"
+      },
+      "backend/alembic/versions/20261028_01_legacy_baseline.py": {
+        "bytes": 5348,
+        "sha256": "2502ed2cb1f8e07708b504740ad275aa59b400a5a233ef608c2bcd3577fd032d",
+        "normalized_sha256": "2502ed2cb1f8e07708b504740ad275aa59b400a5a233ef608c2bcd3577fd032d"
+      },
+      "backend/alembic/versions/20261028_02_admin_workspace.py": {
+        "bytes": 3570,
+        "sha256": "9c655fae9f86ff13a39935bd63b6732218b964c1f284ed4c450b3fd1d5957408",
+        "normalized_sha256": "9c655fae9f86ff13a39935bd63b6732218b964c1f284ed4c450b3fd1d5957408"
+      },
+      "backend/alembic/versions/20261028_03_timestamp_precision.py": {
+        "bytes": 1271,
+        "sha256": "7bae0dcb454991f467dff2d1436c9b9beef3faf7aefad5b80ffdf97595f1fc43",
+        "normalized_sha256": "7bae0dcb454991f467dff2d1436c9b9beef3faf7aefad5b80ffdf97595f1fc43"
+      },
+      "backend/alembic/versions/20261028_04_float_precision.py": {
+        "bytes": 814,
+        "sha256": "960911602f55d77504d7826a49b8a4d8aac2150ef42028ba00682a66951ebde9",
+        "normalized_sha256": "960911602f55d77504d7826a49b8a4d8aac2150ef42028ba00682a66951ebde9"
+      },
+      "backend/alembic/versions/20261028_05_runtime_configuration.py": {
+        "bytes": 1079,
+        "sha256": "b884267b9bc8b6c9678fa1cc6d78ae0956d4fe12aa1afdc62aec39998731de06",
+        "normalized_sha256": "b884267b9bc8b6c9678fa1cc6d78ae0956d4fe12aa1afdc62aec39998731de06"
+      },
+      "backend/alembic/versions/20261029_06_user_ownership.py": {
+        "bytes": 3057,
+        "sha256": "64d2e94bf3ca8e928870f4b67d7a2701f9e7f90366504c7fc9d47b1d63fc7a32",
+        "normalized_sha256": "64d2e94bf3ca8e928870f4b67d7a2701f9e7f90366504c7fc9d47b1d63fc7a32"
+      },
+      "backend/app/__init__.py": {
+        "bytes": 20,
+        "sha256": "7368c22a7dee28227fa2dbd9a550b6aa224fc3b552e489cafc629b63e4826860",
+        "normalized_sha256": "7368c22a7dee28227fa2dbd9a550b6aa224fc3b552e489cafc629b63e4826860"
+      },
+      "backend/app/admin.py": {
+        "bytes": 36648,
+        "sha256": "003c5c6288427fc8dc9278d46939e6b6aef9de38df46b1af66fa6c677b73f53c",
+        "normalized_sha256": "003c5c6288427fc8dc9278d46939e6b6aef9de38df46b1af66fa6c677b73f53c"
+      },
+      "backend/app/admin_models.py": {
+        "bytes": 4244,
+        "sha256": "333c6f3128c346dd7d1db2712e41db34d67de0e2f83ee7c078c44787ae8df6c0",
+        "normalized_sha256": "2db75d74db3f30b284a573ca19730bf5c24313ece55df5f009a7429c3c3b1571"
+      },
+      "backend/app/assistant.py": {
+        "bytes": 6477,
+        "sha256": "6df35a868f6d33aff37a15b0ed1876b1de4b1b007dc0b8061c218bb8d184558d",
+        "normalized_sha256": "ea4aa6926b8291254ec245ee95d174e1a1b522b61981019706d278b33f882b8a"
+      },
+      "backend/app/cache.py": {
+        "bytes": 2172,
+        "sha256": "037aabe8345370d179af6050d1e6b3c89e131bd5da335e6aa24ff2c2233b73a6",
+        "normalized_sha256": "037aabe8345370d179af6050d1e6b3c89e131bd5da335e6aa24ff2c2233b73a6"
+      },
+      "backend/app/config.py": {
+        "bytes": 5325,
+        "sha256": "da72f5965a19f165998ac358de5e200d710e9b2ac53316dfaa7947eb81472069",
+        "normalized_sha256": "6df98bfdc2cb85b2a62897ef31db18959486dabed6f8538d8319435f37ad7432"
+      },
+      "backend/app/db.py": {
+        "bytes": 5352,
+        "sha256": "c3dac1b6dbfdf5e74c7b5537cd24d54395cdbbe0e7053cd20416d5463d7df419",
+        "normalized_sha256": "06f548929971360ba490ea69bb2c843fa33b5a5d2ce09d4e5da67f5736483fc1"
+      },
+      "backend/app/detection_assistant.py": {
+        "bytes": 8013,
+        "sha256": "8201ca0a6a8d3620f1d07d6faf7af84894fc3730b8f7e5618d0bb3738e56eaf3",
+        "normalized_sha256": "8201ca0a6a8d3620f1d07d6faf7af84894fc3730b8f7e5618d0bb3738e56eaf3"
+      },
+      "backend/app/detection_inference.py": {
+        "bytes": 8306,
+        "sha256": "fcf7b3fed802bc6a65e4c3060358696586eb39485fe7aff1df68b29581e30bf3",
+        "normalized_sha256": "fcf7b3fed802bc6a65e4c3060358696586eb39485fe7aff1df68b29581e30bf3"
+      },
+      "backend/app/extensions.py": {
+        "bytes": 13557,
+        "sha256": "b6dec38c4d29ac30ce4ed444e9ea97590263b2e35b79ae503ab7124ad750d9ed",
+        "normalized_sha256": "6e3a47ddff7e02906feb46266e6ed5292bc7f288f6a94773634ed6e6589fef36"
+      },
+      "backend/app/image_preprocessing.py": {
+        "bytes": 723,
+        "sha256": "d70d305af33f6536c3d7428677153221d0c8e96164fab669243f674110800059",
+        "normalized_sha256": "e6bc6910581ee15387b0b8b1eee76c89d8f897072f7e4d5d12d22f82c611b2fc"
+      },
+      "backend/app/import_legacy.py": {
+        "bytes": 13536,
+        "sha256": "cade016d282bc40e2ce1256e9fe1ed89d880bf045f3c07abdd3317f155d5c2ec",
+        "normalized_sha256": "cade016d282bc40e2ce1256e9fe1ed89d880bf045f3c07abdd3317f155d5c2ec"
+      },
+      "backend/app/inference.py": {
+        "bytes": 7791,
+        "sha256": "252bd7fb18a1500be73ac0d927ce3ec14cd327ba561fda21869fbc2b35950885",
+        "normalized_sha256": "f418d6d19f0ce9226257ca711cbd7da8768ab984e07233fada2c16a465184a84"
+      },
+      "backend/app/llm_probe.py": {
+        "bytes": 8593,
+        "sha256": "c4f41a4f40d4fc8263787ff6b80082d9ab33661309ac7d563278bea29fa6c3bf",
+        "normalized_sha256": "c4f41a4f40d4fc8263787ff6b80082d9ab33661309ac7d563278bea29fa6c3bf"
+      },
+      "backend/app/main.py": {
+        "bytes": 20197,
+        "sha256": "0d29e349dcac2c8dca7ce70a4e236d8cff08003f4f98fc938f5b15b354e329ed",
+        "normalized_sha256": "2b4d2a24b411d7574a5eeea6ec79ab8dc76d24f8b2b5562060876428c4b8f2ac"
+      },
+      "backend/app/media.py": {
+        "bytes": 15554,
+        "sha256": "f1de9cad0041e96d606d6f639558c775f6bff7330928f57058c517d781d6dba7",
+        "normalized_sha256": "f1de9cad0041e96d606d6f639558c775f6bff7330928f57058c517d781d6dba7"
+      },
+      "backend/app/migrations.py": {
+        "bytes": 2638,
+        "sha256": "58e367d169da06de840c4c77d4d51e09ac90593362f43c1bfc90f60e3804902b",
+        "normalized_sha256": "2dc1cae5106ef06ad24f77a6c667c9026aa7bd8230c707e8a6c34804d0cff5be"
+      },
+      "backend/app/ownership.py": {
+        "bytes": 2449,
+        "sha256": "cd5e477366d2ca682d78fed11d68d79bc1d1eb296f150f946d156af1a2d1e08e",
+        "normalized_sha256": "cd5e477366d2ca682d78fed11d68d79bc1d1eb296f150f946d156af1a2d1e08e"
+      },
+      "backend/app/plot_operations.py": {
+        "bytes": 3754,
+        "sha256": "2de65c461e306d6fc7ec225a66cb228f54992e82b15c964fb6fbc5a63df13e02",
+        "normalized_sha256": "2de65c461e306d6fc7ec225a66cb228f54992e82b15c964fb6fbc5a63df13e02"
+      },
+      "backend/app/runtime_config.py": {
+        "bytes": 16883,
+        "sha256": "4031d31033d0bf7c9ba8082cc5f1b54ac061eb66a9c34a86ca12df6b73a08d76",
+        "normalized_sha256": "4031d31033d0bf7c9ba8082cc5f1b54ac061eb66a9c34a86ca12df6b73a08d76"
+      },
+      "backend/app/schemas.py": {
+        "bytes": 2136,
+        "sha256": "542f2352c8df9034e46b58f4a37715dd7489f339adbcaa6643de2c0c986c31d3",
+        "normalized_sha256": "97838efd99a8243218873c520ba31dd3c4afa7416d287e6c95f147f1cf829d35"
+      },
+      "backend/app/security.py": {
+        "bytes": 2865,
+        "sha256": "7a403d0560c706a48f152a0fe113e7b878ac48b98e3d48108ddee9aed3e60bd7",
+        "normalized_sha256": "7a403d0560c706a48f152a0fe113e7b878ac48b98e3d48108ddee9aed3e60bd7"
+      },
+      "backend/app/seed.py": {
+        "bytes": 8277,
+        "sha256": "45f3c52bf270f4a5c92d289ce45a0fb7265e1019b6477a396e59ca08fab9aa84",
+        "normalized_sha256": "45f3c52bf270f4a5c92d289ce45a0fb7265e1019b6477a396e59ca08fab9aa84"
+      },
+      "backend/requirements-inference.txt": {
+        "bytes": 35,
+        "sha256": "777222151fb45881b96a33415cf8be1500f5d756ff0bf4f6d26f6458844954d3",
+        "normalized_sha256": "2494aeab79772524e3001bea971795d666afc675918bb54df3ab1df81fda9f8c"
+      },
+      "backend/requirements-media.txt": {
+        "bytes": 64,
+        "sha256": "4caf9b8c1ae273194e4f04de6bdfdf3b1f9e3f7003eae134eb6c02d59e54cac6",
+        "normalized_sha256": "4caf9b8c1ae273194e4f04de6bdfdf3b1f9e3f7003eae134eb6c02d59e54cac6"
+      },
+      "backend/requirements.txt": {
+        "bytes": 248,
+        "sha256": "069fce84065e46fcadfe00e0fb25b8fe354be7890ebe8bb28e77f125ffbda957",
+        "normalized_sha256": "069fce84065e46fcadfe00e0fb25b8fe354be7890ebe8bb28e77f125ffbda957"
+      }
+    },
+    "entries": {
+      "website": {
+        "path": "/srv/agriscan/releases/release-20261029-user-isolation-104127/public/index.html",
+        "file": {
+          "bytes": 10454,
+          "sha256": "58bf67552eebdee34df1db19c3f221684fba2f6ce5a9a77612e2b33ad3835c89",
+          "normalized_sha256": "6ecdb5b7e6369580cac158bf0f45d2aa03ede66698d0fbc099826741b01862fa"
+        },
+        "assets": {
+          "style.css": {
+            "bytes": 13706,
+            "sha256": "2ecb1a233495f4a7118328a2b354da93a131fbca7c39bfaf032cdcfa3918b52d",
+            "normalized_sha256": "2ecb1a233495f4a7118328a2b354da93a131fbca7c39bfaf032cdcfa3918b52d"
+          },
+          "app.js": {
+            "bytes": 2589,
+            "sha256": "6900909abc3853633497a50dc47466a29c4873a774f7df044456cc2f83f9f6e9",
+            "normalized_sha256": "6900909abc3853633497a50dc47466a29c4873a774f7df044456cc2f83f9f6e9"
+          }
+        }
+      },
+      "workspace": {
+        "path": "/srv/agriscan/releases/release-20261029-user-isolation-104127/public/workspace/index.html",
+        "file": {
+          "bytes": 842,
+          "sha256": "b6e6b6cd0f64b3457a8b850948978201d9f413bdb2822a317685e52d7e33b7a7",
+          "normalized_sha256": "2e07e321482839f7637d7eadf0fab084b9ae95b79de85e3be89ef2b1f8b1d271"
+        },
+        "assets": {
+          "workspace/assets/index-B26zGKAv.js": {
+            "bytes": 482034,
+            "sha256": "0e70a89d075e3a98a0515328335d21e216147376722f7dc684e817272bcf455e",
+            "normalized_sha256": "0e70a89d075e3a98a0515328335d21e216147376722f7dc684e817272bcf455e"
+          },
+          "workspace/assets/charts-DlwZKwhN.js": {
+            "bytes": 394624,
+            "sha256": "e9afd3448e4826acadbf8829c0f3b53f56b16769e6018e2626b0dff2cac525d1",
+            "normalized_sha256": "e9afd3448e4826acadbf8829c0f3b53f56b16769e6018e2626b0dff2cac525d1"
+          },
+          "workspace/assets/index-Ddk09YVz.css": {
+            "bytes": 125965,
+            "sha256": "6514c0caa5cf359b9046a570423e50d8381ae8290abdb3ba009511d0fe024f93",
+            "normalized_sha256": "6514c0caa5cf359b9046a570423e50d8381ae8290abdb3ba009511d0fe024f93"
+          }
+        }
+      },
+      "admin": {
+        "path": "/srv/agriscan/releases/release-20261029-user-isolation-104127/public/admin/index.html",
+        "file": {
+          "bytes": 847,
+          "sha256": "542e680b3889a27211487e31a562961516cb9aba584d4df83ffa8710524ce01d",
+          "normalized_sha256": "c2ef0684ceb3c01a887b7295b87321b54e9fc4d7caa52d91ed45acf33b5eb839"
+        },
+        "assets": {
+          "admin/assets/index-DN7zZ8c_.js": {
+            "bytes": 469201,
+            "sha256": "4a5fae0bc6373430425a5dfd6e82a3be071ca70989833ecb448d7c9df8b798b3",
+            "normalized_sha256": "4a5fae0bc6373430425a5dfd6e82a3be071ca70989833ecb448d7c9df8b798b3"
+          },
+          "admin/assets/charts-DncKeu_G.js": {
+            "bytes": 373798,
+            "sha256": "62d86a1aa2003cceed7dad3f0980406407e96af85d88d5441f5f97c49ef73a8a",
+            "normalized_sha256": "62d86a1aa2003cceed7dad3f0980406407e96af85d88d5441f5f97c49ef73a8a"
+          },
+          "admin/assets/index-BB-iY09U.css": {
+            "bytes": 125961,
+            "sha256": "57fd6fdf37db51eed44f2b74527fb653409b07eb00062d8a7cc0b38967fe9017",
+            "normalized_sha256": "57fd6fdf37db51eed44f2b74527fb653409b07eb00062d8a7cc0b38967fe9017"
+          }
+        }
+      }
+    },
+    "download_release": {
+      "status": "ready",
+      "version": "1.0.2",
+      "version_code": 3,
+      "channel": "公开测试版 · 调试签名",
+      "url": "./downloads/agriscan-test.apk",
+      "size_bytes": 18744688,
+      "sha256": "e343102879bd91e6a59715ec8fa3a491800520e603dfc1605e938ca25d91a605",
+      "package_id": "cn.agriscan.mobile",
+      "min_android": "7.0",
+      "target_sdk": 36,
+      "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+      "published_at": "2026-10-29"
+    },
+    "download_release_file": {
+      "bytes": 450,
+      "sha256": "b184eca10e2ab358e2072ab3770a7533698d859c6f06c2d3f696973555ac2d05",
+      "normalized_sha256": "574860dacf318765f21a04700a35dc3ddfbda0f5207e5d05c42cb514e5ceb3e6"
+    },
+    "apk_file": {
+      "bytes": 18744688,
+      "sha256": "e343102879bd91e6a59715ec8fa3a491800520e603dfc1605e938ca25d91a605",
+      "normalized_sha256": "9e796e365c1ff69ff016ead43f1a781789235f2bdba48f84130c168fbeb58820"
+    },
+    "health": {
+      "status": "ok",
+      "database": "connected",
+      "redis": "connected",
+      "mode": "production",
+      "model": "ready"
+    },
+    "schema_revision": "20261029_06",
+    "release_stable_during_read": true
+  },
+  "local_uncommitted_backend_diff": []
+}

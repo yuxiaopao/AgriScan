@@ -1,0 +1,23 @@
+{
+  "expected_payload_files": 9,
+  "expected_protected_sha256": {
+    "/srv/agriscan/shared/production.env": "37044b655953170a3d673534fb34f4e8066c3c0077a6b624bd9a7df2bf1464d7",
+    "/etc/nginx/nginx.conf": "d76718a5fd92b07931755ca958d6c713a8d7d24b49815e52060c4c51c41047d6",
+    "/etc/nginx/conf.d/zz-agriscan.conf": "bd58e589abc0ae2cff18890744ae297ee46b889500e7a83a91e2a93d58dfa032",
+    "/etc/nginx/conf.d/flowly-share.conf": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9",
+    "/etc/systemd/system/agriscan-api.service": "75ba279bd87f68071655a6dd1f56fd5108d82fb00bca8212982263a96935d3a4",
+    "/etc/systemd/system/agriscan-api.service.d/agriscan-graceful.conf": "2caeaaf035b4d72453f985a690d6db1a6b50308be88a41cd7e1f285b55d41022"
+  },
+  "expected_nginx_include_sha256": "e44cb412066740698be91f550afc5dd4a47908615af4e0b8440eecaaddca7c76",
+  "expected_current": "/srv/agriscan/releases/release-20261029-dual-model-190833",
+  "expected_configuration_sha256": "f73d95c14f2da5c8fc8450e937d749d789963687e3e1d638511cc938e138e224",
+  "run_id": "registration-hotfix-20261029-201833",
+  "expected_api_pid": 1584612,
+  "release_id": "release-20261029-201833-registration-hotfix",
+  "expected_api_nrestarts": 0,
+  "patch_sha256": "280e07c0e557a49d8cc80910748312ea947ee776fbb1f9c3c3c31820e293a862",
+  "expected_schema": "20261029_06",
+  "patch_archive_path": "/srv/agriscan/bootstrap/registration-hotfix-20261029-201833.tar.gz",
+  "expected_configuration_version": 11,
+  "payload_manifest_sha256": "6552758eb25bbc332bea89c50fc2983901fec88e7680cff9fb57b0e45a9d51be"
+}

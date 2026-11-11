@@ -1,0 +1,16 @@
+{
+  "base_main": "d2a34fcc0a6596cb841913bcd57fa72de32c0bee",
+  "feature_readme_commit": "c5bc2e68c10679e7b349c8730b49dfb1aedc68e9",
+  "main_showcase_commit": "4cca8a956105561d72d52d1aab0b5654c2fac2f3",
+  "tree": "bd60ed6ef19b57605cc0bbec612db35651424d86",
+  "paths": [
+    "README.md",
+    "docs/readme/brand.png",
+    "docs/readme/website.png",
+    "docs/readme/desktop-detection.png",
+    "docs/readme/admin.png",
+    "docs/readme/mobile-home.png",
+    "docs/readme/mobile-welcome.png"
+  ],
+  "code_files_changed": false
+}

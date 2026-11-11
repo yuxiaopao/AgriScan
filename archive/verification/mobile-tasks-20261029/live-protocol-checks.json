@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "checks": [
+    "same client UUID reserves one server task",
+    "cancellation follows server state instead of claiming immediate success",
+    "uploaded task completes while cancelled task reaches confirmed cancelled",
+    "GET task confirms uploaded bytes after an ignored PUT response",
+    "cancelled task saves no observation",
+    "model-free image task saves a sample without inventing inference",
+    "fixed plot and note round-trip through real background task",
+    "same account new JWT session cannot read old task IDs",
+    "same account keeps its saved observations after a new login",
+    "cancelling a completed task retains the saved observation"
+  ],
+  "count": 10,
+  "source": "actual local HTTP API with disposable SQLite; inference provider retains AwaitingWeights behavior after a QA-only delay",
+  "production_contacted": false,
+  "browser_upload_exercised": false,
+  "native_app_tested": false,
+  "tokens_printed_or_saved": false
+}

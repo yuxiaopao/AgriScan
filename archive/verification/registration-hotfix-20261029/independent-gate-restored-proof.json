@@ -1,0 +1,14 @@
+{
+  "local": {
+    "status": 401,
+    "detail": "请先登录，或重新登录以刷新会话。"
+  },
+  "public": {
+    "status": 401,
+    "detail": "请先登录，或重新登录以刷新会话。"
+  },
+  "nginx_include_sha256": "e44cb412066740698be91f550afc5dd4a47908615af4e0b8440eecaaddca7c76",
+  "temporary_gate_present": false,
+  "current": "/srv/agriscan/releases/release-20261029-201833-registration-hotfix",
+  "api_pid": 1632874
+}

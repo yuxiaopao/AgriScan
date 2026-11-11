@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "finished_at": "2026-10-29T07:54:30.832376+00:00",
+  "source_files": {
+    "mobile/src/PlotsPage.tsx": {
+      "bytes": 7346,
+      "sha256": "b029e942cb44f7df21d01f182a43c03bfa21cb06b5741aed5ac30021f3567513"
+    },
+    "mobile/src/PlotEditor.tsx": {
+      "bytes": 8043,
+      "sha256": "ba16cb4cec7e83f7306019d7c8499ffb0ec5bba59ae94f286d31286ffa4c6512"
+    },
+    "mobile/src/plotDraft.ts": {
+      "bytes": 1894,
+      "sha256": "2447ba5d669c48ed496a203693f317e4f1be8c3ab42c437bae8948f5628fafc8"
+    },
+    "mobile/src/usePlotScope.ts": {
+      "bytes": 1223,
+      "sha256": "4d20cf84fc72055349884483b479da7c202d295d46d824888bf0b9013097dde4"
+    },
+    "mobile/src/plots.css": {
+      "bytes": 3030,
+      "sha256": "33612021c9a588cf7246c048d5efc206dd33a4f1154f5c38d8f5fd6067f1f4af"
+    },
+    "mobile/src/WorkspacePages.tsx": {
+      "bytes": 22218,
+      "sha256": "325d068cf9ad6c5c24f28e16374359e30e48954626875ccbd8841d53e4d2a29c"
+    },
+    "mobile/src/components.tsx": {
+      "bytes": 9787,
+      "sha256": "a483ee0c6ec7ae29776f13eba25b612acc6953f2eeeeb3c3c5a2e73aefff7793"
+    },
+    "mobile/src/App.tsx": {
+      "bytes": 14111,
+      "sha256": "b8dcd015765b6870aa835f836ea77443a0902d4e4fbd0b85f6d17c9df4872c00"
+    }
+  },
+  "interfaces": {
+    "PlotsPage": "plots, records, crops, user, onChanged(plot?:Plot), onDetail(record:Detection)",
+    "onChanged": "upsert returned plot immediately, then App.refresh; no plot argument means list verification refresh",
+    "Sheet": "optional dismissible=true; false blocks close, backdrop and Escape while saving"
+  },
+  "personal_endpoints": [
+    "POST /api/plots",
+    "PATCH /api/plots/{id}",
+    "POST /api/plots/{id}/cover",
+    "GET /api/plots",
+    "GET /api/detections",
+    "GET /api/uploads/{filename}"
+  ],
+  "owner_assignment_exposed": false,
+  "new_dependencies": false,
+  "checks": {
+    "typescript": "passed",
+    "vite": "passed",
+    "pure_validation_count": 19,
+    "isolated_real_api_count": 14,
+    "cross_review": "llm_admin read-only: no P1/P2"
+  },
+  "cover_retry": "successful metadata ID retained before cover upload; retry only cover POST; uncertain create blocks blind retry",
+  "account_scope": "draft/file previews and callbacks bound to mount token and service; abort/unmount on account or service change",
+  "feature_paused": "existing plots and observations remain readable; create/edit/cover blocked",
+  "temporary_protocol_database_removed": true,
+  "production_contacted": false,
+  "native_app_tested": false,
+  "browser_ui_tested": false,
+  "apk_rebuilt": false,
+  "old_c778_apk_is_final": false,
+  "pending_integration": "App-level navigation-safe detection upload manager before final version1.0.4/code5 APK rebuild",
+  "git_operations": false
+}

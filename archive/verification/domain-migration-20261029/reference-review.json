@@ -1,0 +1,457 @@
+{
+  "task": "新域只读引用与公开DNS/TLS核查",
+  "checked_at": "2026-10-29T00:59:02.802596+00:00",
+  "old_domain": "flowly-ai.top",
+  "new_domain": "agriscan.ming-ai.top",
+  "path_prefix": "/agriscan",
+  "mutations": "仅创建本报告；未改源码/配置/部署/Git，未安装运行APP",
+  "scope": {
+    "active_source": "Git跟踪的文本源码、公开配置模板、网站与部署脚本；另检查已有公共构建JS与APK压缩包内公共assets",
+    "excluded": [
+      "私有.env/.secretenv及secret命名文件值",
+      "deliverables/",
+      ".chart-data-*/",
+      "design/brand/balanced-options/",
+      "design/brand/meaningful-options/",
+      "design/brand/simple-options/",
+      "其他任务未跟踪产物"
+    ],
+    "private_environment_read": false
+  },
+  "observed_at_start_must_migrate": [
+    {
+      "path": "README.md",
+      "lines": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "action": "迁移4个公开入口到新域，保留/agriscan路径",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "deploy/README.md",
+      "lines": [
+        3,
+        7,
+        8,
+        9,
+        10,
+        42
+      ],
+      "action": "更新当前部署域名、入口与Android默认API说明；旧APK大小/hash仅保留为带日期历史",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "deploy/setup-host.py",
+      "lines": [
+        40
+      ],
+      "action": "更新新部署CORS默认来源；现有服务器环境须由部署负责人单独确认，本审查不读私有env",
+      "old_domain_still_present_now": true,
+      "current_old_domain_lines": [
+        40
+      ],
+      "migration_status": "resolved_by_parallel_task",
+      "migration_note": "新CORS origin已加入；旧origin仍保留用于兼容，不是必须删除项"
+    },
+    {
+      "path": "deploy/smoke-server.py",
+      "lines": [
+        352
+      ],
+      "action": "更新默认domain或每次明确传新域，避免核验旧站",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "deploy/verify-server-readonly.py",
+      "lines": [
+        153,
+        157
+      ],
+      "action": "更新源站健康检查的Host/SNI与报告域；resolve自检不能充当公网可达证据",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "deploy/activate-release.py",
+      "lines": [
+        112
+      ],
+      "action": "更新发布完成后打印的官网入口",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "scripts/build-android.ps1",
+      "lines": [
+        36
+      ],
+      "action": "更新构建默认API，重新构建并同步Android assets",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "mobile/.env.example",
+      "lines": [
+        2
+      ],
+      "action": "更新公开示例默认API",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    },
+    {
+      "path": "mobile/README.md",
+      "lines": [
+        31
+      ],
+      "action": "更新当前默认服务地址说明",
+      "old_domain_still_present_now": true,
+      "current_old_domain_lines": [
+        33
+      ],
+      "migration_status": "resolved_by_parallel_task",
+      "migration_note": "默认域已更新；第33行旧域仅解释升级迁移行为，应保留"
+    },
+    {
+      "path": "website/downloads/release.json",
+      "lines": [
+        12
+      ],
+      "action": "随新APK实际产物更新api_base_url、字节、SHA和版本信息，不能只改域名元数据",
+      "old_domain_still_present_now": false,
+      "current_old_domain_lines": [],
+      "migration_status": "resolved_by_parallel_task"
+    }
+  ],
+  "old_references_to_preserve": [
+    {
+      "path": "mobile/src/api.ts",
+      "symbol": "PREVIOUS_OFFICIAL_BASE",
+      "reason": "活跃兼容识别常量，精确迁移原官方服务地址；保留旧域值，不能全局替换"
+    },
+    {
+      "path": "docs/QA-2026-10-28.md",
+      "lines": [
+        3,
+        15
+      ],
+      "reason": "20261028旧域QA真实目标与访问记录，保留历史事实"
+    },
+    {
+      "path": "docs/qa-20261028-backend.md",
+      "lines": [
+        34
+      ],
+      "reason": "旧域源站TLS核验历史证据"
+    },
+    {
+      "path": "docs/production-access-20261028.md",
+      "lines": [
+        3,
+        59,
+        66,
+        81
+      ],
+      "reason": "旧域证书、CORS与ICP备案拦截证据，不得改写成新域已验证"
+    },
+    {
+      "path": "deploy/README.md",
+      "lines": [
+        57
+      ],
+      "reason": "旧域失败证据段应标明历史日期或链接历史报告，不盲目替换证据中的域名"
+    },
+    {
+      "path": ".runtime/qa-comprehensive/",
+      "reason": "已完成QA与审计证据原样保留"
+    },
+    {
+      "path": ".runtime/server-release-20261028/",
+      "reason": "旧发布包作为历史快照保留，新域应生成新发布包"
+    }
+  ],
+  "generated_artifacts_at_start": [
+    {
+      "path": "mobile/dist/assets/index-DA2hdwf2.js",
+      "embedded_old_api": "https://flowly-ai.top/agriscan",
+      "action": "重建"
+    },
+    {
+      "path": "mobile/android/app/src/main/assets/public/assets/index-DA2hdwf2.js",
+      "embedded_old_api": "https://flowly-ai.top/agriscan",
+      "action": "重新cap sync，不手改生成文件"
+    },
+    {
+      "path": "website/downloads/agriscan-test.apk",
+      "bytes": 18744536,
+      "zip_entry": "assets/public/assets/index-DA2hdwf2.js",
+      "embedded_old_api": "https://flowly-ai.top/agriscan",
+      "action": "旧包确有旧API；替换为新构建后以实际bytes/hash更新release.json"
+    },
+    {
+      "path": "mobile/android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 18744536,
+      "embedded_old_api": "https://flowly-ai.top/agriscan",
+      "action": "新构建；未安装或运行"
+    }
+  ],
+  "no_old_domain_found_at_start": [
+    "frontend/src/",
+    "frontend/dist/",
+    "admin/src/",
+    "admin/dist/",
+    "website/index.html",
+    "website/app.js",
+    "website/style.css"
+  ],
+  "path_review": {
+    "website": "品牌、workspace、admin、APK、release.json与站点资产采用同源相对路径；/agriscan/继续成立",
+    "desktop_admin": "共享api helper使用VITE_API_PREFIX=/agriscan，不依赖旧hostname",
+    "new_api_base": "https://agriscan.ming-ai.top/agriscan",
+    "cors_origin": "https://agriscan.ming-ai.top",
+    "outside_repository_follow_up": [
+      "Nginx server_name与根路径跳转",
+      "正常签名证书及续期配置",
+      "部署私有env/CORS实际值（本次未读取）",
+      "GitHub About homepage与main文档镜像",
+      "既有已安装APP服务地址迁移"
+    ]
+  },
+  "public_dns": {
+    "checked_at": "2026-10-29T00:55:21.187634+00:00",
+    "normal_tls_validation": true,
+    "providers": [
+      {
+        "provider": "Google",
+        "url": "https://dns.google/resolve?name=agriscan.ming-ai.top&type=A",
+        "status": 0,
+        "A": [
+          "162.14.71.77"
+        ],
+        "ttl": 600,
+        "AAAA_status": 0,
+        "AAAA": []
+      },
+      {
+        "provider": "Cloudflare",
+        "url": "https://cloudflare-dns.com/dns-query?name=agriscan.ming-ai.top&type=A",
+        "status": 0,
+        "A": [
+          "162.14.71.77"
+        ],
+        "ttl": 600,
+        "AAAA_status": 0,
+        "AAAA": []
+      }
+    ],
+    "conclusion": "两家公开DoH的IPv4一致；AAAA为NOERROR/NODATA，不是NXDOMAIN"
+  },
+  "https_pre_certificate_deployment": {
+    "url": "https://agriscan.ming-ai.top/agriscan/",
+    "client": "本机curl/Schannel，正常DNS及证书校验",
+    "resolved_ip_observed": "198.18.0.191",
+    "result": "SEC_E_WRONG_PRINCIPAL / curl60，尚未验证为新域有效证书",
+    "used_resolve_override": false,
+    "disabled_certificate_validation": false,
+    "public_reachability_claimed": false,
+    "interpretation": "部署前历史观察，已被正常DNS可信新证书复核结果取代，不是当前故障"
+  },
+  "browser_final_verification": {
+    "status": "passed",
+    "allImagesLoaded": true,
+    "download": {
+      "disabled": null,
+      "filename": "agriscan-test.apk",
+      "href": "https://agriscan.ming-ai.top/agriscan/downloads/agriscan-test.apk"
+    },
+    "imageCount": 7,
+    "links": [
+      {
+        "href": "https://agriscan.ming-ai.top/agriscan/workspace/#login",
+        "text": "登录网页版 ↗"
+      },
+      {
+        "href": "https://agriscan.ming-ai.top/agriscan/workspace/#login",
+        "text": "打开网页版 ↗"
+      },
+      {
+        "href": "https://agriscan.ming-ai.top/agriscan/workspace/#detect",
+        "text": "去观察一片叶子 ↗"
+      },
+      {
+        "href": "https://agriscan.ming-ai.top/agriscan/workspace/#login",
+        "text": "登录网页版 ↗"
+      },
+      {
+        "href": "https://agriscan.ming-ai.top/agriscan/workspace/#login",
+        "text": "和小禾一起开始 ↗"
+      },
+      {
+        "href": "https://agriscan.ming-ai.top/agriscan/admin/",
+        "text": "管理控制台 ↗"
+      }
+    ],
+    "oldDomainVisibleInLinks": false,
+    "release": "v1.0.1 · 公开测试版 · 调试签名 · 17.9 MB",
+    "sha": "SHA-256: ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+    "title": "禾观 AgriScan · 让每一份生长，被看见",
+    "url": "https://agriscan.ming-ai.top/agriscan/#app",
+    "browser": "Chrome extension, independent session",
+    "root_redirect_observed": true,
+    "certificate_warning_bypassed": false,
+    "dns_override_set": false,
+    "proxy_override_set": false,
+    "checksum_details_open": true,
+    "console_errors_or_warnings": [],
+    "screenshot": null,
+    "screenshot_capture_note": "Page.captureScreenshot full-page request timed out; actual DOM and HTTPS evidence retained",
+    "apk_installed_or_executed": false
+  },
+  "status": "passed",
+  "new_local_apk_readonly_verification": {
+    "path": "website/downloads/agriscan-test.apk",
+    "bytes": 18744600,
+    "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+    "assets": [
+      {
+        "entry": "assets/public/assets/index-Bo2mbWFq.js",
+        "new_domain_occurrences": 2,
+        "old_domain_occurrences": 1
+      }
+    ],
+    "release": {
+      "status": "ready",
+      "version": "1.0.1",
+      "version_code": 2,
+      "channel": "公开测试版 · 调试签名",
+      "url": "./downloads/agriscan-test.apk",
+      "size_bytes": 18744600,
+      "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+      "package_id": "cn.agriscan.mobile",
+      "min_android": "7.0",
+      "target_sdk": 36,
+      "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+      "published_at": "2026-10-29"
+    },
+    "interpretation": "新域为当前默认；旧域作为精确识别的兼容迁移常量保留，不代表默认API残留"
+  },
+  "remaining_active_references_latest": [],
+  "intentional_active_legacy_references": [
+    {
+      "path": "mobile/src/api.ts",
+      "symbol": "PREVIOUS_OFFICIAL_BASE",
+      "reason": "仅识别旧官方服务地址并迁移，旧令牌不转发"
+    },
+    {
+      "path": "mobile/README.md",
+      "line": 33,
+      "reason": "记录原官方地址及升级迁移行为"
+    },
+    {
+      "path": "deploy/setup-host.py",
+      "line": 40,
+      "reason": "已加入新域，旧origin保留兼容；不是旧域默认配置"
+    },
+    {
+      "path": "新mobile bundle/Android public assets/APK",
+      "reason": "新默认+旧域识别常量并存是预期；按默认值与迁移逻辑判断，不能要求零旧域字符串"
+    }
+  ],
+  "source_review_conclusion": "原发现的必须迁移项已由并行任务处理；历史事实与有意兼容引用须保留。浏览器终验仍等待证书部署。",
+  "normal_dns_https_final": {
+    "checked_at": "2026-10-29T01:04:25.276144+00:00",
+    "normal_dns": true,
+    "tls_verification_disabled": false,
+    "resolve_override": false,
+    "url": "https://agriscan.ming-ai.top/",
+    "tls": {
+      "verified": true,
+      "subject": [
+        [
+          [
+            "commonName",
+            "agriscan.ming-ai.top"
+          ]
+        ]
+      ],
+      "subjectAltName": [
+        [
+          "DNS",
+          "agriscan.ming-ai.top"
+        ]
+      ],
+      "notBefore": "Oct 29 00:01:40 2026 GMT",
+      "notAfter": "Jan 27 00:01:39 2027 GMT",
+      "version": "TLSv1.3"
+    },
+    "root": {
+      "status": 302,
+      "location": "https://agriscan.ming-ai.top/agriscan/"
+    },
+    "website": {
+      "status": 200,
+      "url": "https://agriscan.ming-ai.top/agriscan/",
+      "content_type": "text/html"
+    },
+    "release": {
+      "status": 200,
+      "url": "https://agriscan.ming-ai.top/agriscan/downloads/release.json",
+      "content_type": "application/json",
+      "metadata": {
+        "status": "ready",
+        "version": "1.0.1",
+        "version_code": 2,
+        "channel": "公开测试版 · 调试签名",
+        "url": "./downloads/agriscan-test.apk",
+        "size_bytes": 18744600,
+        "sha256": "ab5ed73430cc0aea17b403377ede3f3d7e686cef2346b94aed1cc4d9e7d93f85",
+        "package_id": "cn.agriscan.mobile",
+        "min_android": "7.0",
+        "target_sdk": 36,
+        "api_base_url": "https://agriscan.ming-ai.top/agriscan",
+        "published_at": "2026-10-29"
+      }
+    },
+    "apk_head": {
+      "status": 200,
+      "content_length": "18744600",
+      "content_type": "application/vnd.android.package-archive",
+      "content_disposition": null
+    }
+  },
+  "finalized_at": "2026-10-29T01:09:01.356Z",
+  "final_checks": {
+    "two_public_dns_providers_agree": true,
+    "normal_dns_trusted_tls": true,
+    "root_redirect_correct": true,
+    "website_200": true,
+    "release_200_and_new_api": true,
+    "release_matches_actual_local_apk": true,
+    "download_head_200_and_size_matches": true,
+    "chrome_readiness": true,
+    "no_browser_console_errors_or_warnings": true,
+    "remaining_required_active_migrations": true
+  },
+  "unresolved_issues": [],
+  "independent_web_fetcher": {
+    "url": "https://agriscan.ming-ai.top/agriscan/",
+    "result": "web工具返回not accessible，原因未确定；正常DNS的本机Chrome和Python TLS/HTTP均已成功，不能据单一抓取器宣称公网故障"
+  },
+  "additional_completed_evidence": {
+    "app_release_validation": ".runtime/domain-migration-20261029/app.json",
+    "ownership": "app_assets执行的服务器完整TLS下载/hash/native-Origin预检；本审查只做独立本地ZIP/hash、公开HTTPS HEAD/JSON与Chromereadiness",
+    "no_native_app_test": true
+  }
+}

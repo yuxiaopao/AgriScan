@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "source": "actual mobile/src/plotDraft.ts pure functions",
+  "checks": [
+    "trimmed personal fields and finite acreage",
+    "no owner or administrative field is emitted",
+    "zero coordinates are preserved",
+    "coordinate boundary pair is valid",
+    "reject blank name",
+    "reject long name",
+    "reject unsupported crop",
+    "reject zero area",
+    "reject negative area",
+    "reject non-finite area",
+    "reject oversized area",
+    "reject latitude only",
+    "reject longitude only",
+    "reject invalid latitude",
+    "reject latitude overflow",
+    "reject longitude overflow",
+    "reject long location",
+    "reject long manager",
+    "edit draft retains existing fields and coordinates"
+  ],
+  "count": 19,
+  "request_body": {
+    "name": "东侧果园",
+    "crop": "苹果",
+    "area": 2.5,
+    "location": "田间路口",
+    "manager": "巡田伙伴",
+    "latitude": null,
+    "longitude": null
+  }
+}

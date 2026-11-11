@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "method": "CUA clicks/fill against current mobile source with an isolated synthetic HTTP contract fixture",
+  "cases": [
+    "registration disabled still allows the public forgot-password page",
+    "sending code disables the email, proof fields, submit and header navigation",
+    "fixed generic send response and sixty-second cooldown survive editing the email",
+    "mismatched passwords do not submit a reset request",
+    "wrong synthetic code restores the form with retry feedback",
+    "synthetic reset success clears password/code and requires explicit return to login",
+    "self-email section starts collapsed and marks the historical email as unverified",
+    "binding send and verification have real disabled loading states",
+    "wrong binding proof retains the original email and current login",
+    "successful synthetic binding shows verified status and clears password/code",
+    "logout while binding is pending clears the form and cannot receive its late result",
+    "final fixed reset error is visible without provider OTP or password details",
+    "browser back while reset is pending leaves the next login page clean",
+    "final browser console has no errors"
+  ],
+  "final_source_tested": true,
+  "http_request_counts": {
+    "/api/auth/email/verification-code": 1,
+    "/api/auth/email/verify": 3,
+    "/api/auth/login": 1,
+    "/api/auth/logout": 1,
+    "/api/auth/password-reset": 3,
+    "/api/auth/password-reset-code": 1
+  },
+  "production_network_called": false,
+  "smtp_mail_sent": false,
+  "real_account_created": false,
+  "real_credential_changed": false,
+  "native_android_runtime_tested": false,
+  "cleanup": {
+    "fixture_ports_closed": [
+      18941,
+      18942
+    ],
+    "temporary_browser_tab_closed": true,
+    "persisted_passwords_or_codes": false
+  },
+  "limits": [
+    "The HTTP fixture validates UI interactions and contract shape, not real mail delivery or backend password-reset correctness.",
+    "Native Android runtime is left to the user."
+  ]
+}

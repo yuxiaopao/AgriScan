@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "origin": "https://agriscan.ming-ai.top",
+  "accounts": {
+    "a": {
+      "display": "隔离验收A·苹果_ceca6f",
+      "dashboardCount": 1,
+      "records": [
+        "苹果黑星病"
+      ],
+      "plots": 1
+    },
+    "b": {
+      "display": "隔离验收B·玉米_ceca6f",
+      "dashboardCount": 2,
+      "records": [
+        "玉米普通锈病",
+        "玉米健康"
+      ],
+      "plots": 1
+    }
+  },
+  "bSearchesASampleReturns": 0,
+  "ownImageDecoded": {
+    "width": 256,
+    "height": 256
+  },
+  "sameTabSwitchAtoB": "only B records remain",
+  "adminOwnerFilterARecords": 1,
+  "adminOwnerEditFormVisible": true,
+  "scripts": {
+    "user": [
+      "https://agriscan.ming-ai.top/agriscan/workspace/assets/index-B26zGKAv.js"
+    ],
+    "admin": [
+      "https://agriscan.ming-ai.top/agriscan/admin/assets/index-DN7zZ8c_.js"
+    ]
+  }
+}

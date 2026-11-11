@@ -1,0 +1,93 @@
+[
+  {
+    "method": "POST",
+    "path": "/api/auth/password-reset-code",
+    "fields": [
+      "email"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/password-reset",
+    "fields": [
+      "code",
+      "email",
+      "new_password"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/password-reset",
+    "fields": [
+      "code",
+      "email",
+      "new_password"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/login",
+    "fields": [
+      "password",
+      "username"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/email/verification-code",
+    "fields": [
+      "email"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/email/verify",
+    "fields": [
+      "code",
+      "current_password",
+      "email"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/email/verify",
+    "fields": [
+      "code",
+      "current_password",
+      "email"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/email/verify",
+    "fields": [
+      "code",
+      "current_password",
+      "email"
+    ],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/logout",
+    "fields": [],
+    "synthetic_only": true
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/password-reset",
+    "fields": [
+      "code",
+      "email",
+      "new_password"
+    ],
+    "synthetic_only": true
+  }
+]

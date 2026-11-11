@@ -1,0 +1,62 @@
+{
+  "run_id": "qa20261028_1935",
+  "release": "/srv/agriscan/releases/release-20261028-190106",
+  "backup": "/srv/agriscan/shared/backups/qa20261028_1935-ui3-20261028T120916Z",
+  "started_at": "2026-10-28T12:09:16.582338+00:00",
+  "files": [
+    {
+      "path": "public/workspace/index.html",
+      "sha256": "bb42b6044f417913b1b54cbc6174f9b868f19006087d9408a7c360b597c5c7f8",
+      "size": 827,
+      "old_sha256": "38b4360c66db1f5d2f20e3ec00ad955a17e95c60598ec32be68ff180aab2c6f2"
+    },
+    {
+      "path": "public/workspace/assets/Dashboard-D1Mjp5rf.js",
+      "sha256": "e6e5708c94b9c8891d98528bd3262c4a4c3c7675e631bc829ae1c27ad15c07b3",
+      "size": 8359,
+      "old_sha256": null
+    },
+    {
+      "path": "public/workspace/assets/index-C_vDbeiV.js",
+      "sha256": "f819c13cb1c824f804e64ea689740af41ebcd60884b1a72a409759904029140c",
+      "size": 475593,
+      "old_sha256": null
+    }
+  ],
+  "unchanged_files": 46,
+  "service_before": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "679469056",
+    "MemoryPeak": "681279488",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "write_order": [
+    "public/workspace/assets/Dashboard-D1Mjp5rf.js",
+    "public/workspace/assets/index-C_vDbeiV.js",
+    "public/workspace/index.html"
+  ],
+  "health": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "verified_https_files": [
+    "public/workspace/assets/Dashboard-D1Mjp5rf.js",
+    "public/workspace/assets/index-C_vDbeiV.js",
+    "public/workspace/index.html"
+  ],
+  "service_after": {
+    "MainPID": "1144975",
+    "NRestarts": "0",
+    "MemoryCurrent": "679735296",
+    "MemoryPeak": "681279488",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "status": "passed",
+  "finished_at": "2026-10-28T12:09:16.744625+00:00"
+}

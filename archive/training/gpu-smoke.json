@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "synthetic_test_only": true,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "torch": "2.9.1+cu128",
+  "cuda": "12.8",
+  "batch": 32,
+  "image_size": 224,
+  "loss": 3.68511962890625,
+  "peak_allocated_bytes": 1283075584
+}

@@ -1,0 +1,31 @@
+{
+  "before": {
+    "full_name": "yuxiaopao/AgriScan",
+    "homepage": null,
+    "description": "禾观 AgriScan：React + FastAPI 农业智能检测平台，包含 PlantVillage 叶片分类 PyTorch / ONNX 权重。",
+    "topics": [],
+    "default_branch": "main"
+  },
+  "requested": {
+    "homepage": "https://flowly-ai.top/agriscan/",
+    "description": "禾观 AgriScan｜作物健康检测平台：图片、视频与实时识别，Web 工作台、Android APP 和独立管理控制台。"
+  },
+  "after": {
+    "full_name": "yuxiaopao/AgriScan",
+    "homepage": "https://flowly-ai.top/agriscan/",
+    "description": "禾观 AgriScan｜作物健康检测平台：图片、视频与实时识别，Web 工作台、Android APP 和独立管理控制台。",
+    "topics": [
+      "agriculture",
+      "android",
+      "capacitor",
+      "computer-vision",
+      "fastapi",
+      "onnx",
+      "plant-disease-detection",
+      "react",
+      "yolo"
+    ],
+    "default_branch": "main"
+  },
+  "verified": true
+}

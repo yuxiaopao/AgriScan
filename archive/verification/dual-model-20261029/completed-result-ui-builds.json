@@ -1,0 +1,967 @@
+{
+  "status": "passed",
+  "completed_result_view": true,
+  "completed_at": "2026-10-29T07:39:45.712065+00:00",
+  "source": "latest complete working tree",
+  "source_manifest_phase": "frontend rebuilt after result/session changes; admin build reused with all dependencies unchanged against dual-only manifest",
+  "source_file_count": 109,
+  "sources": {
+    "admin/index.html": {
+      "bytes": 596,
+      "sha256": "ef300bef375e30404458a1cff2c0255dfb4376c1a2945f40280a791c18c1d12d"
+    },
+    "admin/package-lock.json": {
+      "bytes": 79869,
+      "sha256": "8c86b9ff97dffe26525423e7140d5cdd1f9eb09e9b15ce371318cf388cbd89e7"
+    },
+    "admin/package.json": {
+      "bytes": 660,
+      "sha256": "b60a4e0777c998f815a9789ad66fbcf9487b8fcb294f0764e64b52aaf07d6c53"
+    },
+    "admin/src/admin.css": {
+      "bytes": 28616,
+      "sha256": "ec31b4c8a4ad0da69655646db5e25296b4a54da93b6e158659b3c2adc4a7bb78"
+    },
+    "admin/src/Admin.tsx": {
+      "bytes": 61926,
+      "sha256": "7e17c20585ad2dfc2028dc55ac6351c02b9688b87e3941c5d853dfcac5e15f8f"
+    },
+    "admin/src/api.ts": {
+      "bytes": 186,
+      "sha256": "a8d24d6c9c62e8208fed5128597e27cf659b54e136c669169c65950891e81dc1"
+    },
+    "admin/src/App.tsx": {
+      "bytes": 5440,
+      "sha256": "94e3b7c08cd39f6696a0f8641343cdb026f0398cb6bc82e6c9c1ccbcdcd8e5fb"
+    },
+    "admin/src/login.css": {
+      "bytes": 4111,
+      "sha256": "37d8a5d2063571b10f526c121b99e132c8dce8327c0706b363a63913a285c85e"
+    },
+    "admin/src/main.tsx": {
+      "bytes": 279,
+      "sha256": "496f0887aca34a05b059f2a0a6e7e636d4f3d40f0a9dd74474e70345a6a8b171"
+    },
+    "admin/src/OwnerPicker.tsx": {
+      "bytes": 3458,
+      "sha256": "97d81a7c11238b965b6139230f4c697ad4dc5dc8ec214e5f7ded5b2591d377db"
+    },
+    "admin/src/polish.css": {
+      "bytes": 27029,
+      "sha256": "c9f99436ab72b929631e5109936907bc3594329c3273fefe5c2d06faa4953e4d"
+    },
+    "admin/src/runtime-settings.css": {
+      "bytes": 6209,
+      "sha256": "53a9494afbae025987ba97d9af77ffb91818c8e1ba50cad91eb7cc21902aa31f"
+    },
+    "admin/src/RuntimeSettings.tsx": {
+      "bytes": 23409,
+      "sha256": "6943d303ad428ae558ef0fea68559b234e761604cd8faa4b1c5d1e6fb2b8915e"
+    },
+    "admin/src/vite-env.d.ts": {
+      "bytes": 38,
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    "admin/tsconfig.json": {
+      "bytes": 519,
+      "sha256": "396c580e1c0e5d2297728d8ddd49850f69482f2b7939c86333119821f069f89a"
+    },
+    "admin/vite.config.ts": {
+      "bytes": 1453,
+      "sha256": "12cdf03905b8a179a1f403ae89bd2007ffaf9673520cca8ee80cccc3dac56281"
+    },
+    "frontend/index.html": {
+      "bytes": 576,
+      "sha256": "556960a915593402a460b37f21f9f3eef2e82cf2af99c6ec3957feb77236bd0f"
+    },
+    "frontend/package-lock.json": {
+      "bytes": 81226,
+      "sha256": "7d4451f0006f84cb2b3b428e2c7e5281d10b8443fa9ff4844c306060c9d9c4f7"
+    },
+    "frontend/package.json": {
+      "bytes": 635,
+      "sha256": "325a1ad4115e2d0535a1f3782b83bf7e54573229de12549b2b5bf92abed69681"
+    },
+    "frontend/public/brand/icon.svg": {
+      "bytes": 760560,
+      "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+    },
+    "frontend/public/brand/logo.svg": {
+      "bytes": 760562,
+      "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+    },
+    "frontend/public/favicon.svg": {
+      "bytes": 297,
+      "sha256": "bf71f4fd6f8abd07bbf22b8794a7613f4c0ea95fe0bbb22ac3a506d822caa386"
+    },
+    "frontend/public/images/xiaohe-crops/apple-still.webp": {
+      "bytes": 26634,
+      "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+    },
+    "frontend/public/images/xiaohe-crops/apple.webp": {
+      "bytes": 199906,
+      "sha256": "fd69b563333b4a8560755bbe8c1a0c753935f1b19cc1a3d92038d43ea9e28961"
+    },
+    "frontend/public/images/xiaohe-crops/blueberry-still.webp": {
+      "bytes": 25640,
+      "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+    },
+    "frontend/public/images/xiaohe-crops/blueberry.webp": {
+      "bytes": 199396,
+      "sha256": "d1718c6cd5f395319da9f079e4ca2dbf545c9b42200870f17961636b47b1c969"
+    },
+    "frontend/public/images/xiaohe-crops/cherry-still.webp": {
+      "bytes": 25168,
+      "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+    },
+    "frontend/public/images/xiaohe-crops/cherry.webp": {
+      "bytes": 192570,
+      "sha256": "ced5b439eaf391deacc8970b38319c36a3bee7875a4acb8ad1a6bc249974d83f"
+    },
+    "frontend/public/images/xiaohe-crops/citrus-still.webp": {
+      "bytes": 26414,
+      "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+    },
+    "frontend/public/images/xiaohe-crops/citrus.webp": {
+      "bytes": 204180,
+      "sha256": "fd10e513221432bea90e58bfb6493eeec05d9a645b9ca781bf8c6246aea0db8d"
+    },
+    "frontend/public/images/xiaohe-crops/corn-still.webp": {
+      "bytes": 26594,
+      "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+    },
+    "frontend/public/images/xiaohe-crops/corn.webp": {
+      "bytes": 205120,
+      "sha256": "b7b7d2f5aee022ccc97fc65df7fe75c27b8269451959744699b0c324f5ffbdcc"
+    },
+    "frontend/public/images/xiaohe-crops/cucumber-still.webp": {
+      "bytes": 25918,
+      "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+    },
+    "frontend/public/images/xiaohe-crops/cucumber.webp": {
+      "bytes": 200298,
+      "sha256": "b8afb09dc9a49aff86ef3d485a5851fc9ef10f0f910b567d89856260d227e68b"
+    },
+    "frontend/public/images/xiaohe-crops/grape-still.webp": {
+      "bytes": 26648,
+      "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+    },
+    "frontend/public/images/xiaohe-crops/grape.webp": {
+      "bytes": 207896,
+      "sha256": "78f81de6f5e36d23b1ceead2a128ba1afc3ca1271187d2e1a7cb55863885f4f6"
+    },
+    "frontend/public/images/xiaohe-crops/peach-still.webp": {
+      "bytes": 26436,
+      "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+    },
+    "frontend/public/images/xiaohe-crops/peach.webp": {
+      "bytes": 198194,
+      "sha256": "6db8e1874380f523d556727c2e361c7e31ea002f56da12c8fe93f9999c1fda0f"
+    },
+    "frontend/public/images/xiaohe-crops/pepper-still.webp": {
+      "bytes": 26432,
+      "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+    },
+    "frontend/public/images/xiaohe-crops/pepper.webp": {
+      "bytes": 203770,
+      "sha256": "5f6368bd191a78501932d9e60a14cd4c050f4d0d5074412e92ec2877db4ab4f6"
+    },
+    "frontend/public/images/xiaohe-crops/potato-still.webp": {
+      "bytes": 27058,
+      "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+    },
+    "frontend/public/images/xiaohe-crops/potato.webp": {
+      "bytes": 204038,
+      "sha256": "34e104c073be114a7d7cc6ab9588a4d50ba14379aa7d7558fde055672c4eabb2"
+    },
+    "frontend/public/images/xiaohe-crops/pumpkin-still.webp": {
+      "bytes": 25384,
+      "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+    },
+    "frontend/public/images/xiaohe-crops/pumpkin.webp": {
+      "bytes": 199290,
+      "sha256": "a3e395d853a2220f9904a614a4f6ef7ca804a3492bfb381a64e260b3b7e3c2a8"
+    },
+    "frontend/public/images/xiaohe-crops/raspberry-still.webp": {
+      "bytes": 26558,
+      "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+    },
+    "frontend/public/images/xiaohe-crops/raspberry.webp": {
+      "bytes": 208614,
+      "sha256": "204e29a48a4dd356cba48c3ef28bdc03fa4e0288aa26215ebd95babc13a2727b"
+    },
+    "frontend/public/images/xiaohe-crops/rice-still.webp": {
+      "bytes": 27456,
+      "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+    },
+    "frontend/public/images/xiaohe-crops/rice.webp": {
+      "bytes": 213246,
+      "sha256": "407cf40b5078d59e7a9f10b1799a590098b49ebc994beb42807fafa7e02e5e25"
+    },
+    "frontend/public/images/xiaohe-crops/soybean-still.webp": {
+      "bytes": 26358,
+      "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+    },
+    "frontend/public/images/xiaohe-crops/soybean.webp": {
+      "bytes": 205714,
+      "sha256": "1b9bb7ce153d7c910319da259c8fa8d7ccf331695f81d184c5cd458514d8b952"
+    },
+    "frontend/public/images/xiaohe-crops/strawberry-still.webp": {
+      "bytes": 26784,
+      "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+    },
+    "frontend/public/images/xiaohe-crops/strawberry.webp": {
+      "bytes": 206036,
+      "sha256": "59b98fa9e152a7c5e0c19401c05ced4a6301354f1ba9094d23023259614ed617"
+    },
+    "frontend/public/images/xiaohe-crops/tomato-still.webp": {
+      "bytes": 26896,
+      "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+    },
+    "frontend/public/images/xiaohe-crops/tomato.webp": {
+      "bytes": 206892,
+      "sha256": "a6716aaf28836f25be300a694e21d0d3cf7b3ce76e6391edef7e682dad7f0ff1"
+    },
+    "frontend/public/images/xiaohe-crops/wheat-still.webp": {
+      "bytes": 26538,
+      "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+    },
+    "frontend/public/images/xiaohe-crops/wheat.webp": {
+      "bytes": 206330,
+      "sha256": "db57e7969b201101611b379d535773f26da3af9bda8416f9d488f2b43b55ed22"
+    },
+    "frontend/public/images/xiaohe-motion/concern.webp": {
+      "bytes": 217220,
+      "sha256": "78f252ed7d084827cd2b6240e5dba887300dd1d2292520a383aa7bcda1d69549"
+    },
+    "frontend/public/images/xiaohe-motion/idle.webp": {
+      "bytes": 222736,
+      "sha256": "162a58e700e5e02e602c58074edbbd82c832644e4ad04c43dfc70835c1ee206d"
+    },
+    "frontend/public/images/xiaohe-motion/scan.webp": {
+      "bytes": 216620,
+      "sha256": "e06a00c4549342d1c0450774437e97d9721254b822d9d06c4c677d9b0ac21e2b"
+    },
+    "frontend/public/images/xiaohe-motion/success.webp": {
+      "bytes": 224656,
+      "sha256": "ff085260bc96a14bedaa3e26fc2a7d7f64d9a620e06a27a1cbd64b9564c29ae8"
+    },
+    "frontend/public/images/xiaohe-motion/think.webp": {
+      "bytes": 200160,
+      "sha256": "3c19944bca7f565e07f3f2fe975e1ca6399962d58d5fa41e6243319124363e2f"
+    },
+    "frontend/public/images/xiaohe-motion/wave.webp": {
+      "bytes": 191180,
+      "sha256": "f6cf6594fe23f30ea572b1142869e06ba87ca177bb228da703c72b10c268f3c5"
+    },
+    "frontend/public/images/xiaohe.png": {
+      "bytes": 934830,
+      "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+    },
+    "frontend/src/Access.tsx": {
+      "bytes": 9431,
+      "sha256": "f536b285b5a6b9c7b4d9898523d5b0016899e63169cbcbf89b84846eaf41ecd1"
+    },
+    "frontend/src/admin.css": {
+      "bytes": 26711,
+      "sha256": "da70c3ff437ae3f2b802c7ad412ab1eda6c2aeb74c94d79cbf88752fc4f0f069"
+    },
+    "frontend/src/Admin.tsx": {
+      "bytes": 57073,
+      "sha256": "08d664296bb13cbb32793a0c171cb4ec8e73aa4dacf9aceb4ceda1952323a990"
+    },
+    "frontend/src/api.ts": {
+      "bytes": 3089,
+      "sha256": "274dd353292747bb9d10a2cbebd98ec96eb7e524a3e682adc6a2a1ed48437b6e"
+    },
+    "frontend/src/App.tsx": {
+      "bytes": 26735,
+      "sha256": "8463c26aa52bbb606f37b64c9c6301b25711707728f8bfc8e59e918e76b26665"
+    },
+    "frontend/src/assistant.css": {
+      "bytes": 22228,
+      "sha256": "c764820bc93d1ac1863a6068aee5ef32b837c71620a7b30424c32c06ccc12d85"
+    },
+    "frontend/src/AssistantMessageBody.tsx": {
+      "bytes": 2875,
+      "sha256": "4c915e1c10a8ff826328839e554c249a5a07ebcd0368d7abf4512bbffe60df39"
+    },
+    "frontend/src/ClientConfig.tsx": {
+      "bytes": 1970,
+      "sha256": "8c6ffca91126afc96cb30325cf902852015c20b1a8892972319b6f9fe80a6cac"
+    },
+    "frontend/src/components.tsx": {
+      "bytes": 8100,
+      "sha256": "01ab58ce386a5ea6b683ddfbaf3873c3919a32f313efd67465e3a456ddda8081"
+    },
+    "frontend/src/crop-theme.css": {
+      "bytes": 8089,
+      "sha256": "a95acffc1cc5b4dc0feb2bccc741176007c9f95139ceb71d6e34b5e27c0cf180"
+    },
+    "frontend/src/CropRoom.tsx": {
+      "bytes": 3531,
+      "sha256": "3553da49fd382b82c5a365ffb2f4184ae0824bf9d5177ebaa0581bd3d80e09e7"
+    },
+    "frontend/src/CropTheme.tsx": {
+      "bytes": 1476,
+      "sha256": "78f437576a9883d74b9c34f3153b793e6ff97192177df3d0978e94796e31e4c2"
+    },
+    "frontend/src/cropThemes.ts": {
+      "bytes": 4072,
+      "sha256": "0ea6c271981464b0144a1ff186328a05507ceccbcd4feb041b2d7b79b48765e9"
+    },
+    "frontend/src/Dashboard.tsx": {
+      "bytes": 8628,
+      "sha256": "820822da0a5efb7a0549508460c7fedbceb58b6ebc059ab2fe47208824d2ed15"
+    },
+    "frontend/src/detect-result.css": {
+      "bytes": 3235,
+      "sha256": "9d08cad086cc8e9c8b649efc43eaf8b5c6aeee77a349cd46ccf81190a4df5f63"
+    },
+    "frontend/src/detection-image-comparison.css": {
+      "bytes": 5136,
+      "sha256": "f003574583719e677b3ffae63c45391cb70fca3db03217a907ef9d45f06b7354"
+    },
+    "frontend/src/DetectionImageComparison.tsx": {
+      "bytes": 8392,
+      "sha256": "69b9d4783222e87fcdb27588ca091b804d5f7327409f6bf09c1a7c67c6c221c2"
+    },
+    "frontend/src/DetectionJourney.tsx": {
+      "bytes": 1923,
+      "sha256": "1b43407b23ebccc1d1e7d04b9ff48017f5a18d469f30c8d0cc023f8ff5654497"
+    },
+    "frontend/src/DetectResultView.tsx": {
+      "bytes": 4590,
+      "sha256": "b60c6c913389a258188747e74d976078daac1eb4eaca33fc1841e654376face4"
+    },
+    "frontend/src/FloatingAssistant.tsx": {
+      "bytes": 23776,
+      "sha256": "1dc1d37595089ac1e36cd305932aad63af758105563601f98909e078262893cf"
+    },
+    "frontend/src/Integrations.tsx": {
+      "bytes": 5109,
+      "sha256": "ab2b6f2226fc612e0abc1448fa694d3f9eaf9ba655054eec9f03512a7b1adebd"
+    },
+    "frontend/src/main.tsx": {
+      "bytes": 492,
+      "sha256": "ca6302ead94875880d5816892d909454a2937b0f7b8bab3af3f4b749ed908dd6"
+    },
+    "frontend/src/model-verification.css": {
+      "bytes": 4188,
+      "sha256": "4675f0ee01f9c59a05ac48864b41edfb0ad0ff13b2c1b3b48a40ee03d1d1a116"
+    },
+    "frontend/src/ModelVerification.tsx": {
+      "bytes": 2702,
+      "sha256": "b14247077821775ad929973c01e985d97337dcd7650af3b5ac2a2cbd46219ce5"
+    },
+    "frontend/src/motion.tsx": {
+      "bytes": 6003,
+      "sha256": "abafda8d8472ad7dbcd073f3b0c2d5568b3a787bdf18d436eab182057223b6c0"
+    },
+    "frontend/src/ObservationStack.tsx": {
+      "bytes": 2348,
+      "sha256": "474a5740daad47c556c00e64a821508a1ae61b63689607ad4af3a48bcd100abb"
+    },
+    "frontend/src/Pages.tsx": {
+      "bytes": 31689,
+      "sha256": "55089365eadc0054f3d121de8d1e78ea1fc2b5dc2cc35b571fc85b0949f090ac"
+    },
+    "frontend/src/plot-editor.css": {
+      "bytes": 6463,
+      "sha256": "9de6c3ac25052193114548893be5697c0c0970828a5c4d9371db1409b851767c"
+    },
+    "frontend/src/plotCoordinates.ts": {
+      "bytes": 458,
+      "sha256": "d1605925eb412bb63213a0a4c2d3ddf7e1dfe1f807711ee5ff4410971d7ab146"
+    },
+    "frontend/src/PlotCoverCarousel.tsx": {
+      "bytes": 4769,
+      "sha256": "4ab83da2ccc01fb9f2e7793882a4e2f69fea094e1bbc2277a647111f885a04ae"
+    },
+    "frontend/src/plotDrafts.ts": {
+      "bytes": 1560,
+      "sha256": "e4e628ae21cde99359309cd447a8dcc744331434b2dee7a23f8a9cdf2a17e005"
+    },
+    "frontend/src/PlotEditor.tsx": {
+      "bytes": 9628,
+      "sha256": "787c00990c3d7c2569e18dfe54f15973907d5477ea16b33171ef3559e7df7446"
+    },
+    "frontend/src/PlotLocationPicker.tsx": {
+      "bytes": 6755,
+      "sha256": "969e88ed1edd9d34afb660ccac4d74da3bf7e4ac49c00bcb86a7fbdc5ecd055d"
+    },
+    "frontend/src/predictionFormat.ts": {
+      "bytes": 282,
+      "sha256": "05d4ff97644b1697af8b6b5406ab832bcad8b4dd695decefabd7616a979a496e"
+    },
+    "frontend/src/PredictionScores.tsx": {
+      "bytes": 1552,
+      "sha256": "35e4291ab83b1126128df2afbaba7a5a970b369fda2f24bc861284f81bbbc9c2"
+    },
+    "frontend/src/refinement.css": {
+      "bytes": 25572,
+      "sha256": "4ad7c394724aa71e1bae2fe9628f3beb228ad5d09f7331106f6adfd09e9b1999"
+    },
+    "frontend/src/RunningModels.tsx": {
+      "bytes": 2347,
+      "sha256": "0920614c58ef8f395287da2e7c438a0d6268589c6ed006f427ea3a2d44d038a9"
+    },
+    "frontend/src/styles.css": {
+      "bytes": 67745,
+      "sha256": "270b1c55032c2a9d5081a0b348da7ebd77a6d732653b0f6c5e56469154f6db5d"
+    },
+    "frontend/src/types.ts": {
+      "bytes": 2767,
+      "sha256": "537e2995d6c484b408420bc871e0cf821eddab5c14d5028bd7ddc5c07359a2b1"
+    },
+    "frontend/src/useFloatingPosition.ts": {
+      "bytes": 8341,
+      "sha256": "ff1a30123d2b3bbdca40f2716ce7e0ee9302b2bedf5afae63b86b5e5cd515aa6"
+    },
+    "frontend/src/vite-env.d.ts": {
+      "bytes": 38,
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    "frontend/src/xiaohe.css": {
+      "bytes": 3004,
+      "sha256": "4646ebee71d20c6e12ca3ff616b2ce15891c763ecb104e3520d097bdb78e6d57"
+    },
+    "frontend/src/Xiaohe.tsx": {
+      "bytes": 2587,
+      "sha256": "cf5550dc25048178b8b4a2b8fcc3b446e1be030be438dc7dfb7cc68b8d005332"
+    },
+    "frontend/src/XiaoheMotionDemo.tsx": {
+      "bytes": 1551,
+      "sha256": "1c6357183b6b15e5a5888ae86bc0f3665208b8cec34ff0177b708442ebcf5f1d"
+    },
+    "frontend/tsconfig.json": {
+      "bytes": 486,
+      "sha256": "d8306abda3d4c46346d99fde4d6f6864d00bf2d768a77d39de4f5a9294360319"
+    },
+    "frontend/vite.config.ts": {
+      "bytes": 892,
+      "sha256": "0dfed16e2721fc2816749c4fd0c3f4cb45c9b7d1490d605f1ec2e5635a4c3ccd"
+    }
+  },
+  "changed_files": [
+    "frontend/src/types.ts",
+    "frontend/src/PredictionScores.tsx",
+    "frontend/src/ModelVerification.tsx",
+    "frontend/src/RunningModels.tsx",
+    "frontend/src/predictionFormat.ts",
+    "frontend/src/model-verification.css",
+    "frontend/src/Pages.tsx",
+    "frontend/src/FloatingAssistant.tsx",
+    "frontend/src/Integrations.tsx",
+    "admin/src/Admin.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/DetectionJourney.tsx",
+    "frontend/src/DetectResultView.tsx",
+    "frontend/src/detect-result.css"
+  ],
+  "surfaces": {
+    "frontend": {
+      "status": "passed",
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\dual-model-20261029\\frontend\\dist",
+      "production_base": "/agriscan/workspace/",
+      "api_prefix": "/agriscan",
+      "entries": [
+        "/agriscan/workspace/assets/index-BC3Rn_b9.js"
+      ],
+      "styles": [
+        "/agriscan/workspace/assets/index-DyXt1maM.css"
+      ],
+      "file_count": 49,
+      "files": {
+        "assets/charts-lR1CQYWX.js": {
+          "bytes": 394636,
+          "sha256": "3337742f43fb0750e4f5541323c5b27840e6dcec46c2d02fdb0d71b8ebc6a570"
+        },
+        "assets/Dashboard-BwMylayu.js": {
+          "bytes": 9885,
+          "sha256": "b46e3203b4b61358c7b038c3689905da7137ecb8592946e65288c927809c57db"
+        },
+        "assets/index-BC3Rn_b9.js": {
+          "bytes": 505423,
+          "sha256": "94ed2d29fbe602dbd39fdbce7d955d83fe221685c397e8c058ca27e0aa45dd0f"
+        },
+        "assets/index-DyXt1maM.css": {
+          "bytes": 158623,
+          "sha256": "44c6c67a382f49dcc1d3ce0c4b8e2a27eb40374ee018b42b6be17bfa083ef31a"
+        },
+        "brand/icon.svg": {
+          "bytes": 760560,
+          "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+        },
+        "brand/logo.svg": {
+          "bytes": 760562,
+          "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+        },
+        "favicon.svg": {
+          "bytes": 297,
+          "sha256": "bf71f4fd6f8abd07bbf22b8794a7613f4c0ea95fe0bbb22ac3a506d822caa386"
+        },
+        "images/xiaohe-crops/apple-still.webp": {
+          "bytes": 26634,
+          "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+        },
+        "images/xiaohe-crops/apple.webp": {
+          "bytes": 199906,
+          "sha256": "fd69b563333b4a8560755bbe8c1a0c753935f1b19cc1a3d92038d43ea9e28961"
+        },
+        "images/xiaohe-crops/blueberry-still.webp": {
+          "bytes": 25640,
+          "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+        },
+        "images/xiaohe-crops/blueberry.webp": {
+          "bytes": 199396,
+          "sha256": "d1718c6cd5f395319da9f079e4ca2dbf545c9b42200870f17961636b47b1c969"
+        },
+        "images/xiaohe-crops/cherry-still.webp": {
+          "bytes": 25168,
+          "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+        },
+        "images/xiaohe-crops/cherry.webp": {
+          "bytes": 192570,
+          "sha256": "ced5b439eaf391deacc8970b38319c36a3bee7875a4acb8ad1a6bc249974d83f"
+        },
+        "images/xiaohe-crops/citrus-still.webp": {
+          "bytes": 26414,
+          "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+        },
+        "images/xiaohe-crops/citrus.webp": {
+          "bytes": 204180,
+          "sha256": "fd10e513221432bea90e58bfb6493eeec05d9a645b9ca781bf8c6246aea0db8d"
+        },
+        "images/xiaohe-crops/corn-still.webp": {
+          "bytes": 26594,
+          "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+        },
+        "images/xiaohe-crops/corn.webp": {
+          "bytes": 205120,
+          "sha256": "b7b7d2f5aee022ccc97fc65df7fe75c27b8269451959744699b0c324f5ffbdcc"
+        },
+        "images/xiaohe-crops/cucumber-still.webp": {
+          "bytes": 25918,
+          "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+        },
+        "images/xiaohe-crops/cucumber.webp": {
+          "bytes": 200298,
+          "sha256": "b8afb09dc9a49aff86ef3d485a5851fc9ef10f0f910b567d89856260d227e68b"
+        },
+        "images/xiaohe-crops/grape-still.webp": {
+          "bytes": 26648,
+          "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+        },
+        "images/xiaohe-crops/grape.webp": {
+          "bytes": 207896,
+          "sha256": "78f81de6f5e36d23b1ceead2a128ba1afc3ca1271187d2e1a7cb55863885f4f6"
+        },
+        "images/xiaohe-crops/peach-still.webp": {
+          "bytes": 26436,
+          "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+        },
+        "images/xiaohe-crops/peach.webp": {
+          "bytes": 198194,
+          "sha256": "6db8e1874380f523d556727c2e361c7e31ea002f56da12c8fe93f9999c1fda0f"
+        },
+        "images/xiaohe-crops/pepper-still.webp": {
+          "bytes": 26432,
+          "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+        },
+        "images/xiaohe-crops/pepper.webp": {
+          "bytes": 203770,
+          "sha256": "5f6368bd191a78501932d9e60a14cd4c050f4d0d5074412e92ec2877db4ab4f6"
+        },
+        "images/xiaohe-crops/potato-still.webp": {
+          "bytes": 27058,
+          "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+        },
+        "images/xiaohe-crops/potato.webp": {
+          "bytes": 204038,
+          "sha256": "34e104c073be114a7d7cc6ab9588a4d50ba14379aa7d7558fde055672c4eabb2"
+        },
+        "images/xiaohe-crops/pumpkin-still.webp": {
+          "bytes": 25384,
+          "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+        },
+        "images/xiaohe-crops/pumpkin.webp": {
+          "bytes": 199290,
+          "sha256": "a3e395d853a2220f9904a614a4f6ef7ca804a3492bfb381a64e260b3b7e3c2a8"
+        },
+        "images/xiaohe-crops/raspberry-still.webp": {
+          "bytes": 26558,
+          "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+        },
+        "images/xiaohe-crops/raspberry.webp": {
+          "bytes": 208614,
+          "sha256": "204e29a48a4dd356cba48c3ef28bdc03fa4e0288aa26215ebd95babc13a2727b"
+        },
+        "images/xiaohe-crops/rice-still.webp": {
+          "bytes": 27456,
+          "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+        },
+        "images/xiaohe-crops/rice.webp": {
+          "bytes": 213246,
+          "sha256": "407cf40b5078d59e7a9f10b1799a590098b49ebc994beb42807fafa7e02e5e25"
+        },
+        "images/xiaohe-crops/soybean-still.webp": {
+          "bytes": 26358,
+          "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+        },
+        "images/xiaohe-crops/soybean.webp": {
+          "bytes": 205714,
+          "sha256": "1b9bb7ce153d7c910319da259c8fa8d7ccf331695f81d184c5cd458514d8b952"
+        },
+        "images/xiaohe-crops/strawberry-still.webp": {
+          "bytes": 26784,
+          "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+        },
+        "images/xiaohe-crops/strawberry.webp": {
+          "bytes": 206036,
+          "sha256": "59b98fa9e152a7c5e0c19401c05ced4a6301354f1ba9094d23023259614ed617"
+        },
+        "images/xiaohe-crops/tomato-still.webp": {
+          "bytes": 26896,
+          "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+        },
+        "images/xiaohe-crops/tomato.webp": {
+          "bytes": 206892,
+          "sha256": "a6716aaf28836f25be300a694e21d0d3cf7b3ce76e6391edef7e682dad7f0ff1"
+        },
+        "images/xiaohe-crops/wheat-still.webp": {
+          "bytes": 26538,
+          "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+        },
+        "images/xiaohe-crops/wheat.webp": {
+          "bytes": 206330,
+          "sha256": "db57e7969b201101611b379d535773f26da3af9bda8416f9d488f2b43b55ed22"
+        },
+        "images/xiaohe-motion/concern.webp": {
+          "bytes": 217220,
+          "sha256": "78f252ed7d084827cd2b6240e5dba887300dd1d2292520a383aa7bcda1d69549"
+        },
+        "images/xiaohe-motion/idle.webp": {
+          "bytes": 222736,
+          "sha256": "162a58e700e5e02e602c58074edbbd82c832644e4ad04c43dfc70835c1ee206d"
+        },
+        "images/xiaohe-motion/scan.webp": {
+          "bytes": 216620,
+          "sha256": "e06a00c4549342d1c0450774437e97d9721254b822d9d06c4c677d9b0ac21e2b"
+        },
+        "images/xiaohe-motion/success.webp": {
+          "bytes": 224656,
+          "sha256": "ff085260bc96a14bedaa3e26fc2a7d7f64d9a620e06a27a1cbd64b9564c29ae8"
+        },
+        "images/xiaohe-motion/think.webp": {
+          "bytes": 200160,
+          "sha256": "3c19944bca7f565e07f3f2fe975e1ca6399962d58d5fa41e6243319124363e2f"
+        },
+        "images/xiaohe-motion/wave.webp": {
+          "bytes": 191180,
+          "sha256": "f6cf6594fe23f30ea572b1142869e06ba87ca177bb228da703c72b10c268f3c5"
+        },
+        "images/xiaohe.png": {
+          "bytes": 934830,
+          "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+        },
+        "index.html": {
+          "bytes": 827,
+          "sha256": "775c0195ae4eec6e39e30024c70f0d50f3e536bf4840735c2810c8baf7b4aea7"
+        }
+      },
+      "build_reused_with_unchanged_dependencies": false
+    },
+    "admin": {
+      "status": "passed",
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\dual-model-20261029\\admin\\dist",
+      "production_base": "/agriscan/admin/",
+      "api_prefix": "/agriscan",
+      "entries": [
+        "/agriscan/admin/assets/index-CUyKBCJ4.js"
+      ],
+      "styles": [
+        "/agriscan/admin/assets/index-DM5f-QXK.css"
+      ],
+      "file_count": 48,
+      "files": {
+        "assets/charts-CpJMSSO8.js": {
+          "bytes": 373806,
+          "sha256": "7b77a6f14d45f474e4a8cca2495dd4f4f96bd72496db220deac12fc26cfa2d14"
+        },
+        "assets/index-CUyKBCJ4.js": {
+          "bytes": 478438,
+          "sha256": "8b84ab2cea2dab7d158bd57cc4fedbd20637a8f417f058aadb690bfea9a7d808"
+        },
+        "assets/index-DM5f-QXK.css": {
+          "bytes": 157603,
+          "sha256": "782e24c50e6d89afbed967aabae25afffacf6f8c3f938f4565c15eb392feeb1f"
+        },
+        "brand/icon.svg": {
+          "bytes": 760560,
+          "sha256": "e59caa6c0971ca201e9e2070c111a48b13f7e7ac660db03a2a315dba3a7e9414"
+        },
+        "brand/logo.svg": {
+          "bytes": 760562,
+          "sha256": "07e343b1fe19b09c5c24fb2c668e88bc552a262716a4e7f812ff8568ce458647"
+        },
+        "favicon.svg": {
+          "bytes": 297,
+          "sha256": "bf71f4fd6f8abd07bbf22b8794a7613f4c0ea95fe0bbb22ac3a506d822caa386"
+        },
+        "images/xiaohe-crops/apple-still.webp": {
+          "bytes": 26634,
+          "sha256": "8d55e89e9f2f87ac4e18fda0f6530ac7458a5e8b73cbf0812e2d00966d39f7aa"
+        },
+        "images/xiaohe-crops/apple.webp": {
+          "bytes": 199906,
+          "sha256": "fd69b563333b4a8560755bbe8c1a0c753935f1b19cc1a3d92038d43ea9e28961"
+        },
+        "images/xiaohe-crops/blueberry-still.webp": {
+          "bytes": 25640,
+          "sha256": "3f1b3fc81cc0edec73d367516cfb6c718d231d4993dda59fc0ff6ef2317755d0"
+        },
+        "images/xiaohe-crops/blueberry.webp": {
+          "bytes": 199396,
+          "sha256": "d1718c6cd5f395319da9f079e4ca2dbf545c9b42200870f17961636b47b1c969"
+        },
+        "images/xiaohe-crops/cherry-still.webp": {
+          "bytes": 25168,
+          "sha256": "18f7b0d1550f08dcfaa8c4e81e36556e1a5c7df0576bbe1c899cf22a7a84182c"
+        },
+        "images/xiaohe-crops/cherry.webp": {
+          "bytes": 192570,
+          "sha256": "ced5b439eaf391deacc8970b38319c36a3bee7875a4acb8ad1a6bc249974d83f"
+        },
+        "images/xiaohe-crops/citrus-still.webp": {
+          "bytes": 26414,
+          "sha256": "9ad0c232cbdcbedc58c1208aac503f6b7e91bff3487fce0d1acbd10a0c5c2572"
+        },
+        "images/xiaohe-crops/citrus.webp": {
+          "bytes": 204180,
+          "sha256": "fd10e513221432bea90e58bfb6493eeec05d9a645b9ca781bf8c6246aea0db8d"
+        },
+        "images/xiaohe-crops/corn-still.webp": {
+          "bytes": 26594,
+          "sha256": "c1613850f1fa32e2bdc1198e6384e8ce34169f1251589c2c20d9030d8a7570d2"
+        },
+        "images/xiaohe-crops/corn.webp": {
+          "bytes": 205120,
+          "sha256": "b7b7d2f5aee022ccc97fc65df7fe75c27b8269451959744699b0c324f5ffbdcc"
+        },
+        "images/xiaohe-crops/cucumber-still.webp": {
+          "bytes": 25918,
+          "sha256": "08f7397a2252ea54bca04320676ec80cfe43607e46326a7a4c9d25f8eb4609c0"
+        },
+        "images/xiaohe-crops/cucumber.webp": {
+          "bytes": 200298,
+          "sha256": "b8afb09dc9a49aff86ef3d485a5851fc9ef10f0f910b567d89856260d227e68b"
+        },
+        "images/xiaohe-crops/grape-still.webp": {
+          "bytes": 26648,
+          "sha256": "e1bd19a4a733bb8de61c5481716df7af3abcabd9f468789a855cb193b0043346"
+        },
+        "images/xiaohe-crops/grape.webp": {
+          "bytes": 207896,
+          "sha256": "78f81de6f5e36d23b1ceead2a128ba1afc3ca1271187d2e1a7cb55863885f4f6"
+        },
+        "images/xiaohe-crops/peach-still.webp": {
+          "bytes": 26436,
+          "sha256": "a96fbfc4214d89781b6c5c9dde3f20b4d2a643a5052f75a15712aacd49f72f1a"
+        },
+        "images/xiaohe-crops/peach.webp": {
+          "bytes": 198194,
+          "sha256": "6db8e1874380f523d556727c2e361c7e31ea002f56da12c8fe93f9999c1fda0f"
+        },
+        "images/xiaohe-crops/pepper-still.webp": {
+          "bytes": 26432,
+          "sha256": "4e81c9246e2233ce39a61f9eb152943fa9d4be07d3fd76b8e247e5e72c704dab"
+        },
+        "images/xiaohe-crops/pepper.webp": {
+          "bytes": 203770,
+          "sha256": "5f6368bd191a78501932d9e60a14cd4c050f4d0d5074412e92ec2877db4ab4f6"
+        },
+        "images/xiaohe-crops/potato-still.webp": {
+          "bytes": 27058,
+          "sha256": "7df653fc696f044a042cf6d89e2755ac1e2f43e60c9564870a9bae498581cedb"
+        },
+        "images/xiaohe-crops/potato.webp": {
+          "bytes": 204038,
+          "sha256": "34e104c073be114a7d7cc6ab9588a4d50ba14379aa7d7558fde055672c4eabb2"
+        },
+        "images/xiaohe-crops/pumpkin-still.webp": {
+          "bytes": 25384,
+          "sha256": "a5da3ec6531a6ad4442e9852e91b4cb7d5da7e7c607da3e46f14a20efc8c5b84"
+        },
+        "images/xiaohe-crops/pumpkin.webp": {
+          "bytes": 199290,
+          "sha256": "a3e395d853a2220f9904a614a4f6ef7ca804a3492bfb381a64e260b3b7e3c2a8"
+        },
+        "images/xiaohe-crops/raspberry-still.webp": {
+          "bytes": 26558,
+          "sha256": "2abeedac47ce07d0974cbaa83a8847939e7ca27ebf0fa3284584797f20fb31e9"
+        },
+        "images/xiaohe-crops/raspberry.webp": {
+          "bytes": 208614,
+          "sha256": "204e29a48a4dd356cba48c3ef28bdc03fa4e0288aa26215ebd95babc13a2727b"
+        },
+        "images/xiaohe-crops/rice-still.webp": {
+          "bytes": 27456,
+          "sha256": "7ffb2cad96fe4a81e6d9e9b9d89e901b6345b46f57880bd2c9fb4f6fb91a9d71"
+        },
+        "images/xiaohe-crops/rice.webp": {
+          "bytes": 213246,
+          "sha256": "407cf40b5078d59e7a9f10b1799a590098b49ebc994beb42807fafa7e02e5e25"
+        },
+        "images/xiaohe-crops/soybean-still.webp": {
+          "bytes": 26358,
+          "sha256": "03c7030049056b313be7afa7961ef81312b38973d3c20622273196f4f489587a"
+        },
+        "images/xiaohe-crops/soybean.webp": {
+          "bytes": 205714,
+          "sha256": "1b9bb7ce153d7c910319da259c8fa8d7ccf331695f81d184c5cd458514d8b952"
+        },
+        "images/xiaohe-crops/strawberry-still.webp": {
+          "bytes": 26784,
+          "sha256": "b20f60601fc2b0cf701f4ea61f8e078ef3c96bb7bdd7656f83b1767e54858825"
+        },
+        "images/xiaohe-crops/strawberry.webp": {
+          "bytes": 206036,
+          "sha256": "59b98fa9e152a7c5e0c19401c05ced4a6301354f1ba9094d23023259614ed617"
+        },
+        "images/xiaohe-crops/tomato-still.webp": {
+          "bytes": 26896,
+          "sha256": "068e269ad2eedc6e331137f52066c17e0b6acd2f59ca0b930bbddd0efa1f3551"
+        },
+        "images/xiaohe-crops/tomato.webp": {
+          "bytes": 206892,
+          "sha256": "a6716aaf28836f25be300a694e21d0d3cf7b3ce76e6391edef7e682dad7f0ff1"
+        },
+        "images/xiaohe-crops/wheat-still.webp": {
+          "bytes": 26538,
+          "sha256": "ccb6d8d9a0d4ac3424c6466c14aed0d45055a56066804754e99fd4bf28f6240b"
+        },
+        "images/xiaohe-crops/wheat.webp": {
+          "bytes": 206330,
+          "sha256": "db57e7969b201101611b379d535773f26da3af9bda8416f9d488f2b43b55ed22"
+        },
+        "images/xiaohe-motion/concern.webp": {
+          "bytes": 217220,
+          "sha256": "78f252ed7d084827cd2b6240e5dba887300dd1d2292520a383aa7bcda1d69549"
+        },
+        "images/xiaohe-motion/idle.webp": {
+          "bytes": 222736,
+          "sha256": "162a58e700e5e02e602c58074edbbd82c832644e4ad04c43dfc70835c1ee206d"
+        },
+        "images/xiaohe-motion/scan.webp": {
+          "bytes": 216620,
+          "sha256": "e06a00c4549342d1c0450774437e97d9721254b822d9d06c4c677d9b0ac21e2b"
+        },
+        "images/xiaohe-motion/success.webp": {
+          "bytes": 224656,
+          "sha256": "ff085260bc96a14bedaa3e26fc2a7d7f64d9a620e06a27a1cbd64b9564c29ae8"
+        },
+        "images/xiaohe-motion/think.webp": {
+          "bytes": 200160,
+          "sha256": "3c19944bca7f565e07f3f2fe975e1ca6399962d58d5fa41e6243319124363e2f"
+        },
+        "images/xiaohe-motion/wave.webp": {
+          "bytes": 191180,
+          "sha256": "f6cf6594fe23f30ea572b1142869e06ba87ca177bb228da703c72b10c268f3c5"
+        },
+        "images/xiaohe.png": {
+          "bytes": 934830,
+          "sha256": "61e97fe9fab4a026a59b3e099dd2e38d149e8b9d3b7d57f03aba3cb2f9f718b8"
+        },
+        "index.html": {
+          "bytes": 831,
+          "sha256": "17c3b1c22b6c8957ad443fb91ba181ae62d1464c719793fc1fa4ad810c22de06"
+        }
+      },
+      "build_reused_with_unchanged_dependencies": true
+    }
+  },
+  "contract": {
+    "snapshot_verification": "record.prediction_model.verification",
+    "running_components": "model.active.components",
+    "scope": "whole_image",
+    "primary_detection_result_unchanged": true,
+    "independent_scores": true,
+    "scores_averaged": false,
+    "historical_snapshot_without_verification_supported": true,
+    "empty_main_candidates_supported": true,
+    "empty_uploaded_registry_does_not_hide_running_components": true,
+    "states": [
+      "两模型一致",
+      "结果不一致，建议复核",
+      "需人工复核",
+      "分类复核暂不可用"
+    ]
+  },
+  "render_contract_checks": {
+    "status": "passed",
+    "source": "actual PredictionScores/ModelVerification/RunningModels bundled in memory and rendered with React server renderer",
+    "cases": [
+      "agree shows both original scores without averaging or mutating detection/boxes",
+      "disagree is explicit and retains the detector score",
+      "uncertain is explicit and retains the detector score",
+      "unavailable is explicit and retains the detector score",
+      "verification renders even when main candidates are absent",
+      "historical snapshots without verification keep their original display",
+      "both active components render with task-specific metrics when upload items is empty",
+      "legacy active model does not fabricate a second running component"
+    ],
+    "network_called": false,
+    "browser_ui_tested": false
+  },
+  "completed_result_checks": {
+    "status": "passed",
+    "source": "actual TSX handlers with deferred responses and real React static rendering",
+    "cases": [
+      "success enters saved-result state and synchronously blocks in-flight and completed duplicate POSTs",
+      "picker cancellation or invalid file retains old result; same valid file clears result and resets the submit lock",
+      "failed result stays in retryable input state without success theme or assistant request",
+      "awaiting-model saves the sample without a claimed crop inference",
+      "new-account ignores the late result, including result view, global callbacks and focus token",
+      "unmounted ignores the late result, including result view, global callbacks and focus token",
+      "automatic assistant analysis stays background; explicit view opens existing cached discussion without another request",
+      "exact session token change blocks explicit cached advice and late analysis callbacks without mutating messages or completion state",
+      "feature restored cache miss starts one analysis and repeated explicit views reuse its in-flight cache and final conversation",
+      "same-render queued analysis ref blocks old cached advice despite stale busy=false; accepting a new detection clears older pending advice first",
+      "actual completed result DOM has no input form/theme room; awaiting state is only a saved sample",
+      "actual progress DOM moves aria-current through choose, details, detecting and the correct completed/saved labels"
+    ],
+    "provider_network_called": false,
+    "browser_ui_tested": false
+  },
+  "result_view": {
+    "success_enters_dedicated_result_view": true,
+    "upload_form_collapsed": true,
+    "cancelled_picker_keeps_result": true,
+    "failed_upload_remains_retryable": true,
+    "awaiting_model_is_saved_sample_only": true,
+    "background_assistant_never_opens_or_focuses": true,
+    "explicit_advice_reuses_cache_or_starts_one_missing_analysis": true,
+    "analysis_ref_blocks_same_render_stale_busy_race": true,
+    "queue_clears_old_pending_advice": true,
+    "exact_token_scopes_widget_and_cache": true
+  },
+  "cross_review": {
+    "reviewer": "llm_review",
+    "status": "passed",
+    "p1_p2_findings": 0
+  },
+  "inherited_privacy_guards": {
+    "account_switch_clearing": true,
+    "late_upload_mount_token_guard": true,
+    "private_no_store": true
+  },
+  "browser_ui_tested": false,
+  "native_app_changed_by_this_agent": false,
+  "backend_server_database_git_changed": false,
+  "skill_read": "C:/Users/18984/.codex/skills/landing-page-design/SKILL.md"
+}

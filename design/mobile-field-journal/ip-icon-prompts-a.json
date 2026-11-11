@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen.imagegen",
+  "useCase": "stylized-concept",
+  "reference": "E:/AgriScan/mobile/public/images/xiaohe.png",
+  "transparentBackgroundRequested": true,
+  "requestedSourceCanvas": [
+    1024,
+    1024
+  ],
+  "productionCanvas": [
+    192,
+    192
+  ],
+  "processing": "Whole source image resized to 192x192 and lossless WebP encoded. Generated alpha preserved; no cropping, repainting or background extraction.",
+  "assets": [
+    {
+      "name": "home",
+      "prompt": "Use case: stylized-concept.\nAsset type: production mobile navigation FUNCTION ICON, single square 1024x1024 render, genuinely transparent RGBA background.\nInput image 1: exact Xiaohe mascot identity reference, not an edit target. Create an independently composed miniature icon faithfully matching this same mascot.\nScene/backdrop: absolutely transparent empty space; isolated character and one functional prop, no background or environment.\nSubject: Xiaohe's broad rounded ivory ceramic head, deep forest-green face screen, exactly TWO fresh green leaf sprouts growing from its crown, luminous friendly mint eyes and a gentle small smile, green circular ear discs, and two tiny ivory hands. Same recognisable broad head and face proportions as the reference.\nStyle/medium: premium simplified soft 3D miniature mascot icon, matte ivory ceramic and forest-green surfaces, clean rounded forms, soft studio light. Minimal fine details, crisp simple silhouette immediately readable at 40px.\nComposition/framing: head-and-hands bust ONLY, no torso, legs or feet. Centered, front three-quarter view very close to frontal, total icon fills approximately 88% of the square with breathing room at every edge. The head is above ONE oversized functional prop in the lower front, prop approximately 35% of the design; tiny hands touch the prop. Keep the head and face large and fully readable.\nPalette: warm ivory and forest green mascot, pale mint functional prop with subtle soft sky accents.\nText: none.\nConstraints: preserve the exact Xiaohe identity; exactly two leaf sprouts; single character; only the specified prop. Genuine transparent alpha around the whole icon.\nAvoid: badge, background, floor, cast shadow, plaque, border, text, letters, numbers, writing, watermark, sparkle, scenery, extra objects, extra limbs, full body, small distant mascot, photographic realism, strong glossy reflections.\nFunctional prop for this HOME icon: one softly rounded pale mint little HOUSE with a clean peaked roof and one dark green door. Xiaohe peeks over the house with its two tiny hands resting on the roof edges. The house is a large simple solid form, instantly recognisable at small size, no windows or decorations.",
+      "generatedSource": "C:/Users/18984/.codex/generated_images/01a185ae-f17f-7b82-bfc4-17b2e091b785/exec-f49ee190-9713-4c3c-8c61-5086c5c16fdf.png",
+      "projectSource": ".runtime/ui-refinement/ip-icons-source/home-source-20261029-a.png",
+      "projectAsset": "mobile/public/images/ip-icons/home.webp",
+      "sourceCanvas": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGBA",
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "sourceFullyTransparentPixels": 921840,
+      "sourceFullyOpaquePixels": 866,
+      "sourceBytes": 1078076,
+      "productionBytes": 25664,
+      "productionAlphaRange": [
+        0,
+        255
+      ],
+      "productionAlphaPreserved": true,
+      "productionSha256": "09620f1efd282838b2c2e69b55e7fd32381e1ebeb1edbe1218e8710f0a7376f6"
+    },
+    {
+      "name": "detect",
+      "prompt": "Use case: stylized-concept.\nAsset type: production mobile navigation FUNCTION ICON, single square 1024x1024 render, genuinely transparent RGBA background.\nInput image 1: exact Xiaohe mascot identity reference, not an edit target. Create an independently composed miniature icon faithfully matching this same mascot.\nScene/backdrop: absolutely transparent empty space; isolated character and one functional prop, no background or environment.\nSubject: Xiaohe's broad rounded ivory ceramic head, deep forest-green face screen, exactly TWO fresh green leaf sprouts growing from its crown, luminous friendly mint eyes and a gentle small smile, green circular ear discs, and two tiny ivory hands. Same recognisable broad head and face proportions as the reference.\nStyle/medium: premium simplified soft 3D miniature mascot icon, matte ivory ceramic and forest-green surfaces, clean rounded forms, soft studio light. Minimal fine details, crisp simple silhouette immediately readable at 40px.\nComposition/framing: head-and-hands bust ONLY, no torso, legs or feet. Centered, front three-quarter view very close to frontal, total icon fills approximately 88% of the square with breathing room at every edge. The head is above ONE oversized functional prop in the lower front, prop approximately 35% of the design; tiny hands touch the prop. Keep the head and face large and fully readable.\nPalette: warm ivory and forest green mascot, pale mint functional prop with subtle soft sky accents.\nText: none.\nConstraints: preserve the exact Xiaohe identity; exactly two leaf sprouts; single character; only the specified prop. Genuine transparent alpha around the whole icon.\nAvoid: badge, background, floor, cast shadow, plaque, border, text, letters, numbers, writing, watermark, sparkle, scenery, extra objects, extra limbs, full body, small distant mascot, photographic realism, strong glossy reflections.\nFunctional prop for this RECOGNITION icon: ONE fresh simple green leaf viewed through one large pale mint rim magnifying glass, centered across the lower front of the face, with a short handle angled down-right. The clear lens and leaf are large and readable. Tiny hands gently hold the lower rim and leaf stem. No house, clipboard, camera or additional props.",
+      "generatedSource": "C:/Users/18984/.codex/generated_images/01a185ae-f17f-7b82-bfc4-17b2e091b785/exec-f71f7f4a-8552-419e-86ca-1754d42e0cbd.png",
+      "projectSource": ".runtime/ui-refinement/ip-icons-source/detect-source-20261029-a.png",
+      "projectAsset": "mobile/public/images/ip-icons/detect.webp",
+      "sourceCanvas": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGBA",
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "sourceFullyTransparentPixels": 844133,
+      "sourceFullyOpaquePixels": 965,
+      "sourceBytes": 1266770,
+      "productionBytes": 31016,
+      "productionAlphaRange": [
+        0,
+        255
+      ],
+      "productionAlphaPreserved": true,
+      "productionSha256": "2ed693c3961daeaf244dcb3f94acfa50e262b97d1937fe4d63dacae6a48054db"
+    },
+    {
+      "name": "records",
+      "prompt": "Use case: stylized-concept.\nAsset type: production mobile navigation FUNCTION ICON, single square 1024x1024 render, genuinely transparent RGBA background.\nInput image 1: exact Xiaohe mascot identity reference, not an edit target. Create an independently composed miniature icon faithfully matching this same mascot.\nScene/backdrop: absolutely transparent empty space; isolated character and one functional prop, no background or environment.\nSubject: Xiaohe's broad rounded ivory ceramic head, deep forest-green face screen, exactly TWO fresh green leaf sprouts growing from its crown, luminous friendly mint eyes and a gentle small smile, green circular ear discs, and two tiny ivory hands. Same recognisable broad head and face proportions as the reference.\nStyle/medium: premium simplified soft 3D miniature mascot icon, matte ivory ceramic and forest-green surfaces, clean rounded forms, soft studio light. Minimal fine details, crisp simple silhouette immediately readable at 40px.\nComposition/framing: head-and-hands bust ONLY, no torso, legs or feet. Centered, front three-quarter view very close to frontal, total icon fills approximately 88% of the square with breathing room at every edge. The head is above ONE oversized functional prop in the lower front, prop approximately 35% of the design; tiny hands touch the prop. Keep the head and face large and fully readable.\nPalette: warm ivory and forest green mascot, pale mint functional prop with subtle soft sky accents.\nText: none.\nConstraints: preserve the exact Xiaohe identity; exactly two leaf sprouts; single character; only the specified prop. Genuine transparent alpha around the whole icon.\nAvoid: badge, background, floor, cast shadow, plaque, border, text, letters, numbers, writing, watermark, sparkle, scenery, extra objects, extra limbs, full body, small distant mascot, photographic realism, strong glossy reflections.\nFunctional prop for this RECORDS icon: one oversized rounded ivory and pale mint clipboard at the lower front, with exactly two thick short simple forest-green horizontal lines and one bold green check mark. These are symbolic strokes, no writing or letters. Xiaohe peeks over it, tiny hands touching the clipboard's left and right sides.",
+      "generatedSource": "C:/Users/18984/.codex/generated_images/01a185ae-f17f-7b82-bfc4-17b2e091b785/exec-afbb58ba-46db-4ba1-bc9b-e4500170f297.png",
+      "projectSource": ".runtime/ui-refinement/ip-icons-source/records-source-20261029-a.png",
+      "projectAsset": "mobile/public/images/ip-icons/records.webp",
+      "sourceCanvas": [
+        1254,
+        1254
+      ],
+      "sourceMode": "RGBA",
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "sourceFullyTransparentPixels": 863286,
+      "sourceFullyOpaquePixels": 966,
+      "sourceBytes": 1187928,
+      "productionBytes": 28516,
+      "productionAlphaRange": [
+        0,
+        255
+      ],
+      "productionAlphaPreserved": true,
+      "productionSha256": "9a3d62b64b78276d7fd833242c0740012a09aaf473758568716131d23d0f2895"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "source": "E:\\AgriScan\\models\\pretrained\\yolo26m.pt",
+  "source_sha256": "401cea9ab23ad19246ff7744859816bc599f350e93c9dd30367b6f0a0745d0b7",
+  "source_task": "detect",
+  "target_task": "classify",
+  "backbone_layers": 11,
+  "verified_backbone_tensors": 300,
+  "transferred_parameters": 10374386,
+  "total_parameters": 11058790,
+  "new_head": "Classify",
+  "classes": 38
+}

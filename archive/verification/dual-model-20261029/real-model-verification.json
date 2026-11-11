@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "scope": "Five technical smoke images, not an independent accuracy evaluation.",
+  "load_seconds": 0.7782,
+  "components": [
+    {
+      "name": "leaf-health-yolo26m-user-fafc2bb3",
+      "task": "detect",
+      "image_size": 640,
+      "threshold": 0.25,
+      "class_count": 38,
+      "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+      "test_top1": null,
+      "test_macro_f1": null,
+      "coordinate_space": "normalized_xyxy",
+      "score_semantics": "independent_detection_confidence",
+      "scope": "真实检测目标矩形框；不代表病斑精确边界或面积，未提供独立检测集 mAP。",
+      "role": "detection",
+      "status": "ready"
+    },
+    {
+      "name": "plantvillage-yolo26m",
+      "task": "classify",
+      "image_size": 224,
+      "threshold": 0.7,
+      "test_top1": 0.9967269751795618,
+      "test_macro_f1": 0.9956200211164937,
+      "onnx_sha256": "906cf72f6bf08854dab6e3bf2ba2be481928da122b8943f0e2a21f941fc930b7",
+      "class_count": 38,
+      "scope": "单叶图像分类；不输出病斑位置框，田间泛化尚需独立验证。",
+      "role": "verification",
+      "status": "ready"
+    }
+  ],
+  "results": [
+    {
+      "sample": "0261a6e4-21f8-481a-8827-b674e6955644___FREC_Scab 3055.JPG",
+      "sample_sha256": "5d7236ea8400b9b6093b51a860ebf4844d78b961e1505b6e64520a29fcef4427",
+      "elapsed_seconds_local_cpu": 0.5371,
+      "crop": "苹果",
+      "detection": {
+        "label": "苹果黑星病",
+        "confidence": 0.8221839666366577,
+        "boxes": 1
+      },
+      "classification": {
+        "label": "苹果黑星病",
+        "confidence": 1.0
+      },
+      "verification": "agree",
+      "message": "整图分类与主检测类别一致；两模型分数独立，仍需结合现场确认。"
+    },
+    {
+      "sample": "RS_Rust 1563.JPG",
+      "sample_sha256": "c2dca189b2b49c20c92dbf38bcbae8bb4527f1e67d233e5880eb729ae2735946",
+      "elapsed_seconds_local_cpu": 0.5316,
+      "crop": "玉米",
+      "detection": {
+        "label": "玉米普通锈病",
+        "confidence": 0.9285745620727539,
+        "boxes": 2
+      },
+      "classification": {
+        "label": "玉米普通锈病",
+        "confidence": 0.9999994039535522
+      },
+      "verification": "uncertain",
+      "message": "检测到多个目标；整图分类不能逐框复核或证明各框一致，请逐叶复拍并人工复核。"
+    },
+    {
+      "sample": "0012b9d2-2130-4a06-a834-b1f3af34f57e___RS_Erly.B 8389.JPG",
+      "sample_sha256": "29b79036b67724f6a76895d17ef1b863ad7a7134e03141b1feb601a591336123",
+      "elapsed_seconds_local_cpu": 0.494,
+      "crop": "番茄",
+      "detection": {
+        "label": "番茄斑枯病",
+        "confidence": 0.43895840644836426,
+        "boxes": 2
+      },
+      "classification": {
+        "label": "番茄早疫病",
+        "confidence": 0.9988792538642883
+      },
+      "verification": "uncertain",
+      "message": "检测到多个目标；整图分类不能逐框复核或证明各框一致，请逐叶复拍并人工复核。"
+    },
+    {
+      "sample": "00bce074-967b-4d50-967a-31fdaa35e688___RS_HL 0223.JPG",
+      "sample_sha256": "41ae744b5de0ef4daa7936b2bbfb3d02974c675800a5a514761591670612a014",
+      "elapsed_seconds_local_cpu": 0.5771,
+      "crop": "番茄",
+      "detection": {
+        "label": "番茄健康",
+        "confidence": 0.9732788801193237,
+        "boxes": 1
+      },
+      "classification": {
+        "label": "番茄健康",
+        "confidence": 0.9999920129776001
+      },
+      "verification": "agree",
+      "message": "整图分类与主检测类别一致；两模型分数独立，仍需结合现场确认。"
+    },
+    {
+      "sample": "nonsquare-leaf.jpg",
+      "sample_sha256": "f846103ed575b9065b6ae065d51a9e19a538648aee58a0166282aed8883a20f1",
+      "elapsed_seconds_local_cpu": 0.7134,
+      "crop": "番茄",
+      "detection": {
+        "label": "番茄健康",
+        "confidence": 0.9865455627441406,
+        "boxes": 1
+      },
+      "classification": {
+        "label": "番茄健康",
+        "confidence": 0.9999929666519165
+      },
+      "verification": "agree",
+      "message": "整图分类与主检测类别一致；两模型分数独立，仍需结合现场确认。"
+    }
+  ]
+}

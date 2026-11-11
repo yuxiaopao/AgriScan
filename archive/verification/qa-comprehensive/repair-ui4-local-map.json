@@ -1,0 +1,26 @@
+[
+  {
+    "path": "public/workspace/index.html",
+    "sha256": "010bc8404ec412d85f9f380c220cbc52ab5e190319bb1eeaa5cffb85a8853c2c",
+    "size": 827,
+    "local": "E:\\AgriScan\\frontend\\dist\\index.html"
+  },
+  {
+    "path": "public/workspace/assets/index-C8ROKbOw.js",
+    "sha256": "4e53c013d946c3466086dce2c7b10c74be3a8fb96153e06d405f3e29aaca7ca9",
+    "size": 475593,
+    "local": "E:\\AgriScan\\frontend\\dist\\assets\\index-C8ROKbOw.js"
+  },
+  {
+    "path": "public/workspace/assets/Dashboard-D9OfT1QS.js",
+    "sha256": "2481ed3edd85363331a66f0e0d7921dd8902d8d8061db58e0a746216ff8c0eda",
+    "size": 8359,
+    "local": "E:\\AgriScan\\frontend\\dist\\assets\\Dashboard-D9OfT1QS.js"
+  },
+  {
+    "path": "public/workspace/assets/index-8PSuoOsD.css",
+    "sha256": "f3216653e4e348a2f41b0af271a0ad7299814e5c6e16fb3e6b76cd67e7c7443a",
+    "size": 116174,
+    "local": "E:\\AgriScan\\frontend\\dist\\assets\\index-8PSuoOsD.css"
+  }
+]

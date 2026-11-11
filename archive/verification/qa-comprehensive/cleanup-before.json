@@ -1,0 +1,221 @@
+{
+  "detections": [
+    {
+      "id": "70f913d686b0446ebd53b1c29b4fc18d",
+      "name": "nonsquare-leaf.jpg",
+      "crop": "番茄",
+      "plot_id": null,
+      "plot_name": "未关联地块",
+      "status": "healthy",
+      "result": "番茄健康",
+      "confidence": 0.9867818355560303,
+      "candidates": [
+        {
+          "key": "Tomato_healthy",
+          "crop": "番茄",
+          "label": "番茄健康",
+          "healthy": true,
+          "confidence": 0.9867818355560304
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      },
+      "boxes": [
+        {
+          "key": "Tomato_healthy",
+          "bbox": [
+            0.2824218273162842,
+            0.06371326446533203,
+            0.7174348831176758,
+            0.9343905448913574
+          ],
+          "crop": "番茄",
+          "label": "番茄健康",
+          "healthy": true,
+          "class_id": 37,
+          "confidence": 0.9867818355560304
+        }
+      ],
+      "created_at": "2026-10-28T12:21:42.915483+00:00",
+      "image_url": "/api/uploads/3ef3f83b03c7483489c13d0900055a91.jpg",
+      "is_demo": false,
+      "note": "qa20261028_1935 final768"
+    },
+    {
+      "id": "6c60d46abeca4227a66c3a4123d20022",
+      "name": "nonsquare-leaf.jpg",
+      "crop": "番茄",
+      "plot_id": null,
+      "plot_name": "未关联地块",
+      "status": "healthy",
+      "result": "番茄健康",
+      "confidence": 0.9867818355560303,
+      "candidates": [
+        {
+          "key": "Tomato_healthy",
+          "crop": "番茄",
+          "label": "番茄健康",
+          "healthy": true,
+          "confidence": 0.9867818355560304
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      },
+      "boxes": [
+        {
+          "key": "Tomato_healthy",
+          "bbox": [
+            0.2824218273162842,
+            0.06371326446533203,
+            0.7174348831176758,
+            0.9343905448913574
+          ],
+          "crop": "番茄",
+          "label": "番茄健康",
+          "healthy": true,
+          "class_id": 37,
+          "confidence": 0.9867818355560304
+        }
+      ],
+      "created_at": "2026-10-28T12:12:37.174311+00:00",
+      "image_url": "/api/uploads/45166beffab8447f998374ff66d41d7c.jpg",
+      "is_demo": false,
+      "note": "qa20261028_1935 nonsquare positive"
+    },
+    {
+      "id": "dca3054bb47647039d7be39f4efae5cd",
+      "name": "corn-rust.jpg",
+      "crop": "玉米",
+      "plot_id": null,
+      "plot_name": "未关联地块",
+      "status": "attention",
+      "result": "玉米普通锈病",
+      "confidence": 0.911957859992981,
+      "candidates": [
+        {
+          "key": "Corn_Common_rust",
+          "crop": "玉米",
+          "label": "玉米普通锈病",
+          "healthy": false,
+          "confidence": 0.911957859992981
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      },
+      "boxes": [
+        {
+          "key": "Corn_Common_rust",
+          "bbox": [
+            0.039352703094482425,
+            0.04712944030761719,
+            0.9771127700805664,
+            0.9880712509155274
+          ],
+          "crop": "玉米",
+          "label": "玉米普通锈病",
+          "healthy": false,
+          "class_id": 8,
+          "confidence": 0.911957859992981
+        },
+        {
+          "key": "Corn_Common_rust",
+          "bbox": [
+            0.028623056411743165,
+            0.051802873611450195,
+            0.9712244033813476,
+            0.9885597229003906
+          ],
+          "crop": "玉米",
+          "label": "玉米普通锈病",
+          "healthy": false,
+          "class_id": 8,
+          "confidence": 0.3707147240638733
+        }
+      ],
+      "created_at": "2026-10-28T12:12:15.518552+00:00",
+      "image_url": "/api/uploads/ab78225f3c5d40b9827e62cc4d5cfff2.jpg",
+      "is_demo": false,
+      "note": "qa20261028_1935 corn positive"
+    },
+    {
+      "id": "59c412046b7046ffb547e0b28f3bdb3d",
+      "name": "qa20261028_1935 apple reviewed",
+      "crop": "苹果",
+      "plot_id": "3b73ae372505478daf1cde831a16ed9a",
+      "plot_name": "qa20261028_1935_apple",
+      "status": "attention",
+      "result": "苹果黑星病",
+      "confidence": 0.8459509015083313,
+      "candidates": [
+        {
+          "key": "Apple_Apple_scab",
+          "crop": "苹果",
+          "label": "苹果黑星病",
+          "healthy": false,
+          "confidence": 0.8459509015083313
+        }
+      ],
+      "prediction_model": {
+        "name": "leaf-health-yolo26m-user-fafc2bb3",
+        "task": "detect",
+        "onnx_sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+        "multiple_crops": false,
+        "score_semantics": "independent_detection_confidence",
+        "coordinate_space": "normalized_xyxy"
+      },
+      "boxes": [
+        {
+          "key": "Apple_Apple_scab",
+          "bbox": [
+            0.03368158340454101,
+            0.06392145156860352,
+            0.9906038284301758,
+            0.9932659149169922
+          ],
+          "crop": "苹果",
+          "label": "苹果黑星病",
+          "healthy": false,
+          "class_id": 0,
+          "confidence": 0.8459509015083313
+        }
+      ],
+      "created_at": "2026-10-28T11:54:59.670347+00:00",
+      "image_url": "/api/uploads/182e867563854ff7b14bfd3ee57b8447.jpg",
+      "is_demo": false,
+      "note": "=qa20261028_1935, \"csv\"\nsecond line"
+    }
+  ],
+  "plots": [
+    {
+      "id": "3b73ae372505478daf1cde831a16ed9a",
+      "name": "qa20261028_1935_apple",
+      "crop": "苹果",
+      "area": 3.25,
+      "location": "QA虚构测试田",
+      "manager": "QA测试",
+      "cover_url": "/api/uploads/d7eff8b0f780492db5fa95a6eb1241e7.jpg",
+      "latitude": 30.0,
+      "longitude": 110.0,
+      "health_score": 0,
+      "detections": 1
+    }
+  ]
+}

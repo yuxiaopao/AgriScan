@@ -1,0 +1,485 @@
+{
+  "origin": "https://flowly-ai.top/agriscan/admin/",
+  "browser": "IAB",
+  "appTested": false,
+  "credentialsPrinted": false,
+  "status": "passed",
+  "article": {
+    "id": "73f83d9c50e7488cb8e79c4d22a412ee",
+    "title": "qa20261028_1935_知识发布闭环_已编辑",
+    "finalStatus": "archived",
+    "cleanupOwner": "root"
+  },
+  "knowledgeChecks": [
+    "native required title validation",
+    "HTTP/HTTPS source protocol validation",
+    "create draft 201",
+    "search and draft filter",
+    "persisted detail fields",
+    "edit draft title and summary",
+    "publish and published filter",
+    "cancel archive preserves published state",
+    "recoverable archive and archived filter",
+    "archived row disables repeated archive",
+    "archived details remain readable"
+  ],
+  "modelChecks": [
+    "active real detector has 38 classes and truthful unknown mAP",
+    "empty model name blocked",
+    "empty model file blocked",
+    "accept list matches supported artifact formats",
+    "cancel leaves registered model list empty",
+    "no upload or activation performed"
+  ],
+  "auditChecks": [
+    "17 rows span two pages",
+    "next page and previous page work",
+    "changing filters resets page one",
+    "search plus knowledge resource plus archive action yields one row",
+    "full resource id matches content ledger",
+    "no-hit search shows empty state",
+    "filters restored"
+  ],
+  "notApplicable": [
+    "model list has no filter control and no registered artifacts to inspect/delete",
+    "audit table has no separate clickable detail modal; summary/actor/full-id tooltip/time were checked"
+  ],
+  "screenshots": [
+    "knowledge-draft-filter.png",
+    "knowledge-published.png",
+    "knowledge-archived.png",
+    "models-browse.png",
+    "audit-page2.png",
+    "audit-knowledge-filter.png",
+    "audit-restored.png"
+  ],
+  "supplementaryNetworkIssue": {
+    "browser": "Chrome",
+    "error": "ERR_CONNECTION_CLOSED on direct real domain; IAB succeeded without certificate warnings",
+    "screenshot": "real-domain-connection-closed.png"
+  },
+  "network": [
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge",
+      "method": "POST"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge",
+      "status": 201
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?page=1&page_size=12",
+      "status": 200
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=draft&page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=draft&page=1&page_size=12",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge/73f83d9c50e7488cb8e79c4d22a412ee",
+      "method": "PATCH"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge/73f83d9c50e7488cb8e79c4d22a412ee",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=draft&page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=draft&page=1&page_size=12",
+      "status": 200
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge/73f83d9c50e7488cb8e79c4d22a412ee",
+      "method": "PATCH"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge/73f83d9c50e7488cb8e79c4d22a412ee",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=draft&page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "status": 200
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=draft&page=1&page_size=12",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=published&page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=published&page=1&page_size=12",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge/73f83d9c50e7488cb8e79c4d22a412ee",
+      "method": "DELETE"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge/73f83d9c50e7488cb8e79c4d22a412ee",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=published&page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=archived&page=1&page_size=12",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "status": 200
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/knowledge?search=qa20261028_1935&status=archived&page=1&page_size=12",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "status": 200
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/models",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?page=1&page_size=15",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?page=1&page_size=15",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?page=2&page_size=15",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?page=2&page_size=15",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?page=1&page_size=15",
+      "method": "GET"
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?search=qa20261028_1935&action=knowledge.archive&resource_type=knowledge&page=1&page_size=15",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?search=qa20261028_1935&action=knowledge.archive&resource_type=knowledge&page=1&page_size=15",
+      "status": 200
+    },
+    {
+      "event": "Network.requestWillBeSent",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?search=qa20261028_1935_no_such_log&action=knowledge.archive&resource_type=knowledge&page=1&page_size=15",
+      "method": "GET"
+    },
+    {
+      "event": "Network.responseReceived",
+      "url": "https://flowly-ai.top/agriscan/api/admin/audit?search=qa20261028_1935_no_such_log&action=knowledge.archive&resource_type=knowledge&page=1&page_size=15",
+      "status": 200
+    }
+  ],
+  "caseCounts": {
+    "passed": 26,
+    "blocked": 0,
+    "failed": 0,
+    "notApplicable": 2,
+    "knowledge": 11,
+    "model": 6,
+    "audit": 7,
+    "session": 2,
+    "supplementaryChromeNetworkBlocked": 1
+  },
+  "cases": [
+    {
+      "id": "K01",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "native required title validation",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K02",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "HTTP/HTTPS source protocol validation",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K03",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "create draft 201",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K04",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "search and draft filter",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K05",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "persisted detail fields",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K06",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "edit draft title and summary",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K07",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "publish and published filter",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K08",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "cancel archive preserves published state",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K09",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "recoverable archive and archived filter",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K10",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "archived row disables repeated archive",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "K11",
+      "group": "knowledge",
+      "status": "passed",
+      "assertion": "archived details remain readable",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "M01",
+      "group": "model",
+      "status": "passed",
+      "assertion": "active real detector has 38 classes and truthful unknown mAP",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "M02",
+      "group": "model",
+      "status": "passed",
+      "assertion": "empty model name blocked",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "M03",
+      "group": "model",
+      "status": "passed",
+      "assertion": "empty model file blocked",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "M04",
+      "group": "model",
+      "status": "passed",
+      "assertion": "accept list matches supported artifact formats",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "M05",
+      "group": "model",
+      "status": "passed",
+      "assertion": "cancel leaves registered model list empty",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "M06",
+      "group": "model",
+      "status": "passed",
+      "assertion": "no upload or activation performed",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A01",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "17 rows span two pages",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A02",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "next page and previous page work",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A03",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "changing filters resets page one",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A04",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "search plus knowledge resource plus archive action yields one row",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A05",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "full resource id matches content ledger",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A06",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "no-hit search shows empty state",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "A07",
+      "group": "audit",
+      "status": "passed",
+      "assertion": "filters restored",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "S01",
+      "group": "session",
+      "status": "passed",
+      "assertion": "Real-domain login 200 and authenticated overview",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    },
+    {
+      "id": "S02",
+      "group": "session",
+      "status": "passed",
+      "assertion": "Real-domain logout 200, login screen returned, own tab closed",
+      "origin": "https://flowly-ai.top/agriscan/admin/"
+    }
+  ],
+  "sessionsClosed": {
+    "realDomain": true,
+    "sourceHelper": true,
+    "realDomainLogoutStatus": 200,
+    "parentTabsUntouched": true
+  },
+  "createdObjects": {
+    "articles": [
+      "73f83d9c50e7488cb8e79c4d22a412ee"
+    ],
+    "users": [],
+    "plots": [],
+    "detections": [],
+    "models": []
+  },
+  "productionConfigurationChanged": false,
+  "modelActivated": false
+}

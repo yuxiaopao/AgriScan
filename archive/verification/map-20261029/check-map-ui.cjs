@@ -1,0 +1,38 @@
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
+const {createRequire}=require('node:module'),req=createRequire(path.resolve('frontend/package.json'));
+const {chromium}=require('C:/Users/18984/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const root=path.resolve('.runtime/map-20261029'),out=path.join(root,'harness-build');
+req('esbuild').buildSync({entryPoints:[path.join(root,'map-harness.tsx')],bundle:true,outdir:out,platform:'browser',jsx:'automatic',jsxImportSource:path.resolve('frontend/node_modules/react'),define:{'import.meta.env':'{}'},loader:{'.woff2':'file','.png':'file'}});
+const mime={'.js':'text/javascript','.css':'text/css','.woff2':'font/woff2','.png':'image/png'};
+const server=http.createServer((request,response)=>{
+ if(request.url==='/'){response.setHeader('Content-Type','text/html');response.end('<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="/map-harness.css"></head><body><div id="root"></div><script src="/map-harness.js"></script></body></html>');return}
+ const name=request.url.split('?')[0].replace(/^\//,''),target=path.resolve(out,name),asset=fs.existsSync(target)?target:path.resolve('frontend/public',name);
+ if(!asset.startsWith(out+path.sep)&&!asset.startsWith(path.resolve('frontend/public')+path.sep)){response.writeHead(403);response.end();return}
+ if(!fs.existsSync(asset)||!fs.statSync(asset).isFile()){response.writeHead(404);response.end();return}
+ response.setHeader('Content-Type',mime[path.extname(asset)]||'application/octet-stream');fs.createReadStream(asset).pipe(response);
+});
+let activeBrowser;
+(async()=>{
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const address=`http://127.0.0.1:${server.address().port}`;
+ const browser=activeBrowser=await chromium.launch({channel:'chrome',headless:true}),context=await browser.newContext({viewport:{width:1280,height:900}}),page=await context.newPage();
+ const cases=[],errors=[];let stage='mount';page.on('pageerror',error=>errors.push({stage,message:error.message,stack:error.stack}));
+ await page.addInitScript(()=>{window.qaGeo={success:null,failure:null};Object.defineProperty(navigator,'geolocation',{value:{getCurrentPosition(success,failure){window.qaGeo.success=success;window.qaGeo.failure=failure}},configurable:true})});
+ let submitted=null,saveRelease;await page.route('**/api/plots',async route=>{submitted=JSON.parse(route.request().postData());await new Promise(resolve=>saveRelease=resolve);return route.fulfill({json:{...submitted,id:'map-fixture',cover_url:null}})});
+ await page.goto(address);const map=page.getByRole('region',{name:'地块位置地图'}),lat=page.locator('input[name="latitude"]'),lng=page.locator('input[name="longitude"]');
+ await map.waitFor();const bounds=await map.boundingBox();assert(bounds.width>200&&bounds.height>=250);assert.equal(await page.locator('.plot-map-pin').count(),0);cases.push('editor map mounts with a nonzero visible size');
+ await map.click({position:{x:bounds.width/2,y:bounds.height/2}});assert.equal(await page.locator('.plot-map-pin').count(),1);assert(Number(await lat.inputValue())>=-90&&Number(await lat.inputValue())<=90);cases.push('real Leaflet click produces a visible marker and editable WGS84 coordinates');
+ await lat.fill('26.572145');await lng.fill('106.713841');await map.click({position:{x:bounds.width/2,y:bounds.height/2}});assert(Math.abs(Number(await lat.inputValue())-26.572145)<.0001);assert(Math.abs(Number(await lng.inputValue())-106.713841)<.0001);cases.push('manual coordinate edits center the real map at the same WGS84 point');
+ await page.getByRole('button',{name:'清除标记'}).click();assert.equal(await lat.inputValue(),'');assert.equal(await lng.inputValue(),'');assert.equal(await page.locator('.plot-map-pin').count(),0);cases.push('clear removes both coordinates and marker');
+ await page.getByRole('button',{name:'使用当前位置'}).click();await page.evaluate(()=>window.qaGeo.failure({code:1,message:'denied'}));await page.getByText('未能获取当前位置，请允许定位或在地图上选点。').waitFor();
+ await lat.fill('26.572145');await lng.fill('106.713841');
+ const recoveryError=await page.getByText('未能获取当前位置，请允许定位或在地图上选点。').count();
+ if(recoveryError)cases.push('FAIL: denied-location error persists after successfully selecting valid manual coordinates');else cases.push('manual coordinate selection clears stale location failure');
+ await page.getByRole('button',{name:'使用当前位置'}).click();await page.getByRole('button',{name:'清除标记'}).click();await page.evaluate(()=>window.qaGeo.success({coords:{latitude:31.1,longitude:121.2}}));assert.equal(await lat.inputValue(),'');assert.equal(await lng.inputValue(),'');cases.push('late browser geolocation cannot overwrite a manual clear');
+ await page.getByRole('button',{name:'使用当前位置'}).click();await page.evaluate(()=>window.qaGeo.failure({code:3,message:'timeout'}));await page.getByRole('button',{name:'使用当前位置'}).waitFor();cases.push('timed-out geolocation returns to a retryable button');
+ await page.getByRole('button',{name:'使用当前位置'}).click();await page.evaluate(()=>window.qaGeo.success({coords:{latitude:26.572145,longitude:106.713841}}));assert.equal(await lat.inputValue(),'26.572145');assert.equal(await lng.inputValue(),'106.713841');cases.push('successful location stores supplied WGS84 without a provider-coordinate conversion');
+ stage='close-and-reopen';await page.getByRole('button',{name:'关闭',exact:true}).click();await page.waitForFunction(()=>!document.querySelector('[role="dialog"]'));await page.getByRole('button',{name:'打开地图表单'}).click();await map.waitFor();await page.waitForFunction(()=>document.querySelector('input[name="latitude"]')?.value==='26.572145');assert.equal(await lng.inputValue(),'106.713841');assert.equal(await page.locator('.plot-map-pin').count(),1);cases.push('closing and reopening restores the same draft coordinates and visible marker');
+
+ stage='narrow';await page.setViewportSize({width:360,height:800});await page.waitForTimeout(100);const narrow=await map.boundingBox();assert(narrow.width>200&&narrow.height>=250);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth));cases.push('modal resize retains a visible map with no horizontal page overflow');
+ stage='save';await page.locator('input[name="name"]').fill('Local Map Fixture');await page.locator('input[name="area"]').fill('1');await page.getByRole('button',{name:'保存地块',exact:true}).click();await page.waitForFunction(()=>document.querySelector('input[name="latitude"]')?.disabled);assert(await lat.isDisabled());assert(await page.getByRole('button',{name:'使用当前位置'}).isDisabled());assert.equal(await map.getAttribute('aria-disabled'),'true');saveRelease();cases.push('saving disables coordinate edits and geolocation before the deferred API response');await page.getByRole('button',{name:'打开地图表单'}).waitFor();await page.waitForFunction(()=>!document.querySelector('[role="dialog"]'));assert.equal(submitted.latitude,26.572145);assert.equal(submitted.longitude,106.713841);cases.push('saved API payload matches the selected WGS84 latitude and longitude');
+ assert.deepEqual(errors,[]);const report={status:recoveryError?'failed':'passed',url:address,cases,page_errors:errors,production_database_written:false,browser:'headless installed Chrome',tile_provider_unchanged:true};fs.writeFileSync(path.join(root,'map-ui-checks.json'),JSON.stringify(report,null,2));await browser.close();server.close();console.log(JSON.stringify(report));if(recoveryError)process.exitCode=1;
+})().catch(async error=>{console.error(error);if(activeBrowser)await activeBrowser.close();server.close();process.exitCode=1});

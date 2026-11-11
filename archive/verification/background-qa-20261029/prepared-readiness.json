@@ -1,0 +1,68 @@
+{
+  "status": "prepared_local_only",
+  "run_tag": "QA-BACKGROUND-20261029-1814",
+  "files": {
+    "qa-evidence-server.py": {
+      "bytes": 11387,
+      "sha256": "242d7dd4a97654720d15cb9b92707d739bee3aca1a6325455f2cc203741de55b"
+    },
+    "runtime-memory-server.py": {
+      "bytes": 4626,
+      "sha256": "de130d401bc7eab359212d6ea4cfe57abb7310a2dedbffbe1167fbe59a46c87a"
+    },
+    "read-qa-local.py": {
+      "bytes": 4116,
+      "sha256": "0767d95fe8779cb4f62e50a0b59521e464987b28be42e6733af448ded0f56df3"
+    },
+    "boundary-probe-server.py": {
+      "bytes": 4655,
+      "sha256": "55d88cafca2f85fde45ada34e7c2b6177baa0523a9b78b467faa99ce410c59c2"
+    },
+    "read-boundary-local.py": {
+      "bytes": 3102,
+      "sha256": "5f65591abc4debb74533ecd1886865c20040c7ae09340f23a5360531b7da27e2"
+    }
+  },
+  "checks": {
+    "synthetic_evidence_cases": 10,
+    "synthetic_boundary_cases": 5,
+    "private_json_acl": "passed real local write/read with current user SID and SYSTEM only; SID strings prefixed by * for icacls"
+  },
+  "gates": {
+    "default_wrappers_execute_ssh": false,
+    "evidence_requires_explicit_expected_owner_id": true,
+    "evidence_foreign_or_external_associations": "refuse",
+    "boundary_requires_private_admin_handoff_and_explicit_read_server": true,
+    "existing_reports_overwritten": false
+  },
+  "evidence_scope": [
+    "Exact fixed run tag in detection name/note or plot name/location",
+    "Only expected owner and exclusive linked QA conversations",
+    "Normalized JPEG hashes without returning image bytes",
+    "SQL source-marker verification without selecting chat content",
+    "Latest current release/schema/configuration version and canonical SQL row SHA"
+  ],
+  "runtime_scope": [
+    "Systemd PID/NRestarts/InvocationID/MemoryCurrent/MemoryPeak/MemoryMax",
+    "Cgroup memory.current/peak/max/events including OOM counters",
+    "Public health fields and before/after schema/configuration SHA; no user rows or private env"
+  ],
+  "boundary_scope": [
+    "Normal public DNS and trusted TLS, redirects disabled",
+    "Only latest other-owned non-demo detection metadata stays in memory",
+    "Personal detail/image GETs must return 404, response bodies are not read",
+    "No foreign ID, filename, name, note, image or chat is returned in report",
+    "No foreign records means explicit skip",
+    "Fresh CLI login is normally logged out; this may add only its own token revocation row"
+  ],
+  "agent_executed_production": false,
+  "agent_read_real_credentials": false,
+  "agent_ran_cleanup": false,
+  "frozen_app_sources_modified": false,
+  "local_acl_incident": {
+    "first_parent_runtime_report_empty_file_preserved": true,
+    "local_acl_repaired": true,
+    "reason": "icacls literal SID required an asterisk prefix; fixed before local synthetic regression",
+    "parent_was_told_new_remote_read_output_is_needed": true
+  }
+}

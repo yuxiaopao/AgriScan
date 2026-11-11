@@ -1,0 +1,65 @@
+{
+  "run_id": "qa20261028_1935",
+  "kind": "read_only_backend",
+  "started_at": "2026-10-28T12:08:54.861599+00:00",
+  "checks": [
+    "production health, real ONNX file SHA256, service state, anonymous resource protection",
+    "administrator login/me and active detector API hash with no reused classification metrics",
+    "public configuration excludes integrations, write-only secret flags, user privacy, administrative overview",
+    "14 invalid GET filters/date/pagination boundaries return 422; missing and path-traversal resources return 404",
+    "filtered CSV matches real QA records with BOM/no-store/formula escaping; available saved boxes/images stay protected",
+    "source Nginx HTTPS with certificate verification, stable PID/restart count, memory snapshot",
+    "only the verification session was revoked; no data/configuration mutation requests were sent"
+  ],
+  "warnings": [],
+  "service_before": {
+    "MainPID": 1144975,
+    "NRestarts": 0,
+    "MemoryCurrent": 679383040,
+    "MemoryPeak": 681279488,
+    "ActiveState": "active",
+    "SubState": "running",
+    "VmHWM_bytes": 705454080,
+    "VmRSS_bytes": 705454080,
+    "mysql": "active",
+    "redis": "active"
+  },
+  "model": {
+    "task": "detect",
+    "sha256": "ff623c94555ade8c08a425caee3fe6fba5465ebc61ebd81ee502376bca8d4773",
+    "class_count": 38
+  },
+  "configuration_version_start": 5,
+  "counts_at_read": {
+    "users": 4,
+    "active_users": 3,
+    "plots": 1,
+    "detections": 1,
+    "published_articles": 4,
+    "model_artifacts": 0
+  },
+  "qa_filtered_detection_count": 1,
+  "qa_record_ids_read": [
+    "59c412046b7046ffb547e0b28f3bdb3d"
+  ],
+  "https": {
+    "domain": "flowly-ai.top",
+    "resolve_ip": "127.0.0.1",
+    "certificate_verification": true
+  },
+  "configuration_version_finish": 5,
+  "service_after": {
+    "MainPID": 1144975,
+    "NRestarts": 0,
+    "MemoryCurrent": 679968768,
+    "MemoryPeak": 681279488,
+    "ActiveState": "active",
+    "SubState": "running",
+    "VmHWM_bytes": 705556480,
+    "VmRSS_bytes": 705556480,
+    "mysql": "active",
+    "redis": "active"
+  },
+  "finished_at": "2026-10-28T12:08:55.491045+00:00",
+  "status": "passed"
+}

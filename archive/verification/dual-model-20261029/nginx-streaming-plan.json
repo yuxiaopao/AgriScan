@@ -1,0 +1,10 @@
+{
+  "run_id": "nginx-streaming-20261029",
+  "expected_inc_sha256": "48b31b4c5ef4fd55a564b842a43959202f216e7f9a78e87a7aef4cacdbc3a7ea",
+  "expected_patched_sha256": "e44cb412066740698be91f550afc5dd4a47908615af4e0b8440eecaaddca7c76",
+  "protected_sha256": {
+    "/etc/nginx/nginx.conf": "d76718a5fd92b07931755ca958d6c713a8d7d24b49815e52060c4c51c41047d6",
+    "/etc/nginx/conf.d/zz-agriscan.conf": "bd58e589abc0ae2cff18890744ae297ee46b889500e7a83a91e2a93d58dfa032",
+    "/etc/nginx/conf.d/flowly-share.conf": "868d2b57d821635e7f840c58e4e3fa93ae70c0c6ffeac0c11d10fd1e97ba56f9"
+  }
+}

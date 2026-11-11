@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "run_id": "nginx-streaming-20261029",
+  "mode": "apply",
+  "started_at": "2026-10-29T10:40:09.973487+00:00",
+  "api_pid_before": 1584612,
+  "nginx_master_before": 14613,
+  "nginx_restart_performed": false,
+  "api_restart_performed": false,
+  "database_modified": false,
+  "mail_sent": false,
+  "mutations": [
+    "publish exact two API streaming directives with byte CAS",
+    "systemctl reload nginx (graceful new worker generation)"
+  ],
+  "include_before_sha256": "48b31b4c5ef4fd55a564b842a43959202f216e7f9a78e87a7aef4cacdbc3a7ea",
+  "include_after_sha256": "e44cb412066740698be91f550afc5dd4a47908615af4e0b8440eecaaddca7c76",
+  "exact_change": [
+    "proxy_http_version 1.1",
+    "proxy_request_buffering off"
+  ],
+  "backup": "/srv/agriscan/shared/backups/nginx-streaming-20261029",
+  "new_nginx_workers": [
+    "1591978",
+    "1591979"
+  ],
+  "health_after": {
+    "status": "ok",
+    "database": "connected",
+    "redis": "connected",
+    "mode": "production",
+    "model": "ready"
+  },
+  "api_pid_after": 1584612,
+  "nginx_master_after": 14613,
+  "finished_at": "2026-10-29T10:40:10.053691+00:00",
+  "script_sha256": "990f243f6a8aa73364f7d8d4119b2a00b09ef640c4b33092d5e248869ff3c342",
+  "ssh_exit_code": 0
+}

@@ -1,0 +1,128 @@
+{
+  "use_case": "stylized-concept",
+  "reference": "E:/AgriScan/mobile/public/images/xiaohe.png",
+  "generated_with": "image_gen__imagegen",
+  "transparent_background": true,
+  "requested_source_size": [
+    1024,
+    1024
+  ],
+  "export": {
+    "size": [
+      192,
+      192
+    ],
+    "format": "WebP",
+    "quality": 92,
+    "method": 6,
+    "alpha_quality": 100,
+    "transform": "Full square resize only. No crop, repaint, background extraction, or content edits."
+  },
+  "icons": [
+    {
+      "name": "profile",
+      "prompt": "Use case: stylized-concept. Create a production-ready 3D miniature mascot FUNCTION ICON for the Chinese AgriScan mobile app.\nImage 1 is the sole character identity reference, not a scene or composition target. Preserve this exact Xiaohe mascot identity: very broad softly rounded ivory ceramic head, deep forest-green face screen, TWO fresh green leaf sprouts from the top, luminous friendly green eyes and a small kind smile, ivory little hands, green circular ear discs. Make a head-and-hands bust icon only. No legs, no visible torso, no full-body figure.\nOutput: square 1024 x 1024, genuinely transparent alpha background. Isolated character, not a badge or app tile. Center the complete silhouette, filling approximately 88 percent of the square with a clean 6 percent breathing margin. Large simple readable shapes recognizable at 40px. Matte ceramic finish and soft studio illumination on the object only. Ivory white and deep forest green, with pale mint and soft sky blue functional accents. Crisp polished edges, restrained detail. Keep the same head shape, eye design, leaf proportions, and materials as the reference.\nStrict exclusions: no background color or environment, no checkerboard baked into image, no floor, no cast shadow, no plate, no plaque, no border, no badge, no text, no letters, no numerals, no watermark, no sparkles, no decorative floating objects. Do not retain the magnifying glass or loose leaf from the reference.\nFunction: PROFILE / personal account. Front-facing recognizable Xiaohe face looking directly at viewer. ONE small ivory hand is raised beside the cheek in a simple friendly wave; the other hand is not visible. Head, two leaf sprouts, green ear discs and this one waving hand only. No functional prop or any other object. Maximize the face size while keeping both leaf sprouts and the hand fully in frame.",
+      "generation_path": "C:/Users/18984/.codex/generated_images/01a185ae-d0d1-7f12-bb86-bb1c90517f2d/exec-f22dcdaf-ccf0-40c3-8f41-cba894e428d1.png",
+      "source_path": "E:/AgriScan/.runtime/ui-refinement/ip-icons-source/profile.png",
+      "project_path": "E:/AgriScan/mobile/public/images/ip-icons/profile.webp",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "source_alpha_bbox": [
+        0,
+        21,
+        1192,
+        1254
+      ],
+      "source_transparent_pixels": 767311,
+      "production_size": [
+        192,
+        192
+      ],
+      "production_mode": "RGBA",
+      "production_alpha_range": [
+        0,
+        255
+      ],
+      "production_transparent_pixels": 17512,
+      "source_bytes": 1311575,
+      "production_bytes": 12874
+    },
+    {
+      "name": "camera",
+      "prompt": "Use case: stylized-concept. Create a production-ready 3D miniature mascot FUNCTION ICON for the Chinese AgriScan mobile app.\nImage 1 is the sole character identity reference, not a scene or composition target. Preserve this exact Xiaohe mascot identity: very broad softly rounded ivory ceramic head, deep forest-green face screen, TWO fresh green leaf sprouts from the top, luminous friendly green eyes and a small kind smile, ivory little hands, green circular ear discs. Make a head-and-hands bust icon only. No legs, no visible torso, no full-body figure.\nOutput: square 1024 x 1024, genuinely transparent alpha background. Isolated character, not a badge or app tile. Center the complete silhouette, filling approximately 88 percent of the square with a clean 6 percent breathing margin. Large simple readable shapes recognizable at 40px. Matte ceramic finish and soft studio illumination on the object only. Ivory white and deep forest green, with pale mint and soft sky blue functional accents. Crisp polished edges, restrained detail. Keep the same head shape, eye design, leaf proportions, and materials as the reference.\nStrict exclusions: no background color or environment, no checkerboard baked into image, no floor, no cast shadow, no plate, no plaque, no border, no badge, no text, no letters, no numerals, no watermark, no sparkles, no decorative floating objects. Do not retain the magnifying glass or loose leaf from the reference.\nFunction: CAMERA / take a real-time photo. The large Xiaohe head is above and behind ONE oversized rounded pale-mint camera at the lower front; camera occupies about 35 percent of the icon design. The camera has ONE large dark forest-green circular lens and ONE soft sky-blue shutter button. Tiny ivory hands touch the two sides of the camera. Keep the camera silhouette extremely clear and simple; no strap, no extra lens, no writing, no flash decoration. All sprouts and hands fully in frame.",
+      "generation_path": "C:/Users/18984/.codex/generated_images/01a185ae-d0d1-7f12-bb86-bb1c90517f2d/exec-c2579155-b1e2-4dc6-bd0b-f9490fa8db60.png",
+      "source_path": "E:/AgriScan/.runtime/ui-refinement/ip-icons-source/camera.png",
+      "project_path": "E:/AgriScan/mobile/public/images/ip-icons/camera.webp",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "source_alpha_bbox": [
+        0,
+        9,
+        1230,
+        1254
+      ],
+      "source_transparent_pixels": 844773,
+      "production_size": [
+        192,
+        192
+      ],
+      "production_mode": "RGBA",
+      "production_alpha_range": [
+        0,
+        255
+      ],
+      "production_transparent_pixels": 19339,
+      "source_bytes": 1219973,
+      "production_bytes": 12856
+    },
+    {
+      "name": "video",
+      "prompt": "Use case: stylized-concept. Create a production-ready 3D miniature mascot FUNCTION ICON for the Chinese AgriScan mobile app.\nImage 1 is the sole character identity reference, not a scene or composition target. Preserve this exact Xiaohe mascot identity: very broad softly rounded ivory ceramic head, deep forest-green face screen, TWO fresh green leaf sprouts from the top, luminous friendly green eyes and a small kind smile, ivory little hands, green circular ear discs. Make a head-and-hands bust icon only. No legs, no visible torso, no full-body figure.\nOutput: square 1024 x 1024, genuinely transparent alpha background. Isolated character, not a badge or app tile. Center the complete silhouette, filling approximately 88 percent of the square with a clean 6 percent breathing margin. Large simple readable shapes recognizable at 40px. Matte ceramic finish and soft studio illumination on the object only. Ivory white and deep forest green, with pale mint and soft sky blue functional accents. Crisp polished edges, restrained detail. Keep the same head shape, eye design, leaf proportions, and materials as the reference.\nStrict exclusions: no background color or environment, no checkerboard baked into image, no floor, no cast shadow, no plate, no plaque, no border, no badge, no text, no letters, no numerals, no watermark, no sparkles, no decorative floating objects. Do not retain the magnifying glass or loose leaf from the reference.\nFunction: VIDEO / analyze a video. The large Xiaohe head is above and behind ONE oversized rounded mint clapperboard at the lower front; clapperboard occupies about 35 percent of the icon design. The upper clapper bar has thick ivory diagonal stripes. The front has ONE large simple ivory PLAY TRIANGLE, a geometric symbol and not text. Tiny ivory hands touch the two sides of the clapperboard. Keep a clear simple clapperboard silhouette; no writing, no numbers, no film reel, no extra objects. All sprouts and hands fully in frame.",
+      "generation_path": "C:/Users/18984/.codex/generated_images/01a185ae-d0d1-7f12-bb86-bb1c90517f2d/exec-239eeb05-e9b8-4414-806b-786745480e28.png",
+      "source_path": "E:/AgriScan/.runtime/ui-refinement/ip-icons-source/video.png",
+      "project_path": "E:/AgriScan/mobile/public/images/ip-icons/video.webp",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_mode": "RGBA",
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "source_alpha_bbox": [
+        0,
+        33,
+        1222,
+        1254
+      ],
+      "source_transparent_pixels": 884585,
+      "production_size": [
+        192,
+        192
+      ],
+      "production_mode": "RGBA",
+      "production_alpha_range": [
+        0,
+        255
+      ],
+      "production_transparent_pixels": 20175,
+      "source_bytes": 1154029,
+      "production_bytes": 12322
+    }
+  ]
+}

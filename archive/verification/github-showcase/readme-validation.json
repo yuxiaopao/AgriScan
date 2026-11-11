@@ -1,0 +1,38 @@
+{
+  "images": [
+    {
+      "path": "docs/readme/brand.png",
+      "bytes": 570316,
+      "sha256": "dd6ac256c3b7a20955e3b3ea415b978c3f1988bd9fe4f55fb9c474806c5c237a"
+    },
+    {
+      "path": "docs/readme/website.png",
+      "bytes": 98594,
+      "sha256": "f84f27fb975a61703c67102d28ac9992e04d2467a0679f81008ec5550dd1ecdb"
+    },
+    {
+      "path": "docs/readme/desktop-detection.png",
+      "bytes": 147244,
+      "sha256": "c8883dee0421029d7ccf42d2365c0a7173534fff6cd4fd93d6f8d81ea935e919"
+    },
+    {
+      "path": "docs/readme/admin.png",
+      "bytes": 53167,
+      "sha256": "f2a161e8fdd25afc38448723a50723d5f0b4567b5b0a3500b12cbad10069b074"
+    },
+    {
+      "path": "docs/readme/mobile-home.png",
+      "bytes": 44931,
+      "sha256": "f457225d2ec4552989d94b5756142231d574e59fc7d26f6a9105f2e0008733c8"
+    },
+    {
+      "path": "docs/readme/mobile-welcome.png",
+      "bytes": 43327,
+      "sha256": "77a0a78d50f0d0d1a83c610b425a57faaaec2d1e86b09e571a86625d1afa16ff"
+    }
+  ],
+  "technical_links_valid": 10,
+  "markdown_fences": "paired",
+  "branch_command": "explicit",
+  "lines": 120
+}

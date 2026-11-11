@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "commit": "fd5151b0727826ef4dc3328934667375243c9c80",
+  "remote_commit": "fd5151b0727826ef4dc3328934667375243c9c80",
+  "production_release": "release-20261029-dual-model-190833",
+  "source_tree_sha256": "97241772c904603be18e802cde7896dfb0f5ddcd3e431d3507f2f70a099bb1d6",
+  "checked_build_inputs": 327,
+  "comparison": {
+    "exact": 248,
+    "git_lfs": 1,
+    "line_endings_only": 77,
+    "regenerated_capacitor_config": 1
+  },
+  "generated_input_provenance": "Pinned Capacitor CLI 8.5.3 regenerates config.xml during cap sync; current, post-sync snapshot and manifest bytes agree.",
+  "differences": []
+}

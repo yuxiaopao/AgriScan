@@ -1,0 +1,57 @@
+{
+  "checked_at": "2026-10-20T10:12:31.2700336Z",
+  "phase": "pre_final_training_readiness",
+  "final_model_complete": false,
+  "backend_pytest": {
+    "passed": 50,
+    "failed": 0,
+    "warning": "Starlette TestClient uses deprecated AnyIO BlockingPortal alias"
+  },
+  "training_pytest": {
+    "failed": 0,
+    "passed": 12
+  },
+  "frontend": {
+    "production_build": "passed",
+    "typescript": "passed"
+  },
+  "chrome_devtools": {
+    "console_warnings": 0,
+    "own_test_records_removed": 2,
+    "server": "official chrome-devtools MCP",
+    "status": "passed",
+    "scenario": "Upload apple sample, save pending result, refresh dashboard",
+    "console_errors": 0,
+    "new_screenshot": "timed_out; older screenshot is not current evidence"
+  },
+  "export_preflight": {
+    "passed": true,
+    "intermediate_checkpoint_only": true,
+    "not_activated": true,
+    "epoch": 3,
+    "class_samples": 38,
+    "maximum_absolute_error": 1.1324882507324219E-06,
+    "input_shape": [
+      "batch",
+      3,
+      "height",
+      "width"
+    ],
+    "output_shape": [
+      "Softmaxoutput0_dim_0",
+      38
+    ]
+  },
+  "monitoring": {
+    "interval_minutes": 15,
+    "automation_id": "agriscan"
+  },
+  "pending": [
+    "finish training",
+    "full validation and sealed-test evaluation",
+    "final ONNX parity",
+    "candidate API verification",
+    "activate release and restart",
+    "real-model browser validation"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "old_sha256": "1ff189e0f9573d5d0f0cec6396776269b4abe73704bc5bafbc72d1861331a0c2",
+  "old_bytes": 24164418,
+  "new_sha256": "6cbf093162521271ed4fca39aa8e6a3694286653bf13440d056443c210b98026",
+  "new_bytes": 24164454,
+  "chunk_bytes": 5242880,
+  "part_count": 5,
+  "reuse_parts": [
+    {
+      "index": 0,
+      "size_bytes": 5242880,
+      "sha256": "f02ebf62c47961e22e6dab313e8ae9b2f99cae3854520b8dac2b2cbe7a6704b0"
+    }
+  ],
+  "old_bootstrap_apk": "/srv/agriscan/bootstrap/dual-model-app-1.0.4.apk"
+}

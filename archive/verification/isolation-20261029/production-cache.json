@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "run_id": "qa_iso_20261029_ceca6f",
+  "checks": [
+    "a 7 cache value matches own MySQL rows and API, TTL valid",
+    "b 7 cache value matches own MySQL rows and API, TTL valid",
+    "a 7 cache value matches own MySQL rows and API, TTL valid",
+    "a 30 cache value matches own MySQL rows and API, TTL valid",
+    "b 30 cache value matches own MySQL rows and API, TTL valid",
+    "a 30 cache value matches own MySQL rows and API, TTL valid",
+    "two owners and two day periods use four different Redis keys"
+  ],
+  "entries": [
+    {
+      "actor": "a",
+      "days": 7,
+      "key": "agriscan:dashboard:v2:user:2374945a3e7443eeaca40468e5099c23:7",
+      "total": 1,
+      "ttl": 30
+    },
+    {
+      "actor": "b",
+      "days": 7,
+      "key": "agriscan:dashboard:v2:user:37884c0f282a4bc9b107e7651dc2a95c:7",
+      "total": 2,
+      "ttl": 30
+    },
+    {
+      "actor": "a",
+      "days": 7,
+      "key": "agriscan:dashboard:v2:user:2374945a3e7443eeaca40468e5099c23:7",
+      "total": 1,
+      "ttl": 30
+    },
+    {
+      "actor": "a",
+      "days": 30,
+      "key": "agriscan:dashboard:v2:user:2374945a3e7443eeaca40468e5099c23:30",
+      "total": 1,
+      "ttl": 30
+    },
+    {
+      "actor": "b",
+      "days": 30,
+      "key": "agriscan:dashboard:v2:user:37884c0f282a4bc9b107e7651dc2a95c:30",
+      "total": 2,
+      "ttl": 30
+    },
+    {
+      "actor": "a",
+      "days": 30,
+      "key": "agriscan:dashboard:v2:user:2374945a3e7443eeaca40468e5099c23:30",
+      "total": 1,
+      "ttl": 30
+    }
+  ],
+  "revoked_sessions": {
+    "a": true,
+    "b": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "admin_url": "http://127.0.0.1:5175",
+  "production_base": "/admin/",
+  "real_admin_login": "passed",
+  "real_overview": "passed; database/redis/model ready",
+  "member_login_rejection": "passed using isolated temporary member API",
+  "restored_member_session_rejection": "passed using isolated temporary member API",
+  "admin_token_cleared_after_rejection": true,
+  "user_token_preserved_after_rejection": true,
+  "real_database_test_accounts_created": false,
+  "temporary_fixture_and_processes_cleaned": true,
+  "production_build": "passed; only agriscan-admin-token appears in output",
+  "docker_build": "not run; nginx:1.28-alpine is not cached",
+  "screenshots": [
+    "admin-overview.png",
+    "admin-member-denied.png",
+    "admin-session-isolation.png"
+  ]
+}

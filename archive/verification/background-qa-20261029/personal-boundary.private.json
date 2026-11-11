@@ -1,0 +1,14 @@
+{
+  "status": "refused",
+  "business_data_mutations": false,
+  "foreign_metadata_or_body_returned": false,
+  "reason": "read_only_boundary_metadata_unavailable",
+  "fresh_cli_session_logout_status": 200,
+  "normal_auth_endpoints_only": [
+    "login",
+    "logout"
+  ],
+  "auth_logout_may_append_own_revocation_row": true,
+  "server_script_sha256": "55d88cafca2f85fde45ada34e7c2b6177baa0523a9b78b467faa99ce410c59c2",
+  "ssh_exit_code": 1
+}

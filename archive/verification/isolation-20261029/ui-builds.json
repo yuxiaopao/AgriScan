@@ -1,0 +1,118 @@
+{
+  "status": "passed",
+  "completed_at": "2026-10-29T02:36:28.992683+00:00",
+  "source": "git archive HEAD frontend/admin/mobile + pure ownership UI and no-store network overlays",
+  "unknown_design_imports_excluded": true,
+  "native_apk_built": false,
+  "browser_ui_tested": false,
+  "source_files": {
+    "admin/src/Admin.tsx": "b044647043bce58533a1221a83bde9f000393170660b59d6340e992fe8363581",
+    "admin/src/OwnerPicker.tsx": "f40830ce419afc30d5e108f832ebe8a6be96224a3564e4c22b7d323e7efa1d52",
+    "admin/src/admin.css": "3df2e24c411a0cba71cdf02908fb744bf265995d5f3249edbecf88f1af819130",
+    "frontend/src/App.tsx": "6ed583300d79c1975d3cbaac111455cd0254f0b7a0a350aec6c3f397f2c50278",
+    "frontend/src/Dashboard.tsx": "2f005753be13cb79dcc00a248834058ee3fb9221b9a3585494c953fa58763805",
+    "frontend/src/Pages.tsx": "45922f426e909966ae21c5a0af4d4de5a1e53d6e05e8a2eb88e3d0d0740a638e",
+    "frontend/src/PlotEditor.tsx": "787c00990c3d7c2569e18dfe54f15973907d5477ea16b33171ef3559e7df7446",
+    "mobile/src/App.tsx": "a209845d9f32a273238f1b471cf38896e58f6b8c87973b3331ffe845d86d983a",
+    "mobile/src/WorkspacePages.tsx": "81a25da35713a3e758d4bff7f51d471f425ee6ca14e7125f02c48c8227bcbefd",
+    "frontend/src/api.ts": "c32a832778baeebe74f87b1c67dcc44b5b4b740c0a9aba92c8cd1a7634eb7bae",
+    "frontend/src/components.tsx": "a5981209ce1627d8f521a59458961a4badb210a0576bc246f65d0067df1bac14",
+    "mobile/src/api.ts": "34b5f065acaa77fdb327fd719aea92fe4aa3bae0865abf4367602376b365da57",
+    "mobile/src/components.tsx": "6bf63dc1f58412d135d5b045351c4bf454115756b9cdc2708d8ced84a7200b65"
+  },
+  "surfaces": {
+    "frontend": {
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\isolation-20261029\\build\\frontend\\dist",
+      "public_base": "/agriscan/workspace/",
+      "entry_scripts": [
+        "/agriscan/workspace/assets/index-B26zGKAv.js"
+      ],
+      "files": {
+        "assets/charts-DlwZKwhN.js": {
+          "bytes": 394624,
+          "sha256": "e9afd3448e4826acadbf8829c0f3b53f56b16769e6018e2626b0dff2cac525d1"
+        },
+        "assets/Dashboard-Cdzbzkwi.js": {
+          "bytes": 8362,
+          "sha256": "3c348ead88b4d7a32f99cd0c91732d96c068362651d569f04ce6dbd855266be0"
+        },
+        "assets/index-B26zGKAv.js": {
+          "bytes": 482034,
+          "sha256": "0e70a89d075e3a98a0515328335d21e216147376722f7dc684e817272bcf455e"
+        },
+        "assets/index-Ddk09YVz.css": {
+          "bytes": 125965,
+          "sha256": "6514c0caa5cf359b9046a570423e50d8381ae8290abdb3ba009511d0fe024f93"
+        },
+        "index.html": {
+          "bytes": 842,
+          "sha256": "b6e6b6cd0f64b3457a8b850948978201d9f413bdb2822a317685e52d7e33b7a7"
+        }
+      }
+    },
+    "admin": {
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\isolation-20261029\\build\\admin\\dist",
+      "public_base": "/agriscan/admin/",
+      "entry_scripts": [
+        "/agriscan/admin/assets/index-DN7zZ8c_.js"
+      ],
+      "files": {
+        "assets/charts-DncKeu_G.js": {
+          "bytes": 373798,
+          "sha256": "62d86a1aa2003cceed7dad3f0980406407e96af85d88d5441f5f97c49ef73a8a"
+        },
+        "assets/index-BB-iY09U.css": {
+          "bytes": 125961,
+          "sha256": "57fd6fdf37db51eed44f2b74527fb653409b07eb00062d8a7cc0b38967fe9017"
+        },
+        "assets/index-DN7zZ8c_.js": {
+          "bytes": 469201,
+          "sha256": "4a5fae0bc6373430425a5dfd6e82a3be071ca70989833ecb448d7c9df8b798b3"
+        },
+        "index.html": {
+          "bytes": 847,
+          "sha256": "542e680b3889a27211487e31a562961516cb9aba584d4df83ffa8710524ce01d"
+        }
+      }
+    },
+    "mobile": {
+      "tsc": "passed",
+      "vite_build": "passed",
+      "dist": "E:\\AgriScan\\.runtime\\isolation-20261029\\build\\mobile\\dist",
+      "public_base": "/",
+      "entry_scripts": [
+        "/assets/index-Dw-lLykK.js"
+      ],
+      "files": {
+        "assets/index-Dw-lLykK.js": {
+          "bytes": 318701,
+          "sha256": "372a18b999e8aee5b8015094250e4cb04c54c9ed7a80877b39f5a41eb373de97"
+        },
+        "assets/index-g-1sAESM.css": {
+          "bytes": 38941,
+          "sha256": "fbb6187c0fa1b9bab3d443a44a16f0b65be9820eaa1523e3ffa0f11b43af1b87"
+        },
+        "assets/web-BLrwHKaS.js": {
+          "bytes": 842,
+          "sha256": "236a1acd8caf2772b21afd102cdd5bb17ddaa268248c371bf84e8275c379c206"
+        },
+        "index.html": {
+          "bytes": 590,
+          "sha256": "204f4e9b68a8d735e251f7d60d7100c1d079475d7c5f3e225d01f40952097782"
+        }
+      }
+    }
+  },
+  "review": [
+    "Personal UI has no owner selector or owner_id request field.",
+    "Only explicit /admin/plots prefix allows PlotEditor owner_id.",
+    "Admin owner user options are searched and paginated server-side, with unassigned supported.",
+    "Detection owner change clears previous plot; unchanged historical associations are preserved.",
+    "API and authenticated image fetches force no-store; mobile late 401 checks captured base/token.",
+    "Account change clears personal lists/detail/analysis and discards late responses."
+  ]
+}

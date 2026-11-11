@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "cases": [
+    "two forbidden GETs require 404, record only cache headers and never read foreign bodies or expose IDs/filenames",
+    "unexpected personal detail access is a failure without reading the exposed body",
+    "unexpected private image access is a failure without consuming the image",
+    "absence of foreign owned records skips without fabricating accounts or data",
+    "failed private admin login stops immediately and reads no error body"
+  ],
+  "production_network_called": false,
+  "real_credentials_read": false,
+  "foreign_rows_read": false
+}
